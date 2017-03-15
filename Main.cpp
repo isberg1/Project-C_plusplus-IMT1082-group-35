@@ -1,13 +1,16 @@
-//Main.cpp
-//Gruppeprosjekt ooprog. Alexander Jakobsen, Mats Ove Mandt Skjærstein og Kristian Lund.
+/*
+    Main.cpp
+    Gruppeprosjekt i objekt-orientert programmering.
+
+    Alexander Jakobsen, Mats Ove Mandt Skjærstein og Kristian Lund.
+*/
 
 //  INCLUDE:
-#include "ListTool2B.h"
-#include "Const.h"
+#include <iostream>                                 // cin, cout.
+#include "ListTool2B.h"                             // Verktøykasse for lister.
+#include "Const.h"                                  // Conster.
+
 using namespace std;
-
-
-
 
 
 //  GLOBALE VARIABLE:
@@ -18,6 +21,5 @@ int main()
 {
 
 
-
-
+    return 0;
 }
