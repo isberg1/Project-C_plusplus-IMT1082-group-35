@@ -24,7 +24,6 @@ class Nasjon : public TextElement {                 // Arver lister.
     Nasjon(ifstream & innfil, char *nasjonKort);    // Constructor som leser data fra fil.
     ~Nasjon();                                      // Deconstructor.
     virtual void display();                         // Display-funksjon.
-    void skrivMeny();                               // Skriver ut meny.
     void skrivTilFil(ofstream & utfil);             // Skriver til fil.
 };
 
