@@ -9,7 +9,7 @@
 //  INCLUDE:
 #include <iostream>                                 // cin, cout.
 #include "ListTool2B.h"                             // Verktøykasse for lister.
-#include "Const.h"                                  // Conster.
+#include "CONST.H"                                  // Conster.
 
 using namespace std;
 
