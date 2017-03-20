@@ -153,3 +153,13 @@ void lesFraFil(int alternativ) {							// leser alt fra fil
 	}					 //feilmelding
 }
 
+bool erBokstaver(char tekst[]) {                     // Sjekker om alle indekser i array er bokstav.
+  int lengde;
+  lengde = strlen(tekst);                           // Lengden av array.
+
+  for (int i = 0; i < lengde; i++) {                // Looper gjennom alle indekser.
+    if (!isalpha(tekst[i]))                         // Hvis indeks ikke er bokstav så
+      return false;                                 // returneres false.
+  }
+  return true;
+}

@@ -28,5 +28,7 @@ char *konverter(char t[]);					        //konverter char [] til char *
 
 void MainMeny();
 
+bool erBokstaver(char tekst[]);                     // Sjekker om alle indekser i array er bokstav.
+
 #endif
 
