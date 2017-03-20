@@ -26,6 +26,7 @@ class Nasjon : public TextElement {                 // Arver lister.
     virtual void display();                         // Display-funksjon.
     void skrivTilFil(ofstream & utfil);             // Skriver til fil.
 };
+>>>>>>> 46be431d12e4f9a6866d9638ed2f18b32cc6acdc
 
 
 
