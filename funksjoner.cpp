@@ -6,6 +6,7 @@
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
+#endif
 
 
 
@@ -19,44 +20,40 @@
 using namespace std;
 
 
-/*
-    funksjoner.cpp
-    Globale funksjoner
-*/
-
-char les() {			//  Henter ett ikke-blankt upcaset tegn:
+char les() {			                            //  Henter ett ikke-blankt upcaset tegn:
 	char ch;
-	cin >> ch;   cin.ignore();    //  Leser ETT tegn. Forkaster '\n'.
-	return (toupper(ch));         //  Upcaser og returnerer.
+	cin >> ch;   cin.ignore();                      //  Leser ETT tegn. Forkaster '\n'.
+	return (toupper(ch));                           //  Upcaser og returnerer.
 }
 
-//  Leser et tall i et visst intervall:
+                                                    //  Leser et tall i et visst intervall:
 int les(const char t[], const int min, const int max) {
 	int i;
 	char buffer[256];
-	do {                                 // Skriver ledetekst:
+	do {                                            // Skriver ledetekst:
 		cout << '\t' << t << " (" << min << '-' << max << "): ";
 		fgets(buffer, 256, stdin);
 		i = atoi(buffer);
-	} while (i < min || i > max);         // Sjekker at i lovlig intervall.
-	return i;                             // Returnerer innlest tall.
+	} while (i < min || i > max);                   // Sjekker at i lovlig intervall.
+	return i;                                       // Returnerer innlest tall.
 }
 
 void les(const char t[], char s[], const int LEN)
 {
 	do {
-		cout << '\t' << t << ": ";	cin.getline(s, LEN);			//Ledetekst og leser.
+		cout << '\t' << t << ": ";	cin.getline(s, LEN);//Ledetekst og leser.
 	} while (strlen(s) == 0);						 //Sjekker at tekstlengden er ulik 0.
 }
 
-//   konverterer og returnerer char [] til char*
+                                                    // konverterer og returnerer char [] til char*
 char *konverter(char t[]) {
 	char *string;
-	//konverterer char array til char *
-	string = new char[strlen(t) + 1];
+
+	string = new char[strlen(t) + 1];               //konverterer char array til char *
 	strcpy(string, t);
 	return string;
 }
+
 
 void MainMeny()
 {
@@ -70,11 +67,7 @@ void MainMeny()
 		<< "\n(X) Avslutt";
 }
 
-//displayer string med ledetext på standarformat
-void skriv(const char * text, const char * string)
-{
-	cout << '\n' << text << '\t' << string << '\n';
-}
+
 //displayer int med ledetext på standarformat
 void skriv(const char * text, const int dataMedlem)
 {
@@ -126,7 +119,7 @@ void skrivTilFil() {										//skriver alt til fil
 		for (int i = 1; i <= antallObjekter; i++)		//går gjennom alle legeobjektene
 		{
 			//hent legeobjekt
-			//skriv til fil	
+			//skriv til fil
 			//legg legeobjekt tilbake i sortert liste
 		}
 	}
@@ -160,6 +153,3 @@ void lesFraFil(int alternativ) {							// leser alt fra fil
 	}					 //feilmelding
 }
 
-////////////////////////////////////////////////////:://///////////////////////////////
-
-#endif

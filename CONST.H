@@ -9,4 +9,5 @@ const int MAXOVELSER = 20;
 const int MINDELTAGERE = 2;
 //const int MAXDELTAGERE  const står i oppg.text men verdien er ukjent
 
+
 #endif
