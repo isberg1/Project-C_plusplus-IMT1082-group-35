@@ -22,7 +22,7 @@ using namespace std;
 //#pragma warning(disable:xxxx)  bruk til å disable warning
 
 //  GLOBALE VARIABLE:
-  extern Nasjoner nasjonObj;
+  Nasjoner nasjonObj;
  //Deltagere deltagerObj
  //Gren grenenObj
  //Medaljer medaljeObj
@@ -34,14 +34,14 @@ int main()
 	char valgMain = 'A';
 
 	MainMeny();
-	valgMain = les();
+	valgMain = les("\nHovedmeny: ");
 
 	while (valgMain != 'X')
 	{
 
 		switch (valgMain)
 		{
-		//case 'N':	nasjonObj.skrivMeny();	break;
+		case 'N':	nasjonObj.menyValg();	break;
 		case 'D':		break;
 		case 'G':		break;
 		case 'O':		break;
@@ -52,7 +52,7 @@ int main()
 		}
 
 		MainMeny();
-		valgMain = les();
+		valgMain = les("\nHovedmeny: ");
 	}
 
     return 0;

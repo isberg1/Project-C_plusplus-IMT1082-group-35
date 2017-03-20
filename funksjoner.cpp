@@ -26,6 +26,14 @@ char les() {			                            //  Henter ett ikke-blankt upcaset te
 	return (toupper(ch));                           //  Upcaser og returnerer.
 }
 
+
+char les(char *menyPlass) {			                // Henter ett ikke-blankt upcaset tegn:
+	char ch;
+	cout << menyPlass;                              // Skriver ut menyplass.
+	cin >> ch;   cin.ignore();                      // Leser ETT tegn. Forkaster '\n'.
+	return (toupper(ch));                           // Upcaser og returnerer.
+}
+
                                                     //  Leser et tall i et visst intervall:
 int les(const char t[], const int min, const int max) {
 	int i;
@@ -153,7 +161,7 @@ void lesFraFil(int alternativ) {							// leser alt fra fil
 	}					 //feilmelding
 }
 
-bool erBokstaver(char tekst[]) {                     // Sjekker om alle indekser i array er bokstav.
+bool erBokstaver(char tekst[]) {                    // Sjekker om alle indekser i array er bokstav.
   int lengde;
   lengde = strlen(tekst);                           // Lengden av array.
 
