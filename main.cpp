@@ -5,6 +5,7 @@
     Alexander Jakobsen, Mats Ove Mandt Skjærstein og Kristian Lund.
 */
 
+
 //  INCLUDE:
 #include <iostream>                                 // cin, cout.
 #include "ListTool2B.h"                             // Verktøykasse for lister.
