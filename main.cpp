@@ -22,11 +22,11 @@ using namespace std;
 //#pragma warning(disable:xxxx)  bruk til å disable warning
 
 //  GLOBALE VARIABLE:
-  Nasjoner nasjonObj;
- //Deltagere deltagerObj
- //Gren grenenObj
- //Medaljer medaljeObj
- //Poeng poengObj
+Nasjoner nasjonObj;
+//Deltagere deltagerObj
+//Gren grenenObj
+//Medaljer medaljeObj
+//Poeng poengObj
 
 //	HOVEDPROGRAM:
 int main()
@@ -41,7 +41,7 @@ int main()
 
 		switch (valgMain)
 		{
-		case 'N':	nasjonObj.menyValg();	break;
+		case 'N': nasjonObj.menyValg();	   break;
 		case 'D':		break;
 		case 'G':		break;
 		case 'O':		break;
