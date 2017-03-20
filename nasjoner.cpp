@@ -8,3 +8,11 @@
 #include <cstring>
 
 using namespace std;
+
+/*
+    nasjoner.cpp
+    Klassefunksjoner for Nasjoner
+*/
+////////////////////////////////////////////////////:://////////////////////////////////////////////////
+
+#include "NASJONER.H"                               // Klassen Nasjoner.

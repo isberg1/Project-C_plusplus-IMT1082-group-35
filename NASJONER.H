@@ -3,6 +3,16 @@
 
 
 
+#include "NASJON.H"
+
+class Nasjoner {
+  private:
+    Nasjon *nasjon;                                 // Peker til nasjon-objekt.
+
+  public:
+    void skrivMeny();
+};
+
 
 
 #endif
