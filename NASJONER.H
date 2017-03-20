@@ -2,7 +2,6 @@
 #define  __NASJONER_H
 
 
-
 #include "NASJON.H"
 
 class Nasjoner {
@@ -16,4 +15,3 @@ class Nasjoner {
 
 
 #endif
-
