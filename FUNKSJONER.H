@@ -3,9 +3,28 @@
 #define  __FUNKSJONER_H
 
 
-char les();                                             // Leser og returnerer et uppercase tegn.
-int les(const char t[], const int min, const int max);  // Leset of returnerer tall i gitt interval.
-char *konverter(char t[]);						        //konverter char [] til char *
+#include <iostream>
+#include <cstring>
+#include <fstream>
+using namespace std;
+
+
+char les();											//leser en char
+void les(const char t[], char s[], const int LEN);	//leser text string
+int  les(const char t[], const int min, const int max);//leser en int med ledetext
+int lesInt(ifstream& inn);			                //leser en int fra fil i et standardforman
+char *lesTxt(ifstream& inn);                        //leser en string fra fil i et standardforman returnerer peker
+
+void skriv(const char* text, const char* string);   //display string med ledetext
+void skriv(const char* text, const int dataMedlem); //display int med ledetext
+void skriv(ofstream& ut, int tall);	                //skriver en int til fil i et standardforman
+void skriv(ofstream& ut, char *string);			    //skriver en string til fil
+
+void skrivTilFil();				                    //styrer andre filfunksjoner.	  til komando (U)
+void lesFraFil(int alternativ = 0);                 //funksjonen kan gjør noe extra.  til komando (I)
+
+char *konverter(char t[]);					        //konverter char [] til char *
+
 
 
 #endif

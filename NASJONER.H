@@ -9,7 +9,8 @@ class Nasjoner {
     Nasjon *nasjon;                                 // Peker til nasjon-objekt.
 
   public:
-    void skrivMeny();
+    void skrivMeny();                               // Skriver ut meny for Nasjoner.
+    void registrerNyNasjon();                       // Registrerer ny nasjon.
 };
 
 
