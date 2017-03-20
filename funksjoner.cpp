@@ -15,6 +15,7 @@
 #include <stdio.h>      /* printf, fgets */
 #include <stdlib.h>     /* atoi */
 #include"CONST.H"
+#include "FUNKSJONER.H"
 using namespace std;
 
 
@@ -55,6 +56,18 @@ char *konverter(char t[]) {
 	string = new char[strlen(t) + 1];
 	strcpy(string, t);
 	return string;
+}
+
+void MainMeny()
+{
+	cout << "\nHovedmeny \nMulige brukervalg"
+		<< "\n(N) Nasjoner"
+		<< "\n(D) Deltagere"
+		<< "\n(G) Grener"
+		<< "\n(O) Ovelse"
+		<< "\n(M) Medaljer"
+		<< "\n(P) Poeng"
+		<< "\n(X) Avslutt";
 }
 
 //displayer string med ledetext på standarformat

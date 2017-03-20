@@ -24,6 +24,7 @@ void lesFraFil(int alternativ = 0); //funksjonen kan gjør noe extra.  til komand
 
 char *konverter(char t[]);						//konverter char [] til char *
 
+void MainMeny();
 
 #endif
 

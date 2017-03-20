@@ -6,5 +6,11 @@
 
 #include <iostream>
 #include <cstring>
+#include "OVELSE.H"
 
 using namespace std;
+
+void Ovelse::skrivMeny()
+{
+	//dummy kode
+}

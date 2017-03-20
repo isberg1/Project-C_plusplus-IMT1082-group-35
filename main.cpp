@@ -11,19 +11,49 @@
 #include "ListTool2B.h"                             // Verktøykasse for lister.
 #include "CONST.H"                                  // Conster.
 #include"FUNKSJONER.H"
+#include"NASJONER.H"
+#include"DELTAGERE.H"
+#include"GRENER.H"
+#include"MEDALJER.H"
+#include"POENG.H"
+
 using namespace std;
 
+//#pragma warning(disable:xxxx)  bruk til å disable warning
 
 //  GLOBALE VARIABLE:
-
+  extern Nasjoner nasjonObj;
+ //Deltagere deltagerObj
+ //Gren grenenObj
+ //Medaljer medaljeObj
+ //Poeng poengObj
 
 //	HOVEDPROGRAM:
 int main()
 {
-	int test = les("testing", 1, 99);
+	char valgMain = 'A';
 
-	skriv("testskriv", test);
+	MainMeny();
+	valgMain = les();
 
+	while (valgMain != 'X')
+	{
+
+		switch (valgMain)
+		{
+		//case 'N':	nasjonObj.skrivMeny();	break;
+		case 'D':		break;
+		case 'G':		break;
+		case 'O':		break;
+		case 'M':		break;
+		case 'P':		break;
+		case 'X':		break;
+		default:		break;
+		}
+
+		MainMeny();
+		valgMain = les();
+	}
 
     return 0;
 }
