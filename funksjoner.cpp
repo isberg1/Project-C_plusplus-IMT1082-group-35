@@ -1,8 +1,14 @@
-//funksjoner.cpp
+/*
+    funksjoner.cpp
+    Globale funksjoner
+*/
+////////////////////////////////////////////////////:://///////////////////////////////
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+
+
+
 #include <iostream>
 #include <cstring>
 #include <fstream>
@@ -10,6 +16,7 @@
 #include <stdlib.h>     /* atoi */
 #include"CONST.H"
 using namespace std;
+
 
 /*
     funksjoner.cpp
@@ -141,3 +148,5 @@ void lesFraFil(int alternativ) {							// leser alt fra fil
 }
 
 ////////////////////////////////////////////////////:://///////////////////////////////
+
+#endif

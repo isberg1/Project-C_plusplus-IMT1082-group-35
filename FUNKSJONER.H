@@ -2,6 +2,7 @@
 #if !defined(__FUNKSJONER_H)
 #define  __FUNKSJONER_H
 
+
 #include <iostream>
 #include <cstring>
 #include <fstream>

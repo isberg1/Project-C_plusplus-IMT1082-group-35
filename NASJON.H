@@ -29,5 +29,4 @@ class Nasjon : public TextElement {                 // Arver lister.
 
 
 
-
 #endif
