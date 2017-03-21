@@ -30,6 +30,7 @@ char *konverter(char t[]);					        //konverter char [] til char *
 void MainMeny();
 
 bool erBokstaver(char tekst[]);                     // Sjekker om alle indekser i array er bokstav.
+char *nasjonsForkortelse();                         // Sjekker at bokstaver = 3 og gjør dem store.
 
 #endif
 
