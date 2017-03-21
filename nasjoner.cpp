@@ -19,7 +19,6 @@ using namespace std;
 
 Nasjoner :: ~Nasjoner() {
   delete nasjonsListe;                              // Sletter liste.
-  nasjonsListe = nullptr;                           // Setter peker til nullptr.
 }
 
 void Nasjoner :: skrivMeny() {                      // Tiljgengelige valg.
@@ -34,8 +33,6 @@ void Nasjoner :: skrivMeny() {                      // Tiljgengelige valg.
 
 void Nasjoner :: menyValg() {                       // Valg av funksjonalitet.
   char valg;
-
-  lesFraFil();                                      // TEST AV LES FRA FIL                              Skal fjernes
 
   skrivMeny();
   valg = les("\nNasjoner: ");
@@ -60,7 +57,8 @@ void Nasjoner :: registrerNyNasjon() {              // Registrerer ny nasjon    
   if (!nasjonsListe)                                // Hvis listen ikke finnes.
     nasjonsListe = new List(Sorted);                // Lager ny sortert liste.
 
-  forkortelse = nasjonsForkortelse();               // Leser inn tre bokstaver og gjør dem store.
+                                                    // Leser inn tre bokstaver og gjør dem store.
+  forkortelse = nasjonsForkortelse("\nSkriv inn nasjonens forkortelse");
 
   if (!nasjonsListe->inList(forkortelse)) {         // Hvis nasjonen ikke ligger i lista:
     nyNasjon = new Nasjon(forkortelse);             // Lager nasjonsobjekt, sender med forkortelsen.
@@ -76,8 +74,9 @@ void Nasjoner :: endreNasjon() {                    // Endre data for en nasjon 
   Nasjon *nasjon;                                   // Peker til nasjons-objekt.
   char *forkortelse;
 
-  cout << "\nHvilke nasjon vil du endre på?";
-  forkortelse = nasjonsForkortelse();               // Leser inn tre bokstaver og gjør dem store.
+  skrivUtForkortelse();                             // Skriv ut tilgjengelige valg.
+                                                    // Leser inn tre bokstaver og gjør dem store.
+  forkortelse = nasjonsForkortelse("\nHvilke nasjon vil du endre på?");
 
                                                     // Hvis nasjonslista finnes og
   if (nasjonsListe && nasjonsListe->inList(forkortelse)) { // nasjonen ligger i lista.
@@ -107,33 +106,29 @@ void Nasjoner :: skrivHoveddata() {                 // Skriver ut hoveddataene f
 
 void Nasjoner :: skrivDeltagerTropp() {             // Skriver ut data om deltagere i tropp  : Valg N T
   Nasjon *nasjon;
-  int antDeltagere = 0;
   char *forkortelse;
 
-  cout << "\nFor hvilke nasjon skal deltagertroppen skrives ut?";
-  forkortelse = nasjonsForkortelse();               // Leser inn tre bokstaver og gjør dem store.
+  skrivUtForkortelse();                             // Skriv ut tilgjengelige valg.
+                                                    // Leser inn tre bokstaver og gjør dem store.
+  forkortelse = nasjonsForkortelse("\nFor hvilke nasjon skal deltagertroppen skrives ut?");
 
-                                                    // Hvis nasjonslista finnes og
-  if (nasjonsListe && nasjonsListe->inList(forkortelse)) { // nasjonen ligger i lista.
-    nasjon = (Nasjon*) nasjonsListe->remove(forkortelse);  // Fjerner nasjonen fra lista.
-    antDeltagere = nasjon->hentAntDeltagere();      // Henter antall deltagere for nasjonen.
-    nasjonsListe->add(nasjon);                      // Legger tilbake i lista.
-  }
-  else
-    cout << "\n\tNasjonen finnes ikke";
+                                                    // Hvis nasjon finnes
+  if (nasjonsListe && nasjonsListe->inList(forkortelse)) { // og ligger i lista
 
-  for (int i = 1; i <= antDeltagere; i++) {         // Looper gjennom alle deltagere.
-    // Kall Deltagere funksjon...                                                                       // Mangler kode
-    cout << "\nHer skal deltager nr." << i << " komme";
+    // Kjør grensesnitt funksjon som displayer deltagere.
+    // Loop må skje på Deltagere sin side.
   }
+  else                                              // Hvis nasjonsobjektet ikke finnes.
+    cout << "\Nasjonen du skrev inn finnes ikke";
 }
 
 void Nasjoner :: skrivAllData() {                   // Skriver alle data om en gitt nasjon   : Valg N S
   char *forkortelse;
   Nasjon *nasjon;
 
-  cout << "\nHvilke nasjon vil du ha mer informasjon om?";
-  forkortelse = nasjonsForkortelse();               // Leser inn tre bokstaver og gjør dem store.
+  skrivUtForkortelse();                             // Skriv ut tilgjengelige valg.
+                                                    // Leser inn tre bokstaver og gjør dem store.
+  forkortelse = nasjonsForkortelse("\nHvilke nasjon vil du ha mer informasjon om?");
 
                                                     // Hvis nasjonenslista finnes
   if (nasjonsListe && nasjonsListe->inList(forkortelse)) { // og nasjonen ligger i lista.
@@ -145,33 +140,26 @@ void Nasjoner :: skrivAllData() {                   // Skriver alle data om en g
     cout << "\n\tNasjonen finnes ikke";
 }
 
-bool Nasjoner :: finnesNasjon() {                   // Sjekker om nasjonen finnes            : Valg D -
+bool Nasjoner :: finnesNasjonOgOppdater() {         // Hvis Nasjon finnes, antDeltagere +1   : Valg D -
+  Nasjon *nasjon;
   char *forkortelse;
 
-  forkortelse = nasjonsForkortelse();               // Leser inn tre bokstaver og gjør dem store.
+  skrivUtForkortelse();                             // Skriv ut tilgjengelige valg.
+                                                    // Leser inn tre bokstaver og gjør dem store.
+  forkortelse = nasjonsForkortelse("\nSkriv inn nasjonens forkortelse");
 
                                                     // Hvis nasjonenslista finnes
   if (nasjonsListe && nasjonsListe->inList(forkortelse)) { // og nasjonen ligger i lista.
-   return true;                                     // Hvis sant.
+
+    nasjon = (Nasjon*) nasjonsListe->remove(forkortelse);  // Fjerner objekt fra liste.
+    nasjon->oppdaterAntDeltagere();                 // Oppdaterer antDeltagere med 1.
+    nasjonsListe->add(nasjon);                      // Legger tilbake i liste.
+
+    skrivTilFil();                                  // Skriver endringer til fil.
+    return true;
   }
   else
     return false;                                   // Hvis usant.
-}
-
-int Nasjoner :: antDeltagere(char *forkortelse) {   // Finner antall deltagere for en nasjon : Valg D -
-  int antItropp;                                    // Antall i troppen.
-  Nasjon *nasjon;
-                                                    // Hvis nasjonen finnes
-  if (nasjonsListe && nasjonsListe->inList(forkortelse)) { // og ligger i lista
-
-    nasjon = (Nasjon*) nasjonsListe->remove(forkortelse);  // Fjerner objekt fra lista.
-    antItropp = nasjon->hentAntDeltagere();         // Henter antall deltagere i nasjonen.
-    nasjonsListe->add(nasjon);                      // Legger tilbake i lista.
-
-    return antItropp;                               // Returnerer hvor mange det er i troppen.
-  }
-  else                                              // Hvis nasjonen ikke har noen deltagere.
-    return 0;
 }
 
 void Nasjoner :: skrivTilFil() {                    // Skriver til fil.
@@ -219,4 +207,24 @@ void Nasjoner :: lesFraFil() {                      // Leser datastruktur fra fi
     cout << "\nFinner ikke filen 'NASJONER.DTA'";
 }
 
+void Nasjoner :: skrivUtForkortelse() {             // Skriver ut nasjonens forkortelse.
+  Nasjon *nasjon;
+  int newLineTeller = 1;
 
+  if (nasjonsListe) {                               // Hvis listen finnes og det er elementer i den.
+    cout << "\nTilgjengelige nasjoner:\n";
+                                                    // Looper gjennom alle elementer.
+    for (int i = 1; i <= nasjonsListe->noOfElements(); i++) {
+
+      nasjon = (Nasjon*) nasjonsListe->removeNo(i); // Fjerner objekt fra liste.
+      nasjon->skrivForkortelse();                   // Skriver ut text (forkortelsen).
+      nasjonsListe->add(nasjon);                    // Legger tilbake i listen.
+
+      if (newLineTeller % 6 == 0)                   // Skriver ut "new line" hvis 6 nasjoner
+        cout << '\n';                               // ligget etter hverandre på skjermen.
+      newLineTeller ++;                             // Teller opp med 1.
+    }
+  }
+  else                                              // Hvis ingen ligger i listen.
+    cout << "\nIngen nasjoner er registrert";
+}

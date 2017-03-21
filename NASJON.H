@@ -26,7 +26,8 @@ class Nasjon : public TextElement {                 // Arver lister.
     void skrivTilFil(ofstream & ut);                // Skriver til fil.
     void endreNasjon();                             // Endrer data for en gitt nasjon.
     void skrivHoveddata();                          // Skriver ut hoveddata.
-    int hentAntDeltagere();                         // Returnerer antDeltagere.
+    void skrivForkortelse();                        // Skriver text.
+    void oppdaterAntDeltagere();                    // Oppdaterer antall deltagere med 1.
 };
 
 

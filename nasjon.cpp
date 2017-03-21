@@ -28,7 +28,7 @@ Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   cin.getline(buffer, STRLEN);                      // Leser inn full navn på nasjon.
   fulltNavn = konverter(buffer);                    // Gjør om størrelsen.
 
-  antDeltagere = les("\nAntall deltagere:", 1, 500);// Leser inn antall deltagere.
+  // AntDeltagere blir lest inn fra 'finnesNasjonOgOppdater()' fra Nasjoner.
 
   cout << "\nKontaktperson: ";
   cin.getline(buffer, STRLEN);                      // Leser inn navn på kontaktperson.
@@ -41,10 +41,9 @@ Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   andreData = konverter(buffer);                    // Gjør om størrelsen.
 
 }
-
                                                     // Sender med forkortelsen til constructor.
 Nasjon :: Nasjon(ifstream & inn, char *nasjonKort) : TextElement(nasjonKort)  {
-  antDeltagere = lesInt(inn);
+  antDeltagere = lesInt(inn);                       // Leser datastruktur fra fil.
   fulltNavn = lesTxt(inn);
   kontaktNavn = lesTxt(inn);
   kontaktTlf = lesInt(inn);
@@ -109,6 +108,10 @@ void Nasjon :: skrivHoveddata() {                   // Skriver ut hoveddata.
        << "\nDeltagere:             " << antDeltagere;
 }
 
-int Nasjon :: hentAntDeltagere() {                  // Returnerer antDeltagere.
-  return antDeltagere;
+void Nasjon :: skrivForkortelse() {                 // Returnerer text.
+  cout << '\t' << text;
+}
+
+void Nasjon :: oppdaterAntDeltagere() {             // Oppdaterer antall deltagere med 1.
+  antDeltagere ++;
 }

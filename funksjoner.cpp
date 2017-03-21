@@ -177,10 +177,11 @@ bool erBokstaver(char tekst[]) {                    // Sjekker om alle indekser 
   return true;
 }
 
-char *nasjonsForkortelse() {                        // Sjekker at bokstaver = 3 og gjør dem store.
+char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 og gjør dem store.
     char buffer[STRLEN];
     char *forkortelse;
 
+    cout << t;                                      // Skriver ut ledetekst.
     do {                                            // Loop:
     cout << "\nNasjonsforkortelse (3 bokstaver): ";
     cin.getline(buffer, STRLEN);                    // Leser inn verdi.

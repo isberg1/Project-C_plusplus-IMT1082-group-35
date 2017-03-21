@@ -33,6 +33,8 @@ int main()
 {
 	char valgMain = 'A';
 
+    nasjonObj.lesFraFil();                          // Leser inn fra NASJONER.DTA
+
 	MainMeny();
 	valgMain = les("\nHovedmeny: ");
 
@@ -41,7 +43,7 @@ int main()
 
 		switch (valgMain)
 		{
-		case 'N': nasjonObj.menyValg();	   break;
+		case 'N': nasjonObj.menyValg();	   break;   // Kaller Nasjoner sin meny.
 		case 'D':		break;
 		case 'G':		break;
 		case 'O':		break;
