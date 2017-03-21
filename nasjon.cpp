@@ -2,7 +2,6 @@
     nasjon.cpp
     Klassefunksjoner Nasjon
 */
-////////////////////////////////////////////////////:://////////////////////////////////////////////////
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
@@ -20,7 +19,6 @@ using namespace std;
                                                     // Sender med forkortelsen til constructor.
 Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
-  nasjonsListe = new List(Sorted);                  // Lager ny sortert liste.
 
   cout << "\nFullt navn: ";
   cin.getline(buffer, STRLEN);                      // Leser inn full navn på nasjon.
@@ -48,12 +46,11 @@ Nasjon :: Nasjon(ifstream & innfil, char *nasjonKort) : TextElement(nasjonKort) 
 }
 
 Nasjon :: ~Nasjon() {
-  delete nasjonsListe;                              // Sletter liste.
-  nasjonsListe = nullptr;                           // Setter peker til nullptr.
+
 }
 
 void Nasjon :: display() {
-  cout << "\nNasjonsforkortelse:    " << text
+  cout << "\n\nNasjonsforkortelse:    " << text
        << "\nFullt navn:            " << fulltNavn
        << "\nDeltagere:             " << antDeltagere
        << "\nKontaktperson:         " << kontaktNavn
@@ -67,9 +64,24 @@ void Nasjon :: skrivTilFil(ofstream & utfil) {
 
 }
 
-void Nasjon :: endreNasjon() {
-
-
-
+void Nasjon :: skrivHoveddata() {                   // Skriver ut hoveddata.
+  cout << "\n\nNasjonsforkortelse:    " << text
+       << "\nFullt navn:            " << fulltNavn
+       << "\nDeltagere:             " << antDeltagere;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

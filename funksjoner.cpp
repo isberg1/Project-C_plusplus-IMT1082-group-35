@@ -182,7 +182,7 @@ char *nasjonsForkortelse() {                        // Sjekker at bokstaver = 3 
     char *forkortelse;
 
     do {                                            // Loop:
-    cout << "\nNasjonsforkortelse (3 blokk-bokstaver): ";
+    cout << "\nNasjonsforkortelse (3 bokstaver): ";
     cin.getline(buffer, STRLEN);                    // Leser inn verdi.
     forkortelse = konverter(buffer);                // Gjør om størrelsen.
 

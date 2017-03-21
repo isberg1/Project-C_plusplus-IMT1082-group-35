@@ -16,7 +16,6 @@ class Nasjon : public TextElement {                 // Arver lister.
     char *andreData;                                // Andre relevante data.
     int antDeltagere;                               // Antall deltagere i nasjonens tropp.
     int kontaktTlf;                                 // Tlf til kontaktperson.
-    List *nasjonsListe;                             // Peker til liste.
 
   public:
     Nasjon();                                       // Constructor.
@@ -25,6 +24,7 @@ class Nasjon : public TextElement {                 // Arver lister.
     ~Nasjon();                                      // Deconstructor.
     virtual void display();                         // Display-funksjon.
     void skrivTilFil(ofstream & utfil);             // Skriver til fil.
+    void skrivHoveddata();                          // Skriver ut hoveddata.
 };
 
 
