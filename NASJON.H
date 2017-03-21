@@ -20,11 +20,13 @@ class Nasjon : public TextElement {                 // Arver lister.
   public:
     Nasjon();                                       // Constructor.
     Nasjon(char *nasjonKort);                       // Constructor med parameter.
-    Nasjon(ifstream & innfil, char *nasjonKort);    // Constructor som leser data fra fil.
+    Nasjon(ifstream & inn, char *nasjonKort);       // Constructor som leser data fra fil.
     ~Nasjon();                                      // Deconstructor.
     virtual void display();                         // Display-funksjon.
-    void skrivTilFil(ofstream & utfil);             // Skriver til fil.
+    void skrivTilFil(ofstream & ut);                // Skriver til fil.
+    void endreNasjon();                             // Endrer data for en gitt nasjon.
     void skrivHoveddata();                          // Skriver ut hoveddata.
+    int hentAntDeltagere();                         // Returnerer antDeltagere.
 };
 
 
