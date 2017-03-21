@@ -3,7 +3,7 @@
 
 
 #include "ListTool2B.h"                             // Verktøykasse med lister.
-#include <fstream>
+#include <fstream>                                  // ifstream, ofstream.
 
 using namespace std;
 

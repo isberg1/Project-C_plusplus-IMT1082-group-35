@@ -11,7 +11,7 @@
 #include "NASJON.H"                                 // Klassen Nasjon.
 #include "FUNKSJONER.H"                             // Globale funksjoner.
 #include "CONST.H"                                  // Conster.
-#include <iostream>
+#include <iostream>                                 // cin, cout.
 
 using namespace std;
 
@@ -24,7 +24,7 @@ Nasjon :: Nasjon() {
 Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
 
-  cout << "\nFullt navn: ";
+  cout << "\nFullt navn for nasjonen: ";
   cin.getline(buffer, STRLEN);                      // Leser inn full navn på nasjon.
   fulltNavn = konverter(buffer);                    // Gjør om størrelsen.
 
@@ -39,11 +39,10 @@ Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   cout << "\nAnnet: ";
   cin.getline(buffer, STRLEN);                      // Leser inn annen data.
   andreData = konverter(buffer);                    // Gjør om størrelsen.
-
 }
                                                     // Sender med forkortelsen til constructor.
 Nasjon :: Nasjon(ifstream & inn, char *nasjonKort) : TextElement(nasjonKort)  {
-  antDeltagere = lesInt(inn);                       // Leser datastruktur fra fil.
+  antDeltagere = lesInt(inn);                       // Leser datastruktur fra fil via les funksjon.
   fulltNavn = lesTxt(inn);
   kontaktNavn = lesTxt(inn);
   kontaktTlf = lesInt(inn);
@@ -55,7 +54,7 @@ Nasjon :: ~Nasjon() {
 }
 
 void Nasjon :: display() {
-  cout << "\n\nNasjonsforkortelse:    " << text
+  cout << "\n\nNasjonsforkortelse:    " << text     // Skriver ut data til skjerm.
        << "\nFullt navn:            " << fulltNavn
        << "\nDeltagere:             " << antDeltagere
        << "\nKontaktperson:         " << kontaktNavn
@@ -75,7 +74,7 @@ void Nasjon :: skrivTilFil(ofstream & ut) {
      andreData      -   Ekstra informasjon om nasjonen
   */
 
-  skriv(ut, text);                                  // Skriver data ut til fil.
+  skriv(ut, text);                                  // Skriver data ut til fil via skriv funksjon.
   skriv(ut, antDeltagere);
   skriv(ut, fulltNavn);
   skriv(ut, kontaktNavn);

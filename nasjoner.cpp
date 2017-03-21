@@ -76,7 +76,7 @@ void Nasjoner :: endreNasjon() {                    // Endre data for en nasjon 
 
   skrivUtForkortelse();                             // Skriv ut tilgjengelige valg.
                                                     // Leser inn tre bokstaver og gjør dem store.
-  forkortelse = nasjonsForkortelse("\nHvilke nasjon vil du endre på?");
+  forkortelse = nasjonsForkortelse("\nHvilke nasjon vil du endre paa?");
 
                                                     // Hvis nasjonslista finnes og
   if (nasjonsListe && nasjonsListe->inList(forkortelse)) { // nasjonen ligger i lista.
