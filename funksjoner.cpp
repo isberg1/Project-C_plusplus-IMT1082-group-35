@@ -68,6 +68,11 @@ void MainMeny()
 }
 
 
+void skriv(const char * text, const char * string)
+{
+	cout << '\n' << text << '\t' << string << '\n';
+}
+
 //displayer int med ledetext på standarformat
 void skriv(const char * text, const int dataMedlem)
 {

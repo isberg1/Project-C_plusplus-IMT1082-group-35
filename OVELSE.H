@@ -2,11 +2,12 @@
 #define  __OVELSE_H
 
 #include"ListTool2B.h"
+#include"FUNKSJONER.H"
 
-class Ovelse : public NumElement
+class Ovelse 
 {
 private:
-	// nr lagres i NumElement
+	int nr;
 	char *navn;
 	int antDeltagere;
 	int dato;
@@ -15,6 +16,8 @@ private:
 	//resultat array
 public:
 	void skrivMeny();
+	void skrivData();
+	void skrivTilFil(ofstream & ut);
 };
 
 
