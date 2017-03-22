@@ -13,7 +13,7 @@
 #include"FUNKSJONER.H"
 #include"NASJONER.H"
 #include"DELTAGERE.H"
-#include"GRENER.H"
+#include"GREN.H"
 #include"MEDALJER.H"
 #include"POENG.H"
 
@@ -24,7 +24,7 @@ using namespace std;
 //  GLOBALE VARIABLE:
 Nasjoner nasjonObj;
 //Deltagere deltagerObj
-//Gren grenenObj
+Gren grenenObj
 //Medaljer medaljeObj
 //Poeng poengObj
 
@@ -32,9 +32,11 @@ Nasjoner nasjonObj;
 int main()
 {
 	char valgMain = 'A';
-
+	char test[66];
+	les("kdsjf", test, 66); cout << test;
 	MainMeny();
 	valgMain = les("\nHovedmeny: ");
+	
 
 	while (valgMain != 'X')
 	{

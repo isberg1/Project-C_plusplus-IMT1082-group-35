@@ -67,9 +67,9 @@ void Nasjon :: skrivTilFil(ofstream & utfil) {
 
 }
 
-void Nasjon :: endreNasjon() {
+//void Nasjon :: endreNasjon() {
 
 
 
-}
+//}
 
