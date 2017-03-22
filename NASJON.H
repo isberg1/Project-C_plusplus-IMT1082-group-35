@@ -3,7 +3,7 @@
 
 
 #include "ListTool2B.h"                             // Verktøykasse med lister.
-#include <fstream>
+#include <fstream>                                  // ifstream, ofstream.
 
 using namespace std;
 
@@ -16,15 +16,18 @@ class Nasjon : public TextElement {                 // Arver lister.
     char *andreData;                                // Andre relevante data.
     int antDeltagere;                               // Antall deltagere i nasjonens tropp.
     int kontaktTlf;                                 // Tlf til kontaktperson.
-    List *nasjonsListe;                             // Peker til liste.
 
   public:
     Nasjon();                                       // Constructor.
     Nasjon(char *nasjonKort);                       // Constructor med parameter.
-    Nasjon(ifstream & innfil, char *nasjonKort);    // Constructor som leser data fra fil.
+    Nasjon(ifstream & inn, char *nasjonKort);       // Constructor som leser data fra fil.
     ~Nasjon();                                      // Deconstructor.
     virtual void display();                         // Display-funksjon.
-    void skrivTilFil(ofstream & utfil);             // Skriver til fil.
+    void skrivTilFil(ofstream & ut);                // Skriver til fil.
+    void endreNasjon();                             // Endrer data for en gitt nasjon.
+    void skrivHoveddata();                          // Skriver ut hoveddata.
+    void skrivForkortelse();                        // Skriver text.
+    void oppdaterAntDeltagere();                    // Oppdaterer antall deltagere med 1.
 };
 
 

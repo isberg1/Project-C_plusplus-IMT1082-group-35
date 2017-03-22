@@ -1,61 +1,60 @@
 /*
-    Main.cpp
+    main.cpp
     Gruppeprosjekt i objekt-orientert programmering.
 
     Alexander Jakobsen, Mats Ove Mandt Skjærstein og Kristian Lund.
 */
 
+//#pragma warning(disable:xxxx)  bruk til å disable warning
 
-//  INCLUDE:
+
+///  INCLUDE:
 #include <iostream>                                 // cin, cout.
 #include "ListTool2B.h"                             // Verktøykasse for lister.
 #include "CONST.H"                                  // Conster.
-#include"FUNKSJONER.H"
-#include"NASJONER.H"
-#include"DELTAGERE.H"
-#include"GREN.H"
-#include"MEDALJER.H"
-#include"POENG.H"
+#include"FUNKSJONER.H"                              // Funksjoner.
+#include"NASJONER.H"                                // Klassen Nasjoner.
+#include"DELTAGERE.H"                               // Klassen Deltagere.
+#include"GRENER.H"                                  // Klassen Grener.
+#include"MEDALJER.H"                                // Klassen Medaljer.
+#include"POENG.H"                                   // Klassen Poeng.
+
 
 using namespace std;
 
-//#pragma warning(disable:xxxx)  bruk til å disable warning
 
-//  GLOBALE VARIABLE:
+///  BRUK AV GLOBALE VARIABLE I ANDRE FILER:
 Nasjoner nasjonObj;
-//Deltagere deltagerObj
-Gren grenenObj
-//Medaljer medaljeObj
-//Poeng poengObj
 
-//	HOVEDPROGRAM:
-int main()
-{
-	char valgMain = 'A';
-	char test[66];
-	les("kdsjf", test, 66); cout << test;
-	MainMeny();
-	valgMain = les("\nHovedmeny: ");
-	
+//extern Nasjoner nasjonObj;
+//extern Deltagere deltagerObj;
+//extern Gren grenenObj;
+//extern Medaljer medaljeObj;
+//extern Poeng poengObj;
 
-	while (valgMain != 'X')
-	{
 
-		switch (valgMain)
-		{
-		case 'N': nasjonObj.menyValg();	   break;
-		case 'D':		break;
-		case 'G':		break;
-		case 'O':		break;
-		case 'M':		break;
-		case 'P':		break;
-		case 'X':		break;
-		default:		break;
-		}
+// **********************************  H O V E D P R O G R A M M E T  **********************************
 
-		MainMeny();
-		valgMain = les("\nHovedmeny: ");
-	}
+int main() {
+  char valgMain;
 
-    return 0;
+  nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
+
+  MainMeny();                                       // Skriver ut meny.
+  valgMain = les("\nHovedmeny: ");
+
+  while (valgMain != 'X') {                         // Så lenge valg ikke er 'X':
+    switch (valgMain) {
+      case 'N' : nasjonObj.menyValg();	    break;  // Kaller Nasjoner sin meny.
+      case 'D' :        break;
+      case 'G' :        break;
+      case 'O' :        break;
+      case 'M' :        break;
+      case 'P' :        break;
+    }
+    MainMeny();
+    valgMain = les("\nHovedmeny: ");
+  }
+  return 0;
+
 }

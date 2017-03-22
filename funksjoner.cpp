@@ -176,3 +176,22 @@ bool erBokstaver(char tekst[]) {                    // Sjekker om alle indekser 
   }
   return true;
 }
+
+char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 og gjør dem store.
+    char buffer[STRLEN];
+    char *forkortelse;
+
+    cout << t;                                      // Skriver ut ledetekst.
+    do {                                            // Loop:
+    cout << "\nNasjonsforkortelse (3 bokstaver): ";
+    cin.getline(buffer, STRLEN);                    // Leser inn verdi.
+    forkortelse = konverter(buffer);                // Gjør om størrelsen.
+
+  } while ( !erBokstaver(forkortelse) ||            // Så lenge det ikke er bokstaver og
+            strlen(forkortelse) != 3);              // lengder på array ikke er 3.
+
+  for (int i = 0; i < 3; i ++)                      // Looper gjennom indeksene.
+    forkortelse[i] = toupper(forkortelse[i]);       // Gjør om til stor bokstav.
+
+  return forkortelse;
+}
