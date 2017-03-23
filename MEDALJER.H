@@ -5,7 +5,7 @@
 #include"CONST.H"
 #include"STATISTIKK.H"
 
-class Medaljer : Statisikk
+class Medaljer : public Statisikk
 {
 private:
 	
