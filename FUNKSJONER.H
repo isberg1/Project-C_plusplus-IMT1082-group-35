@@ -15,7 +15,7 @@ void les(const char t[], char s[], const int LEN);	//leser text string
 int  les(const char t[], const int min, const int max);//leser en int med ledetext
 int lesInt(ifstream& inn);			                //leser en int fra fil i et standardforman
 char *lesTxt(ifstream& inn);                        //leser en string fra fil i et standardforman returnerer peker
-
+void lesTxt2(ifstream& inn, char string[]);
 void skriv(const char* text, const char* string);   //display string med ledetext
 void skriv(const char* text, const int dataMedlem); //display int med ledetext
 void skriv(ofstream& ut, int tall);	                //skriver en int til fil i et standardforman

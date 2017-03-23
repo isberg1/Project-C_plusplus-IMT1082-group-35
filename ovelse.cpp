@@ -1,4 +1,4 @@
-//ovelse.cpp
+//ovelse.cpp alex
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
@@ -9,6 +9,14 @@
 #include "OVELSE.H"
 
 using namespace std;
+
+Ovelse::~Ovelse()
+{
+	delete[] navn;
+	//delete deltager array
+	//delete resultat array
+
+}
 
 void Ovelse::skrivMeny()
 {
@@ -40,4 +48,13 @@ void Ovelse::skrivTilFil(ofstream & ut)
 		//resultat array skriv til fil
 
 
+}
+
+void Ovelse::lesFraFil(ifstream & inn)
+{
+	nr = lesInt(inn);
+	dato = lesInt(inn);
+	klokkeslett = lesInt(inn);
+	antDeltagere = lesInt(inn);
+	navn = lesTxt(inn);
 }

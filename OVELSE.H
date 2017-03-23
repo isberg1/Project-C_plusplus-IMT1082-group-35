@@ -1,3 +1,4 @@
+//OVELSE.H alex
 #if !defined(__OVELSE_H)
 #define  __OVELSE_H
 
@@ -15,9 +16,11 @@ private:
 	//deltager array
 	//resultat array
 public:
+	~Ovelse();
 	void skrivMeny();
 	void skrivData();
 	void skrivTilFil(ofstream & ut);
+	void lesFraFil(ifstream & inn);
 };
 
 

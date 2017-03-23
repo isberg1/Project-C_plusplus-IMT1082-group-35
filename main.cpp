@@ -28,7 +28,7 @@ Nasjoner nasjonObj;
 
 //extern Nasjoner nasjonObj;
 //extern Deltagere deltagerObj;
-//extern Gren grenenObj;
+ Grener grenenerObj;
 //extern Medaljer medaljeObj;
 //extern Poeng poengObj;
 
@@ -39,15 +39,16 @@ int main() {
   char valgMain;
 
   nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
+  grenenerObj.lesFraFil();
 
   MainMeny();                                       // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");
 
   while (valgMain != 'X') {                         // Så lenge valg ikke er 'X':
     switch (valgMain) {
-      case 'N' : nasjonObj.menyValg();	    break;  // Kaller Nasjoner sin meny.
+      case 'N' : nasjonObj.menyValg();	      break; // Kaller Nasjoner sin meny.
       case 'D' :        break;
-      case 'G' :        break;
+	  case 'G':  grenenerObj.skrivMeny();     break; // kaller Grener sin meny.
       case 'O' :        break;
       case 'M' :        break;
       case 'P' :        break;
