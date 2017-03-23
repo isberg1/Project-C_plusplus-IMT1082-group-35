@@ -1,0 +1,13 @@
+int 	grener	listGren->noOfElements() 	
+int 	grener	sisteOvelse
+string	gren	text
+string	gren	annet
+int 	gren	antOvelser
+int 	gren	antSiffre	
+int 	gren	typeMaaling 
+int	ovelse	nr
+int	ovelse	dato
+int	ovelse	klokkeslett
+int	ovelse	antDeltagere
+string	ovelse	navn
+
