@@ -24,7 +24,7 @@ using namespace std;
 
 ///  GLOBALE VARIABLE:
 Nasjoner nasjonObj;
-//Deltagere deltagerObj;
+Deltagere deltagerObj;
 //Gren grenenObj;
 //Medaljer medaljeObj;
 //Poeng poengObj;
@@ -51,7 +51,7 @@ int main() {
   while (valgMain != 'X') {                         // Så lenge valg ikke er 'X':
     switch (valgMain) {
       case 'N' : nasjonObj.menyValg();	    break;  // Kaller Nasjoner sin meny.
-      case 'D' :        break;
+	  case 'D' : deltagerObj.menyValg();    break;
       case 'G' :        break;
       case 'O' :        break;
       case 'M' :        break;

@@ -124,7 +124,7 @@ void skrivTilFil() {										//skriver alt til fil
 
 	int antallObjekter = 20; //dummy for å fjerne feilmld. må fjernes!!!!!!!
 													//sortert liste
-	if (ut)													//hvis fillen finnes
+	if (ut)													//hvis filen finnes
 	{
 
 		skriv(ut, antallObjekter);							  //antall legeobjekter
