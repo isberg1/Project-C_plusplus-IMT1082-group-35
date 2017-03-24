@@ -25,6 +25,7 @@ using namespace std;
 
 ///  BRUK AV GLOBALE VARIABLE I ANDRE FILER:
 Nasjoner nasjonObj;
+Deltagere deltagerObj;
 Grener grenenerObj;
 
 //extern Nasjoner nasjonObj;
@@ -33,7 +34,6 @@ Grener grenenerObj;
 //extern Medaljer medaljeObj;
 //extern Poeng poengObj;
 
->>>>>>> c0d096485baece17e8020f61d1f422eaeb8aa013
 
 
 // **********************************  H O V E D P R O G R A M M E T  **********************************
@@ -49,15 +49,9 @@ int main() {
 
   while (valgMain != 'X') {                         // Så lenge valg ikke er 'X':
     switch (valgMain) {
-<<<<<<< HEAD
-      case 'N' : nasjonObj.menyValg();	     break; // Kaller Nasjoner sin meny.
-      case 'D' :        break;
-	  case 'G' : grenenerObj.skrivMeny();    break; // kaller Grener sin meny.
-=======
       case 'N' : nasjonObj.menyValg();	      break; // Kaller Nasjoner sin meny.
       case 'D' : deltagerObj.menyValg();      break; // Kaller Deltagere sin meny.
-	  case 'G':  grenenerObj.skrivMeny();     break; // kaller Grener sin meny.
->>>>>>> c0d096485baece17e8020f61d1f422eaeb8aa013
+	  case 'G' : grenenerObj.skrivMeny();     break; // kaller Grener sin meny.
       case 'O' :        break;
       case 'M' :        break;
       case 'P' :        break;
