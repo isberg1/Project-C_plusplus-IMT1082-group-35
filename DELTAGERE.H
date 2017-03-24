@@ -4,23 +4,24 @@
 #include <fstream>
 #include "ListTool2B.h"
 
-class Deltagere		
+class Deltagere
 {
 private:
-	int antDeltagere;
+	int antDeltagere;                               // Trenger ikke - Bruker ikke array
 	List* DeltagerListe;
 
 public:
-	Deltagere();
-	Deltagere(char* t);
+	Deltagere();                                    // Trenger ikke constructor her
+	Deltagere(char* t);                             // Trenger ikke constructor her
 	~Deltagere();
 	void skrivMeny();
 	void menyValg();
-	void nyDeltager();
+	void nyDeltager();                              // Oppretter ny Deltager                  : Valg D N
 	void endreDeltager();
 	void skrivDataAlle();
 	void skrivDataEn();
 	bool sjekkId(int in);
+	void loopDeltagerTropp(char *n);                // Skriver ut deltagere for en nasjon.    : Valg N T
 };
 
 #endif

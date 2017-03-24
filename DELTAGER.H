@@ -8,16 +8,21 @@
 class Deltager : public NumElement
 {
 private:
-	char* fullNavn;
-	char nasjon[NASJONLEN], data[STRLEN];
+	char *fullNavn;
+	char *nasjon;
+	char *data;
+
+
+	//char nasjon[NASJONLEN], data[STRLEN];
 
 public:
 	Deltager();
-	Deltager(int in);
+	Deltager(char *nyNasjon, int in);
 //	~Deltager();
 	void endreInfo();
 	void display();
 	void displayHoved();
+	void skrivDeltagerTropp(char *n);
 };
 
 #endif

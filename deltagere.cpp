@@ -2,15 +2,20 @@
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
 #include <iostream>
 #include <cstring>
 #include "DELTAGER.H"
 #include "DELTAGERE.H"
 #include "FUNKSJONER.H"
+#include "NASJONER.H"
 
 using namespace std;
+
+extern Nasjoner nasjonObj;
+
+
 
 Deltagere::Deltagere()
 {
@@ -35,7 +40,7 @@ void Deltagere::skrivMeny()
 		<< "\n\tE - Endre deltager"
 		<< "\n\tA - Skriv hoveddataene om alle deltagere"
 		<< "\n\tS - Skriv ut alle data om en deltager"
-		<< "\n\tQ - Gå tilbake til hovedmeny";
+		<< "\n\tQ - Tilbake til hovedmeny";
 }
 
 void Deltagere::menyValg()
@@ -50,30 +55,43 @@ void Deltagere::menyValg()
 		case 'E': endreDeltager();	break;
 		case 'A': skrivDataAlle();	break;
 		case 'S': skrivDataEn();	break;
-		default: skrivMeny();		break;
-		}
-		skrivMeny();
-		valg = les("\nDeltagere: ");
+		default : skrivMeny();		break;
+    }
+    skrivMeny();
+    valg = les("\nDeltagere: ");
 	}
 }
 
-void Deltagere::nyDeltager()
-{
-	int tempId;                               
-	Deltager* tempDeltager;
-														
-	tempId = les("\nSkriv inn id for deltager", 0, 9999);
+void Deltagere :: nyDeltager() {                    // Oppretter ny Deltager                  : Valg D N
+  int deltagerID;
+  char *tempNasjon;
+  Deltager *nyDeltager;
 
-	if (!DeltagerListe->inList(tempId)) 
-	{         
-		tempDeltager = new Deltager(tempId);          
-		DeltagerListe->add(tempDeltager);                 
-	}
-	else
-	{
-		cout << "\n\t" << tempId << " finnes allerede";
-	}
-	skrivTilFil();
+  if (!DeltagerListe)                               // Hvis deltagerListen ikke finnes:
+    DeltagerListe = new List(Sorted);               // Lager ny liste.
+
+  nasjonObj.skrivUtForkortelse();                   // Skriver ut hvilke nasjoner som er registrert.
+
+                                                    // Passer på at nasjonen skrives inn korrekt.
+  tempNasjon = nasjonsForkortelse("\nSkriv inn nasjonens forkortelse");
+
+  if (nasjonObj.finnesNasjon(tempNasjon)) {         // Hvis nasjonen finnes:
+                                                    // Leser inn ID-en til deltageren.
+    deltagerID = les("\nSkriv inn ID for deltageren:", 1, 9999);
+
+    if (!DeltagerListe->inList(deltagerID)) {       // Hvis deltager ikke allerede er registrert.
+                                                    // Lager nytt Deltager obj. Sender med tempNasjon
+      nyDeltager = new Deltager(tempNasjon ,deltagerID); // og ID som parameter.
+      DeltagerListe->add(nyDeltager);                 // Legger det nye objektet inn i listen.
+
+      // Skriv til fil....
+    }
+    else                                            // Hvis en deltager med samme ID ligger i lista.
+      cout << "\n\tEn deltager med ID: " << deltagerID << " finnes allerede";
+  }
+  else                                              // Hvis nasjonen ikke finnes.
+    cout << "\n\tNasjonen er ikke registrert"
+         << "\n\tDu maa registrere nasjonen for du legger til deltagere i den";
 }
 
 void Deltagere::endreDeltager()
@@ -83,15 +101,15 @@ void Deltagere::endreDeltager()
 
 void Deltagere::skrivDataAlle()
 {
-	Deltager* tempDeltager;                                 
+	Deltager* tempDeltager;
 	int antDeltagere = 0;
-                               
-		antDeltagere = DeltagerListe->noOfElements();     
 
-	for (int i = 1; i <= antDeltagere; i++) {          
-		tempDeltager = (Deltager*)DeltagerListe->removeNo(i);   
-		tempDeltager->displayHoved();                      
-		DeltagerListe->add(tempDeltager);                      
+		antDeltagere = DeltagerListe->noOfElements();
+
+	for (int i = 1; i <= antDeltagere; i++) {
+		tempDeltager = (Deltager*)DeltagerListe->removeNo(i);
+		tempDeltager->displayHoved();
+		DeltagerListe->add(tempDeltager);
 	}
 }
 
@@ -113,3 +131,21 @@ void Deltagere::skrivDataEn()
 		skriv("finner ikke deltager med id: ", buffer);
 	}
 }
+
+void Deltagere :: loopDeltagerTropp(char *n) {      // Skriver ut deltagere for en nasjon.    : Valg N T
+  int antDeltagere;
+  Deltager *deltager;
+
+  antDeltagere = DeltagerListe->noOfElements();     // Antall deltager-objekter i listen.
+
+  if (antDeltagere == 0)                            // Hvis det ikke er noen i listen:
+    cout << "\n\tNasjonen har ingen deltagere";     // Skriver ut feilmelding.
+
+  for (int i = 1; i <= antDeltagere; i++) {         // Looper gjennom listen:
+    deltager = (Deltager*) DeltagerListe->removeNo(i); // Fjerner element 1 fra listen.
+    deltager->skrivDeltagerTropp(n);                // Kaller Deltager sin funksjon.
+    DeltagerListe->add(deltager);                   // Legger objekt tilbake i liste.
+  }
+}
+
+

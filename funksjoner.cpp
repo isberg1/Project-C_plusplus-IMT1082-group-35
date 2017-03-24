@@ -65,7 +65,7 @@ char *konverter(char t[]) {
 
 void MainMeny()
 {
-	cout << "\nHovedmeny \nMulige brukervalg"
+	cout << "\n\nHovedmeny \nMulige brukervalg"
 		<< "\n(N) Nasjoner"
 		<< "\n(D) Deltagere"
 		<< "\n(G) Grener"

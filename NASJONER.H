@@ -19,7 +19,8 @@ class Nasjoner {
     void skrivHoveddata();                          // Skriver ut hoveddataene for nasjoner  : Valg N A
     void skrivDeltagerTropp();                      // Skriver ut data om deltagere i tropp  : Valg N T
     void skrivAllData();                            // Skriver alle data om en gitt nasjon   : Valg N S
-    bool finnesNasjonOgOppdater();                  // Hvis Nasjon finnes, antDeltagere +1   : Valg D -
+    bool finnesNasjon(char *sjekkNasjon);           // Hvis Nasjon finnes                    : Valg D N
+    void oppdaterNasjon(char *oppdNasjon);          // Plusser på antDeltagere med 1         : Valg D N
     void skrivTilFil();                             // Skriver til fil.
     void lesFraFil();                               // Leser datastruktur fra fil.
     void skrivUtForkortelse();                      // Skriver ut nasjonens forkortelse.(Hjelpefunksjon)
