@@ -66,6 +66,7 @@ void Nasjon :: skrivTilFil(ofstream & ut) {
 
   /* Filoppsett:
 
+     antObjeketer   -   Antall objeketer i liste.
      text           -   forkortelsesnavn
      antDeltagere   -   Antall deltagere i troppen
      fulltNavn      -   Det fulle navnet til nasjonen
@@ -99,7 +100,6 @@ void Nasjon :: endreNasjon() {                      // Endrer data for en gitt n
   cout << "\nAnnet: ";
   cin.getline(buffer, STRLEN);                      // Leser inn annen data.
   andreData = konverter(buffer);                    // Gjør om størrelsen.
-
 }
 
 void Nasjon :: skrivHoveddata() {                   // Skriver ut hoveddata.
