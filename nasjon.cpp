@@ -82,6 +82,7 @@ void Nasjon :: skrivTilFil(ofstream & ut) {
   skriv(ut, andreData);
 }
 
+
 void Nasjon :: endreNasjon() {                      // Endrer data for en gitt nasjon.
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
 

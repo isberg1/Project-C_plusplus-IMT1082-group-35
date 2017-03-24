@@ -118,6 +118,9 @@ char *lesTxt(ifstream & inn)
 	return string;											 //returner char*
 }
 
+void lesTxt2(ifstream & inn, char string[])
+{	inn.getline(string, STRLEN); }
+
 void skrivTilFil() {										//skriver alt til fil
 
 	ofstream ut("LEGER.DTA"); //!!!!endre navn fÂ fil  è≈pner/skaper aktuell fil.

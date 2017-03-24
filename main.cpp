@@ -19,10 +19,11 @@
 #include"MEDALJER.H"                                // Klassen Medaljer.
 #include"POENG.H"                                   // Klassen Poeng.
 
+
 using namespace std;
 
 
-///  GLOBALE VARIABLE:
+///  BRUK AV GLOBALE VARIABLE I ANDRE FILER:
 Nasjoner nasjonObj;
 Deltagere deltagerObj;
 //Gren grenenObj;
@@ -30,10 +31,9 @@ Deltagere deltagerObj;
 //Poeng poengObj;
 
 
-///  BRUK AV GLOBALE VARIABLE I ANDRE FILER:
 //extern Nasjoner nasjonObj;
 //extern Deltagere deltagerObj;
-//extern Gren grenenObj;
+ Grener grenenerObj;
 //extern Medaljer medaljeObj;
 //extern Poeng poengObj;
 
@@ -44,15 +44,16 @@ int main() {
   char valgMain;
 
   nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
+  grenenerObj.lesFraFil();
 
   MainMeny();                                       // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");
 
   while (valgMain != 'X') {                         // Så lenge valg ikke er 'X':
     switch (valgMain) {
-      case 'N' : nasjonObj.menyValg();	    break;  // Kaller Nasjoner sin meny.
-	  case 'D' : deltagerObj.menyValg();    break;
-      case 'G' :        break;
+      case 'N' : nasjonObj.menyValg();	      break; // Kaller Nasjoner sin meny.
+      case 'D' : deltagerObj.menyValg();      break; // Kaller Deltagere sin meny.
+	  case 'G':  grenenerObj.skrivMeny();     break; // kaller Grener sin meny.
       case 'O' :        break;
       case 'M' :        break;
       case 'P' :        break;
@@ -61,4 +62,5 @@ int main() {
     valgMain = les("\nHovedmeny: ");
   }
   return 0;
+
 }

@@ -1,4 +1,5 @@
 #if !defined(__GREN_H)
+//GREN.H alex
 #define  __GREN_H
 
 #include"OVELSE.H"
@@ -11,18 +12,21 @@ private:
 	registerTidPoeng typeMaaling;
 	int antOvelser;
 	int antSifre;
-	Ovelse array[MAXOVELSER + 1];
+	Ovelse *array[MAXOVELSER + 1];
 	char *annet;
 public:
+	//constructor
 	Gren();
 	Gren(char* a);
+	Gren(ifstream & inn, char* a, const int sisteOvelse);
+	//destructor
 	~Gren();
-	void endreNavn(char *navn);
-	void skrivData();
-	void skrivOvelse();
-	void skrivTilFIl(ofstream & ut);
+	void endreNavn();		// G E
+	void display();				// G A	
+	void skrivOvelse();				// G S
+	void skrivTilFIl(ofstream & ut, const int sisteOvelse);
 };
 
-
+  
 
 #endif
