@@ -42,7 +42,8 @@ int main() {
   char valgMain;
 
   nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
-  grenenerObj.lesFraFil();
+  deltagerObj.lesFraFil();                          // Leser deltagers data fra fil.
+  grenenerObj.lesFraFil();                          // Leser greners data fra fil.
 
   MainMeny();                                       // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");

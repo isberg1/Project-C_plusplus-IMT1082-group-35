@@ -20,6 +20,7 @@ using namespace std;
 Nasjon :: Nasjon() {
   cout << "\nAdvarsel, Nasjon-objekter skal ikke lages uten parameter";
 }
+
                                                     // Sender med forkortelsen til constructor.
 Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
@@ -40,6 +41,7 @@ Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   cin.getline(buffer, STRLEN);                      // Leser inn annen data.
   andreData = konverter(buffer);                    // Gjør om størrelsen.
 }
+
                                                     // Sender med forkortelsen til constructor.
 Nasjon :: Nasjon(ifstream & inn, char *nasjonKort) : TextElement(nasjonKort)  {
   antDeltagere = lesInt(inn);                       // Leser datastruktur fra fil via les funksjon.

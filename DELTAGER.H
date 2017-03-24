@@ -18,9 +18,6 @@ private:                                            // Deltager ID = number fra 
 	char *data;
 	kjonn deltagerKjonn;
 
-
-	//char nasjon[NASJONLEN], data[STRLEN];
-
 public:
 	Deltager();                                     // Constructor.
 	Deltager(char *nyNasjon, int ID);               // Constructor med parametre.

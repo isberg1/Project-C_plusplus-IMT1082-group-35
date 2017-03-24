@@ -7,12 +7,9 @@
 class Deltagere
 {
 private:
-	int antDeltagere;                               // Trenger ikke - Bruker ikke array
 	List* DeltagerListe;
 
 public:
-	Deltagere();                                    // Trenger ikke constructor her
-	Deltagere(char* t);                             // Trenger ikke constructor her
 	~Deltagere();
 	void skrivMeny();
 	void menyValg();
