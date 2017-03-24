@@ -119,7 +119,7 @@ void Nasjoner :: skrivDeltagerTropp() {             // Skriver ut data om deltag
     // Loop må skje på Deltagere sin side.
   }
   else                                              // Hvis nasjonsobjektet ikke finnes.
-    cout << "\Nasjonen du skrev inn finnes ikke";
+    cout << "\nNasjonen du skrev inn finnes ikke";
 }
 
 void Nasjoner :: skrivAllData() {                   // Skriver alle data om en gitt nasjon   : Valg N S
