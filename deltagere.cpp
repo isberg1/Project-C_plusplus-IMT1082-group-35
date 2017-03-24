@@ -15,19 +15,6 @@ using namespace std;
 
 extern Nasjoner nasjonObj;
 
-
-
-Deltagere::Deltagere()
-{
-	antDeltagere = 0;
-	DeltagerListe = new List(Sorted);
-}
-
-Deltagere::Deltagere(char* t)
-{
-
-}
-
 Deltagere::~Deltagere()
 {
 	delete DeltagerListe;
@@ -102,11 +89,9 @@ void Deltagere::endreDeltager()
 void Deltagere::skrivDataAlle()
 {
 	Deltager* tempDeltager;
-	int antDeltagere = 0;
 
-		antDeltagere = DeltagerListe->noOfElements();
-
-	for (int i = 1; i <= antDeltagere; i++) {
+	for (int i = 1; i <= DeltagerListe->noOfElements(); i++) 
+	{
 		tempDeltager = (Deltager*)DeltagerListe->removeNo(i);
 		tempDeltager->displayHoved();
 		DeltagerListe->add(tempDeltager);
@@ -128,7 +113,7 @@ void Deltagere::skrivDataEn()
 	}
 	else
 	{
-		skriv("finner ikke deltager med id: ", buffer);
+		skriv("\n\tFinner ikke deltager med id: ", buffer);
 	}
 }
 
@@ -147,5 +132,3 @@ void Deltagere :: loopDeltagerTropp(char *n) {      // Skriver ut deltagere for 
     DeltagerListe->add(deltager);                   // Legger objekt tilbake i liste.
   }
 }
-
-
