@@ -22,6 +22,8 @@ public:
 	void skrivDataEn();
 	bool sjekkId(int in);
 	void loopDeltagerTropp(char *n);                // Skriver ut deltagere for en nasjon.    : Valg N T
+    void skrivTilFil();                             // Skriver til fil.
+    void lesFraFil();                               // Leser datastruktur fra fil.
 };
 
 #endif

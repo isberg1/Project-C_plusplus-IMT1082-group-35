@@ -27,27 +27,27 @@ Deltager::Deltager()
 }
 
                                                     // Sender med ID til constructor.
-Deltager :: Deltager(char *nyNasjon, int in) : NumElement(in) {
+Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
   char buffer[STRLEN];
 
-    nasjon = nyNasjon;                              // Setter nasjon på deltageren, fra param.
+  nasjon = nyNasjon;                                // Setter nasjon på deltageren, fra param.
 
-    cout << "\nNavnet paa deltageren: ";
-    cin.getline(buffer, STRLEN);                    // Leser inn full navn på nasjon.
-    fullNavn = konverter(buffer);                   // Gjør om størrelsen.
+  cout << "\nNavnet paa deltageren: ";
+  cin.getline(buffer, STRLEN);                      // Leser inn navnet til deltageren.
+  fullNavn = konverter(buffer);                     // Gjør om størrelsen.
 
-    cout << "\nAnnet: ";
-    cin.getline(buffer, STRLEN);                    // Leser inn full navn på nasjon.
-    data = konverter(buffer);                       // Gjør om størrelsen.
+  cout << "\nAnnet: ";
+  cin.getline(buffer, STRLEN);                      // Leser inn annet.
+  data = konverter(buffer);                         // Gjør om størrelsen.
 
-    nasjonObj.oppdaterNasjon(nyNasjon);             // Oppdaterer Nasjon obj. med antDeltagere +1.
+  nasjonObj.oppdaterNasjon(nyNasjon);               // Oppdaterer Nasjon obj. med antDeltagere +1.
 }
-/*
+
 Deltager::~Deltager()
 {
 //		foreløpig ubrukt		//
 }
-*/
+
 void Deltager::endreInfo()
 {
 
@@ -73,6 +73,21 @@ void Deltager :: skrivDeltagerTropp(char *n) {
          << "\nKjonn: " << "kjonn er ikke implimentert...";
 }
 
+void Deltager :: skrivTilFil(ofstream & ut) {       // Skriver til fil.
 
+  /* Filoppsett:
 
+     antObjeketer   -   Antall objeketer i liste.
+     number         -   Deltager ID-en.
+     fullnavn       -   Navnet til deltageren.
+     nasjon         -   Nasjonstilhørighet.
+     data           -   Ekstra informasjon om deltageren.
+     kjonn          -   Kjønnet til deltageren.
+  */
 
+  skriv(ut, number);                                // Skriver ut data til fil via Skriv funksjon.
+  skriv(ut, fullNavn);
+  skriv(ut, nasjon);
+  skriv(ut, data);
+  // skriv ut kjønn
+}

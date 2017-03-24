@@ -148,4 +148,25 @@ void Deltagere :: loopDeltagerTropp(char *n) {      // Skriver ut deltagere for 
   }
 }
 
+void Deltagere :: skrivTilFil() {                   // Skriver til fil.
+  int antDeltagere;
+  Deltager *deltager;                               // Peker til Deltager-objekt.
+  ofstream ut("DELTAGERE.DTA");                     // Lager fil.
 
+  if (DeltagerListe) {                              // Hvis DeltagerListen finnes:
+    antDeltagere = DeltagerListe->noOfElements();   // Antall elementer i listen.
+
+    skriv(ut, antDeltagere);                        // Skriver ut antall Deltagere.
+
+    for (int i = 1; i <= antDeltagere; i++) {       // Looper gjennom alle objekter i lista.
+      deltager = (Deltager*) DeltagerListe->removeNo(i); // Fjerner objekt fra lista.
+      deltager->skrivTilFil(ut);                    // Kaller Deltager som skriver ut sine data.
+      DeltagerListe->add(deltager);                 // Legger Deltager tilbake i lista.
+    }
+  }
+  ut.close();                                       // Lukker fil.
+}
+
+void Deltagere :: lesFraFil() {                     // Leser datastruktur fra fil.
+
+}
