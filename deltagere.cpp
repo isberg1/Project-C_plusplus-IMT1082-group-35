@@ -129,9 +129,6 @@ void Deltagere :: loopDeltagerTropp(char *n) {      // Skriver ut deltagere for 
   if (DeltagerListe)                                // Hvis listen finnes:
     antDeltagere = DeltagerListe->noOfElements();   // Antall deltager-objekter i listen.
 
-  if (antDeltagere == 0)                            // Hvis det ikke er noen i listen:
-    cout << "\n\tNasjonen har ingen deltagere";     // Skriver ut feilmelding.
-
   for (int i = 1; i <= antDeltagere; i++) {         // Looper gjennom listen:
     deltager = (Deltager*) DeltagerListe->removeNo(i); // Fjerner element 1 fra listen.
     deltager->skrivDeltagerTropp(n);                // Kaller Deltager sin funksjon.
