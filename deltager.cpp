@@ -23,7 +23,7 @@ extern Nasjoner nasjonObj;                          // Nasjoner-objekt fra main.
 
 Deltager::Deltager()
 {
-	cout << "\nDet har skjedd en feil! Deltager-objekter skal ikke lages uten parametre!";
+	cout << "\n\tDet har skjedd en feil! Deltager-objekter skal ikke lages uten parametre!";
 }
 
                                                     // Sender med ID til constructor.
@@ -54,25 +54,25 @@ void Deltager::endreInfo()
 
 }
 
-void Deltager::display()
+void Deltager::display()							//	Skriver ut alle data om en deltager.
 {
-
+	cout << "\nDeltagers id:           " << number
+		 << "\nDeltagers navn:         " << fullNavn
+		 << "\nDeltagers kj>nn:        " << deltagerKjonn
+		 << "\nDeltagers nasjonalitet: " << nasjon;
 }
 
 void Deltager::displayHoved()
-{
-	cout << "\nDeltagers id:     " << number
-		<< "\nDeltagers navn:   " << fullNavn
-		<< "\nDeltagers nasjon: " << nasjon;
+{													//	Skriver kun ut hoveddataene for en deltager.
+	cout << "\nDeltagers id:    " << number
+		 << "\nDeltagers navn:  " << fullNavn
+		 << "\nDeltagers kj>nn: " << deltagerKjonn;
 }
 
 void Deltager :: skrivDeltagerTropp(char *n) {
   if (strcmp(n, nasjon) == 0)                       // Hvis nasjonens navn er like parameterens:
     cout << "\nID:    " << number
          << "\nNavn:  " << fullNavn
-         << "\nKjonn: " << "kjonn er ikke implimentert...";
+         << "\nKjonn: " << deltagerKjonn;
 }
-
-
-
 

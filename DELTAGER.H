@@ -4,6 +4,7 @@
 #include <fstream>
 #include "ListTool2B.h"
 #include "CONST.H"
+#include "ENUM.H"
 
 class Deltager : public NumElement
 {
@@ -11,6 +12,7 @@ private:
 	char *fullNavn;
 	char *nasjon;
 	char *data;
+	kjonn deltagerKjonn;
 
 
 	//char nasjon[NASJONLEN], data[STRLEN];

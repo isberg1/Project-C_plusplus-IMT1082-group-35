@@ -20,7 +20,6 @@ public:
 	void endreDeltager();
 	void skrivDataAlle();
 	void skrivDataEn();
-	bool sjekkId(int in);
 	void loopDeltagerTropp(char *n);                // Skriver ut deltagere for en nasjon.    : Valg N T
 };
 

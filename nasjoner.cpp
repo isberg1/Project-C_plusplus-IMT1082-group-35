@@ -109,7 +109,6 @@ void Nasjoner :: skrivHoveddata() {                 // Skriver ut hoveddataene f
 }
 
 void Nasjoner :: skrivDeltagerTropp() {             // Skriver ut data om deltagere i tropp  : Valg N T
-  Nasjon *nasjon;
   char *forkortelse;
 
   skrivUtForkortelse();                             // Skriv ut tilgjengelige valg.
