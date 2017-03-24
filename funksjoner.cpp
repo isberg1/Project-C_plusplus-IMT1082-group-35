@@ -191,9 +191,9 @@ char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 
     forkortelse = konverter(buffer);                // Gjør om størrelsen.
 
   } while ( !erBokstaver(forkortelse) ||            // Så lenge det ikke er bokstaver og
-            strlen(forkortelse) != 3);              // lengder på array ikke er 3.
+            strlen(forkortelse) != NASJONLEN);      // lengder på array ikke er 3.
 
-  for (int i = 0; i < 3; i ++)                      // Looper gjennom indeksene.
+  for (int i = 0; i < NASJONLEN; i ++)              // Looper gjennom indeksene.
     forkortelse[i] = toupper(forkortelse[i]);       // Gjør om til stor bokstav.
 
   return forkortelse;

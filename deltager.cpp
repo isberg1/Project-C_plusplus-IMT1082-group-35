@@ -27,27 +27,53 @@ Deltager::Deltager()
 }
 
                                                     // Sender med ID til constructor.
-Deltager :: Deltager(char *nyNasjon, int in) : NumElement(in) {
+Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
   char buffer[STRLEN];
+  char valg;
 
-    nasjon = nyNasjon;                              // Setter nasjon på deltageren, fra param.
+  nasjon = nyNasjon;                                // Setter nasjon på deltageren, fra param.
 
-    cout << "\nNavnet paa deltageren: ";
-    cin.getline(buffer, STRLEN);                    // Leser inn full navn på nasjon.
-    fullNavn = konverter(buffer);                   // Gjør om størrelsen.
+  cout << "\nNavnet paa deltageren: ";
+  cin.getline(buffer, STRLEN);                      // Leser inn navnet til deltageren.
+  fullNavn = konverter(buffer);                     // Gjør om størrelsen.
 
-    cout << "\nAnnet: ";
-    cin.getline(buffer, STRLEN);                    // Leser inn full navn på nasjon.
-    data = konverter(buffer);                       // Gjør om størrelsen.
+  do {                                              // Loop hvis M eller K ikke blir valg.
+    valg = les("\nKjonn (m/k): ");
+  } while (valg != 'M' && valg != 'K');
 
-    nasjonObj.oppdaterNasjon(nyNasjon);             // Oppdaterer Nasjon obj. med antDeltagere +1.
+  if (valg == 'M')
+    deltagerKjonn = Mann;                           // kjønn blir satt til Mann.
+  else
+    deltagerKjonn = Kvinne;                         // kjønn blir satt til Kvinne.
+
+  cout << "\nAnnet: ";
+  cin.getline(buffer, STRLEN);                      // Leser inn annet.
+  data = konverter(buffer);                         // Gjør om størrelsen.
+
+  nasjonObj.oppdaterNasjon(nyNasjon);               // Oppdaterer Nasjon obj. med antDeltagere +1.
 }
-/*
+
+                                                    // Sender med ID til constructor.
+Deltager :: Deltager(ifstream & inn, int ID) : NumElement(ID) {
+  int tempKjonn;
+
+  fullNavn = lesTxt(inn);                           // Leser datastruktur fra fil via les funksjon.
+  nasjon = lesTxt(inn);
+  data = lesTxt(inn);
+
+  tempKjonn = lesInt(inn);
+
+  if (tempKjonn == 0)                               // Hvis det som ble lest inn = 0.
+    deltagerKjonn = Mann;                           // Setter kjønn til å være Mann.
+  else
+    deltagerKjonn = Kvinne;                         // Setter kjønn til å være Kvinne.
+}
+
 Deltager::~Deltager()
 {
-//		foreløpig ubrukt		//
+//		foreløpig ubrukt
 }
-*/
+
 void Deltager::endreInfo()
 {
 
@@ -56,23 +82,41 @@ void Deltager::endreInfo()
 
 void Deltager::display()							//	Skriver ut alle data om en deltager.
 {
-	cout << "\nDeltagers id:           " << number
+	cout << "\n\nDeltagers id:           " << number
 		 << "\nDeltagers navn:         " << fullNavn
-		 << "\nDeltagers kj>nn:        " << deltagerKjonn
-		 << "\nDeltagers nasjonalitet: " << nasjon;
+		 << "\nDeltagers kjonn:        " << ((deltagerKjonn == Mann) ? "Mann" : "Kvinne")
+		 << "\nDeltagers nasjonalitet: " << nasjon
+		 << "\nAnnet:                  " << data;
 }
 
 void Deltager::displayHoved()
 {													//	Skriver kun ut hoveddataene for en deltager.
-	cout << "\nDeltagers id:    " << number
+	cout << "\n\nDeltagers id:    " << number
 		 << "\nDeltagers navn:  " << fullNavn
-		 << "\nDeltagers kj>nn: " << deltagerKjonn;
+		 << "\nDeltagers kjonn: " << ((deltagerKjonn == Mann) ? "Mann" : "Kvinne");
 }
 
 void Deltager :: skrivDeltagerTropp(char *n) {
   if (strcmp(n, nasjon) == 0)                       // Hvis nasjonens navn er like parameterens:
-    cout << "\nID:    " << number
+    cout << "\n\nID:    " << number
          << "\nNavn:  " << fullNavn
-         << "\nKjonn: " << deltagerKjonn;
+         << "\nKjonn: " << ((deltagerKjonn == Mann) ? "Mann" : "Kvinne");
 }
 
+void Deltager :: skrivTilFil(ofstream & ut) {       // Skriver til fil.
+  /* Filoppsett:
+
+     antObjeketer   -   Antall objeketer i liste.
+     number         -   Deltager ID-en.
+     fullnavn       -   Navnet til deltageren.
+     nasjon         -   Nasjonstilhørighet.
+     data           -   Ekstra informasjon om deltageren.
+     kjonn          -   Kjønnet til deltageren.
+  */
+
+  skriv(ut, number);                                // Skriver ut data til fil via Skriv funksjon.
+  skriv(ut, fullNavn);
+  skriv(ut, nasjon);
+  skriv(ut, data);
+  skriv(ut, deltagerKjonn);
+}

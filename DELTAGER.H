@@ -6,25 +6,28 @@
 #include "CONST.H"
 #include "ENUM.H"
 
-class Deltager : public NumElement
+using namespace std;
+
+
+
+class Deltager : public NumElement                  // Arver lister.
 {
-private:
+private:                                            // Deltager ID = number fra NumElement.
 	char *fullNavn;
 	char *nasjon;
 	char *data;
 	kjonn deltagerKjonn;
 
-
-	//char nasjon[NASJONLEN], data[STRLEN];
-
 public:
-	Deltager();
-	Deltager(char *nyNasjon, int in);
-//	~Deltager();
-	void endreInfo();
-	void display();
-	void displayHoved();
-	void skrivDeltagerTropp(char *n);
+	Deltager();                                     // Constructor.
+	Deltager(char *nyNasjon, int ID);               // Constructor med parametre.
+	Deltager(ifstream & inn, int ID);               // Constructor som leser data fra fil.
+    ~Deltager();                                    // Deconstructor.
+	virtual void display();                         // ?
+    void skrivTilFil(ofstream & ut);                // Skriver til fil.
+	void skrivDeltagerTropp(char *n);               // Skriver ut alle deltagere for gitt nasjon.
+    void endreInfo();                               // ?
+    void displayHoved();                            // ?
 };
 
 #endif

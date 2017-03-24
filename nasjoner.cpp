@@ -26,7 +26,7 @@ Nasjoner :: ~Nasjoner() {
 }
 
 void Nasjoner :: skrivMeny() {                      // Tiljgengelige valg.
-  cout << "\n\nFØLGENDE KOMMANDOER ER TILGJENGELIGE:"
+  cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
        << "\n\tN - Registrer en ny nasjon"
        << "\n\tE - Endre en nasjon"
        << "\n\tA - Skriv hoveddataene om alle nasjoner"
@@ -185,7 +185,7 @@ void Nasjoner :: lesFraFil() {                      // Leser datastruktur fra fi
   delete nasjonsListe;                              // Sletter listen.
   nasjonsListe = new List(Sorted);                  // Lager ny liste.
 
-  ifstream inn("NASJONER.DTA");                      // Åpner fil hvis den eksisterer.
+  ifstream inn("NASJONER.DTA");                     // Åpner fil hvis den eksisterer.
 
   if (inn) {                                        // Hvis filen finnes.
 

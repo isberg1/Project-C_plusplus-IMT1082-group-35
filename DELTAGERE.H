@@ -7,12 +7,9 @@
 class Deltagere
 {
 private:
-	int antDeltagere;                               // Trenger ikke - Bruker ikke array
 	List* DeltagerListe;
 
 public:
-	Deltagere();                                    // Trenger ikke constructor her
-	Deltagere(char* t);                             // Trenger ikke constructor her
 	~Deltagere();
 	void skrivMeny();
 	void menyValg();
@@ -21,6 +18,8 @@ public:
 	void skrivDataAlle();
 	void skrivDataEn();
 	void loopDeltagerTropp(char *n);                // Skriver ut deltagere for en nasjon.    : Valg N T
+    void skrivTilFil();                             // Skriver til fil.
+    void lesFraFil();                               // Leser datastruktur fra fil.
 };
 
 #endif
