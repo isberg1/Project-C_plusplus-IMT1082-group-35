@@ -26,16 +26,10 @@ using namespace std;
 ///  BRUK AV GLOBALE VARIABLE I ANDRE FILER:
 Nasjoner nasjonObj;
 Deltagere deltagerObj;
-//Gren grenenObj;
+Grener grenenerObj;
 //Medaljer medaljeObj;
 //Poeng poengObj;
 
-
-//extern Nasjoner nasjonObj;
-//extern Deltagere deltagerObj;
- Grener grenenerObj;
-//extern Medaljer medaljeObj;
-//extern Poeng poengObj;
 
 
 // **********************************  H O V E D P R O G R A M M E T  **********************************

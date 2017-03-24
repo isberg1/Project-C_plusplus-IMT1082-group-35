@@ -9,7 +9,5 @@ enum seiersType {gull, solv, bronsje};
 //brukes i deltager
 enum kjonn { Mann, Kvinne };
 
-
-
 #endif
 
