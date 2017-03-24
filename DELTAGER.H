@@ -4,6 +4,7 @@
 #include <fstream>
 #include "ListTool2B.h"
 #include "CONST.H"
+#include "ENUM.H"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ private:                                            // Deltager ID = number fra 
 	char *fullNavn;
 	char *nasjon;
 	char *data;
+	kjonn deltagerKjonn;
 
 
 	//char nasjon[NASJONLEN], data[STRLEN];
