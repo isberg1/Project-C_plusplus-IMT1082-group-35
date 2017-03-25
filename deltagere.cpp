@@ -92,12 +92,16 @@ void Deltagere::skrivDataAlle()
 {
 	Deltager* tempDeltager;
 
-	for (int i = 1; i <= DeltagerListe->noOfElements(); i++)
+	if (DeltagerListe)								// Hvis listen eksisterer
 	{
-		tempDeltager = (Deltager*)DeltagerListe->removeNo(i);
-		tempDeltager->displayHoved();
-		DeltagerListe->add(tempDeltager);
+		for (int i = 1; i <= DeltagerListe->noOfElements(); i++)
+		{
+			tempDeltager = (Deltager*)DeltagerListe->removeNo(i);
+			tempDeltager->displayHoved();			// Skriv ut hoveddata for
+			DeltagerListe->add(tempDeltager);		// Alle deltagere i listen.
+		}
 	}
+
 }
 
 void Deltagere::skrivDataEn()
