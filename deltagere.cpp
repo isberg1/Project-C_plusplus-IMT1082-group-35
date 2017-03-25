@@ -15,11 +15,6 @@ using namespace std;
 
 extern Nasjoner nasjonObj;
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 56916b5f6b5210c1dcaf024888ec6180ab0b9f8e
 Deltagere::~Deltagere()
 {
 	delete DeltagerListe;
@@ -27,7 +22,7 @@ Deltagere::~Deltagere()
 
 void Deltagere::skrivMeny()
 {
-	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+	cout << "\n\nFØLGENDE KOMMANDOER ER TILGJENGELIGE:"
 		<< "\n\tN - Registrer ny deltager"
 		<< "\n\tE - Endre deltager"
 		<< "\n\tA - Skriv hoveddataene om alle deltagere"
@@ -76,7 +71,7 @@ void Deltagere :: nyDeltager() {                    // Oppretter ny Deltager    
       nyDeltager = new Deltager(tempNasjon ,deltagerID); // og ID som parameter.
       DeltagerListe->add(nyDeltager);                 // Legger det nye objektet inn i listen.
 
-      skrivTilFil();                                // Skriver datastruktur til fil.
+      // Skriv til fil....
     }
     else                                            // Hvis en deltager med samme ID ligger i lista.
       cout << "\n\tEn deltager med ID: " << deltagerID << " finnes allerede";
@@ -94,13 +89,6 @@ void Deltagere::endreDeltager()
 void Deltagere::skrivDataAlle()
 {
 	Deltager* tempDeltager;
-<<<<<<< HEAD
-=======
-	int antDeltagere;
-
-	if (DeltagerListe)                              // Hvis listen finnes:
-		antDeltagere = DeltagerListe->noOfElements();
->>>>>>> 56916b5f6b5210c1dcaf024888ec6180ab0b9f8e
 
 	for (int i = 1; i <= DeltagerListe->noOfElements(); i++) 
 	{
@@ -117,7 +105,7 @@ void Deltagere::skrivDataEn()
 
 	buffer = les("Skriv inn id'en til deltageren", 0, 9999);
 
-	if (DeltagerListe && DeltagerListe->inList(buffer))
+	if (DeltagerListe->inList(buffer))
 	{
 		tempDeltager = (Deltager*)DeltagerListe->remove(buffer);
 		tempDeltager->display();
@@ -133,8 +121,10 @@ void Deltagere :: loopDeltagerTropp(char *n) {      // Skriver ut deltagere for 
   int antDeltagere;
   Deltager *deltager;
 
-  if (DeltagerListe)                                // Hvis listen finnes:
-    antDeltagere = DeltagerListe->noOfElements();   // Antall deltager-objekter i listen.
+  antDeltagere = DeltagerListe->noOfElements();     // Antall deltager-objekter i listen.
+
+  if (antDeltagere == 0)                            // Hvis det ikke er noen i listen:
+    cout << "\n\tNasjonen har ingen deltagere";     // Skriver ut feilmelding.
 
   for (int i = 1; i <= antDeltagere; i++) {         // Looper gjennom listen:
     deltager = (Deltager*) DeltagerListe->removeNo(i); // Fjerner element 1 fra listen.
@@ -142,50 +132,3 @@ void Deltagere :: loopDeltagerTropp(char *n) {      // Skriver ut deltagere for 
     DeltagerListe->add(deltager);                   // Legger objekt tilbake i liste.
   }
 }
-<<<<<<< HEAD
-=======
-
-void Deltagere :: skrivTilFil() {                   // Skriver til fil.
-  int antDeltagere;
-  Deltager *deltager;                               // Peker til Deltager-objekt.
-  ofstream ut("DELTAGERE.DTA");                     // Lager fil.
-
-  if (DeltagerListe) {                              // Hvis DeltagerListen finnes:
-    antDeltagere = DeltagerListe->noOfElements();   // Antall elementer i listen.
-
-    skriv(ut, antDeltagere);                        // Skriver ut antall Deltagere.
-
-    for (int i = 1; i <= antDeltagere; i++) {       // Looper gjennom alle objekter i lista.
-      deltager = (Deltager*) DeltagerListe->removeNo(i); // Fjerner objekt fra lista.
-      deltager->skrivTilFil(ut);                    // Kaller Deltager som skriver ut sine data.
-      DeltagerListe->add(deltager);                 // Legger Deltager tilbake i lista.
-    }
-  }
-  ut.close();                                       // Lukker fil.
-}
-
-void Deltagere :: lesFraFil() {                     // Leser datastruktur fra fil.
-  int deltagerID, antDeltagere;
-  Deltager *nyDeltager;
-
-  delete DeltagerListe;                             // Sletter listen.
-  DeltagerListe = new List(Sorted);                 // Lager ny liste.
-
-  ifstream inn("DELTAGERE.DTA");                    // Åpner fil hvis den eksisterer.
-
-  if (inn) {                                        // Hvis filen finnes:
-
-    antDeltagere = lesInt(inn);                     // Leser inn int fra fil.
-
-    for (int i = 1; i <= antDeltagere; i++) {       // Looper for alle objekter på filen.
-      deltagerID = lesInt(inn);                     // Leser inn deltagers ID. (number).
-
-      nyDeltager = new Deltager(inn, deltagerID);   // Deltagerobjekt leser inn egne data.
-      DeltagerListe->add(nyDeltager);               // Legger deltager til i liste.
-    }
-    inn.close();                                    // Stenger fil.
-  }
-  else                                              // Hvis filen ikke finnes:
-    cout << "\nFinner ikke filen 'DELTAGERE.DTA'";
-}
->>>>>>> 56916b5f6b5210c1dcaf024888ec6180ab0b9f8e
