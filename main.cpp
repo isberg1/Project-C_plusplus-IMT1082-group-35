@@ -50,9 +50,9 @@ int main() {
 
   while (valgMain != 'X') {                         // Så lenge valg ikke er 'X':
     switch (valgMain) {
-      case 'N' : nasjonObj.menyValg();	      break; // Kaller Nasjoner sin meny.
-      case 'D' : deltagerObj.menyValg();      break; // Kaller Deltagere sin meny.
-	  case 'G' : grenenerObj.skrivMeny();     break; // kaller Grener sin meny.
+      case 'N' : nasjonObj.menyValg();	     break; // Kaller Nasjoner sin meny.
+      case 'D' : deltagerObj.menyValg();     break; // Kaller Deltagere sin meny.
+	  case 'G' : grenenerObj.skrivMeny();    break; // kaller Grener sin meny.
       case 'O' :        break;
       case 'M' :        break;
       case 'P' :        break;

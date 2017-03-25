@@ -119,7 +119,7 @@ void Nasjoner :: skrivDeltagerTropp() {             // Skriver ut data om deltag
   if (nasjonsListe && nasjonsListe->inList(forkortelse)) // og ligger i lista
     deltagerObj.loopDeltagerTropp(forkortelse);     // Kaller Deltagere sin funksjon.
   else                                              // Hvis nasjonsobjektet ikke finnes.
-    cout << "\nNasjonen du skrev inn finnes ikke";
+    cout << "\n\tNasjonen du skrev inn finnes ikke";
 }
 
 void Nasjoner :: skrivAllData() {                   // Skriver alle data om en gitt nasjon   : Valg N S
