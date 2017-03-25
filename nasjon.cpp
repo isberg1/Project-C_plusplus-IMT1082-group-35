@@ -29,7 +29,8 @@ Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   cin.getline(buffer, STRLEN);                      // Leser inn full navn på nasjon.
   fulltNavn = konverter(buffer);                    // Gjør om størrelsen.
 
-  // AntDeltagere blir lest inn fra 'finnesNasjonOgOppdater()' fra Nasjoner. Skal antDeltager bli satt til 0 her?
+  // AntDeltagere blir lest inn fra 'finnesNasjonOgOppdater()' fra Nasjoner.
+  antDeltagere = 0;
 
   cout << "\nKontaktperson: ";
   cin.getline(buffer, STRLEN);                      // Leser inn navn på kontaktperson.
