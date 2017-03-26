@@ -25,12 +25,13 @@ using namespace std;
 
 ///  BRUK AV GLOBALE VARIABLE I ANDRE FILER:
 Nasjoner nasjonObj;
-
+Medaljer medaljeObj;
+Poeng poengObj;
 //extern Nasjoner nasjonObj;
 //extern Deltagere deltagerObj;
  Grener grenenerObj;
 //extern Medaljer medaljeObj;
-//extern Poeng poengObj;
+//extern 
 
 
 // **********************************  H O V E D P R O G R A M M E T  **********************************
@@ -40,6 +41,10 @@ int main() {
 
   nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
   grenenerObj.lesFraFil();
+  medaljeObj.lesFraFil();
+  poengObj.lesFraFil();
+  poengObj.testFunksjon();
+
 
   MainMeny();                                       // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");
