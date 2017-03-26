@@ -24,7 +24,10 @@ class Nasjon : public TextElement {                 // Arver lister.
     ~Nasjon();                                      // Deconstructor.
     virtual void display();                         // Display-funksjon.
     void skrivTilFil(ofstream & ut);                // Skriver til fil.
-    void endreNasjon();                             // Endrer data for en gitt nasjon.
+    void endreNasjonsNavn();                        // Endrer det fulle navnet til nasjonen.
+    void endreKontaktperson();                      // Endrer navnet til kontaktperson.
+    void endreTlf();                                // Endrer TLF til kontaktperson.
+    void endreAnnet();                              // Endrer feltet 'Annet'.
     void skrivHoveddata();                          // Skriver ut hoveddata.
     void skrivForkortelse();                        // Skriver text.
     void oppdaterAntDeltagere();                    // Oppdaterer antall deltagere med 1.

@@ -54,6 +54,15 @@ void Nasjoner :: menyValg() {                       // Valg av funksjonalitet.
   }
 }
 
+void Nasjoner :: endreNasjonMeny() {                // Menyvalg av hva som skal endres hos en nasjon.
+  cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+       << "\n\tN - Det fulle navnet på Nasjonen"
+       << "\n\tE - Navn på kontaktperson"
+       << "\n\tA - Tlf til kontaktperson"
+       << "\n\tT - Feltet 'Annet'"
+       << "\n\tQ - Tilbake til Nasjoners meny";
+}
+
 void Nasjoner :: registrerNyNasjon() {              // Registrerer ny nasjon                 : Valg N N
   char *forkortelse;                                // Nasjonsforkortelsen.
   Nasjon *nyNasjon;
@@ -77,6 +86,7 @@ void Nasjoner :: registrerNyNasjon() {              // Registrerer ny nasjon    
 void Nasjoner :: endreNasjon() {                    // Endre data for en nasjon              : Valg N E
   Nasjon *nasjon;                                   // Peker til nasjons-objekt.
   char *forkortelse;
+  char valg;
 
   skrivUtForkortelse();                             // Skriv ut tilgjengelige valg.
                                                     // Leser inn tre bokstaver og gjør dem store.
@@ -84,11 +94,25 @@ void Nasjoner :: endreNasjon() {                    // Endre data for en nasjon 
 
                                                     // Hvis nasjonslista finnes og
   if (nasjonsListe && nasjonsListe->inList(forkortelse)) { // nasjonen ligger i lista.
+
     nasjon = (Nasjon*) nasjonsListe->remove(forkortelse);  // Fjerner fra lista.
-    nasjon->endreNasjon();                          // Kaller Nasjon sin funksjon for å endre på data.
+
+    endreNasjonMeny();                              // Oversikt over valg.
+    valg = les("\nNasjoner/Endre nasjon: ");
+    while (valg != 'Q') {
+      switch (valg) {
+        case 'N' : nasjon->endreNasjonsNavn();   break;
+        case 'E' : nasjon->endreKontaktperson(); break;
+        case 'A' : nasjon->endreTlf();           break;
+        case 'T' : nasjon->endreAnnet();         break;
+        default  : endreNasjonMeny();            break;
+      }
+      endreNasjonMeny();
+      valg = les("\nNasjoner/Endre nasjon: ");
+    }
     nasjonsListe->add(nasjon);                      // Legger tilbake i lista.
   }
-  else
+  else                                              // Hvis nasjonen ikke finnes:
     cout << "\n\tNasjonen finnes ikke";
 
   skrivTilFil();                                    // Skriver ut til fil.

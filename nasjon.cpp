@@ -25,21 +25,18 @@ Nasjon :: Nasjon() {
 Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
 
-  cout << "\nFullt navn for nasjonen: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn full navn på nasjon.
+  les("\nFullt navn for nasjonen: ", buffer, NVLEN);// Leser inn full navn på nasjon.
   fulltNavn = konverter(buffer);                    // Gjør om størrelsen.
 
   // AntDeltagere blir lest inn fra 'finnesNasjonOgOppdater()' fra Nasjoner.
   antDeltagere = 0;
 
-  cout << "\nKontaktperson: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn navn på kontaktperson.
+  les("\nKontaktperson: ", buffer, NVLEN);          // Leser inn navn på kontaktperson.
   kontaktNavn = konverter(buffer);                  // Gjør om størrelsen.
                                                     // Leser inn tlf i interval.
   kontaktTlf = les("\nKontaktpersonens tlf:", 10000000, 99999999);
 
-  cout << "\nAnnet: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn annen data.
+  les("\nAnnet: ", buffer, STRLEN);                  // Leser inn annen data.
   andreData = konverter(buffer);                    // Gjør om størrelsen.
 }
 
@@ -53,7 +50,10 @@ Nasjon :: Nasjon(ifstream & inn, char *nasjonKort) : TextElement(nasjonKort)  {
 }
 
 Nasjon :: ~Nasjon() {
-  // Ingenting å slette?
+  delete[] text;
+  delete[] fulltNavn;
+  delete[] kontaktNavn;
+  delete[] andreData;
 }
 
 void Nasjon :: display() {
@@ -86,23 +86,32 @@ void Nasjon :: skrivTilFil(ofstream & ut) {
   skriv(ut, andreData);
 }
 
-
-void Nasjon :: endreNasjon() {                      // Endrer data for en gitt nasjon.
+void Nasjon :: endreNasjonsNavn() {                 // Endrer det fulle navnet til nasjonen.
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
 
-  cout << "\nFullt navn: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn full navn på nasjon.
-  fulltNavn = konverter(buffer);                    // Gjør om størrelsen.
+  les("\nNasjonens fulle navn:", buffer, NVLEN);
+  delete[] fulltNavn;                               // Sletter fulltNavn før det lages ny.
+  fulltNavn = konverter(buffer);                    // Gjør om størrelsen og lager ny peker.
+}
 
-  cout << "\nKontaktperson: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn navn på kontaktperson.
-  kontaktNavn = konverter(buffer);                  // Gjør om størrelsen.
-                                                    // Leser inn tlf i interval.
+void Nasjon :: endreKontaktperson() {               // Endrer navnet til kontaktperson.
+  char buffer[STRLEN];
+
+  les("\nKontaktpersonens navn: ", buffer, NVLEN);
+  delete[] kontaktNavn;                             // Sletter kontaktnavn før det lages ny.
+  kontaktNavn = konverter(buffer);                  // Gjør om størrelsen og lager ny peker.
+}
+
+void Nasjon :: endreTlf() {                         // Endrer TLF til kontaktperson.
   kontaktTlf = les("\nKontaktpersonens tlf:", 10000000, 99999999);
+}
 
-  cout << "\nAnnet: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn annen data.
-  andreData = konverter(buffer);                    // Gjør om størrelsen.
+void Nasjon :: endreAnnet() {                       // Endrer feltet 'Annet'.
+  char buffer[STRLEN];
+
+  les("\nAnnet: ", buffer, STRLEN);
+  delete[] andreData;                               // Sletter andreData før det lages ny.
+  andreData = konverter(buffer);                    // Gjør om størrelsen og lager ny peker.
 }
 
 void Nasjon :: skrivHoveddata() {                   // Skriver ut hoveddata.

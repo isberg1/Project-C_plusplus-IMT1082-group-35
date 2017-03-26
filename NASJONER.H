@@ -14,6 +14,7 @@ class Nasjoner {
     ~Nasjoner();                                    // Deconstructor.
     void skrivMeny();                               // Skriver ut meny for Nasjoner.
     void menyValg();                                // Valg av funksjoner.
+    void endreNasjonMeny();                         // Menyvalg av hva som skal endres hos en nasjon.
     void registrerNyNasjon();                       // Registrerer ny nasjon                 : Valg N N
     void endreNasjon();                             // Endre data for en nasjon              : Valg N E
     void skrivHoveddata();                          // Skriver ut hoveddataene for nasjoner  : Valg N A
