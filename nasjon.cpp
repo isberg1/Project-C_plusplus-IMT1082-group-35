@@ -127,3 +127,8 @@ void Nasjon :: skrivForkortelse() {                 // Returnerer text.
 void Nasjon :: oppdaterAntDeltagere() {             // Oppdaterer antall deltagere med 1.
   antDeltagere ++;
 }
+
+bool Nasjon :: harDeltagere() {                     // 'True' hvis nasjonen har 1 eller flere deltagere.
+  if (antDeltagere > 0)
+    return true;
+}
