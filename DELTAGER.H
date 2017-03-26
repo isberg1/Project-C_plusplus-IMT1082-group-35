@@ -26,8 +26,11 @@ public:
 	virtual void display();                         // ?
     void skrivTilFil(ofstream & ut);                // Skriver til fil.
 	void skrivDeltagerTropp(char *n);               // Skriver ut alle deltagere for gitt nasjon.
-    void endreInfo();                               // ?
-    void displayHoved();                            // ?
+	void endreNavn();								// Endrer navnet til en deltager.
+	void endreNasjon();								// Endrer nasjonen til en deltager.
+	void endreData();								// Endrer den ekstra infoen til en deltager.
+	void endreKjonn();								// Endrer kjonnet til en deltager.			// // // NB! Flytter ikke deltager til motsatt ovelse NB! // // //
+	void displayHoved();                            // Skriver ut Hoveddata for en deltager.
 };
 
 #endif

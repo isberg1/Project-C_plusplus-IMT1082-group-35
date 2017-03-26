@@ -85,7 +85,47 @@ void Deltagere :: nyDeltager() {                    // Oppretter ny Deltager    
 
 void Deltagere::endreDeltager()
 {
+	int buffer = 0;
+	char valg;
+	Deltager *tempDeltager;
+	
+	buffer = les("Skriv inn id'en til deltageren", 0, 9999);
+	while (!DeltagerListe->inList(buffer))
+	{
+		cout << "Kunne ikke finne deltageren med id " << buffer;
+		buffer = les("Skriv inn korrekt id", 0, 9999);
+	}
+	tempDeltager = (Deltager*)DeltagerListe->remove(buffer);
+	tempDeltager->display();
 
+	endreDeltagerMeny();
+	valg = les("\nEndre deltager: ");
+	while (valg != 'Q') 
+	{
+		switch (valg) 
+		{
+		case 'N': tempDeltager->endreNavn();	break;
+		case 'E': tempDeltager->endreNasjon();	break;
+		case 'A': tempDeltager->endreData();	break;
+		case 'K': tempDeltager->endreKjonn();	break;
+		default: endreDeltagerMeny();			break;
+		}
+		tempDeltager->display();
+		endreDeltagerMeny();
+	valg = les("\nEndre deltager: ");
+	}
+	DeltagerListe->add(tempDeltager);
+	skrivTilFil();
+}
+
+void Deltagere::endreDeltagerMeny()
+{
+	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+		<< "\n\tN - Endre navn"
+		<< "\n\tE - Endre nasjon"
+		<< "\n\tA - Endre annen info"
+		<< "\n\tK - Endre kjonn"
+		<< "\n\tQ - Tilbake til deltagermeny";
 }
 
 void Deltagere::skrivDataAlle()
@@ -109,7 +149,7 @@ void Deltagere::skrivDataEn()
 	int buffer = 0;
 	Deltager *tempDeltager;
 
-	buffer = les("Skriv inn id'en til deltageren", 0, 9999);
+	buffer = les("Skriv inn id'en til deltageren: ", 0, 9999);
 
 	if (DeltagerListe->inList(buffer))
 	{
@@ -119,7 +159,7 @@ void Deltagere::skrivDataEn()
 	}
 	else
 	{
-		skriv("\n\tFinner ikke deltager med id:", buffer);
+		skriv("\n\tFinner ikke deltager med id: ", buffer);
 	}
 }
 

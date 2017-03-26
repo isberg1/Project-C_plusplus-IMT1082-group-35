@@ -74,10 +74,39 @@ Deltager::~Deltager()
 //		foreløpig ubrukt
 }
 
-void Deltager::endreInfo()
+void Deltager::endreNavn()
 {
+	strcpy(fullNavn, "");
+	les("Skriv inn nytt navn", fullNavn, NVLEN);
+	cout << "\nNavn endret til: " << fullNavn;
+}
 
+void Deltager::endreNasjon()
+{
+//	strcpy(nasjon, "");
+//	les("\nSkriv inn ny nasjontilhorighet", nasjon, NASJONLEN);
+//	cout << "\nNasjon endret til: " << nasjon;
+}
 
+void Deltager::endreData()
+{
+	strcpy(data, "");
+	les("\nSkriv inn ny info", data, STRLEN);
+	cout << "\nEkstra info endret til: " << data;
+}
+
+void Deltager::endreKjonn()						    // Endre kjonn på deltager.
+{
+	char valg;
+	do {                                            // Loop om input ikke er M eller K.
+		valg = les("\nKjonn (m/k): ");
+	} while (valg != 'M' && valg != 'K');
+
+	if (valg == 'M')
+		deltagerKjonn = Mann;                       // Kjonn blir satt til Mann.
+	else
+		deltagerKjonn = Kvinne;						// Kjonn blir satt til Kvinne.
+	cout << "\nKjonn endret til: " << ((deltagerKjonn == Mann) ? "Mann" : "Kvinne");
 }
 
 void Deltager::display()							//	Skriver ut alle data om en deltager.
