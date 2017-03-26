@@ -13,79 +13,72 @@
 #include"FUNKSJONER.H"
 
 using namespace std;
-//<<<<<<< HEAD
 
-Poeng::Poeng()
+Poeng::Poeng()		//constructor
 {
-	for (int i = 0; i <= MAXNASJONER; i++)
+	for (int i = 0; i <= MAXNASJONER; i++)	//nullstiller hele arrayen
 	{	poeng[i] = 0;	}
 }
 
-void Poeng::endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg)
+void Poeng::endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg)	//endre en nasjons antall poeng
 {
 	char temp[MAXNASJONER + 1];
 	int dummy;
 	bool sjekk = true;
 	int teller = 0;
 
-	while (teller < sistebrukt && sjekk) //lupper til hele arrayen er sjekket
+	while (teller < sistebrukt && sjekk)							//lupper til hele arrayen er sjekket
 	{
-		if (!strcmp(nasjon, nasjonsForkort[++teller])) //hvis nasjonen alerede er registrer med medaljer
+		if (!strcmp(nasjon, nasjonsForkort[++teller]))				//hvis nasjonen alerede er registrer med medaljer
 		{
-			sjekk = false;											//avbryter While lupen
+			sjekk = false;												//avbryter While lupen
+							//tar kopier av aktuell int og char
+			dummy = poeng[teller];					
+			strcpy(temp, nasjonsForkort[teller]);
+												//legg til eller trekk fra "antPoeng" fra riktik posisjon i poeng array
+			((posNeg == positiv) ? dummy += antPoeng : dummy -= antPoeng);				
+									//omsorterer arrayer og fjerner det som ble kopiert, sisteBrukt blir ledig til slutt
+			omsorter(teller, poeng);
 
-			((posNeg == positiv) ? poeng[teller] += antPoeng : poeng[teller] -= antPoeng);
-																	
-			sorter(poeng);
+			poeng[sistebrukt] = dummy;									//legger int og char tilbake i array helt bakerst
+			strcpy(nasjonsForkort[sistebrukt], temp);
 
-			//hvis en nasjon ikke lenger har noen poeng
-			if (poeng[sistebrukt] == 0 && nasjonsForkort[sistebrukt][0] != '\0')
-			{							//slett nasjonen fra listen og tell ned "sistebrukt"
-				nasjonsForkort[sistebrukt][0] = '\0';
-				sistebrukt--;
-			}
+			sorter1(poeng);													//sorterer 2 arrayer, starter fra sisteBrukt
 		}
 	}
 
-
-	if (sjekk && sistebrukt < MAXNASJONER && posNeg == positiv)	//hvis nasjon ikke er registert fra for
-	{
+	if (sjekk && sistebrukt < MAXNASJONER && posNeg == positiv)					//hvis nasjon ikke er registert fra før
+	{	
 		sistebrukt++;
 
+		//legger til nasjonsforkortelsen og poeng helt bakerst i arrayen
 		poeng[sistebrukt] = antPoeng;
 		strcpy(nasjonsForkort[sistebrukt], nasjon);
-		//legger til nasjonsforkortelsen helt bakerst i arrayen
-
-		sorter(poeng);
+		
+		sorter1(poeng);					//sorterer 2 arrayer
 	}
-
-	skrivTilFil();
+	skrivTilFil();						//skriv til fil
 }
 
-void Poeng::skrivPoeng()
+void Poeng::skrivPoeng()	//displayer 2 arrayer
 {
 	
 	skriv("Poengoversikt sortert høyest til lavest\n\n", "Nasjonsforkortelse\tPoeng");
 
 	for (int i = 1; i <= sistebrukt; i++)
 	{
-		cout << "\t" << nasjonsForkort[i] << "\t\t\t   " << poeng[i] << "\n";
+		cout << "\t\t" << nasjonsForkort[i] << "\t\t  " << poeng[i] << "\n";
 	}
-
 }
 
-void Poeng::testFunksjon()
+void Poeng::testFunksjon()		//test funksjon		slettes før siste innlevering
 {
-
-	//int antNasj;
 	int dummy;
 	positivNegativ posNeg;
 	int antallPoeng = 0;
 	char temp[MAXNASJONER + 1];
 	char type;
 	skriv("skriv statistikk vedier", "");
-
-
 
 	while (les("skriv: ") != 'Q')
 	{
@@ -95,22 +88,26 @@ void Poeng::testFunksjon()
 		les("skriv nasjonsforkortelse: ", temp, MAXNASJONER);
 
 		if (type == '+')
-		{
-			posNeg = positiv;
-		}
+		{	posNeg = positiv;	}
 		else
-		{
-			posNeg = negativ;
-		}
+		{	posNeg = negativ;	}
 
 		endreAntPoeng(temp, antallPoeng, posNeg);
 		skrivPoeng();
 	}
-
 }
 
-void Poeng::skrivTilFil()
+void Poeng::skrivTilFil()		//skriv til fil
 {
+
+	/*
+	filformat:
+	int  sistebrukt
+	char nasjonsForkortelse
+	int  medaljer
+	(gjenta* sistebrukt)
+	*/
+
 	ofstream ut("POENG.DTA");
 
 	if (ut)
@@ -126,8 +123,17 @@ void Poeng::skrivTilFil()
 	{	skriv("finner ikke fil POENG.DTA", ""); 	}
 }
 
-void Poeng::lesFraFil()
+void Poeng::lesFraFil()		//les fra fil
 {
+	/*
+	filformat:
+	int  sistebrukt
+	char poeng
+	int  medaljer
+	(gjenta* sistebrukt)
+	*/
+
+
 	ifstream inn("POENG.DTA");
 
 	if (inn)
@@ -142,5 +148,4 @@ void Poeng::lesFraFil()
 	else
 	{	skriv("finner ikke fil POENG.DTA", "");  }
 }
-//=======
-//>>>>>>> 2130c20234b8fec4e592379f29213829b50962f6
+
