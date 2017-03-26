@@ -1,8 +1,11 @@
-//poeng.cpp
+/*
+    poeng.cpp
+    Klassefunksjoner Poeng
+*/
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
 #include <iostream>
 #include <cstring>
@@ -10,6 +13,7 @@
 #include"FUNKSJONER.H"
 
 using namespace std;
+//<<<<<<< HEAD
 
 Poeng::Poeng()
 {
@@ -138,3 +142,5 @@ void Poeng::lesFraFil()
 	else
 	{	skriv("finner ikke fil POENG.DTA", "");  }
 }
+//=======
+//>>>>>>> 2130c20234b8fec4e592379f29213829b50962f6

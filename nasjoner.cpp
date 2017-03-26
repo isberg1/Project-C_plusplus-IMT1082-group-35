@@ -9,11 +9,15 @@
 
 
 #include "NASJONER.H"                               // Klassen Nasjoner.
+#include "DELTAGERE.H"                              // Klassen Deltagere.
 #include "CONST.H"                                  // Conster.
 #include "FUNKSJONER.H"                             // Globale funksjoner.
 #include <iostream>                                 // cin, cout.
 
 using namespace std;
+
+
+extern Deltagere deltagerObj;                       // Deltager-objekt fra main.
 
 
 
@@ -22,13 +26,13 @@ Nasjoner :: ~Nasjoner() {
 }
 
 void Nasjoner :: skrivMeny() {                      // Tiljgengelige valg.
-  cout << "\n\nFØLGENDE KOMMANDOER ER TILGJENGELIGE:"
+  cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
        << "\n\tN - Registrer en ny nasjon"
        << "\n\tE - Endre en nasjon"
        << "\n\tA - Skriv hoveddataene om alle nasjoner"
        << "\n\tT - Skriv en nasjons deltagertropp"
        << "\n\tS - Skriv alle data om en gitt nasjon"
-       << "\n\tQ - Gå tilbake til hovedmeny";
+       << "\n\tQ - Tilbake til hovedmeny";
 }
 
 void Nasjoner :: menyValg() {                       // Valg av funksjonalitet.
@@ -105,7 +109,6 @@ void Nasjoner :: skrivHoveddata() {                 // Skriver ut hoveddataene f
 }
 
 void Nasjoner :: skrivDeltagerTropp() {             // Skriver ut data om deltagere i tropp  : Valg N T
-  Nasjon *nasjon;
   char *forkortelse;
 
   skrivUtForkortelse();                             // Skriv ut tilgjengelige valg.
@@ -113,13 +116,10 @@ void Nasjoner :: skrivDeltagerTropp() {             // Skriver ut data om deltag
   forkortelse = nasjonsForkortelse("\nFor hvilke nasjon skal deltagertroppen skrives ut?");
 
                                                     // Hvis nasjon finnes
-  if (nasjonsListe && nasjonsListe->inList(forkortelse)) { // og ligger i lista
-
-    // Kjør grensesnitt funksjon som displayer deltagere.
-    // Loop må skje på Deltagere sin side.
-  }
+  if (nasjonsListe && nasjonsListe->inList(forkortelse)) // og ligger i lista
+    deltagerObj.loopDeltagerTropp(forkortelse);     // Kaller Deltagere sin funksjon.
   else                                              // Hvis nasjonsobjektet ikke finnes.
-    cout << "\Nasjonen du skrev inn finnes ikke";
+    cout << "\n\tNasjonen du skrev inn finnes ikke";
 }
 
 void Nasjoner :: skrivAllData() {                   // Skriver alle data om en gitt nasjon   : Valg N S
@@ -140,26 +140,22 @@ void Nasjoner :: skrivAllData() {                   // Skriver alle data om en g
     cout << "\n\tNasjonen finnes ikke";
 }
 
-bool Nasjoner :: finnesNasjonOgOppdater() {         // Hvis Nasjon finnes, antDeltagere +1   : Valg D -
-  Nasjon *nasjon;
-  char *forkortelse;
-
-  skrivUtForkortelse();                             // Skriv ut tilgjengelige valg.
-                                                    // Leser inn tre bokstaver og gjør dem store.
-  forkortelse = nasjonsForkortelse("\nSkriv inn nasjonens forkortelse");
+bool Nasjoner :: finnesNasjon(char *sjekkNasjon) {  // Hvis Nasjon finnes                    : Valg D N
 
                                                     // Hvis nasjonenslista finnes
-  if (nasjonsListe && nasjonsListe->inList(forkortelse)) { // og nasjonen ligger i lista.
-
-    nasjon = (Nasjon*) nasjonsListe->remove(forkortelse);  // Fjerner objekt fra liste.
-    nasjon->oppdaterAntDeltagere();                 // Oppdaterer antDeltagere med 1.
-    nasjonsListe->add(nasjon);                      // Legger tilbake i liste.
-
-    skrivTilFil();                                  // Skriver endringer til fil.
+  if (nasjonsListe && nasjonsListe->inList(sjekkNasjon)) // og nasjonen ligger i lista.
     return true;
-  }
   else
     return false;                                   // Hvis usant.
+}
+
+void Nasjoner :: oppdaterNasjon(char *oppdNasjon) { // Plusser på antDeltagere med 1         : Valg D N
+  Nasjon *nasjon;
+
+  nasjon = (Nasjon*) nasjonsListe->remove(oppdNasjon);  // Fjerner objekt fra liste.
+  nasjon->oppdaterAntDeltagere();                 // Oppdaterer antDeltagere med 1.
+  nasjonsListe->add(nasjon);                      // Legger tilbake i liste.
+  skrivTilFil();                                  // Skriver endringer til fil.
 }
 
 void Nasjoner :: skrivTilFil() {                    // Skriver til fil.
@@ -189,7 +185,7 @@ void Nasjoner :: lesFraFil() {                      // Leser datastruktur fra fi
   delete nasjonsListe;                              // Sletter listen.
   nasjonsListe = new List(Sorted);                  // Lager ny liste.
 
-  ifstream inn("NASJONER.DTA");                      // Åpner fil hvis den eksisterer.
+  ifstream inn("NASJONER.DTA");                     // Åpner fil hvis den eksisterer.
 
   if (inn) {                                        // Hvis filen finnes.
 
@@ -226,5 +222,5 @@ void Nasjoner :: skrivUtForkortelse() {             // Skriver ut nasjonens fork
     }
   }
   else                                              // Hvis ingen ligger i listen.
-    cout << "\nIngen nasjoner er registrert";
+    cout << "\n\tIngen nasjoner er registrert";
 }

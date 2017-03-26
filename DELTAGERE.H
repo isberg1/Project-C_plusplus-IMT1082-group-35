@@ -1,22 +1,28 @@
 #if !defined(__DELTAGERE_H)
 #define  __DELTAGERE_H
-/*
-class Lege : public TextElement		//	Lege arver fra TextElement.
+
+#include <fstream>
+#include "ListTool2B.h"
+
+
+
+class Deltagere
 {
 private:
-	char* adresse;					//	Tar var p^ adressen og
-	int  telefon;					//	telefonnummeret til legen.
-	List* reseptListe;				//	Teller resepter.
+	List* DeltagerListe;
 
 public:
-	Lege(char* t);					//	Constructor for manuell innskriving.
-	Lege(char ch[], ifstream &fil);	//	Constructor for innhenting fra fil.
-	~Lege();						//	Deconstructor(Sletter alle 'new').
-	void lagResept();
-	void display();
-	void skrivTilFil(ofstream &fil);
-	void finnPasient(char ch[]);
-	int slettResept(int i);
+	~Deltagere();
+	void skrivMeny();
+	void menyValg();
+	void nyDeltager();                              // Oppretter ny Deltager                  : Valg D N
+	void endreDeltager();
+	void endreDeltagerMeny();
+	void skrivDataAlle();
+	void skrivDataEn();
+	void loopDeltagerTropp(char *n);                // Skriver ut deltagere for en nasjon.    : Valg N T
+    void skrivTilFil();                             // Skriver til fil.
+    void lesFraFil();                               // Leser datastruktur fra fil.
 };
-*/
+
 #endif

@@ -65,7 +65,7 @@ char *konverter(char t[]) {
 
 void MainMeny()
 {
-	cout << "\nHovedmeny \nMulige brukervalg"
+	cout << "\n\nHovedmeny \nMulige brukervalg"
 		<< "\n(N) Nasjoner"
 		<< "\n(D) Deltagere"
 		<< "\n(G) Grener"
@@ -127,7 +127,7 @@ void skrivTilFil() {										//skriver alt til fil
 
 	int antallObjekter = 20; //dummy for å fjerne feilmld. må fjernes!!!!!!!
 													//sortert liste
-	if (ut)													//hvis fillen finnes
+	if (ut)													//hvis filen finnes
 	{
 
 		skriv(ut, antallObjekter);							  //antall legeobjekter
@@ -191,9 +191,9 @@ char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 
     forkortelse = konverter(buffer);                // Gjør om størrelsen.
 
   } while ( !erBokstaver(forkortelse) ||            // Så lenge det ikke er bokstaver og
-            strlen(forkortelse) != 3);              // lengder på array ikke er 3.
+            strlen(forkortelse) != NASJONLEN);      // lengder på array ikke er 3.
 
-  for (int i = 0; i < 3; i ++)                      // Looper gjennom indeksene.
+  for (int i = 0; i < NASJONLEN; i ++)              // Looper gjennom indeksene.
     forkortelse[i] = toupper(forkortelse[i]);       // Gjør om til stor bokstav.
 
   return forkortelse;

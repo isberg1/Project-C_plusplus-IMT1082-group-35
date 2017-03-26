@@ -20,6 +20,7 @@ using namespace std;
 Nasjon :: Nasjon() {
   cout << "\nAdvarsel, Nasjon-objekter skal ikke lages uten parameter";
 }
+
                                                     // Sender med forkortelsen til constructor.
 Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
@@ -29,6 +30,7 @@ Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   fulltNavn = konverter(buffer);                    // Gjør om størrelsen.
 
   // AntDeltagere blir lest inn fra 'finnesNasjonOgOppdater()' fra Nasjoner.
+  antDeltagere = 0;
 
   cout << "\nKontaktperson: ";
   cin.getline(buffer, STRLEN);                      // Leser inn navn på kontaktperson.
@@ -40,6 +42,7 @@ Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   cin.getline(buffer, STRLEN);                      // Leser inn annen data.
   andreData = konverter(buffer);                    // Gjør om størrelsen.
 }
+
                                                     // Sender med forkortelsen til constructor.
 Nasjon :: Nasjon(ifstream & inn, char *nasjonKort) : TextElement(nasjonKort)  {
   antDeltagere = lesInt(inn);                       // Leser datastruktur fra fil via les funksjon.
@@ -66,6 +69,7 @@ void Nasjon :: skrivTilFil(ofstream & ut) {
 
   /* Filoppsett:
 
+     antObjeketer   -   Antall objeketer i liste.
      text           -   forkortelsesnavn
      antDeltagere   -   Antall deltagere i troppen
      fulltNavn      -   Det fulle navnet til nasjonen
@@ -99,7 +103,6 @@ void Nasjon :: endreNasjon() {                      // Endrer data for en gitt n
   cout << "\nAnnet: ";
   cin.getline(buffer, STRLEN);                      // Leser inn annen data.
   andreData = konverter(buffer);                    // Gjør om størrelsen.
-
 }
 
 void Nasjon :: skrivHoveddata() {                   // Skriver ut hoveddata.

@@ -27,11 +27,15 @@ using namespace std;
 Nasjoner nasjonObj;
 Medaljer medaljeObj;
 Poeng poengObj;
+Deltagere deltagerObj;
+Grener grenenerObj;
+
 //extern Nasjoner nasjonObj;
 //extern Deltagere deltagerObj;
- Grener grenenerObj;
+//extern Grener grenenerObj;
 //extern Medaljer medaljeObj;
 //extern 
+
 
 
 // **********************************  H O V E D P R O G R A M M E T  **********************************
@@ -43,17 +47,17 @@ int main() {
   grenenerObj.lesFraFil();
   medaljeObj.lesFraFil();
   poengObj.lesFraFil();
-  poengObj.testFunksjon();
-
+  deltagerObj.lesFraFil();                          // Leser deltagers data fra fil.
+				
 
   MainMeny();                                       // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");
 
   while (valgMain != 'X') {                         // Så lenge valg ikke er 'X':
     switch (valgMain) {
-      case 'N' : nasjonObj.menyValg();	      break; // Kaller Nasjoner sin meny.
-      case 'D' :        break;
-	  case 'G':  grenenerObj.skrivMeny();     break; // kaller Grener sin meny.
+      case 'N' : nasjonObj.menyValg();	     break; // Kaller Nasjoner sin meny.
+      case 'D' : deltagerObj.menyValg();     break; // Kaller Deltagere sin meny.
+	  case 'G' : grenenerObj.skrivMeny();    break; // kaller Grener sin meny.
       case 'O' :        break;
       case 'M' :        break;
       case 'P' :        break;
