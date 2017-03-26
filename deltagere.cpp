@@ -88,7 +88,7 @@ void Deltagere::endreDeltager()
 	int buffer = 0;
 	char valg;
 	Deltager *tempDeltager;
-	
+
 	buffer = les("Skriv inn id'en til deltageren", 0001, 9999);
 	while (!DeltagerListe->inList(buffer))
 	{
@@ -100,9 +100,9 @@ void Deltagere::endreDeltager()
 
 	endreDeltagerMeny();
 	valg = les("\nEndre deltager: ");
-	while (valg != 'Q') 
+	while (valg != 'Q')
 	{
-		switch (valg) 
+		switch (valg)
 		{
 		case 'N': tempDeltager->endreNavn();	break;
 		case 'E': tempDeltager->endreNasjon();	break;
@@ -169,9 +169,6 @@ void Deltagere :: loopDeltagerTropp(char *n) {      // Skriver ut deltagere for 
 
   if (DeltagerListe)                                // Hvis listen finnes:
     antDeltagere = DeltagerListe->noOfElements();   // Antall deltager-objekter i listen.
-
-  if (antDeltagere == 0)                            // Hvis det ikke er noen i listen:
-    cout << "\n\tNasjonen har ingen deltagere";     // Skriver ut feilmelding.
 
   for (int i = 1; i <= antDeltagere; i++) {         // Looper gjennom listen:
     deltager = (Deltager*) DeltagerListe->removeNo(i); // Fjerner element 1 fra listen.

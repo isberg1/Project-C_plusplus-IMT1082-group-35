@@ -133,16 +133,27 @@ void Nasjoner :: skrivHoveddata() {                 // Skriver ut hoveddataene f
 }
 
 void Nasjoner :: skrivDeltagerTropp() {             // Skriver ut data om deltagere i tropp  : Valg N T
+  Nasjon *nasjon;
   char *forkortelse;
+  bool deltagere;
 
   skrivUtForkortelse();                             // Skriv ut tilgjengelige valg.
                                                     // Leser inn tre bokstaver og gjør dem store.
   forkortelse = nasjonsForkortelse("\nFor hvilke nasjon skal deltagertroppen skrives ut?");
 
                                                     // Hvis nasjon finnes
-  if (nasjonsListe && nasjonsListe->inList(forkortelse)) // og ligger i lista
-    deltagerObj.loopDeltagerTropp(forkortelse);     // Kaller Deltagere sin funksjon.
-  else                                              // Hvis nasjonsobjektet ikke finnes.
+  if (nasjonsListe && nasjonsListe->inList(forkortelse)) { // og ligger i lista:
+
+    nasjon = (Nasjon*) nasjonsListe->remove(forkortelse); // Fjerner nasjon fra lista.
+    deltagere = nasjon->harDeltagere();             // Kaller funksjon, true hvis nasjon har deltagere.
+    nasjonsListe->add(nasjon);                      // Legger nasjon tilbake i lista.
+
+    if (deltagere)                                  // Hvis nasjonen har deltagere:
+      deltagerObj.loopDeltagerTropp(forkortelse);   // Kaller Deltagere sin funksjon.
+    else                                            // Hvis nasjonen ikke har deltagere:
+      cout << "\n\tNasjonen har ingen deltagere";   // Skriver ut feilmelding.
+  }
+  else                                              // Hvis nasjonsobjektet ikke finnes:
     cout << "\n\tNasjonen du skrev inn finnes ikke";
 }
 
