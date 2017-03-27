@@ -222,7 +222,7 @@ char *konverterTilStore(char *tekst) {            // Gjør om til store bokstaver
 
 void bubbleSort(int array[])		//sorterer en int array.  kan kanskje brukes til deltager- og resultatListe i Ovelse
 {
-	int sistebrukt=10; //arryens lengde endres før bruk !!!!!!!!!!!!!!
+	int sistebrukt=10; //arrayens lengde endres før bruk !!!!!!!!!!!!!!
 
 	int dummy;
 	char temp[MAXNASJONER + 1];
