@@ -7,7 +7,7 @@ const int NASJONLEN = 3;
 const int MAXNASJONER = 200;
 const int MAXOVELSER = 20;
 const int MINDELTAGERE = 2;
-//const int MAXDELTAGERE  const står i oppg.text men verdien er ukjent
+const int MAXDELTAGERE = 100; // consten star i opp.text. men riktig verdi er ukjent. jeg bare satt den til 100 
 
 
 #endif
