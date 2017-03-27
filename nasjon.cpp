@@ -89,19 +89,19 @@ void Nasjon :: skrivTilFil(ofstream & ut) {
 
 void Nasjon :: endreNasjon() {                      // Endrer data for en gitt nasjon.
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
-
+																							
   cout << "\nFullt navn: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn full navn på nasjon.
+  cin.getline(buffer, STRLEN);                      // Leser inn full navn på nasjon.		//!!!!!!bruk les(char[], char[], LEN)
   fulltNavn = konverter(buffer);                    // Gjør om størrelsen.
 
   cout << "\nKontaktperson: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn navn på kontaktperson.
+  cin.getline(buffer, STRLEN);                      // Leser inn navn på kontaktperson.		//!!!!!!bruk les(char[], char[], LEN)
   kontaktNavn = konverter(buffer);                  // Gjør om størrelsen.
                                                     // Leser inn tlf i interval.
   kontaktTlf = les("\nKontaktpersonens tlf:", 10000000, 99999999);
 
   cout << "\nAnnet: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn annen data.
+  cin.getline(buffer, STRLEN);                      // Leser inn annen data.				//!!!!!!bruk les(char[], char[], LEN)
   andreData = konverter(buffer);                    // Gjør om størrelsen.
 }
 
@@ -117,4 +117,17 @@ void Nasjon :: skrivForkortelse() {                 // Returnerer text.
 
 void Nasjon :: oppdaterAntDeltagere() {             // Oppdaterer antall deltagere med 1.
   antDeltagere ++;
+}
+//
+//char * Nasjon::returnerFulltNavn()
+//{
+//	char buffer[STRLEN];
+//
+//	strcpy(buffer, fulltNavn);
+//	return buffer;
+//}
+
+void Nasjon::minus1Deltager()
+{
+	antDeltagere--;
 }

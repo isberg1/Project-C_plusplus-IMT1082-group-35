@@ -159,7 +159,7 @@ void lesFraFil(int alternativ) {							// leser alt fra fil
 		for (int i = 1; i <= antallObjekter; i++)
 		{
 			//les første
-			//nytt bjekt med arg.
+			//nytt objekt med arg.
 			//legg til objekt i liste
 		}
 	}
@@ -187,8 +187,8 @@ char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 
     cout << t;                                      // Skriver ut ledetekst.
     do {                                            // Loop:
     cout << "\nNasjonsforkortelse (3 bokstaver): ";
-    cin.getline(buffer, STRLEN);                    // Leser inn verdi.
-    forkortelse = konverter(buffer);                // Gjør om størrelsen.
+    cin.getline(buffer, STRLEN);                    // Leser inn verdi.					//!!!!!! bruk les(char [], char [], LEN)
+    forkortelse = konverter(buffer);                // Gjør om størrelsen.				//!!!!!! kan ikke stå inni lupen, men kan stå under toupper()
 
   } while ( !erBokstaver(forkortelse) ||            // Så lenge det ikke er bokstaver og
             strlen(forkortelse) != NASJONLEN);      // lengder på array ikke er 3.
@@ -197,4 +197,25 @@ char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 
     forkortelse[i] = toupper(forkortelse[i]);       // Gjør om til stor bokstav.
 
   return forkortelse;
+}
+
+void bubbleSort(int array[])		//sorterer en int array.  kan kanskje brukes til deltager- og resultatListe i Ovelse
+{
+	int sistebrukt=10; //arryens lengde endres før bruk !!!!!!!!!!!!!!
+
+	int dummy;
+	char temp[MAXNASJONER + 1];
+
+	for (int i = 1; i <= sistebrukt - 1; i++)
+	{
+		for (int j = i + 1; j <= sistebrukt; j++)
+		{
+			if (array[i] < array[j])
+			{					//swap 
+				dummy = array[i];
+				array[i] = array[j];
+				array[j] = dummy;
+			}
+		}
+	}
 }

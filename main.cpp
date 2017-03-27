@@ -44,11 +44,13 @@ int main() {
   char valgMain;
 
   nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
-  grenenerObj.lesFraFil();
-  medaljeObj.lesFraFil();
-  poengObj.lesFraFil();
+  grenenerObj.lesFraFil();							//leser grener fra fil
+  medaljeObj.lesFraFil();							//leser medaljer fra fil
+  poengObj.lesFraFil();								//leser poeng fra fil
   deltagerObj.lesFraFil();                          // Leser deltagers data fra fil.
 				
+  
+
 
   MainMeny();                                       // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");
@@ -59,8 +61,8 @@ int main() {
       case 'D' : deltagerObj.menyValg();     break; // Kaller Deltagere sin meny.
 	  case 'G' : grenenerObj.skrivMeny();    break; // kaller Grener sin meny.
       case 'O' :        break;
-      case 'M' :        break;
-      case 'P' :        break;
+	  case 'M' : medaljeObj.skrivMedaljer(); break; // viser medaljeoversikt
+	  case 'P' : poengObj.skrivPoeng();      break;	// viser poengoversikt
     }
     MainMeny();
     valgMain = les("\nHovedmeny: ");

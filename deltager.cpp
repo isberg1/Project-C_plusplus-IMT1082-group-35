@@ -34,12 +34,12 @@ Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
   nasjon = nyNasjon;                                // Setter nasjon på deltageren, fra param.
 
   cout << "\nNavnet paa deltageren: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn navnet til deltageren.
+  cin.getline(buffer, STRLEN);                      // Leser inn navnet til deltageren.		
   fullNavn = konverter(buffer);                     // Gjør om størrelsen.
 
   do {                                              // Loop hvis M eller K ikke blir valg.
     valg = les("\nKjonn (m/k): ");
-  } while (valg != 'M' && valg != 'K');
+  } while (valg != 'M' && valg != 'K');														
 
   if (valg == 'M')
     deltagerKjonn = Mann;                           // kjønn blir satt til Mann.
@@ -47,8 +47,8 @@ Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
     deltagerKjonn = Kvinne;                         // kjønn blir satt til Kvinne.
 
   cout << "\nAnnet: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn annet.
-  data = konverter(buffer);                         // Gjør om størrelsen.
+  cin.getline(buffer, STRLEN);                      // Leser inn annet.					
+  data = konverter(buffer);                         // Gjør om størrelsen.				
 
   nasjonObj.oppdaterNasjon(nyNasjon);               // Oppdaterer Nasjon obj. med antDeltagere +1.
 }
@@ -71,28 +71,44 @@ Deltager :: Deltager(ifstream & inn, int ID) : NumElement(ID) {
 
 Deltager::~Deltager()
 {
-//		foreløpig ubrukt
+//		foreløpig ubrukt												
 }
 
-void Deltager::endreNavn()
-{
-	strcpy(fullNavn, "");
-	les("Skriv inn nytt navn", fullNavn, NVLEN);
-	cout << "\nNavn endret til: " << fullNavn;
+void Deltager::endreNavn()//!!!!!!!!! les inn ny nasjon
+{																		
+																		
+	strcpy(fullNavn, "");													
+	les("Skriv inn nytt navn", fullNavn, NVLEN);						
+	cout << "\nNavn endret til: " << fullNavn;			
 }
 
-void Deltager::endreNasjon()
-{
-//	strcpy(nasjon, "");
-//	les("\nSkriv inn ny nasjontilhorighet", nasjon, NASJONLEN);
-//	cout << "\nNasjon endret til: " << nasjon;
+void Deltager::endreNasjon()													//endrer nasjonen til en deltager
+{														
+	char *forkortelse;
+	
+	forkortelse = nasjonsForkortelse("\nSkriv inn den nye nasjonens forkortelse"); //les ny nasjon
+
+	if (nasjonObj.finnesNasjon(forkortelse)) {									//hvis ny najon finnes
+
+		nasjonObj.reduserAntDeltagere(nasjon);									//reduser antall deltagere i aktuelt obj.
+		delete[]nasjon;															//slett navnet på laget nasjon
+		nasjonObj.okAntalletDeltagere(forkortelse);								//ook antallet deltagere i aktuell obj
+		nasjon = forkortelse;													//sett nytt navn på nasjon
+		nasjonObj.skrivTilFil();												//skriv til fil
+	}
+	else
+	{
+		skriv("Finner ikke nasjon med forkortelsen: ", forkortelse);	//feilmelding
+		delete[]forkortelse;										//slett navnet på ny nasjon hvis den ikke eksisterer
+	}
 }
 
 void Deltager::endreData()
 {
-	strcpy(data, "");
-	les("\nSkriv inn ny info", data, STRLEN);
-	cout << "\nEkstra info endret til: " << data;
+																			
+	strcpy(data, "");													
+	les("\nSkriv inn ny info", data, STRLEN);								
+	cout << "\nEkstra info endret til: " << data;							
 }
 
 void Deltager::endreKjonn()						    // Endre kjonn på deltager.

@@ -28,6 +28,8 @@ class Nasjon : public TextElement {                 // Arver lister.
     void skrivHoveddata();                          // Skriver ut hoveddata.
     void skrivForkortelse();                        // Skriver text.
     void oppdaterAntDeltagere();                    // Oppdaterer antall deltagere med 1.
+//	char *returnerFulltNavn();						// Henter nasjonens navn.
+	void minus1Deltager();							// reduserer antall deltagere med 1
 };
 
 

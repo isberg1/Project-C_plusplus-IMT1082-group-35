@@ -85,7 +85,7 @@ void Gren::endreNavn()// til komado G E
 	char buffer[NVLEN];
 
 	les("Skriv nytt unikt navn: ", buffer, NVLEN);
-	delete text;
+	delete []text;
 	text = konverter(buffer);
 }
 //skriver alle data om denne grenen

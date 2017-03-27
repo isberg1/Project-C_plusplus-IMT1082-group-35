@@ -16,8 +16,8 @@ public:
 	void skrivMeny();
 	void menyValg();
 	void nyDeltager();                              // Oppretter ny Deltager                  : Valg D N
-	void endreDeltager();
-	void endreDeltagerMeny();
+	void endreDeltager();							//endrer deltagerens datamedlemmer		  : Valg D E
+	void endreDeltagerMeny();						// velg hvilken datamedlemmer som skal enders
 	void skrivDataAlle();
 	void skrivDataEn();
 	void loopDeltagerTropp(char *n);                // Skriver ut deltagere for en nasjon.    : Valg N T

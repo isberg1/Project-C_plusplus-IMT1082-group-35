@@ -15,7 +15,7 @@ void les(const char t[], char s[], const int LEN);	//leser text string
 int  les(const char t[], const int min, const int max);//leser en int med ledetext
 int lesInt(ifstream& inn);			                //leser en int fra fil i et standardforman
 char *lesTxt(ifstream& inn);                        //leser en string fra fil i et standardforman returnerer peker
-void lesTxt2(ifstream& inn, char string[]);
+void lesTxt2(ifstream& inn, char string[]);			//leser inn en char[] fra fil
 void skriv(const char* text, const char* string);   //display string med ledetext
 void skriv(const char* text, const int dataMedlem); //display int med ledetext
 void skriv(ofstream& ut, int tall);	                //skriver en int til fil i et standardforman
@@ -31,6 +31,9 @@ void MainMeny();
 
 bool erBokstaver(char tekst[]);                     // Sjekker om alle indekser i array er bokstav.
 char *nasjonsForkortelse(char *t);                  // Sjekker at chars=3, gjør dem store. Med ledetext.
+
+void bubbleSort(int array[]);							//sorterer 1 int array
+
 
 #endif
 

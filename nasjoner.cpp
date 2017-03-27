@@ -142,8 +142,8 @@ void Nasjoner :: skrivAllData() {                   // Skriver alle data om en g
 
 bool Nasjoner :: finnesNasjon(char *sjekkNasjon) {  // Hvis Nasjon finnes                    : Valg D N
 
-                                                    // Hvis nasjonenslista finnes
-  if (nasjonsListe && nasjonsListe->inList(sjekkNasjon)) // og nasjonen ligger i lista.
+                                                    // Hvis nasjonenslista finnes				
+  if (nasjonsListe && nasjonsListe->inList(sjekkNasjon)) // og nasjonen ligger i lista.			//!!!!!!!! vurder bruk av nasjonsListe.isEmpty()
     return true;
   else
     return false;                                   // Hvis usant.
@@ -223,4 +223,35 @@ void Nasjoner :: skrivUtForkortelse() {             // Skriver ut nasjonens fork
   }
   else                                              // Hvis ingen ligger i listen.
     cout << "\n\tIngen nasjoner er registrert";
+}
+//
+//char * Nasjoner::hentFulltNavn(char * nasjonsForkortelse)
+//{
+//	char *buffer;
+//	Nasjon *ptr;
+//
+//	ptr = (Nasjon*)nasjonsListe->remove(nasjonsForkortelse);
+//	buffer = ptr->returnerFulltNavn();
+//	nasjonsListe->add(ptr);
+//	
+//	return buffer;
+//}
+
+void Nasjoner::reduserAntDeltagere(char *nasjonsforkortelse)		//reduser antall deltagere med 1
+{
+	Nasjon *ptr;
+															
+	ptr = (Nasjon *)nasjonsListe->remove(nasjonsforkortelse);
+	ptr->minus1Deltager();
+	nasjonsListe->add(ptr);
+}
+
+void Nasjoner::okAntalletDeltagere(char *nasjonsForkortelse)		
+{
+	Nasjon *ptr;
+
+	ptr = (Nasjon*) nasjonsListe->remove(nasjonsForkortelse);
+	ptr->oppdaterAntDeltagere();
+	nasjonsListe->add(ptr);
+
 }
