@@ -33,9 +33,8 @@ Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
 
   nasjon = nyNasjon;                                // Setter nasjon på deltageren, fra param.
 
-  cout << "\nNavnet paa deltageren: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn navnet til deltageren.		
-  fullNavn = konverter(buffer);                     // Gjør om størrelsen.
+  les("\nNavnet paa deltageren: ", buffer, NVLEN);  // Leser in nnavet på deltageren.
+  fullNavn = konverter(buffer);                     // Gjør om størrelsen og lager ny.
 
   do {                                              // Loop hvis M eller K ikke blir valg.
     valg = les("\nKjonn (m/k): ");
@@ -46,9 +45,8 @@ Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
   else
     deltagerKjonn = Kvinne;                         // kjønn blir satt til Kvinne.
 
-  cout << "\nAnnet: ";
-  cin.getline(buffer, STRLEN);                      // Leser inn annet.					
-  data = konverter(buffer);                         // Gjør om størrelsen.				
+  les("\nAnnet: ", buffer, STRLEN);                 // Leser inn annet.
+  data = konverter(buffer);                         // Gjør om størrelsen og lager ny.
 
   nasjonObj.oppdaterNasjon(nyNasjon);               // Oppdaterer Nasjon obj. med antDeltagere +1.
 }
@@ -71,7 +69,9 @@ Deltager :: Deltager(ifstream & inn, int ID) : NumElement(ID) {
 
 Deltager::~Deltager()
 {
-//		foreløpig ubrukt												
+  delete[] nasjon;
+  delete[] fullNavn;
+  delete[] data;
 }
 
 void Deltager::endreNavn()//!!!!!!!!! les inn ny nasjon
