@@ -11,5 +11,6 @@ enum positivNegativ{positiv, negativ};
 enum kjonn { Mann, Kvinne };
 
 
+
 #endif
 
