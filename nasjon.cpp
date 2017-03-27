@@ -128,6 +128,11 @@ void Nasjon :: oppdaterAntDeltagere() {             // Oppdaterer antall deltage
   antDeltagere ++;
 }
 
+void Nasjon::minus1Deltager()
+{
+	antDeltagere--;
+}
+
 bool Nasjon :: harDeltagere() {                     // 'True' hvis nasjonen har 1 eller flere deltagere.
   if (antDeltagere > 0)
     return true;

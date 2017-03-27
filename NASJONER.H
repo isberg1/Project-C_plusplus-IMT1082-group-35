@@ -25,6 +25,8 @@ class Nasjoner {
     void skrivTilFil();                             // Skriver til fil.
     void lesFraFil();                               // Leser datastruktur fra fil.
     void skrivUtForkortelse();                      // Skriver ut nasjonens forkortelse.(Hjelpefunksjon)
+	void reduserAntDeltagere(char *fultNasjonsNavn);	//reduserer antall deltagere med 1
+	void okAntalletDeltagere(char *nasjonsForkortelse);	//oker antall deltagere med 1
 };
 
 

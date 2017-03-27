@@ -159,7 +159,7 @@ void lesFraFil(int alternativ) {							// leser alt fra fil
 		for (int i = 1; i <= antallObjekter; i++)
 		{
 			//les første
-			//nytt bjekt med arg.
+			//nytt objekt med arg.
 			//legg til objekt i liste
 		}
 	}
@@ -175,12 +175,10 @@ char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 
 
   cout << t;                                      // Skriver ut ledetekst.
 
-  do {                                            // Loop:
-    cout << "\nNasjonsforkortelse (3 bokstaver): ";
-    cin.getline(buffer, STRLEN);                    // Leser inn verdi.
-    forkortelse = konverter(buffer);                // Gjør om størrelsen.
-
-  } while (!erBokstaver(forkortelse) ||            // Så lenge det ikke er bokstaver og
+  do {                                              // Loop:
+    les("\nNasjonsforkortelse (3 bokstaver): ", buffer, NVLEN);
+    forkortelse = konverter(buffer);                // Gjør om størrelsen og lager ny char.
+  } while (!erBokstaver(forkortelse) ||             // Så lenge det ikke er bokstaver og
             strlen(forkortelse) != NASJONLEN);      // lengder på array ikke er 3.
 
   for (int i = 0; i < NASJONLEN; i ++)              // Looper gjennom indeksene.
@@ -205,7 +203,6 @@ bool erBokstaverEllerSpace(char tekst[]) {          // Sjekker om indekser i arr
   lengde = strlen(tekst);                           // Lengden av array.
 
   for (int i = 0; i < lengde; i++) {                // Looper gjennom alle indekser.
-
     if (!isalpha(tekst[i]) && !isspace(tekst[i]))   // Hvis indeks ikke er bokstav eller space så
       return false;                                 // returneres false.
   }
@@ -221,4 +218,25 @@ char *konverterTilStore(char *tekst) {            // Gjør om til store bokstaver
 
   tekstPeker = konverter(nyTekst);                // Lager ny peker og gjør om størrelsen.
   return tekstPeker;                              // Returnerer den nye teksten.
+}
+
+void bubbleSort(int array[])		//sorterer en int array.  kan kanskje brukes til deltager- og resultatListe i Ovelse
+{
+	int sistebrukt=10; //arryens lengde endres før bruk !!!!!!!!!!!!!!
+
+	int dummy;
+	char temp[MAXNASJONER + 1];
+
+	for (int i = 1; i <= sistebrukt - 1; i++)
+	{
+		for (int j = i + 1; j <= sistebrukt; j++)
+		{
+			if (array[i] < array[j])
+			{					//swap
+				dummy = array[i];
+				array[i] = array[j];
+				array[j] = dummy;
+			}
+		}
+	}
 }

@@ -31,6 +31,7 @@ class Nasjon : public TextElement {                 // Arver lister.
     void skrivHoveddata();                          // Skriver ut hoveddata.
     void skrivForkortelse();                        // Skriver text.
     void oppdaterAntDeltagere();                    // Oppdaterer antall deltagere med 1.
+	void minus1Deltager();							// reduserer antall deltagere med 1
     bool harDeltagere();                            // 'True' hvis nasjonen har 1 eller flere deltagere.
 };
 

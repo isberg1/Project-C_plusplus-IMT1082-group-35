@@ -17,7 +17,6 @@ using namespace std;
 extern Nasjoner nasjonObj;
 
 
-
 Deltagere::~Deltagere()
 {
 	delete DeltagerListe;
@@ -67,7 +66,7 @@ void Deltagere :: nyDeltager() {                    // Oppretter ny Deltager    
 
   if (nasjonObj.finnesNasjon(tempNasjon)) {         // Hvis nasjonen finnes:
                                                     // Leser inn ID-en til deltageren.
-    deltagerID = les("\nSkriv inn ID for deltageren:", 1, 9999);
+    deltagerID = les("\nSkriv inn ID for deltageren:", 0001, 9999);
 
     if (!DeltagerListe->inList(deltagerID)) {       // Hvis deltager ikke allerede er registrert.
                                                     // Lager nytt Deltager obj. Sender med tempNasjon
@@ -90,11 +89,11 @@ void Deltagere::endreDeltager()
 	char valg;
 	Deltager *tempDeltager;
 
-	buffer = les("Skriv inn id'en til deltageren", 0, 9999);
+	buffer = les("Skriv inn id'en til deltageren", 0001, 9999);
 	while (!DeltagerListe->inList(buffer))
 	{
 		cout << "Kunne ikke finne deltageren med id " << buffer;
-		buffer = les("Skriv inn korrekt id", 0, 9999);
+		buffer = les("Skriv inn korrekt id", 0001, 9999);
 	}
 	tempDeltager = (Deltager*)DeltagerListe->remove(buffer);
 	tempDeltager->display();
@@ -142,7 +141,6 @@ void Deltagere::skrivDataAlle()
 			DeltagerListe->add(tempDeltager);		// Alle deltagere i listen.
 		}
 	}
-
 }
 
 void Deltagere :: skrivDataEn() {                   // Skriver all data om en gitt deltager.  : Valg D S

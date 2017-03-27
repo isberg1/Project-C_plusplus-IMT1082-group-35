@@ -5,18 +5,21 @@
 #include"CONST.H"
 #include"STATISTIKK.H"
 
+
+
 class Medaljer : public Statisikk
 {
 private:
-	
-	seiersType medaljeType;
-	int medaljer[MAXNASJONER + 1];
+	int medaljer[MAXNASJONER + 1];															//arry med en medaljene
 public:
-	Medaljer();
-	~Medaljer();
-	void nyMedalje(char nasjon[], seiersType, int antall);
-	void sorter(); //ikke laget enda
-	void omsorter(int teller);	//utestet
+	
+	Medaljer();		//constructor															  nullstiller hele arrayen 
+	void endreAntMedaljer(char nasjon[], seiersType medaljeType, positivNegativ posNeg);	//endrer en nasjons medaljefordeling med +- 1
+	
+	void skrivMedaljer();																	//display 2 arrayer
+	void testFunksjon();																	// brukes kun til testing. fjernes før siste innlevering
+	void skrivTilFil();																		//skriv til fil
+	void lesFraFil();																		//les fra fil
 };
 
 

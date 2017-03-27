@@ -38,7 +38,7 @@ Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
 
   do {                                              // Loop hvis M eller K ikke blir valg.
     valg = les("\nKjonn (m/k): ");
-  } while (valg != 'M' && valg != 'K');
+  } while (valg != 'M' && valg != 'K');														
 
   if (valg == 'M')
     deltagerKjonn = Mann;                           // kjønn blir satt til Mann.
@@ -74,25 +74,41 @@ Deltager::~Deltager()
   delete[] data;
 }
 
-void Deltager::endreNavn()
-{
-	strcpy(fullNavn, "");
-	les("Skriv inn nytt navn", fullNavn, NVLEN);
-	cout << "\nNavn endret til: " << fullNavn;
+void Deltager::endreNavn()//!!!!!!!!! les inn ny nasjon
+{																		
+																		
+	strcpy(fullNavn, "");													
+	les("Skriv inn nytt navn", fullNavn, NVLEN);						
+	cout << "\nNavn endret til: " << fullNavn;			
 }
 
-void Deltager::endreNasjon()
-{
-//	strcpy(nasjon, "");
-//	les("\nSkriv inn ny nasjontilhorighet", nasjon, NASJONLEN);
-//	cout << "\nNasjon endret til: " << nasjon;
+void Deltager::endreNasjon()													//endrer nasjonen til en deltager
+{														
+	char *forkortelse;
+	
+	forkortelse = nasjonsForkortelse("\nSkriv inn den nye nasjonens forkortelse"); //les ny nasjon
+
+	if (nasjonObj.finnesNasjon(forkortelse)) {									//hvis ny najon finnes
+
+		nasjonObj.reduserAntDeltagere(nasjon);									//reduser antall deltagere i aktuelt obj.
+		delete[]nasjon;															//slett navnet på laget nasjon
+		nasjonObj.okAntalletDeltagere(forkortelse);								//ook antallet deltagere i aktuell obj
+		nasjon = forkortelse;													//sett nytt navn på nasjon
+		nasjonObj.skrivTilFil();												//skriv til fil
+	}
+	else
+	{
+		skriv("Finner ikke nasjon med forkortelsen: ", forkortelse);	//feilmelding
+		delete[]forkortelse;										//slett navnet på ny nasjon hvis den ikke eksisterer
+	}
 }
 
 void Deltager::endreData()
 {
-	strcpy(data, "");
-	les("\nSkriv inn ny info", data, STRLEN);
-	cout << "\nEkstra info endret til: " << data;
+																			
+	strcpy(data, "");													
+	les("\nSkriv inn ny info", data, STRLEN);								
+	cout << "\nEkstra info endret til: " << data;							
 }
 
 void Deltager::endreKjonn()						    // Endre kjonn på deltager.
