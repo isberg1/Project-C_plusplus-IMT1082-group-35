@@ -68,8 +68,6 @@ Gren::Gren(ifstream & inn, char * a, const int sisteOvelse) : TextElement(a)
 		for (int i = 1; i <= antOvelser; i++)
 		{	array[i]->lesFraFil(inn);	}
 	}
-	
-	
 }
 //destructor
 Gren::~Gren()
