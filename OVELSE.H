@@ -14,9 +14,9 @@ private:
 	int antDeltagere;
 	int dato;
 	int klokkeslett;
-	//deltager array	
+					//deltager array	
 	int *deltagerListe;
-	//resultat array ( MinSECTidel;	MinSecHundredel; MinSekTusendel; PoengX; PoengXX;)
+					//resultat array ( MinSECTidel;	MinSecHundredel; MinSekTusendel; PoengX; PoengXX;)
 	int *resultatListe;
 	int log[7];  //loggfører seiersrekkefolgen brukes til R <id> S NB!
 public:
@@ -27,6 +27,7 @@ public:
 	char *filNavn(int type);// genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES ellern none annet for .STA
 	void skrivTilFil(ofstream & ut);
 	void lesFraFil(ifstream & inn);
+	void nyResultatListe();
 };
 
 /*n

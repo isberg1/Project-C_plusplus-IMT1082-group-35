@@ -11,7 +11,6 @@
 #include "OVELSE.H"
 #include"ENUM.H"
 
-
 using namespace std;
 
 Ovelse::Ovelse(int sisteOvelse)		//constructor    får parameter sisteOvelse fra Grener 
@@ -46,6 +45,7 @@ void Ovelse::skrivData()
 	skriv("Antall deltagere: ", antDeltagere);
 
 }
+
 char * Ovelse::filNavn(int type)		//send med 1 for .RES ellern none annet for .STA
 {
 		char name[11] = "OV";
@@ -55,42 +55,19 @@ char * Ovelse::filNavn(int type)		//send med 1 for .RES ellern none annet for .S
 		string buffer;
 	
 		if (type == 1)		//avhengi av medsent arg. saa blir slutten entn .RES eller .STA
-		{	strcpy_s(end, ".RES");	}
+		{	strcpy(end, ".RES");	}
 		else
-		{	strcpy_s(end, ".STA");	}
+		{	strcpy(end, ".STA");	}
 	
 		strs << nr;		//Ovelse sitt unike nr brukkes til delen xxxx i filnavnet
 		buffer = strs.str();
 		middle = (char*)buffer.c_str();
 	
-		strcat_s(name, middle);
-		strcat_s(name, end);
+		strcat(name, middle);
+		strcat(name, end);
 
 		return name;
 }
-//
-//char *Ovelse::filNavn(filType type)		//tar en enum STA eller RES som argument
-//{
-////	char name[11] = "OV";	
-////	char end[5];
-////	char* middle;
-////	stringstream strs;
-////	string buffer;
-////
-////	if (type == RES)		//avhengi av medsent arg. saa blir slutten entn .RES eller .STA
-////	{	strcpy_s(end, ".RES");	}
-////	else
-////	{	strcpy_s(end, ".STA");	}
-////
-////	strs << nr;		//Ovelse sitt unike nr brukkes til delen xxxx i filnavnet
-////	buffer = strs.str();
-////	middle = (char*)buffer.c_str();
-////
-////	strcat_s(name, middle);
-////	strcat_s(name, end);
-////
-////	return name;
-//}
 
 void Ovelse::skrivTilFil(ofstream & ut)
 {
@@ -116,4 +93,9 @@ void Ovelse::lesFraFil(ifstream & inn)
 	klokkeslett = lesInt(inn);
 	antDeltagere = lesInt(inn);
 	navn = lesTxt(inn);
+}
+
+void Ovelse::nyResultatListe()
+{
+
 }
