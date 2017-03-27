@@ -15,12 +15,12 @@
 #include <fstream>
 #include <stdio.h>      /* printf, fgets */
 #include <stdlib.h>     /* atoi */
-#include"CONST.H"
+#include "CONST.H"
 #include "FUNKSJONER.H"
 using namespace std;
 
 
-char les() {			                            //  Henter ett ikke-blankt upcaset tegn:
+char les() {			                            // Henter ett ikke-blankt upcaset tegn:
 	char ch;
 	cin >> ch;   cin.ignore();                      //  Leser ETT tegn. Forkaster '\n'.
 	return (toupper(ch));                           //  Upcaser og returnerer.
@@ -169,6 +169,26 @@ void lesFraFil(int alternativ) {							// leser alt fra fil
 	}					 //feilmelding
 }
 
+char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 og gjør dem store.
+  char buffer[STRLEN];
+  char *forkortelse;
+
+  cout << t;                                      // Skriver ut ledetekst.
+
+  do {                                            // Loop:
+    cout << "\nNasjonsforkortelse (3 bokstaver): ";
+    cin.getline(buffer, STRLEN);                    // Leser inn verdi.
+    forkortelse = konverter(buffer);                // Gjør om størrelsen.
+
+  } while (!erBokstaver(forkortelse) ||            // Så lenge det ikke er bokstaver og
+            strlen(forkortelse) != NASJONLEN);      // lengder på array ikke er 3.
+
+  for (int i = 0; i < NASJONLEN; i ++)              // Looper gjennom indeksene.
+    forkortelse[i] = toupper(forkortelse[i]);       // Gjør om til stor bokstav.
+
+  return forkortelse;
+}
+
 bool erBokstaver(char tekst[]) {                    // Sjekker om alle indekser i array er bokstav.
   int lengde;
   lengde = strlen(tekst);                           // Lengden av array.
@@ -180,21 +200,25 @@ bool erBokstaver(char tekst[]) {                    // Sjekker om alle indekser 
   return true;
 }
 
-char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 og gjør dem store.
-    char buffer[STRLEN];
-    char *forkortelse;
+bool erBokstaverEllerSpace(char tekst[]) {          // Sjekker om indekser i array er bokstaver/space.      //!!! IKKE ENDA I BRUK
+  int lengde;
+  lengde = strlen(tekst);                           // Lengden av array.
 
-    cout << t;                                      // Skriver ut ledetekst.
-    do {                                            // Loop:
-    cout << "\nNasjonsforkortelse (3 bokstaver): ";
-    cin.getline(buffer, STRLEN);                    // Leser inn verdi.
-    forkortelse = konverter(buffer);                // Gjør om størrelsen.
+  for (int i = 0; i < lengde; i++) {                // Looper gjennom alle indekser.
 
-  } while ( !erBokstaver(forkortelse) ||            // Så lenge det ikke er bokstaver og
-            strlen(forkortelse) != NASJONLEN);      // lengder på array ikke er 3.
+    if (!isalpha(tekst[i]) && !isspace(tekst[i]))   // Hvis indeks ikke er bokstav eller space så
+      return false;                                 // returneres false.
+  }
+  return true;
+}
 
-  for (int i = 0; i < NASJONLEN; i ++)              // Looper gjennom indeksene.
-    forkortelse[i] = toupper(forkortelse[i]);       // Gjør om til stor bokstav.
+char *konverterTilStore(char *tekst) {            // Gjør om til store bokstaver.
+  char nyTekst[STRLEN];
+  char *tekstPeker;
 
-  return forkortelse;
+  for (int i = 0; i <= strlen(tekst); i++)        // Looper gjennom arrayen.
+    nyTekst[i] = toupper(tekst[i]);               // Gjør om til stor bokstav.
+
+  tekstPeker = konverter(nyTekst);                // Lager ny peker og gjør om størrelsen.
+  return tekstPeker;                              // Returnerer den nye teksten.
 }

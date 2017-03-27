@@ -31,6 +31,7 @@ public:
 	void endreData();								// Endrer den ekstra infoen til en deltager.
 	void endreKjonn();								// Endrer kjonnet til en deltager.			// // // NB! Flytter ikke deltager til motsatt ovelse NB! // // //
 	void displayHoved();                            // Skriver ut Hoveddata for en deltager.
+	char *hentNavn();                               // Returnerer navnet til deltageren.
 };
 
 #endif
