@@ -29,8 +29,10 @@ char *konverter(char t[]);					        //konverter char [] til char *
 
 void MainMeny();
 
-bool erBokstaver(char tekst[]);                     // Sjekker om alle indekser i array er bokstav.
 char *nasjonsForkortelse(char *t);                  // Sjekker at chars=3, gjør dem store. Med ledetext.
+bool erBokstaver(char tekst[]);                     // Sjekker om alle indekser i array er bokstav.
+bool erBokstaverEllerSpace(char tekst[]);           // Sjekker om indekser i array er bokstaver/ space.
+char *konverterTilStore(char *tekst);               // Gjør om til store bokstaver.
 
 void bubbleSort(int array[]);							//sorterer 1 int array
 

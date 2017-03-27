@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <regex>                                    // For søking i DS.
 #include "DELTAGER.H"
 #include "DELTAGERE.H"
 #include "FUNKSJONER.H"
@@ -14,8 +15,8 @@
 using namespace std;
 
 extern Nasjoner nasjonObj;
-																
-																		
+
+
 Deltagere::~Deltagere()
 {
 	delete DeltagerListe;
@@ -55,7 +56,7 @@ void Deltagere :: nyDeltager() {                    // Oppretter ny Deltager    
   char *tempNasjon;
   Deltager *nyDeltager;
 
-  if (!DeltagerListe)                               // Hvis deltagerListen ikke finnes:	       
+  if (!DeltagerListe)                               // Hvis deltagerListen ikke finnes:
     DeltagerListe = new List(Sorted);               // Lager ny liste.
 
   nasjonObj.skrivUtForkortelse();                   // Skriver ut hvilke nasjoner som er registrert.
@@ -94,7 +95,7 @@ void Deltagere::endreDeltager()
 		cout << "Kunne ikke finne deltageren med id " << buffer;
 		buffer = les("Skriv inn korrekt id", 0001, 9999);
 	}
-	tempDeltager = (Deltager*)DeltagerListe->remove(buffer);						
+	tempDeltager = (Deltager*)DeltagerListe->remove(buffer);
 	tempDeltager->display();
 
 	endreDeltagerMeny();
@@ -142,30 +143,64 @@ void Deltagere::skrivDataAlle()
 	}
 }
 
-void Deltagere::skrivDataEn()
-{
-	int buffer = 0;
-	Deltager *tempDeltager;
+void Deltagere :: skrivDataEn() {                   // Skriver all data om en gitt deltager.  : Valg D S
+  char valg;
+  char buffer[STRLEN];
+  char *sokEtter, *sokeTekst;
+  int id;
+  Deltager *deltager;
 
-	buffer = les("Skriv inn id'en til deltageren: ", 0001, 9999);
+  cout << "\nVil du sooke etter deltager ved et entydlig navn (A), eller ID? (B)";
+  do {
+    valg = les("\nValg (A/B): ");
+  } while (valg != 'A' && valg != 'B');             // Looper hvis ikke A eller B er valg.
 
-	if (DeltagerListe->inList(buffer))
-	{
-		tempDeltager = (Deltager*)DeltagerListe->remove(buffer);
-		tempDeltager->display();
-		DeltagerListe->add(tempDeltager);
-	}
-	else
-	{
-		skriv("\n\tFinner ikke deltager med id: ", buffer);
-	}
+  if (valg == 'A') {
+    do {
+      les("\nNavnet du vil soke etter", buffer, STRLEN);
+    } while (!erBokstaverEllerSpace(buffer));       // Looper så lenge det ikke er bokstav eller space.
+
+    sokEtter = konverter(buffer);                   // Lager string med ny lengde.
+    sokEtter = konverterTilStore(sokEtter);         // Gjør om til store bokstaver.
+
+    if (DeltagerListe) {                            // Hvis deltagerListen finnes:
+      for (int i = 1; i <= DeltagerListe->noOfElements(); i++) { // Looper gjennom alle elementer.
+
+        deltager = (Deltager*) DeltagerListe->removeNo(i); // Fjerner fra liste.
+
+        sokeTekst = deltager->hentNavn();           // Henter ut navnet til deltageren.
+        sokeTekst = konverterTilStore(sokeTekst);   // Gjør om navnet til store bokstaver.
+
+        string ord = sokEtter;                      // Gjør om til string for å bruke søkefunksjoner.
+        string tekst = sokeTekst;
+        regex r("\\b" + ord + "\\b");               // Black magic. (?)
+        smatch m;
+
+        if (regex_search(tekst, m, r))              // Hvis søket matcher:
+          deltager->display();                      // Displayer objekt.
+
+        DeltagerListe->add(deltager);               // Legger deltageren tilbake i lista.
+      }
+    }
+  }
+  else {                                            // Valg == 'B':
+    id = les("\nSkriv inn ID-en til deltageren: ", 1, 9999);
+
+    if (DeltagerListe && DeltagerListe->inList(id)) {
+      deltager = (Deltager*) DeltagerListe->remove(id);
+      deltager->display();                          // Displayer deltager med gitt ID.
+      DeltagerListe->add(deltager);
+    }
+    else
+      cout << "\n\tFinner ikke deltager med ID: " << id;
+  }
 }
 
 void Deltagere :: loopDeltagerTropp(char *n) {      // Skriver ut deltagere for en nasjon.    : Valg N T
   int antDeltagere;
   Deltager *deltager;
 
-  if (DeltagerListe)                                // Hvis listen finnes:						
+  if (DeltagerListe)                                // Hvis listen finnes:
     antDeltagere = DeltagerListe->noOfElements();   // Antall deltager-objekter i listen.
 
   for (int i = 1; i <= antDeltagere; i++) {         // Looper gjennom listen:

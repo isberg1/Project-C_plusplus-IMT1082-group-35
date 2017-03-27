@@ -165,3 +165,7 @@ void Deltager :: skrivTilFil(ofstream & ut) {       // Skriver til fil.
   skriv(ut, data);
   skriv(ut, deltagerKjonn);
 }
+
+char* Deltager :: hentNavn() {                      // Returnerer navnet til deltageren.
+  return fullNavn;
+}

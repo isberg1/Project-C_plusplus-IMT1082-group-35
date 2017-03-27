@@ -19,7 +19,7 @@ public:
 	void endreDeltager();							//endrer deltagerens datamedlemmer		  : Valg D E
 	void endreDeltagerMeny();						// velg hvilken datamedlemmer som skal enders
 	void skrivDataAlle();
-	void skrivDataEn();
+	void skrivDataEn();                             // Skriver all data om en gitt deltager.  : Valg D S
 	void loopDeltagerTropp(char *n);                // Skriver ut deltagere for en nasjon.    : Valg N T
     void skrivTilFil();                             // Skriver til fil.
     void lesFraFil();                               // Leser datastruktur fra fil.
