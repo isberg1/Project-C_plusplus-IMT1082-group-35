@@ -22,7 +22,7 @@ extern Deltagere deltagerObj;                       // Deltager-objekt fra main.
 
 
 Nasjoner :: ~Nasjoner() {
-  delete nasjonsListe;                              // Sletter liste.
+  //delete nasjonsListe;                              // Sletter liste.					//$$$$$$ ma fikses faar 
 }
 
 void Nasjoner :: skrivMeny() {                      // Tiljgengelige valg.
@@ -177,7 +177,7 @@ void Nasjoner :: skrivAllData() {                   // Skriver alle data om en g
 
 bool Nasjoner :: finnesNasjon(char *sjekkNasjon) {  // Hvis Nasjon finnes                    : Valg D N
 
-                                                    // Hvis nasjonenslista finnes				
+                                                    // Hvis nasjonenslista finnes
   if (nasjonsListe && nasjonsListe->inList(sjekkNasjon)) // og nasjonen ligger i lista.			//!!!!!!!! vurder bruk av nasjonsListe.isEmpty()
     return true;
   else
@@ -252,8 +252,8 @@ void Nasjoner :: skrivUtForkortelse() {             // Skriver ut nasjonens fork
       nasjonsListe->add(nasjon);                    // Legger tilbake i listen.
 
       if (newLineTeller % 6 == 0)                   // Skriver ut "new line" hvis 6 nasjoner
-        cout << '\n';                               // ligget etter hverandre på skjermen.
-      newLineTeller ++;                             // Teller opp med 1.
+        cout << '\n';                               // ligger etter hverandre på skjermen.
+      newLineTeller ++;                             // Teller opp med en.
     }
   }
   else                                              // Hvis ingen ligger i listen.
@@ -268,20 +268,20 @@ void Nasjoner :: skrivUtForkortelse() {             // Skriver ut nasjonens fork
 //	ptr = (Nasjon*)nasjonsListe->remove(nasjonsForkortelse);
 //	buffer = ptr->returnerFulltNavn();
 //	nasjonsListe->add(ptr);
-//	
+//
 //	return buffer;
 //}
 
 void Nasjoner::reduserAntDeltagere(char *nasjonsforkortelse)		//reduser antall deltagere med 1
 {
 	Nasjon *ptr;
-															
+
 	ptr = (Nasjon *)nasjonsListe->remove(nasjonsforkortelse);
 	ptr->minus1Deltager();
 	nasjonsListe->add(ptr);
 }
 
-void Nasjoner::okAntalletDeltagere(char *nasjonsForkortelse)		
+void Nasjoner::okAntalletDeltagere(char *nasjonsForkortelse)
 {
 	Nasjon *ptr;
 

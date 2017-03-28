@@ -2,7 +2,7 @@
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
 #include <iostream>
 #include <cstring>
@@ -21,6 +21,7 @@ Gren::Gren(char * a) : TextElement(a)
 	int tilEnum;
 	//leser inn egne datamedlemmer
 	antOvelser = les("Skriv antall ovelser: ", 1, MAXOVELSER);
+	antallRegistrerteOvelser = 0;
 
 	cout << "\nskriv type maaling: "
 		<< "\n(1) MinSECTidel"
@@ -43,7 +44,7 @@ Gren::Gren(char * a) : TextElement(a)
 	annet = konverter(buffer);
 }
 //constructor med filargument
-Gren::Gren(ifstream & inn, char * a, const int sisteOvelse) : TextElement(a)
+Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 {
 	int tilEnum;
 
@@ -51,8 +52,9 @@ Gren::Gren(ifstream & inn, char * a, const int sisteOvelse) : TextElement(a)
 	annet = lesTxt(inn);
 	antOvelser = lesInt(inn);
 	antSifre = lesInt(inn);
+	antallRegistrerteOvelser = lesInt(inn);
 	tilEnum = lesInt(inn);
-	
+
 	switch (tilEnum)//konverterer int fra fil til enum
 	{
 	case 1:	typeMaaling = MinSECTidel;		 break;
@@ -62,19 +64,22 @@ Gren::Gren(ifstream & inn, char * a, const int sisteOvelse) : TextElement(a)
 	case 5:	typeMaaling = PoengXX;			 break;
 	}
 
-	if (sisteOvelse > 0) //hvis det er registrert noen ovelser i det hele tatt
+	if (antOvelser > 0) //hvis det er registrert noen ovelser i det hele tatt
 	{
+
 		//leser inn ovelser fra fil
-		for (int i = 1; i <= antOvelser; i++)
-		{	array[i]->lesFraFil(inn);	}
+		for (int i = 1; i <= antallRegistrerteOvelser; i++)
+		{
+			 array[i]->lesFraFil(inn);
+		}
 	}
 }
 //destructor
 Gren::~Gren()
-{ 	
-	delete[] annet; 
+{
+	delete[] annet;
 	for (int i = 1; i <= antOvelser; i++)
-	{	delete array[i];	}	//sletter alle Ovelsesobjekter 
+	{	delete array[i];	}	//sletter alle Ovelsesobjekter
 
 }
 
@@ -93,7 +98,7 @@ void Gren::display()	//til komando G A
 	skriv("antall ovelser er:", antOvelser);
 	skriv("Annet: ", annet);
 
-	
+
 	if (typeMaaling == MinSECTidel)
 	{	skriv("Maalingstype er: ","MinSECTidel");		}
 	if (typeMaaling == MinSecHundredel)
@@ -108,17 +113,18 @@ void Gren::display()	//til komando G A
 //skriver alle data om alle ovelser
 void Gren::skrivOvelse()//til komando G S
 {
-	for (int i = 1; i <= antOvelser; i++)
+	for (int i = 1; i <= antallRegistrerteOvelser; i++)
 	{	array[i]->skrivData();	}
 }
 //til fil
-void Gren::skrivTilFIl(ofstream & ut, const int sisteOvelse)
+void Gren::skrivTilFIl(ofstream & ut)
 {
 	//skriver egne datamedlemmer til fil
 	skriv(ut, text);	//navnet
 	skriv(ut, annet);
 	skriv(ut, antOvelser);
 	skriv(ut, antSifre);
+	skriv(ut, antallRegistrerteOvelser);
 
 	//skriver enum til fil som en int mellom 0 til 4
 	if (typeMaaling == MinSECTidel)
@@ -132,11 +138,20 @@ void Gren::skrivTilFIl(ofstream & ut, const int sisteOvelse)
 	if (typeMaaling == PoengXX)
 	{	skriv(ut, 5);	}
 
-	if (sisteOvelse > 0) //hvis det er registrer noen ovelser i det hele tatt
+	if (antallRegistrerteOvelser > 0) //hvis det er registrer noen ovelser i det hele tatt
 	{
 		//skriver ovelsesobjekter til fil
-		for (int i = 1; i <= antOvelser; i++)
+		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{	array[i]->skrivTilFil(ut);	}
 	}
-	
+
+}
+
+void Gren :: skrivGrenNavn() {           // Skriver ut navnet på grenen.
+  cout << '\t' << text;
+}
+
+int Gren::hentAntalOvelser()
+{
+	return antallRegistrerteOvelser;
 }

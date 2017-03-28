@@ -50,7 +50,10 @@ void les(const char t[], char s[], const int LEN)
 {
 	do {
 		cout << '\t' << t << ": ";	cin.getline(s, LEN);//Ledetekst og leser.
-	} while (strlen(s) == 0);						 //Sjekker at tekstlengden er ulik 0.
+		cin.clear();
+	//	cin.ignore();
+		
+	} while (strlen(s) == 0	&& strlen(s)<= LEN);						 //Sjekker at tekstlengden er ulik 0.
 }
 
                                                     // konverterer og returnerer char [] til char*
@@ -176,7 +179,7 @@ char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 
   cout << t;                                      // Skriver ut ledetekst.
 
   do {                                              // Loop:
-    les("\nNasjonsforkortelse (3 bokstaver): ", buffer, NVLEN);
+    les("\nNasjonsforkortelse (3 bokstaver)", buffer, NVLEN);
     forkortelse = konverter(buffer);                // Gjør om størrelsen og lager ny char.
   } while (!erBokstaver(forkortelse) ||             // Så lenge det ikke er bokstaver og
             strlen(forkortelse) != NASJONLEN);      // lengder på array ikke er 3.
