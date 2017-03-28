@@ -18,7 +18,7 @@
 #include"GRENER.H"                                  // Klassen Grener.
 #include"MEDALJER.H"                                // Klassen Medaljer.
 #include"POENG.H"                                   // Klassen Poeng.
-
+#include"OVELSE.H"
 
 using namespace std;
 
@@ -30,6 +30,8 @@ Poeng poengObj;
 Deltagere deltagerObj;
 Grener grenenerObj;
 
+
+
 //extern Nasjoner nasjonObj;
 //extern Deltagere deltagerObj;
 //extern Grener grenenerObj;
@@ -37,6 +39,7 @@ Grener grenenerObj;
 //extern 
 
 
+int Ovelse::navnTeller = 1000;	//static int brukes til å genere unike nr til ovelsesObjekter
 
 // **********************************  H O V E D P R O G R A M M E T  **********************************
 
@@ -60,9 +63,10 @@ int main() {
       case 'N' : nasjonObj.menyValg();	     break; // Kaller Nasjoner sin meny.
       case 'D' : deltagerObj.menyValg();     break; // Kaller Deltagere sin meny.
 	  case 'G' : grenenerObj.skrivMeny();    break; // kaller Grener sin meny.
-      case 'O' :        break;
+	  case 'O':     break;
 	  case 'M' : medaljeObj.skrivMedaljer(); break; // viser medaljeoversikt
 	  case 'P' : poengObj.skrivPoeng();      break;	// viser poengoversikt
+	  default:	break;
     }
     MainMeny();
     valgMain = les("\nHovedmeny: ");

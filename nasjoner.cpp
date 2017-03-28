@@ -22,7 +22,7 @@ extern Deltagere deltagerObj;                       // Deltager-objekt fra main.
 
 
 Nasjoner :: ~Nasjoner() {
-  delete nasjonsListe;                              // Sletter liste.
+  //delete nasjonsListe;                              // Sletter liste.					//$$$$$$ ma fikses faar 
 }
 
 void Nasjoner :: skrivMeny() {                      // Tiljgengelige valg.

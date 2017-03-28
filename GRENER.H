@@ -8,7 +8,7 @@
 class Grener {
 private:
 	List *listGren;
-	int sisteOvelse;
+//	int sisteOvelse;
 		
 public:
 	Grener();//constructor
@@ -21,6 +21,7 @@ public:
 	void skrivEnGren();			// G S
 	void skrivTilFIl();
 	void lesFraFil();
+	
 };
 
 

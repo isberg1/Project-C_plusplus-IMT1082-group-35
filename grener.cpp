@@ -21,7 +21,7 @@ Grener::Grener()
 {
 
 	listGren = new List(Sorted);
-	sisteOvelse = 0;
+//	sisteOvelse = 0;
 }
 //destructor
 Grener::~Grener()
@@ -128,7 +128,7 @@ void Grener::skrivEnGren()//til komando G S
 	{									//ta obj ut av liste, skriv data og legg obj i liste
 		temp = (Gren*)listGren->remove(buffer);
 		temp->display();									//skriv grendata
-		if (sisteOvelse > 0 )								//hvis noen ovelser er registrer
+		if (temp->hentAntalOvelser() > 0 )								//hvis noen ovelser er registrer
 		{	temp->skrivOvelse();	}	//skriv data om alle ovelsene
 		else	
 		{	skriv("Ingen ovelse er registrert paa gren: ", buffer);		}
@@ -142,17 +142,19 @@ void Grener::skrivTilFIl()
 {
 	ofstream ut("GRENER.DTA");
 	Gren *ptr;
-	
+
 	//skriv egne datamedlemmer til fil
-	cout << sisteOvelse;
+
 	int antalIListe = listGren->noOfElements();
+	
 	skriv(ut, antalIListe);
-	skriv(ut, sisteOvelse);
+	//skriv(ut, sisteOvelse);
+	
 	//skriv alle grenobj til fil
 	for (int i = 1; i <= listGren->noOfElements(); i++)
-	{
+	{		
 		ptr = (Gren*)listGren->removeNo(i);
-		ptr->skrivTilFIl(ut, sisteOvelse);
+		ptr->skrivTilFIl(ut);
 		listGren->add(ptr);	}
 }
 	//les fra fil
@@ -166,8 +168,7 @@ void Grener::lesFraFil()
 	if (inn)//hvis filen finnes
 	{		//les in egne datamedlemmer fra fil
 		antallIListe = lesInt(inn);
-		sisteOvelse = lesInt(inn);
-		
+		//sisteOvelse = lesInt(inn);
 		
 		
 		if (!listGren->isEmpty()) //hvis listen ikke er tom
@@ -176,11 +177,13 @@ void Grener::lesFraFil()
 			listGren = new List(Sorted);
 		}
 
+		
 		//les in alle Grenobj fra fil
 		for (int i = 1; i <= antallIListe; i++)
 		{											//lag nytt obj og legg det i listen
 			lesTxt2(inn, navn);
-			ptr = new Gren(inn, navn, sisteOvelse); 
+			
+			ptr = new Gren(inn, navn); 
 			listGren->add(ptr);
 		}
 	}
