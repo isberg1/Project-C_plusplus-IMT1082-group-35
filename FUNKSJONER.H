@@ -8,7 +8,6 @@
 #include <fstream>
 using namespace std;
 
-
 char les();											//leser en char
 char les(char *menyPlass);                          // Leser en char og skriver ut plassering i meny.
 void les(const char t[], char s[], const int LEN);	//leser text string
@@ -26,7 +25,6 @@ void lesFraFil(int alternativ = 0);                 //funksjonen kan gjør noe ex
 
 char *konverter(char t[]);					        //konverter char [] til char *
 
-
 void MainMeny();
 
 char *nasjonsForkortelse(char *t);                  // Sjekker at chars=3, gjør dem store. Med ledetext.
@@ -36,7 +34,6 @@ char *konverterTilStore(char *tekst);               // Gjør om til store bokstav
 bool slettFil(char fil[]);                          // Sletter fil fra disk, send med filnavn.
 
 void bubbleSort(int array[]);							//sorterer 1 int array
-
 
 #endif
 

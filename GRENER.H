@@ -8,7 +8,7 @@
 class Grener {
 private:
 	List *listGren;
-	int sisteOvelse;
+//	int sisteOvelse;
 
 public:
 	Grener();//constructor
@@ -23,6 +23,9 @@ public:
 	void lesFraFil();
 	void ovelseMeny();          // Meny til Ovelse : O...
 	void skrivUtNavn();         // Skriver ut navnene på Gren : Meny i O...
+
+
+
 };
 
 

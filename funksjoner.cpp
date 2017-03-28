@@ -50,7 +50,10 @@ void les(const char t[], char s[], const int LEN)
 {
 	do {
 		cout << '\t' << t << ": ";	cin.getline(s, LEN);//Ledetekst og leser.
-	} while (strlen(s) == 0);						 //Sjekker at tekstlengden er ulik 0.
+		cin.clear();
+	//	cin.ignore();
+		
+	} while (strlen(s) == 0	&& strlen(s)<= LEN);						 //Sjekker at tekstlengden er ulik 0.
 }
 
                                                     // konverterer og returnerer char [] til char*
