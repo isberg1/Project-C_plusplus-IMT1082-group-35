@@ -43,7 +43,7 @@ Grener grenenerObj;
 int main() {
   char valgMain;
 
-  nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
+  //nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
   grenenerObj.lesFraFil();							//leser grener fra fil
   medaljeObj.lesFraFil();							//leser medaljer fra fil
   poengObj.lesFraFil();								//leser poeng fra fil
