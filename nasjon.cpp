@@ -134,10 +134,9 @@ void Nasjon::minus1Deltager()
 }
 
 bool Nasjon :: harDeltagere() {                     // 'True' hvis nasjonen har 1 eller flere deltagere.
-  if (antDeltagere > 0)
-    return true;
-  else
-  {
-	  return false;
-  }
+
+	if (antDeltagere > 0)
+	{	return true;	}
+	else
+	{	return false;	}
 }

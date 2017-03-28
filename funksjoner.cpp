@@ -215,12 +215,13 @@ bool erBokstaverEllerSpace(char tekst[]) {          // Sjekker om indekser i arr
 char *konverterTilStore(char *tekst) {              // Gjør om til store bokstaver.
   char nyTekst[STRLEN];
   char *tekstPeker;
+  int lengde = strlen(tekst);
 
-  for (int i = 0; i <= strlen(tekst); i++)        // Looper gjennom arrayen.
-    nyTekst[i] = toupper(tekst[i]);               // Gjør om til stor bokstav.
+  for (int i = 0; i <= lengde; i++)                 // Looper gjennom arrayen.
+    nyTekst[i] = toupper(tekst[i]);                 // Gjør om til stor bokstav.
 
-  tekstPeker = konverter(nyTekst);                // Lager ny peker og gjør om størrelsen.
-  return tekstPeker;                              // Returnerer den nye teksten.
+  tekstPeker = konverter(nyTekst);                  // Lager ny peker og gjør om størrelsen.
+  return tekstPeker;                                // Returnerer den nye teksten.
 }
 
 bool slettFil(char fil[]) {                         // Sletter fil fra disk, send med filnavn.
@@ -233,8 +234,7 @@ bool slettFil(char fil[]) {                         // Sletter fil fra disk, sen
 
 void bubbleSort(int array[])		//sorterer en int array.  kan kanskje brukes til deltager- og resultatListe i Ovelse
 {
-
-	int sistebrukt=10; //arryens lengde endres før bruk !!!!!!!!!!!!!!
+	int sistebrukt=10; //arrayens lengde endres før bruk !!!!!!!!!!!!!!
 
 	int dummy;
 	char temp[MAXNASJONER + 1];
