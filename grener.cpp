@@ -3,7 +3,7 @@
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
 #include <iostream>
 #include <cstring>
@@ -29,11 +29,11 @@ Grener::~Grener()
 //skriver menyen i GrenerObj
 void Grener::skrivMeny()
 {
-	char valgGrener = 'k';	
+	char valgGrener = 'k';
 
 	do			//lupper til brukeren taster 'Q'
 	{
-		
+
 		//meny
 		cout <<"\nPath: Hovedmeny->Grenermeny"
 			<< "\n(N) Ny gren"
@@ -68,7 +68,7 @@ void Grener::nyGren()	//til komando G E
 		temp = new Gren(buffer);
 		listGren->add(temp);
 		skriv("Ny gren registrert med navn: ", buffer);
-		
+
 		skrivTilFIl();
 	}
 	else	//feilmelding
@@ -130,7 +130,7 @@ void Grener::skrivEnGren()//til komando G S
 		temp->display();									//skriv grendata
 		if (sisteOvelse > 0 )								//hvis noen ovelser er registrer
 		{	temp->skrivOvelse();	}	//skriv data om alle ovelsene
-		else	
+		else
 		{	skriv("Ingen ovelse er registrert paa gren: ", buffer);		}
 		listGren->add(temp);												 //legg obj i list
 	}
@@ -142,7 +142,7 @@ void Grener::skrivTilFIl()
 {
 	ofstream ut("GRENER.DTA");
 	Gren *ptr;
-	
+
 	//skriv egne datamedlemmer til fil
 	cout << sisteOvelse;
 	int antalIListe = listGren->noOfElements();
@@ -167,11 +167,11 @@ void Grener::lesFraFil()
 	{		//les in egne datamedlemmer fra fil
 		antallIListe = lesInt(inn);
 		sisteOvelse = lesInt(inn);
-		
-		
-		
+
+
+
 		if (!listGren->isEmpty()) //hvis listen ikke er tom
-		{ //slett listn og lag ny 
+		{ //slett listn og lag ny
 			delete listGren;
 			listGren = new List(Sorted);
 		}
@@ -180,7 +180,7 @@ void Grener::lesFraFil()
 		for (int i = 1; i <= antallIListe; i++)
 		{											//lag nytt obj og legg det i listen
 			lesTxt2(inn, navn);
-			ptr = new Gren(inn, navn, sisteOvelse); 
+			ptr = new Gren(inn, navn, sisteOvelse);
 			listGren->add(ptr);
 		}
 	}
@@ -191,5 +191,30 @@ void Grener::lesFraFil()
 
 }
 
+void Grener :: ovelseMeny() {                       // Meny til Ovelse : O...
 
 
+}
+
+void Grener :: skrivUtNavn() {                      // Skriver ut navnene på Gren : Meny i O.
+  Gren *gren;
+  int newLineTeller = 1;
+
+  if (listGren) {                                   // Hvis listen finnes og det er elementer i den.
+    cout << "\nFor hvilke gren vil du registrere en ovelse?";
+
+                                                    // Looper gjennom alle elementer.
+    for (int i = 1; i <= listGren->noOfElements(); i++) {
+
+      gren = (Gren*) listGren->removeNo(i);         // Fjerner objekt fra liste.
+      gren->skrivGrenNavn();                        // Skriver ut text (navnet).
+      listGren->add(gren);                          // Legger tilbake i listen.
+
+      if (newLineTeller % 6 == 0)                   // Skriver ut "new line" hvis 6 grener
+        cout << '\n';                               // ligger etter hverandre på skjermen.
+      newLineTeller++;                              // Teller opp med en.
+    }
+  }
+  else                                              // Hvis ingen ligger i listen.
+    cout << "\n\tIngen grener er registrert";
+}

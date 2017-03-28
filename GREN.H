@@ -22,11 +22,12 @@ public:
 	//destructor
 	~Gren();
 	void endreNavn();		// G E
-	void display();				// G A	
+	void display();				// G A
 	void skrivOvelse();				// G S
 	void skrivTilFIl(ofstream & ut, const int sisteOvelse);
+	void skrivGrenNavn();           // Skriver ut navnet på grenen.
 };
 
-  
+
 
 #endif

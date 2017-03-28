@@ -2,7 +2,7 @@
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
 #include <iostream>
 #include <cstring>
@@ -13,11 +13,13 @@
 
 using namespace std;
 
-Ovelse::Ovelse(int sisteOvelse)		//constructor    får parameter sisteOvelse fra Grener 
-{		
+
+
+Ovelse::Ovelse(int sisteOvelse)		//constructor    får parameter sisteOvelse fra Grener
+{
 	nr = sisteOvelse;	// faar et datamedlem som medsendt parameter
 						//les inn egene datamedlemer
-	antDeltagere = les("Skriv inn antall deltagere i ovelsen. ", MINDELTAGERE, MAXDELTAGERE);	
+	antDeltagere = les("Skriv inn antall deltagere i ovelsen. ", MINDELTAGERE, MAXDELTAGERE);
 	//endreOvelse()  //samme funksjon som kjores til valg  O E
 
 	deltagerListe = new int[MAXDELTAGERE + 1];  //setter deltagerListe peker til en int array
@@ -31,9 +33,8 @@ Ovelse::~Ovelse()
 	delete[] resultatListe;
 }
 
-void Ovelse::skrivMeny()
-{
-	//dummy kode
+void Ovelse :: skrivMeny() {
+
 }
 
 void Ovelse::skrivData()
@@ -53,16 +54,16 @@ char * Ovelse::filNavn(int type)		//send med 1 for .RES ellern none annet for .S
 		char* middle;
 		stringstream strs;
 		string buffer;
-	
+
 		if (type == 1)		//avhengi av medsent arg. saa blir slutten entn .RES eller .STA
 		{	strcpy(end, ".RES");	}
 		else
 		{	strcpy(end, ".STA");	}
-	
+
 		strs << nr;		//Ovelse sitt unike nr brukkes til delen xxxx i filnavnet
 		buffer = strs.str();
 		middle = (char*)buffer.c_str();
-	
+
 		strcat(name, middle);
 		strcat(name, end);
 
@@ -71,7 +72,7 @@ char * Ovelse::filNavn(int type)		//send med 1 for .RES ellern none annet for .S
 
 void Ovelse::skrivTilFil(ofstream & ut)
 {
-	
+
 
 	skriv(ut, nr);
 	skriv(ut, dato);
