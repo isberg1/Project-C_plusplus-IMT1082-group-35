@@ -36,10 +36,10 @@ Grener grenenerObj;
 //extern Deltagere deltagerObj;
 //extern Grener grenenerObj;
 //extern Medaljer medaljeObj;
-//extern 
+//extern Poeng poengObj;
 
 
-int Ovelse::navnTeller = 1000;	//static int brukes til å genere unike nr til ovelsesObjekter
+int Ovelse::navnTeller = 999;	//static int brukes til å genere unike nr til ovelsesObjekter
 
 // **********************************  H O V E D P R O G R A M M E T  **********************************
 
@@ -53,8 +53,6 @@ int main() {
   deltagerObj.lesFraFil();                          // Leser deltagers data fra fil.
 				
   
-
-
   MainMeny();                                       // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");
 
@@ -63,7 +61,7 @@ int main() {
       case 'N' : nasjonObj.menyValg();	     break; // Kaller Nasjoner sin meny.
       case 'D' : deltagerObj.menyValg();     break; // Kaller Deltagere sin meny.
 	  case 'G' : grenenerObj.skrivMeny();    break; // kaller Grener sin meny.
-	  case 'O':     break;
+	  case 'O':   grenenerObj.testResListe(); grenenerObj.testResSkriv();		 break;
 	  case 'M' : medaljeObj.skrivMedaljer(); break; // viser medaljeoversikt
 	  case 'P' : poengObj.skrivPoeng();      break;	// viser poengoversikt
 	  default:	break;

@@ -32,8 +32,8 @@ bool erBokstaver(char tekst[]);                     // Sjekker om alle indekser 
 bool erBokstaverEllerSpace(char tekst[]);           // Sjekker om indekser i array er bokstaver/ space.
 char *konverterTilStore(char *tekst);               // Gjør om til store bokstaver.
 bool slettFil(char fil[]);                          // Sletter fil fra disk, send med filnavn.
-
-void bubbleSort(int array[]);							//sorterer 1 int array
+void StatistikkRaport(int deltager, int log, int teller);			//reduser poeng og medaljefordelingen til en nasjon
+void HentNavnOgNasjonFraDeltager(char nv[], char nasj[], int nr);
 
 #endif
 

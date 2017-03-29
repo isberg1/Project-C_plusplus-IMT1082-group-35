@@ -33,9 +33,9 @@ Gren::Gren(char * a) : TextElement(a)
 
 	switch (tilEnum)
 	{//usikker på hva "antSifre" skal brukens til bare gjetter her
-	case 1:	typeMaaling = MinSECTidel;		antSifre = 6; break;
-	case 2: typeMaaling = MinSecHundredel;	antSifre = 7; break;
-	case 3:	typeMaaling = MinSekTusendel;	antSifre = 8; break;
+	case 1:	typeMaaling = MinSECTidel;		antSifre = 1; break;
+	case 2: typeMaaling = MinSecHundredel;	antSifre = 2; break;
+	case 3:	typeMaaling = MinSekTusendel;	antSifre = 3; break;
 	case 4: typeMaaling = PoengX;			antSifre = 1; break;
 	case 5:	typeMaaling = PoengXX;			antSifre = 2; break;
 	}
@@ -70,7 +70,7 @@ Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 		//leser inn ovelser fra fil
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{
-			 array[i]->lesFraFil(inn); 
+			 array[i]->lesFraFil(inn);		// skal kansjke skrives:  *(array+i)->lesFraFil(inn);
 		}
 	}
 }
@@ -114,7 +114,7 @@ void Gren::display()	//til komando G A
 void Gren::skrivOvelse()//til komando G S
 {
 	for (int i = 1; i <= antallRegistrerteOvelser; i++)
-	{	array[i]->skrivData();	}
+	{	array[i]->skrivData();	}		// skal kansjke skrives:  *(array+i)->skrivData();
 }
 //til fil
 void Gren::skrivTilFIl(ofstream & ut)
@@ -142,7 +142,7 @@ void Gren::skrivTilFIl(ofstream & ut)
 	{
 		//skriver ovelsesobjekter til fil
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
-		{	array[i]->skrivTilFil(ut);	}
+		{	array[i]->skrivTilFil(ut);	}		// skal kansjke skrives:  *(array+i)->skrivTilFil();
 	}
 	
 }
@@ -150,4 +150,36 @@ void Gren::skrivTilFIl(ofstream & ut)
 int Gren::hentAntalOvelser()
 {
 	return antallRegistrerteOvelser;
+}
+
+void Gren::testingNyOvelse()
+{
+	char temp[STRLEN];
+	les("skriv inn ovelsesnavn: ", temp, STRLEN);
+	
+	*(array +1) = new Ovelse(typeMaaling, temp);
+	
+	++antallRegistrerteOvelser;
+}
+
+void Gren::testingSkrivResListe()
+{
+	int temp;
+	int teller = 0;
+	bool bryt = true;
+
+	temp = les("skriv in ovelse ID-nr: ", 1000, 9999);
+
+	while (++teller <= antallRegistrerteOvelser && bryt)
+	{
+		if (array[teller]->sjekkID() == temp)
+		{
+			skriv("WWWWWWWW", "");
+			bryt = false;		//avbryt lup
+			array[teller]->skrivResultatliste();
+		}
+	}
+
+
+
 }

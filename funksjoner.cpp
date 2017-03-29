@@ -17,7 +17,18 @@
 #include <stdlib.h>     /* atoi */
 #include "CONST.H"
 #include "FUNKSJONER.H"
+#include"DELTAGERE.H"
+#include"ENUM.H"
+#include"POENG.H"
+#include"MEDALJER.H"
+
+
 using namespace std;
+
+
+extern Deltagere deltagerObj;
+extern Medaljer medaljeObj;
+extern Poeng poengObj;
 
 
 char les() {			                            // Henter ett ikke-blankt upcaset tegn:
@@ -124,6 +135,7 @@ char *lesTxt(ifstream & inn)
 void lesTxt2(ifstream & inn, char string[])
 {	inn.getline(string, STRLEN); }
 
+// fjern foor siste innlevering
 void skrivTilFil() {										//skriver alt til fil
 
 	ofstream ut("LEGER.DTA"); //!!!!endre navn fÂ fil  è≈pner/skaper aktuell fil.
@@ -147,7 +159,7 @@ void skrivTilFil() {										//skriver alt til fil
 		cout << "\n\nFinner ikke filene!\n\n";
 	}					//feilmeding
 }
-
+// fjern foor siste innlevering
 void lesFraFil(int alternativ) {							// leser alt fra fil
 
 	ifstream inn("LEGER.DTA");								//  è≈pner aktuell fil
@@ -232,24 +244,68 @@ bool slettFil(char fil[]) {                         // Sletter fil fra disk, sen
     return false;                                   // Hvis filen ikke ble slettet (Finnes ikke).
 }
 
-void bubbleSort(int array[])		//sorterer en int array.  kan kanskje brukes til deltager- og resultatListe i Ovelse
+//funksjonen sender en rapport til medalje og poeng om aa enten ooke eller redusere antallet til en nasjon
+void StatistikkRaport(int deltager, int log, int teller)
 {
-	int sistebrukt=10; //arrayens lengde endres f¯r bruk !!!!!!!!!!!!!!
 
-	int dummy;
-	char temp[MAXNASJONER + 1];
+	/*
+	"deltager" brukes til aa finne ut hvilken najson sjom skal okke ant poeng og medaljer
+	"log" brukes til aa finne ut hvilken najson sjom skal redusere ant poeng og medaljer
+	"teller" forteller hvor mye og hva det skal ookes/reduseres med
+	*/
+	seiersType	med;									//{ gull, solv, bronsje };
+	positivNegativ	posNeg;								//{ positiv, negativ };
+	char nasjon[STRLEN];							// til aa hente deltager og log sin nasjon
 
-	for (int i = 1; i <= sistebrukt - 1; i++)
+	switch (teller)	//hva slags medalje skal det sendes i rapporten
 	{
-		for (int j = i + 1; j <= sistebrukt; j++)
-		{
-			if (array[i] < array[j])
-			{					//swap
-				dummy = array[i];
-				array[i] = array[j];
-				array[j] = dummy;
-			}
-		}
+	case 1:	med = gull;		break;
+	case 2: med = solv;		break;
+	case 3: med = bronsje;	break;
+	default:				break;
 	}
+
+	//til testing
+	deltager = 1;
+
+	if (deltager != 0)	//hvis det skal sendes en rapport om aa okke ant. medaljer og poeng saa er ikke "deltager" lik 0.
+	{
+		posNeg = positiv;									//settes til default verdi positiv 	
+
+		strcpy(nasjon, deltagerObj.hentNasjon(deltager));  // hent "deltager" sin nasjon 
+
+			//send raport for aa ooke antall poeng 
+			poengObj.endreAntPoeng(nasjon, teller, posNeg);
+
+			if (teller < 4)							 //hvis det er aktuelt aa sende raport til medaljeObjektet
+			{
+				medaljeObj.endreAntMedaljer(nasjon, med, posNeg);
+			}
+	}
+
+	//til testing
+	cout << "\n" << nasjon << " " << teller << " " << posNeg;
+	
+	if (log != 0)			//hvis det skal sendes en rapport om aa redusere ant. medaljer og poeng saa er ikke "log" lik 0.
+	{	
+		posNeg = negativ;
+		strcpy(nasjon, deltagerObj.hentNasjon(log));	 // hent "log" sin najon
+			poengObj.endreAntPoeng(nasjon, teller, posNeg);  //send raport for aa redusere antall poeng
+
+			if (teller < 4)			//hvis det er aktuellt aa sende rapport til medalje
+			{
+				medaljeObj.endreAntMedaljer(nasjon, med, posNeg);
+			}			//send raport for aa redusere antall medaljer
+		}
+		
+	}
+
+void HentNavnOgNasjonFraDeltager(char nv[], char nasj[], int nr)
+{
+	strcpy(nv, deltagerObj.hentNavn(nr));
+	strcpy(nasj, deltagerObj.hentNasjon(nr));
+
 }
+
+
 

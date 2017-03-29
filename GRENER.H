@@ -21,7 +21,8 @@ public:
 	void skrivEnGren();			// G S
 	void skrivTilFIl();
 	void lesFraFil();
-	
+	void testResListe();
+	void testResSkriv();
 };
 
 

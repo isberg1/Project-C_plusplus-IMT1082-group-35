@@ -13,19 +13,21 @@
 
 using namespace std;
 
-Ovelse::Ovelse(registerTidPoeng typeMaaling)		//constructor    får parameter sisteOvelse fra Grener 
+Ovelse::Ovelse(registerTidPoeng typeMaaling, char *nv)		//constructor    får parameter sisteOvelse fra Grener 
 {		
-	nr = lagUniktNr();						// faar en unikt nummer basert på static int navnTeller 
+	navn = konverter(nv);													//faar navn fra Gren
 	maaling = typeMaaling;													//faar enumen fra Gren
-																		//les inn egene datamedlemer
+	nr = lagUniktNr();						// faar en unikt nummer basert på static int "navnTeller" 
+								//les inn egene datamedlemer
 	antDeltagere = les("Skriv inn antall deltagere i ovelsen. ", MINDELTAGERE, MAXDELTAGERE);	
 	
-
 	deltagerListe = new int[MAXDELTAGERE + 1];			//setter deltagerListe peker til en int array						
 	resultatListe = new int[MAXDELTAGERE + 1];			//setter resultatListe peker til en int array
 
 	for (int i = 0; i <= ANTALLVINNERE + 1; i++)
 	{	log[i] = 0; 	}											//nullstiller log arryaen
+
+	nyResultatListe();
 }
 
 Ovelse::~Ovelse()	//destructor
@@ -110,7 +112,7 @@ void Ovelse::nyResultatListe()	//lager ny resultatliste
 	ifstream inn(filNavn(0));
 	ofstream ut(filNavn(1));
 
-	if (inn)																//hvis en deltagerliste finnes
+	if (true/*inn*/)																//hvis en deltagerliste finnes
 	{
 		if (!ut )														//hvis en resultatliste ikke finnes 
 		{
@@ -119,8 +121,12 @@ void Ovelse::nyResultatListe()	//lager ny resultatliste
 			for (int i = 1; i <= antDeltagere; i++)
 			{			
 					skriv("Skriv inn resutatet for deltager: ", *(deltagerListe + i));
-					skaffVerdi();								
+					*(resultatListe + i) = skaffVerdi();				//leser inn gyldige verdier til resultatlisten					
 			}
+
+			bubbleSort();
+			ajourforeLog();			//ma lages
+			resultaterSkrivTilFil();	//ma lages
 
 		}
 		else
@@ -146,7 +152,7 @@ int Ovelse::lagUniktNr() //returnerer et unikt tall til datamedlemm "nr"
 //leser inn gyldige verdier til resultatliste
 int Ovelse::skaffVerdi()
 {
-	int min, sec, tidel, hundredel,tusendel, poengX, poengXX;
+	int min, sec, tidel, hundredel,tusendel, poengX, poengXX, desimal;
 
 	//hvis en deltager har brutt, ikke moott eller blit disket saa skal det tastes - 1):",
 
@@ -155,8 +161,8 @@ int Ovelse::skaffVerdi()
 		min = les("Skriv resultat i minutter: ", -1, 120);
 		if (min != -1)
 		{
-			sec = les("Skriv resultat i sekunder: ", -1, 59);
-			tidel = les("Skriv resultat i tidelssekunder: ", -1, 9);
+			sec = les("Skriv resultat i sekunder: ", 0, 59);
+			tidel = les("Skriv resultat i tidelssekunder: ", 0, 9);
 			return ((min * 1000) + (sec * 10) + tidel); 					// maxverdi 120 59 9
 		}	
 	}
@@ -165,8 +171,8 @@ int Ovelse::skaffVerdi()
 		min = les("Skriv resultat i minutter: ", -1, 120);
 		if (min != -1)
 		{
-			sec = les("Skriv resultat i sekunder: ", -1, 59);
-			hundredel = les("Skriv resultat i hundredelssekunder: ", -1, 99);
+			sec = les("Skriv resultat i sekunder: ", 0, 59);
+			hundredel = les("Skriv resultat i hundredelssekunder: ", 0, 99);
 			return ((min * 10000) + (sec * 100) + hundredel); 					// maxverdi 120 59 99
 		}
 	}
@@ -175,21 +181,180 @@ int Ovelse::skaffVerdi()
 		min = les("Skriv resultat i minutter: ", -1, 120);
 		if (min != -1)
 		{
-			sec = les("Skriv resultat i sekunder: ", -1, 59);
-			tusendel = les("Skriv resultat i tusendelssekunder: ", -1, 999);
+			sec = les("Skriv resultat i sekunder: ", 0, 59);
+			tusendel = les("Skriv resultat i tusendelssekunder: ", 0, 999);
 			return ((min * 100000) + (sec * 1000) + tusendel); 					// maxverdi 120 59 999
 		}
 	}
 	else if (maaling== PoengX)
 	{
-		poengX = les("Skriv resultat i minutter: ", -1, 9);
-		return poengX;															// maxverdi 9
+		poengX = les("Skriv heltallsdelen av resultatet i poeng: ", -1, 9);
+		if (poengX != -1)
+		{
+			desimal = les("Skriv desimaltallsdelen av resultatet i poeng: ", 0, 9);
+			return ((poengX * 10) + desimal);							// maxverdi 99
+		}																
 	}
 	else if (maaling== PoengXX)
 	{
-		poengXX = les("Skriv resultat i minutter: ", -1, 99);
-		return PoengXX;															// maxverdi 99
+		poengXX = les("Skriv heltallsdelen av resultatet i poeng: ", -1, 99);
+		if (poengXX != -1)
+		{
+			desimal = les("Skriv desimaltallsdelen av resultatet i poeng: ", 0, 99);
+			return ((poengXX * 100) + (desimal* 10));					// maxverdi 9999
+		}
 	}
 
-	return -1;						
+	return -1;										//returnerer brudd/diskvalifiserings verdi		
+}
+
+void Ovelse::bubbleSort()    //sorterer 2 int arrayer.  
+{	
+
+		int dummy;
+		int temp, bytter;
+
+		for (int i = 1; i <= antDeltagere - 1; i++)
+		{
+			for (int j = i + 1; j <= antDeltagere; j++)
+			{
+				if (*(resultatListe+i) < *(resultatListe+j))
+				{					//swap resultat array
+					dummy = *(resultatListe + i);
+					*(resultatListe + i) = *(resultatListe + j);
+					*(resultatListe + j) = dummy;
+									//swap deltager array
+					temp = *(deltagerListe + i);
+					*(deltagerListe + i) = *(deltagerListe + j);
+					*(deltagerListe + j) = temp;
+
+				}
+			}
+		}
+		// sjekker om flere deltagere er registrert med samme resultat og ber bruker om aa bestemme seiersrekkefolge
+		for (int j = 1; j <= antDeltagere - 1; j++)
+		{
+
+			if (*(resultatListe + j) == *(resultatListe + (j + 1)))				//hvis 2 deltagere har like resultater
+			{
+
+				cout << "\nUklarket oppdaget. 2 deltagere har samme resultat, \nvennligst velg hvem av de 2"
+					<< "som skal ha den overste resultatplassen. \nFor deltager: "
+					<< *(deltagerListe + j) << " skriv " << j
+					<< " eller for deltager: " << *(deltagerListe + (j + 1))
+					<< " skriv " << (j + 1);
+
+				temp = les(": ", j, (j + 1));
+			
+				if (temp == (j + 1))									// hvis brukeren har valgt aa endre rekkefolgen
+				{								//bytt plasser deltagerliste
+					
+
+					bytter = *(deltagerListe + j);
+					*(deltagerListe + j) = *(deltagerListe + (j + 1));
+					*(deltagerListe + (j + 1)) = bytter;
+												//bytt plasser resultatliste
+					bytter = *(resultatListe + j);
+					*(resultatListe + j) = *(resultatListe + (j + 1));
+					*(resultatListe + (j + 1)) = bytter;
+
+					
+				}
+			}
+		}
+}
+
+
+void Ovelse::ajourforeLog()										//ajourforer log[] etter at en ny resultatliste er skrevet inn 
+{											//eller etter at .RES og .STA fil har blitt endret og sender raport til statistikk
+			// vurder while lup 				
+	for (int k = 1; k <= 7; k++)												// gaa gjennom alle som skal ha medalje og poeng
+	{
+		if ( *(deltagerListe + k) != log[k]	)						//hvis seiersrekkefolgen ikke stemmer med det som er logfort
+		{
+			if (*(resultatListe + k) > 0)							//hvis resultatlisten har et gyldig resultat for den indexen
+			{								//lag raporter til medalje og statistikk
+				StatistikkRaport(*(deltagerListe + k), log[k], k);		//ook/reduser poeng og medaljefordelingen til en nasjon
+				log[k] = *(deltagerListe + k);			//ajourfor log
+			}
+		}
+	}
+}
+
+void Ovelse::skrivResultatliste()
+{
+	char fil[STRLEN];
+	char nv[STRLEN];
+	char nasj[STRLEN];
+
+
+
+	strcpy(fil, filNavn(1));
+
+	ifstream inn(fil);
+
+	if (true /*inn*/)
+	{
+		resultaterLesFraFil();
+	//	bubbleSort();
+	//	ajourforeLog();
+
+		skriv("Resultatliste sortert hoyest til lavest", "\nDeltager:  Resultat:  Navn:  Nasjon");
+		for (int i = 1; i <= antDeltagere; i++)
+		{
+			HentNavnOgNasjonFraDeltager(nv, nasj, *(deltagerListe + i));
+
+			cout << *(deltagerListe + i) << "  "
+				<< *(resultatListe + i) << "  "
+				<< nv << "  " << nasj << "\n";
+		}
+	}
+	else
+	{	skriv("Finner ingen fil med navn: ", fil);	}
+
+}
+
+void Ovelse::deltagerSkrivtilFil()
+{
+}
+
+void Ovelse::resultaterSkrivTilFil()
+{
+	//advarsel bubbleSort() ma kjores for denne funksjonen kalles
+	deltagerSkrivtilFil();
+
+	ofstream ut(filNavn(1));
+
+	if (ut)
+	{
+		skriv(ut, antDeltagere);
+		skriv(ut, "fra udnder denne linjen saar deltagenr i forste linje og deltagerens resultat under:");
+		for (int i = 1; i <= antDeltagere * 2; i++)
+		{
+			skriv(ut, *(deltagerListe + i));
+			skriv(ut, *(resultatListe + i));
+			skriv(ut, "\n");
+		}
+	}
+}
+
+void Ovelse::resultaterLesFraFil()
+{
+	char buffer[100];
+	ifstream inn(filNavn(1));
+
+	antDeltagere = lesInt(inn);
+	lesTxt2(inn, buffer);
+
+	for (int i = 1; i <= antDeltagere * 2; i++)
+	{
+		*(deltagerListe + i) = lesInt(inn);
+		*(resultatListe + i) = lesInt(inn);
+	}
+
+}
+
+int Ovelse::sjekkID()
+{
+	return nr;
 }

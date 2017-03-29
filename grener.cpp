@@ -194,5 +194,49 @@ void Grener::lesFraFil()
 
 }
 
+void Grener::testResListe()
+{
+	char temp[STRLEN];
+	Gren *ptr;
+	les("skriv grenens Navn; ", temp, STRLEN);
+
+	if (listGren->inList(temp))
+	{
+		ptr = (Gren*)listGren->remove(temp);
+		ptr->testingNyOvelse();
+		listGren->add(ptr);
+
+	}
+	else
+	{
+		skriv("Finner ikke en gren med navn: ", temp);
+	}
+
+	
+
+
+}
+
+void Grener::testResSkriv()
+{
+	char temp[STRLEN];
+	Gren *ptr;
+	les("skriv grenens Navn; ", temp, STRLEN);
+
+	if (listGren->inList(temp))
+	{
+		ptr = (Gren*)listGren->remove(temp);
+		ptr->testingSkrivResListe();
+		listGren->add(ptr);
+
+	}
+	else
+	{
+		skriv("Finner ikke en gren med navn: ", temp);
+	}
+
+
+}
+
 
 

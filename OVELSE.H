@@ -16,7 +16,7 @@ private:
 	int nr;
 	registerTidPoeng maaling;		//hvilken type maaling skal registrers
 	char *navn;											//ovelsens navn
-	int antDeltagere;
+	int antDeltagere;	//brukes som teller
 	int dato;
 	int klokkeslett;
 					//deltager array	
@@ -25,7 +25,7 @@ private:
 	int *resultatListe;
 	int log[ANTALLVINNERE + 1];  //loggfører seiersrekkefolgen brukes til R <id> S NB!
 public:
-	Ovelse( registerTidPoeng typeMaaling);	//constructor    får et arg. fra Grener som viser hva slags maaling som skal registreres
+	Ovelse( registerTidPoeng typeMaaling, char * nv);	//constructor    får et arg. fra Grener som viser hva slags maaling som skal registreres
 	~Ovelse();
 	void skrivMeny();
 	void skrivData();
@@ -35,18 +35,25 @@ public:
 	void nyResultatListe();																	//lag en ny resultatliste
 	int lagUniktNr();										//lager et unikt tall som brukes til datamedlemm  int "nr"
 	int skaffVerdi();										  //henter inn og sikkrer riktig verdi til resultatlisten
+	void bubbleSort();							//sorterer 2 int array
+	void ajourforeLog();//ma testes		ajourforer log arrayen og sender rapport til medaljer og poeng.  ma teste global funksjon raport
+	void skrivResultatliste();
+	void deltagerSkrivtilFil();	//ma lages	
+	void resultaterSkrivTilFil();//ma lages	
+	void resultaterLesFraFil(); //ma lages
+	int sjekkID();
 };
 
-/*n
+/*
 liste over ting som må gjores i ovelse
 lag alle 3 menyene. start med aa lagen en meny til i Grener. lag saa 2 menyer i Ovelse
-lag en funksjon som lager et unikt filnavn (til OVxxx.STA og OVxxxx.RES)						alex
-lag en funksjon som sletter en fil fra HDD( til O F  ,  O L <id> F  og  O R <id> F)				mats
+lag en funksjon som lager et unikt filnavn (til OVxxx.STA og OVxxxx.RES)						
+lag en funksjon som sletter en fil fra HDD( til O F  ,  O L <id> F  og  O R <id> F)				
 
 Forslag til implimentasjnsrekkefolge etter at det ovenfor er gjort:
 1. valg :O     N  ->  A  ->  E  -> skriv til fil  -> les fra fil  ->  F
-2. Valg :O L   N  ->  S  ->  E  -> skriv til fil  -> les fra fil  ->  F							mats
-3. Valg :O S   N  ->  S(før NB!)  -> skriv til fil  -> les fra fil ->  F  ->  S(NB!)			alex
+2. Valg :O L   N  ->  S  ->  E  -> skriv til fil  -> les fra fil  ->  F							
+3. Valg :O S   N  ->  S(før NB!)  -> skriv til fil  -> les fra fil ->  F  ->  S(NB!)			
 
 //tror vansklighetsgraden fra lettest til vanskligst er: 2, 1, 3
 

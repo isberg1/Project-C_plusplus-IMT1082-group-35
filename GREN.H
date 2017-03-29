@@ -27,7 +27,8 @@ public:
 	void skrivOvelse();				// G S
 	void skrivTilFIl(ofstream & ut);
 	int hentAntalOvelser();
-	
+	void testingNyOvelse();
+	void testingSkrivResListe();
 };
 
   
