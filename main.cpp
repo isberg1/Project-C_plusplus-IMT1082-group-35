@@ -46,7 +46,7 @@ int Ovelse::navnTeller = 999;	//static int brukes til å genere unike nr til ove
 int main() {
   char valgMain;
 
-  nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
+  //nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
   grenenerObj.lesFraFil();							//leser grener fra fil
   medaljeObj.lesFraFil();							//leser medaljer fra fil
   poengObj.lesFraFil();								//leser poeng fra fil

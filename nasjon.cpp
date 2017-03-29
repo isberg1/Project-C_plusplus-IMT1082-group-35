@@ -25,16 +25,16 @@ Nasjon :: Nasjon() {
 Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
 
-  les("\nFullt navn for nasjonen: ", buffer, NVLEN);// Leser inn full navn på nasjon.
+  les("\nFullt navn for nasjonen", buffer, NVLEN);// Leser inn full navn på nasjon.
   fulltNavn = konverter(buffer);                    // Gjør om størrelsen.
 
   // AntDeltagere blir lest inn fra 'finnesNasjonOgOppdater()' fra Nasjoner.
   antDeltagere = 0;
 
-  les("\nKontaktperson: ", buffer, NVLEN);          // Leser inn navn på kontaktperson.
+  les("\nKontaktperson", buffer, NVLEN);          // Leser inn navn på kontaktperson.
   kontaktNavn = konverter(buffer);                  // Gjør om størrelsen.
                                                     // Leser inn tlf i interval.
-  kontaktTlf = les("\nKontaktpersonens tlf:", 10000000, 99999999);
+  kontaktTlf = les("\nKontaktpersonens tlf", 10000000, 99999999);
 
   les("\nAnnet: ", buffer, STRLEN);                  // Leser inn annen data.
   andreData = konverter(buffer);                    // Gjør om størrelsen.
@@ -89,7 +89,7 @@ void Nasjon :: skrivTilFil(ofstream & ut) {
 void Nasjon :: endreNasjonsNavn() {                 // Endrer det fulle navnet til nasjonen.
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
 
-  les("\nNasjonens fulle navn:", buffer, NVLEN);
+  les("\nNasjonens fulle navn", buffer, NVLEN);
   delete[] fulltNavn;                               // Sletter fulltNavn før det lages ny.
   fulltNavn = konverter(buffer);                    // Gjør om størrelsen og lager ny peker.
 }
@@ -97,19 +97,19 @@ void Nasjon :: endreNasjonsNavn() {                 // Endrer det fulle navnet t
 void Nasjon :: endreKontaktperson() {               // Endrer navnet til kontaktperson.
   char buffer[STRLEN];
 
-  les("\nKontaktpersonens navn: ", buffer, NVLEN);
+  les("\nKontaktpersonens navn", buffer, NVLEN);
   delete[] kontaktNavn;                             // Sletter kontaktnavn før det lages ny.
   kontaktNavn = konverter(buffer);                  // Gjør om størrelsen og lager ny peker.
 }
 
 void Nasjon :: endreTlf() {                         // Endrer TLF til kontaktperson.
-  kontaktTlf = les("\nKontaktpersonens tlf:", 10000000, 99999999);
+  kontaktTlf = les("\nKontaktpersonens tlf", 10000000, 99999999);
 }
 
 void Nasjon :: endreAnnet() {                       // Endrer feltet 'Annet'.
   char buffer[STRLEN];
 
-  les("\nAnnet: ", buffer, STRLEN);
+  les("\nAnnet", buffer, STRLEN);
   delete[] andreData;                               // Sletter andreData før det lages ny.
   andreData = konverter(buffer);                    // Gjør om størrelsen og lager ny peker.
 }

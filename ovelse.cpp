@@ -2,7 +2,7 @@
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
 #include <iostream>
 #include <cstring>
@@ -27,7 +27,6 @@ Ovelse::Ovelse(registerTidPoeng typeMaaling, char *nv)		//constructor    får par
 	for (int i = 0; i <= ANTALLVINNERE + 1; i++)
 	{	log[i] = 0; 	}											//nullstiller log arryaen
 
-	nyResultatListe();
 }
 
 Ovelse::~Ovelse()	//destructor
@@ -37,9 +36,8 @@ Ovelse::~Ovelse()	//destructor
 	delete[] resultatListe;
 }
 
-void Ovelse::skrivMeny()
-{
-	//dummy kode
+void Ovelse :: skrivMeny() {
+
 }
 
 void Ovelse::skrivData()	//Displayer egne datamedlemmer
@@ -58,18 +56,19 @@ char * Ovelse::filNavn(int type)		//send med 1 for .RES eller ingenting for .STA
 		char* middle;
 		stringstream strs;
 		string buffer;
-	
-		if (type == 1)					//avhengi av medsent arg.  er 1 eller den statisk satte verdien 0 
+
+		if (type == 1)					//avhengi av medsent arg.  er 1 eller den statisk satte verdien 0
 		{	strcpy(end, ".RES");	}	//saa blir slutten entn .RES eller .STA
-		
+
 					//konverterer int "nr til String
 		strs << nr;								//Ovelse sitt unike nr brukkes til delen xxxx i filnavnet
 		buffer = strs.str();
 		middle = (char*)buffer.c_str();
 						//limmer sammen de 3 delende av filnavnet
+
 		strcat(name, middle);
 		strcat(name, end);
-			
+
 		return name;													//returnerer det unike filnavnet
 }
 
@@ -114,12 +113,12 @@ void Ovelse::nyResultatListe()	//lager ny resultatliste
 
 	if (true/*inn*/)																//hvis en deltagerliste finnes
 	{
-		if (!ut )														//hvis en resultatliste ikke finnes 
+		if (!ut )														//hvis en resultatliste ikke finnes
 		{
 
 			skriv("Skriv in resultater (hvis en deltager har brutt, ikke moott eller blit disket tast -1):", "");
 			for (int i = 1; i <= antDeltagere; i++)
-			{			
+			{
 					skriv("Skriv inn resutatet for deltager: ", *(deltagerListe + i));
 					*(resultatListe + i) = skaffVerdi();				//leser inn gyldige verdier til resultatlisten					
 			}
@@ -130,7 +129,7 @@ void Ovelse::nyResultatListe()	//lager ny resultatliste
 
 		}
 		else
-		{		//lukk filer og skriv ut feilmelding			//noe usikker paa denne				//$$$$$$$$$$$$ ma testes    
+		{		//lukk filer og skriv ut feilmelding			//noe usikker paa denne				//$$$$$$$$$$$$ ma testes
 			ut.close();
 			inn.close();
 			skriv("Resultatlisten finnes alerede!", "");
@@ -164,7 +163,7 @@ int Ovelse::skaffVerdi()
 			sec = les("Skriv resultat i sekunder: ", 0, 59);
 			tidel = les("Skriv resultat i tidelssekunder: ", 0, 9);
 			return ((min * 1000) + (sec * 10) + tidel); 					// maxverdi 120 59 9
-		}	
+		}
 	}
 	else if (maaling== MinSecHundredel)
 	{

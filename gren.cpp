@@ -2,7 +2,7 @@
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
 #include <iostream>
 #include <cstring>
@@ -54,7 +54,7 @@ Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 	antSifre = lesInt(inn);
 	antallRegistrerteOvelser = lesInt(inn);
 	tilEnum = lesInt(inn);
-	
+
 	switch (tilEnum)//konverterer int fra fil til enum
 	{
 	case 1:	typeMaaling = MinSECTidel;		 break;
@@ -66,7 +66,7 @@ Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 
 	if (antOvelser > 0) //hvis det er registrert noen ovelser i det hele tatt
 	{
-		
+
 		//leser inn ovelser fra fil
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{
@@ -76,10 +76,10 @@ Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 }
 //destructor
 Gren::~Gren()
-{ 	
-	delete[] annet; 
+{
+	delete[] annet;
 	for (int i = 1; i <= antOvelser; i++)
-	{	delete array[i];	}	//sletter alle Ovelsesobjekter 
+	{	delete array[i];	}	//sletter alle Ovelsesobjekter
 
 }
 
@@ -98,7 +98,7 @@ void Gren::display()	//til komando G A
 	skriv("antall ovelser er:", antOvelser);
 	skriv("Annet: ", annet);
 
-	
+
 	if (typeMaaling == MinSECTidel)
 	{	skriv("Maalingstype er: ","MinSECTidel");		}
 	if (typeMaaling == MinSecHundredel)
@@ -144,7 +144,11 @@ void Gren::skrivTilFIl(ofstream & ut)
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{	array[i]->skrivTilFil(ut);	}		// skal kansjke skrives:  *(array+i)->skrivTilFil();
 	}
-	
+
+}
+
+void Gren :: skrivGrenNavn() {           // Skriver ut navnet på grenen.
+  cout << '\t' << text;
 }
 
 int Gren::hentAntalOvelser()
