@@ -13,12 +13,12 @@ private:
 
 public:
 	~Deltagere();
-	void skrivMeny();
-	void menyValg();
+	void skrivMeny();								// Deltagere-switch.
+	void menyValg();								// KommandoMeny for Deltagere.
 	void nyDeltager();                              // Oppretter ny Deltager                  : Valg D N
-	void endreDeltager();							//endrer deltagerens datamedlemmer		  : Valg D E
-	void endreDeltagerMeny();						// velg hvilken datamedlemmer som skal enders
-	void skrivDataAlle();
+	void endreDeltager();							// Endrer deltagerens datamedlemmer		  : Valg D E
+	void endreDeltagerMeny();						// EndreDeltager-switch					  
+	void skrivDataAlle();							// Skriver ut hoveddata for alle deltagere: Valg D A
 	void skrivDataEn();                             // Skriver all data om en gitt deltager.  : Valg D S
 	void loopDeltagerTropp(char *n);                // Skriver ut deltagere for en nasjon.    : Valg N T
     void skrivTilFil();                             // Skriver til fil.

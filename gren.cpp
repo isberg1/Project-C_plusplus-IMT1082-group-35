@@ -155,3 +155,4 @@ int Gren::hentAntalOvelser()
 {
 	return antallRegistrerteOvelser;
 }
+

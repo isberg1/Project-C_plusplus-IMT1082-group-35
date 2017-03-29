@@ -44,7 +44,7 @@ void Deltagere::menyValg()
 		case 'E': endreDeltager();	break;
 		case 'A': skrivDataAlle();	break;
 		case 'S': skrivDataEn();	break;
-		default : skrivMeny();		break;
+		default :		break;
     }
     skrivMeny();
     valg = les("\nDeltagere: ");
@@ -140,6 +140,10 @@ void Deltagere::skrivDataAlle()
 			tempDeltager->displayHoved();			// Skriv ut hoveddata for
 			DeltagerListe->add(tempDeltager);		// Alle deltagere i listen.
 		}
+	}
+	else
+	{
+		cout << "Det eksisterer ingen deltagere enda!";
 	}
 }
 
