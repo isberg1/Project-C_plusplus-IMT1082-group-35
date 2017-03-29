@@ -15,7 +15,7 @@ using namespace std;
 
 
 
-Ovelse::Ovelse(registerTidPoeng typeMaaling)		//constructor    får parameter sisteOvelse fra Grener
+Ovelse::Ovelse(registerTidPoeng typeMaaling)		//constructor    får parameter sisteOvelse fra Gren
 {
 	nr = lagUniktNr();						// faar en unikt nummer basert på static int navnTeller
 	maaling = typeMaaling;													//faar enumen fra Gren
@@ -101,42 +101,6 @@ void Ovelse::lesFraFil(ifstream & inn)
 	//resultat array les fra fil
 }
 
-void Ovelse::nyResultatListe()	//lager ny resultatliste
-{
-	int dummy;
-	int temp;
-
-	ifstream inn(filNavn(0));
-	ofstream ut(filNavn(1));
-
-	if (inn)																//hvis en deltagerliste finnes
-	{
-		if (!ut )														//hvis en resultatliste ikke finnes
-		{
-
-			skriv("Skriv in resultater (hvis en deltager har brutt, ikke moott eller blit disket tast -1):", "");
-			for (int i = 1; i <= antDeltagere; i++)
-			{
-					skriv("Skriv inn resutatet for deltager: ", *(deltagerListe + i));
-					skaffVerdi();
-			}
-
-		}
-		else
-		{		//lukk filer og skriv ut feilmelding			//noe usikker paa denne				//$$$$$$$$$$$$ ma testes
-			ut.close();
-			inn.close();
-			skriv("Resultatlisten finnes alerede!", "");
-		}
-	}
-	else
-	{			//lukk filer og skriv ut feilmelding			//noe usikker paa denne				//$$$$$$$$$$$$ ma testes
-		ut.close();
-		inn.close();
-		skriv("Deltagerlisten finnes ikke! lag den foor Resultatliste", "");
-	}
-}
-
 int Ovelse::lagUniktNr() //returnerer et unikt tall til datamedlemm "nr"
 {
 	return (++navnTeller);	//advarsel ma aldri telles ned
@@ -191,4 +155,132 @@ int Ovelse::skaffVerdi()
 	}
 
 	return -1;
+}
+
+int Ovelse::hentId()
+{
+	return nr;
+}
+
+void Ovelse::menyValgDelListe()						// ValgSwitch for deltagerLister.
+{
+	char valg;
+
+	skrivDelListeMeny();
+	valg = les("\nDeltagerLister ");
+	while (valg != 'Q')
+	{
+		switch (valg)
+		{
+		case 'S': skrivDelListe();	    break;		// Skriver ut en deltagerListe.
+		case 'N': nyDelListe();			break;		// Lager en ny deltagerListe.
+		case 'E': endreDelListe();		break;		// Endrer en deltagerListe.
+		case 'F': fjernDelListe();		break;		// Fjerner en deltagerListe.
+		default:		break;
+		}
+		skrivDelListeMeny();
+		valg = les("\nDeltagerLister: ");
+	}
+}
+
+void Ovelse::skrivDelListeMeny()					// KommandoMeny for deltagerLister.
+{
+	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+		<< "\n\tS - Skriv ut deltagerliste"
+		<< "\n\tN - Lag ny deltagerliste"
+		<< "\n\tE - Endre deltagerliste"
+		<< "\n\tF - Fjern deltagerliste"
+		<< "\n\tQ - Tilbake til ovelsemeny";
+}
+
+void Ovelse::skrivDelListe()
+{
+
+}
+
+void Ovelse::nyDelListe()
+{
+
+}
+
+void Ovelse::endreDelListe()
+{
+
+}
+
+void Ovelse::fjernDelListe()
+{
+
+}
+
+void Ovelse::menyValgResListe()						// ValgSwitch for resultatLister.
+{
+	char valg;
+
+	skrivResListeMeny();
+	valg = les("\nResultatLister: ");
+	while (valg != 'Q')
+	{
+		switch (valg)
+		{
+		case 'S': skrivResListe();		break;		// Skriver ut en resultatListe.
+		case 'N': nyResListe();			break;		// Lager en ny resultatListe.
+		case 'F': fjernResListe();		break;		// Fjerner en resultatListe.
+		default:						break;
+		}
+		skrivResListeMeny();
+		valg = les("\nResultatlister: ");
+	}
+}
+
+void Ovelse::skrivResListeMeny()					// KommandoMeny for resultatLister.
+{
+	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+		<< "\n\tS - Skriv ut resultatliste"
+		<< "\n\tN - Ny resultatliste"
+		<< "\n\tF - Fjern resultatliste"
+		<< "\n\tQ - Tilbake til ovelsemeny";
+}
+
+void Ovelse::skrivResListe()
+{
+
+}
+
+void Ovelse::nyResListe()
+{
+	ifstream inn(filNavn(0));
+	ofstream ut(filNavn(1));
+
+	if (inn)																//hvis en deltagerliste finnes
+	{
+		if (!ut)														//hvis en resultatliste ikke finnes
+		{
+
+			skriv("Skriv in resultater (hvis en deltager har brutt, ikke moott eller blit disket tast -1):", "");
+			for (int i = 1; i <= antDeltagere; i++)
+			{
+				skriv("Skriv inn resutatet for deltager: ", *(deltagerListe + i));
+				skaffVerdi();
+			}
+
+		}
+		else
+		{		//lukk filer og skriv ut feilmelding			//noe usikker paa denne				//$$$$$$$$$$$$ ma testes
+			ut.close();
+			inn.close();
+			skriv("Resultatlisten finnes alerede!", "");
+		}
+	}
+	else
+	{			//lukk filer og skriv ut feilmelding			//noe usikker paa denne				//$$$$$$$$$$$$ ma testes
+		ut.close();
+		inn.close();
+		skriv("Deltagerlisten finnes ikke! lag den foor Resultatliste", "");
+	}
+}
+
+void Ovelse::fjernResListe()
+{
+
 }

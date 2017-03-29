@@ -60,12 +60,12 @@ int main() {
 
   while (valgMain != 'X') {                         // Så lenge valg ikke er 'X':
     switch (valgMain) {
-      case 'N' : nasjonObj.menyValg();	     break; // Kaller Nasjoner sin meny.
-      case 'D' : deltagerObj.menyValg();     break; // Kaller Deltagere sin meny.
-	  case 'G' : grenenerObj.skrivMeny();    break; // kaller Grener sin meny.
-//	  case 'O':  grenenerObj.			     break;
-	  case 'M' : medaljeObj.skrivMedaljer(); break; // viser medaljeoversikt
-	  case 'P' : poengObj.skrivPoeng();      break;	// viser poengoversikt
+      case 'N' : nasjonObj.menyValg();			break; // Kaller Nasjoner sin meny.
+      case 'D' : deltagerObj.menyValg();		break; // Kaller Deltagere sin meny.
+	  case 'G' : grenenerObj.skrivMeny();		break; // Kaller Grener sin meny.
+	  case 'O':  grenenerObj.ovelseGrenMeny();	break; // Kaller Ovelser sin meny.
+	  case 'M' : medaljeObj.skrivMedaljer();	break; // Biser medaljeoversikt.
+	  case 'P' : poengObj.skrivPoeng();			break;	// Biser poengoversikt.
 	  default:	break;
     }
     MainMeny();

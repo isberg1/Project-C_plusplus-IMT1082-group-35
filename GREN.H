@@ -28,5 +28,13 @@ public:
 	void skrivGrenNavn();           // Skriver ut navnet på grenen.
 	void skrivTilFIl(ofstream & ut);
 	int hentAntalOvelser();
+	void menyValgOvelse();			// Switch for Ovelse.						Valg : O
+	void skrivOvelseMeny();			// KommandoMeny for Ovelse.			  
+	void nyOvelse();				// Lager ny Ovelse.							Valg : O N
+	void endreOvelse();				// Endrer en Ovelse.						Valg : O E
+	void fjernOvelse();				// Fjerner en Ovelse.						Valg : O F
+	void skrivAlleOvelse();			// Skriver hoveddata for alle Ovelser.		Valg : O A
+	void ovelseDelMeny();			// Henter funksjon for deltagerListe switch	Valg : O L
+	void ovelseResMeny();			// henter funksjon for resultatListe switch	Valg : O R
 };
 #endif

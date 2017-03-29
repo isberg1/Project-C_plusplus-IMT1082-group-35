@@ -11,29 +11,40 @@
 class Ovelse 
 {
 private:
-	static int navnTeller;		//brukes til datamedlemm  int "nr"
+	static int navnTeller;					// Brukes til datamedlemm  int "nr"
 
 	int nr;
-	registerTidPoeng maaling;		//hvilken type maaling skal registrers
-	char *navn;											//ovelsens navn
+	registerTidPoeng maaling;				// Hvilken type maaling skal registrers
+	char *navn;								// Ovelsens navn
 	int antDeltagere;
 	int dato;
 	int klokkeslett;
-					//deltager array	
+											// Deltager array	
 	int *deltagerListe;
-					//resultat array ( MinSECTidel;	MinSecHundredel; MinSekTusendel; PoengX; PoengXX;)
+											// Resultat array ( MinSECTidel;	MinSecHundredel; MinSekTusendel; PoengX; PoengXX;)
 	int *resultatListe;
-	int log[ANTALLVINNERE + 1];  //loggfører seiersrekkefolgen brukes til R <id> S NB!
+	int log[ANTALLVINNERE + 1];				// Loggfører seiersrekkefolgen brukes til R <id> S NB!
 public:
-	Ovelse( registerTidPoeng typeMaaling);	//constructor    får et arg. fra Grener som viser hva slags maaling som skal registreres
+	Ovelse( registerTidPoeng typeMaaling);	// Constructor    får et arg. fra Grener som viser hva slags maaling som skal registreres
 	~Ovelse();
 	void skrivData();
-	char *filNavn(int type = 0);// genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES eller ingenting for .STA
+	char *filNavn(int type = 0);			// Genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES eller ingenting for .STA
 	void skrivTilFil(ofstream & ut);
 	void lesFraFil(ifstream & inn);
-	void nyResultatListe();																	//lag en ny resultatliste
-	int lagUniktNr();										//lager et unikt tall som brukes til datamedlemm  int "nr"
-	int skaffVerdi();										  //henter inn og sikkrer riktig verdi til resultatlisten
+	int lagUniktNr();						// Lager et unikt tall som brukes til datamedlemm  int "nr"
+	int skaffVerdi();						// Henter inn og sikkrer riktig verdi til resultatlisten
+	int hentId();
+	void menyValgDelListe();				// Switch for deltagerLister.		   Valg : O L
+	void skrivDelListeMeny();				// KomandoMeny for deltagerListe.
+	void skrivDelListe();					// Skriver ut en deltagerListe.		   Valg : O L S
+	void nyDelListe();						// Lager ny deltagerListe.			   Valg : O L N
+	void endreDelListe();					// Endrer en deltagerListe.			   Valg : O L E
+	void fjernDelListe();					// Fjerner en deltagerListe.		   Valg : O L F
+	void menyValgResListe();				// Switch for resultatLister.		   Valg : O R
+	void skrivResListeMeny();				// KommandoMeny for resultatListe.
+	void skrivResListe();					// Skriver ut en resultatListe.		   Valg : O R S
+	void nyResListe();						// Lager en ny resultatListe.		   Valg : O R N
+	void fjernResListe();					// Fjerner en resultatListe.		   Valg : O R F
 };
 
 /*n
