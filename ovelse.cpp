@@ -51,10 +51,6 @@ Ovelse::~Ovelse()	//destructor
 	delete[] resultatListe;
 }
 
-void Ovelse :: skrivMeny() {
-
-}
-
 void Ovelse::skrivData()	//Displayer egne datamedlemmer
 {
 	skriv("ID: ", nr);

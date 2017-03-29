@@ -74,7 +74,7 @@ Deltager::~Deltager()
   delete[] data;
 }
 
-void Deltager::endreNavn()//!!!!!!!!! les inn ny nasjon
+void Deltager::endreNavn()
 {																		
 																		
 	strcpy(fullNavn, "");													

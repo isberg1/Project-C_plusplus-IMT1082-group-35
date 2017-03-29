@@ -19,6 +19,4 @@ public:
 	void lesFraFil();														//les fra fil
 
 };
-
-
 #endif

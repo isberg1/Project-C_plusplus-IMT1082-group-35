@@ -23,8 +23,8 @@ public:
 	Gren(ifstream & inn, char* a);
 	//destructor
 	~Gren();
-	void endreNavn();		                        // G E
-	void display();				                    // G A
+	void endreNavn();				                // G E
+	void display();					                // G A
 	void skrivOvelse();				                // G S
 	void skrivGrenNavn();                           // Skriver ut navnet på grenen.
 	void skrivTilFIl(ofstream & ut);
@@ -38,7 +38,4 @@ public:
 	void skrivUtRegistrerteOvelser();               // Skriver ut alle registrerte ovelser.
 
 };
-
-
-
 #endif

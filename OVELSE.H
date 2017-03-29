@@ -27,7 +27,6 @@ public:
 	Ovelse();                                       // Constructor.
 	Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling);// Constructor, får et arg. fra Grener som viser hva slags maaling som skal registreres
 	~Ovelse();
-	void skrivMeny();
 	void skrivData();
 	char *filNavn(int type = 0);                    // Genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES eller ingenting for .STA
 	void skrivTilFil(ofstream & ut);
