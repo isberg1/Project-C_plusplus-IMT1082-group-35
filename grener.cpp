@@ -197,7 +197,6 @@ void Grener::lesFraFil()
 
 void Grener :: ovelseMeny() {                       // Meny til Ovelse : O...
 
-
 }
 
 void Grener :: skrivUtNavn() {                      // Skriver ut navnene på Gren : Meny i O.

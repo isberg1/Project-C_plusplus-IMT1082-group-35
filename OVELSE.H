@@ -8,44 +8,48 @@
 #include"ENUM.H"
 
 
-class Ovelse 
+class Ovelse
 {
 private:
-	static int navnTeller;		//brukes til datamedlemm  int "nr"
+	static int navnTeller;		                    // Brukes til datamedlemm  int "nr"
 
 	int nr;
-	registerTidPoeng maaling;		//hvilken type maaling skal registrers
-	char *navn;											//ovelsens navn
+	registerTidPoeng maaling;		                // Hvilken type maaling skal registrers
+	char *navn;									    // Ovelsens navn
 	int antDeltagere;
 	int dato;
 	int klokkeslett;
-					//deltager array	
-	int *deltagerListe;
-					//resultat array ( MinSECTidel;	MinSecHundredel; MinSekTusendel; PoengX; PoengXX;)
-	int *resultatListe;
-	int log[ANTALLVINNERE + 1];  //loggfører seiersrekkefolgen brukes til R <id> S NB!
+	int *deltagerListe;                             // Deltager array
+	int *resultatListe;                             // Resultat array ( MinSECTidel;	MinSecHundredel; MinSekTusendel; PoengX; PoengXX;)
+	int log[ANTALLVINNERE + 1];                     // Loggfører seiersrekkefolgen brukes til R <id> S NB!
+
 public:
-	Ovelse( registerTidPoeng typeMaaling);	//constructor    får et arg. fra Grener som viser hva slags maaling som skal registreres
+	Ovelse();                                       // Constructor.
+	Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling);// Constructor, får et arg. fra Grener som viser hva slags maaling som skal registreres
 	~Ovelse();
 	void skrivMeny();
 	void skrivData();
-	char *filNavn(int type = 0);// genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES eller ingenting for .STA
+	char *filNavn(int type = 0);                    // Genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES eller ingenting for .STA
 	void skrivTilFil(ofstream & ut);
 	void lesFraFil(ifstream & inn);
-	void nyResultatListe();																	//lag en ny resultatliste
-	int lagUniktNr();										//lager et unikt tall som brukes til datamedlemm  int "nr"
-	int skaffVerdi();										  //henter inn og sikkrer riktig verdi til resultatlisten
+	void nyResultatListe();						    // Lag en ny resultatliste
+	int lagUniktNr();								// Lager et unikt tall som brukes til datamedlemm  int "nr"
+	int skaffVerdi();							    // Henter inn og sikkrer riktig verdi til resultatlisten
+	char *hentNavn();                               // Returnerer navnet til Ovelsen.
+	int datoSjekk(int dato);                        // Sjekker om dato er på riktig format.
+	int klokkeSjekk(int kl);                        // Sjekker om kl. er på riktig format.
+	void skrivNavn();                               // Skriver ut ovelsens navn.
 };
 
-/*n
+/*
 liste over ting som må gjores i ovelse
 lag alle 3 menyene. start med aa lagen en meny til i Grener. lag saa 2 menyer i Ovelse
 lag en funksjon som lager et unikt filnavn (til OVxxx.STA og OVxxxx.RES)						alex
 lag en funksjon som sletter en fil fra HDD( til O F  ,  O L <id> F  og  O R <id> F)				mats
 
 Forslag til implimentasjnsrekkefolge etter at det ovenfor er gjort:
-1. valg :O     N  ->  A  ->  E  -> skriv til fil  -> les fra fil  ->  F
-2. Valg :O L   N  ->  S  ->  E  -> skriv til fil  -> les fra fil  ->  F							mats
+1. valg :O     N  ->  A  ->  E  -> skriv til fil  -> les fra fil  ->  F                         mats
+2. Valg :O L   N  ->  S  ->  E  -> skriv til fil  -> les fra fil  ->  F
 3. Valg :O S   N  ->  S(før NB!)  -> skriv til fil  -> les fra fil ->  F  ->  S(NB!)			alex
 
 //tror vansklighetsgraden fra lettest til vanskligst er: 2, 1, 3

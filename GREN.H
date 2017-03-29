@@ -15,6 +15,7 @@ private:
 	Ovelse *array[MAXOVELSER + 1];
 	char *annet;
 	int antallRegistrerteOvelser;
+
 public:
 	//constructor
 	Gren();
@@ -22,12 +23,19 @@ public:
 	Gren(ifstream & inn, char* a);
 	//destructor
 	~Gren();
-	void endreNavn();		// G E
-	void display();				// G A
-	void skrivOvelse();				// G S
-	void skrivGrenNavn();           // Skriver ut navnet på grenen.
+	void endreNavn();		                        // G E
+	void display();				                    // G A
+	void skrivOvelse();				                // G S
+	void skrivGrenNavn();                           // Skriver ut navnet på grenen.
 	void skrivTilFIl(ofstream & ut);
 	int hentAntalOvelser();
+	void registrerNyOvelse();                       // Registrerer ny Ovelse.               : O N
+	void endreOvelseMeny();                         // Meny for hva som kan endres for en Ovelse.
+	void endreOvelse();                             // Endrer data for en Ovelse.           : O E
+	void fjernOvelse();                             // Fjerner en Ovelse.                   : O F
+	void skrivHoveddataOvelser();                   // Skriver hoveddata for alle Ovelser.  : O A
+	bool finnesOvelse(char *navn);                  // Sjekk om Ovelsen finnes i array med param. navn.
+	void skrivUtRegistrerteOvelser();               // Skriver ut alle registrerte ovelser.
 
 };
 

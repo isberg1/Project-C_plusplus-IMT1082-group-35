@@ -173,7 +173,7 @@ void Deltagere :: skrivDataEn() {                   // Skriver all data om en gi
 
         string ord = sokEtter;                      // Gjør om til string for å bruke søkefunksjoner.
         string tekst = sokeTekst;
-        regex r("\\b" + ord + "\\b");               // Black magic. (?)
+        regex r("\\b" + ord + "\\b");               // Bruker regex.
         smatch m;
 
         if (regex_search(tekst, m, r))              // Hvis søket matcher:
