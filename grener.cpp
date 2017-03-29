@@ -261,3 +261,153 @@ void Grener :: skrivUtNavn() {                      // Skriver ut navnene på Gre
   else                                              // Hvis ingen ligger i listen.
     cout << "\n\tIngen grener er registrert";
 }
+
+void Grener::menyValgOvelse()						// MainSwitch for Ovelse.
+{
+	char valg;
+
+	skrivOvelseMeny();
+	valg = les("\nOvelser: ");
+	while (valg != 'Q')
+	{
+		switch (valg)
+		{
+		case 'N': nyOvelse();		 break;	    // Registrerer en ny Ovelse.
+		case 'E': endreOvelse();	 break;		// Endrer informasjon i ne Ovelse.
+		case 'F': fjernOvelse();	 break;		// Fjerner en Ovelse.
+		case 'A': skrivAlleOvelse(); break;		// Viser hoveddata for alle Ovelser.
+		case 'L': menyValgDelListe(); break;	// Sender til deltagerListeSwitch.
+		case 'R': menyValgResListe(); break;	// Sender til resultatListeSwitch.
+		default:		break;
+		}
+		skrivOvelseMeny();
+		valg = les("\novelser: ");
+	}
+}
+
+void Grener::skrivOvelseMeny()					// KommandoMeny for Ovelser.
+{
+	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+		<< "\n\tN - Ny ovelse"
+		<< "\n\tE - Endre ovelse"
+		<< "\n\tF - Fjern ovelse"
+		<< "\n\tA - Skriv ut alle ovelser"
+		<< "\n\tL - Deltagerliste"
+		<< "\n\tR - Resultatliste"
+		<< "\n\tQ - Tilbake til hovedmeny";
+}
+
+void Grener::nyOvelse()
+{
+
+}
+
+void Grener::endreOvelse()
+{
+
+}
+
+void Grener::fjernOvelse()
+{
+
+}
+
+void Grener::skrivAlleOvelse()
+{
+
+}
+
+void Grener::menyValgDelListe()					// ValgSwitch for deltagerLister.
+{
+	char valg;
+
+	skrivDelListeMeny();
+	valg = les("\nDeltagerLister ");
+	while (valg != 'Q')
+	{
+		switch (valg)
+		{
+		case 'S': skrivDelListe();	    break;	// Skriver ut en deltagerListe.
+		case 'N': nyDelListe();			break;	// Lager en ny deltagerListe.
+		case 'E': endreDelListe();		break;	// Endrer en deltagerListe.
+		case 'F': fjernDelListe();		break;	// Fjerner en deltagerListe.
+		default:		break;
+		}
+		skrivDelListeMeny();
+		valg = les("\nDeltagerLister: ");
+	}
+}
+
+void Grener::skrivDelListeMeny()					// KommandoMeny for deltagerLister.
+{
+	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+		<< "\n\tS - Skriv ut deltagerliste"
+		<< "\n\tN - Lag ny deltagerliste"
+		<< "\n\tE - Endre deltagerliste"
+		<< "\n\tF - Fjern deltagerliste"
+		<< "\n\tQ - Tilbake til hovedmeny";
+}
+
+void Grener::skrivDelListe()
+{
+
+}
+
+void Grener::nyDelListe()
+{
+
+}
+
+void Grener::endreDelListe()
+{
+
+}
+
+void Grener::fjernDelListe()
+{
+
+}
+
+void Grener::menyValgResListe()					// ValgSwitch for resultatLister.
+{
+	char valg;
+
+	skrivResListeMeny();
+	valg = les("\nResultatLister: ");
+	while (valg != 'Q')
+	{
+		switch (valg)
+		{
+		case 'S': skrivResListe();		break;	// Skriver ut en resultatListe.
+		case 'N': nyResListe();			break;	// Lager en ny resultatListe.
+		case 'F': fjernResListe();		break;	// Fjerner en resultatListe.
+		default:						break;
+		}
+		skrivResListeMeny();
+		valg = les("\nResultatlister: ");
+	}
+}
+
+void Grener::skrivResListeMeny()					// KommandoMeny for resultatLister.
+{
+	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+		<< "\n\tS - Skriv ut resultatliste"
+		<< "\n\tN - Ny resultatliste"
+		<< "\n\tF - Fjern resultatliste"
+		<< "\n\tQ - Tilbake til hovedmeny";
+}
+
+void Grener::skrivResListe()
+{
+
+}
+
+void Grener::nyResListe()
+{
+
+}
+
+void Grener::fjernResListe()
+{
+
+}
