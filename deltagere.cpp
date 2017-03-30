@@ -44,7 +44,6 @@ void Deltagere::menyValg()
 		case 'E': endreDeltager();	break;
 		case 'A': skrivDataAlle();	break;
 		case 'S': skrivDataEn();	break;
-		default :		break;
     }
     skrivMeny();
     valg = les("\nDeltagere: ");
@@ -108,7 +107,6 @@ void Deltagere::endreDeltager()
 		case 'E': tempDeltager->endreNasjon();	break;
 		case 'A': tempDeltager->endreData();	break;
 		case 'K': tempDeltager->endreKjonn();	break;
-		default: endreDeltagerMeny();			break;
 		}
 		tempDeltager->display();
 		endreDeltagerMeny();
@@ -256,4 +254,42 @@ void Deltagere :: lesFraFil() {                     // Leser datastruktur fra fi
   }
   else                                              // Hvis filen ikke finnes:
     cout << "\nFinner ikke filen 'DELTAGERE.DTA'";
+}
+
+char * Deltagere::hentNasjon(int deltag)	// henter en deltagers najon fra deltagerListe	
+{											//brukes til aa lage en Statistikk Raport.
+	Deltager *ptr;
+	char temp[STRLEN];
+
+
+	if (DeltagerListe->inList(deltag))
+	{
+		ptr = (Deltager*)DeltagerListe->remove(deltag);
+		strcpy(temp, ptr->hentNajon());
+		DeltagerListe->add(ptr);
+
+		return temp;
+	}
+
+	strcpy(temp, "££deltager finnes ikke");
+	return	temp;
+}
+
+char * Deltagere::hentNavn(int deltag)
+{
+	Deltager *ptr;
+	char temp[STRLEN];
+
+
+	if (DeltagerListe->inList(deltag))
+	{
+		ptr = (Deltager*)DeltagerListe->remove(deltag);
+		strcpy(temp, ptr->hentNavn());
+		DeltagerListe->add(ptr);
+
+		return temp;
+	}
+
+	strcpy(temp, "££deltager finnes ikke");
+	return	temp;
 }

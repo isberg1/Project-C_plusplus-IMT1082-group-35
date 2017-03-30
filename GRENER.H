@@ -22,13 +22,16 @@ public:
 	void skrivTilFIl();
 	void lesFraFil();
 	void ovelseGrenMeny();          // Meny til Ovelse : O...
-	void skrivUtNavn();             // Skriver ut navnene på Gren : Meny i O...
+	void testResListe();
+	void testResSkriv();
+	void skrivUtNavn();             // Skriver ut navnene på Gren.
 	void menyValgOvelse();			// Switch for Ovelse.				   Valg : O
 	void skrivOvelseMeny();			// KommandoMeny for Ovelse.
 	void nyOvelse();				// Lager ny Ovelse.					   Valg : O N
 	void endreOvelse();				// Endrer en Ovelse.				   Valg : O E
 	void fjernOvelse();				// Fjerner en Ovelse.				   Valg : O	F
 	void skrivAlleOvelse();			// Skriver hoveddata for alle Ovelser. Valg : O	A
+
 	void menyValgDelListe();		// Switch for deltagerLister.		   Valg : O L
 	void skrivDelListeMeny();		// KomandoMeny for deltagerListe.
 	void skrivDelListe();			// Skriver ut en deltagerListe.		   Valg : O L S
@@ -36,6 +39,7 @@ public:
 	void endreDelListe();			// Endrer en deltagerListe.			   Valg : O L E
 	void fjernDelListe();			// Fjerner en deltagerListe.		   Valg : O L F
 	void menyValgResListe();		// Switch for resultatLister.		   Valg : O R
+
 	void skrivResListeMeny();		// KommandoMeny for resultatListe.
 	void skrivResListe();			// Skriver ut en resultatListe.		   Valg : O R S
 	void nyResListe();				// Lager en ny resultatListe.		   Valg : O R N

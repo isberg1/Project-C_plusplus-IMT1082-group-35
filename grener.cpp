@@ -14,7 +14,6 @@
 #include"ListTool2B.h"
 
 
-
 using namespace std;
 													// constructor
 Grener::Grener()
@@ -214,7 +213,45 @@ void Grener :: ovelseGrenMeny() 						// Meny til Ovelse : O...
 
 }
 
-void Grener :: skrivUtNavn() {                      // Skriver ut navnene pa Gren : Meny i O.
+void Grener::testResListe()
+{
+	char temp[STRLEN];
+	Gren *ptr;
+	les("skriv grenens Navn; ", temp, STRLEN);
+
+	if (listGren->inList(temp))
+	{
+		ptr = (Gren*)listGren->remove(temp);
+		ptr->testingNyOvelse();
+		listGren->add(ptr);
+
+	}
+	else
+	{
+		skriv("Finner ikke en gren med navn: ", temp);
+	}
+}
+
+void Grener::testResSkriv()
+{
+	char temp[STRLEN];
+	Gren *ptr;
+	les("skriv grenens Navn; ", temp, STRLEN);
+
+	if (listGren->inList(temp))
+	{
+		ptr = (Gren*)listGren->remove(temp);
+		ptr->testingSkrivResListe();
+		listGren->add(ptr);
+
+	}
+	else
+	{
+		skriv("Finner ikke en gren med navn: ", temp);
+	}
+}
+
+void Grener :: skrivUtNavn() {                      // Skriver ut navnene på Gren : Meny i O.
   Gren *gren;
   int newLineTeller = 1;
 
@@ -257,9 +294,10 @@ void Grener::menyValgOvelse()						// MainSwitch for Ovelse.
 		default:		break;
 		}
 		skrivOvelseMeny();
-		valg = les("\novelser: ");
+		valg = les("\nOvelser: ");
 	}
 }
+
 
 void Grener::skrivOvelseMeny()					// KommandoMeny for Ovelser.
 {
@@ -273,8 +311,7 @@ void Grener::skrivOvelseMeny()					// KommandoMeny for Ovelser.
 		<< "\n\tQ - Tilbake til hovedmeny";
 }
 
-void Grener::nyOvelse()
-{
+void Grener :: nyOvelse() {
 
 }
 

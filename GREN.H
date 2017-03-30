@@ -35,9 +35,12 @@ public:
 	void skrivAlleOvelse();							// Skriver hoveddata for alle Ovelser.		Valg : O A
 	void ovelseDelMeny();							// Henter funksjon for deltagerListe switch	Valg : O L
 	void ovelseResMeny();							// henter funksjon for resultatListe switch	Valg : O R
+	void testingNyOvelse();
+	void testingSkrivResListe();
 	void registrerNyOvelse();                       // Registrerer ny Ovelse.               : O N
 	void endreOvelseMeny();                         // Meny for hva som kan endres for en Ovelse.
 	void endreOvelse();                             // Endrer data for en Ovelse.           : O E
+	void endreOvelseNavn(int indeks);               // Endrer navnet for en Ovelse.
 	void fjernOvelse();                             // Fjerner en Ovelse.                   : O F
 	void skrivHoveddataOvelser();                   // Skriver hoveddata for alle Ovelser.  : O A
 	bool finnesOvelse(char *navn);                  // Sjekk om Ovelsen finnes i array med param. navn.

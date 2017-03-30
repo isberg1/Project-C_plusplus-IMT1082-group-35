@@ -8,6 +8,7 @@
 #include"ENUM.H"
 
 
+
 class Ovelse
 {
 private:
@@ -30,6 +31,14 @@ public:
 	char *filNavn(int type = 0);                    // Genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES eller ingenting for .STA
 	void skrivTilFil(ofstream & ut);
 	void lesFraFil(ifstream & inn);
+	void bubbleSort();							//sorterer 2 int array
+	void ajourforeLog(int flagg = 0);//ma testes		ajourforer log arrayen og sender rapport til medaljer og poeng.  ma teste global funksjon raport
+	void skrivResultatliste();
+	void deltagerSkrivtilFil();	//ma lages	
+	void resultaterSkrivTilFil();//ma lages	
+	void resultaterLesFraFil(); //ma lages
+	int sjekkID();
+	bool fjernResultatliste();
 	int lagUniktNr();								// Lager et unikt tall som brukes til datamedlemm  int "nr"
 	int skaffVerdi();							    // Henter inn og sikkrer riktig verdi til resultatlisten
 	char *hentNavn();                               // Returnerer navnet til Ovelsen.
@@ -37,29 +46,40 @@ public:
 	int klokkeSjekk(int kl);                        // Sjekker om kl. er på riktig format.
 	void skrivNavn();                               // Skriver ut ovelsens navn.
 	int hentId();									// henter en ovelses id.
-	void menyValgDelListe();				// Switch for deltagerLister.		   Valg : O L
-	void skrivDelListeMeny();				// KomandoMeny for deltagerListe.
-	void skrivDelListe();					// Skriver ut en deltagerListe.		   Valg : O L S
-	void nyDelListe();						// Lager ny deltagerListe.			   Valg : O L N
-	void endreDelListe();					// Endrer en deltagerListe.			   Valg : O L E
-	void fjernDelListe();					// Fjerner en deltagerListe.		   Valg : O L F
-	void menyValgResListe();				// Switch for resultatLister.		   Valg : O R
-	void skrivResListeMeny();				// KommandoMeny for resultatListe.
-	void skrivResListe();					// Skriver ut en resultatListe.		   Valg : O R S
-	void nyResListe();						// Lager en ny resultatListe.		   Valg : O R N
-	void fjernResListe();					// Fjerner en resultatListe.
+	void menyValgDelListe();						// Switch for deltagerLister.		   Valg : O L
+	void skrivDelListeMeny();						// KomandoMeny for deltagerListe.
+	void skrivDelListe();							// Skriver ut en deltagerListe.		   Valg : O L S
+	void nyDelListe();								// Lager ny deltagerListe.			   Valg : O L N
+	void endreDelListe();							// Endrer en deltagerListe.			   Valg : O L E
+	void fjernDelListe();							// Fjerner en deltagerListe.		   Valg : O L F
+	void menyValgResListe();						// Switch for resultatLister.		   Valg : O R
+	void skrivResListeMeny();						// KommandoMeny for resultatListe.
+	void skrivResListe();							// Skriver ut en resultatListe.		   Valg : O R S
+	void nyResultatListe();								// Lager en ny resultatListe.		   Valg : O R N
+	void fjernResListe();							// Fjerner en resultatListe.
+	void endreNavn(char *ovelseNavn);               // Endrer navnet til ovelsen.
+	void endreDato();                               // Endrer datoen til ovelsen.
+	void endreKlokkeslett();                        // Endrer kl. til ovelsen.
+
+
 };
 
 /*
 liste over ting som må gjores i ovelse
 lag alle 3 menyene. start med aa lagen en meny til i Grener. lag saa 2 menyer i Ovelse
-lag en funksjon som lager et unikt filnavn (til OVxxx.STA og OVxxxx.RES)						alex
-lag en funksjon som sletter en fil fra HDD( til O F  ,  O L <id> F  og  O R <id> F)				mats
+lag en funksjon som lager et unikt filnavn (til OVxxx.STA og OVxxxx.RES)						
+lag en funksjon som sletter en fil fra HDD( til O F  ,  O L <id> F  og  O R <id> F)				
 
 Forslag til implimentasjnsrekkefolge etter at det ovenfor er gjort:
+<<<<<<< HEAD
+1. valg :O     N  ->  A  ->  E  -> skriv til fil  -> les fra fil  ->  F
+2. Valg :O L   N  ->  S  ->  E  -> skriv til fil  -> les fra fil  ->  F							
+3. Valg :O S   N  ->  S(før NB!)  -> skriv til fil  -> les fra fil ->  F  ->  S(NB!)			
+=======
 1. valg :O     N  ->  A  ->  E  -> skriv til fil  -> les fra fil  ->  F                         mats
 2. Valg :O L   N  ->  S  ->  E  -> skriv til fil  -> les fra fil  ->  F
 3. Valg :O S   N  ->  S(før NB!)  -> skriv til fil  -> les fra fil ->  F  ->  S(NB!)			alex
+>>>>>>> fba18e15f40aa6df5a14b012c5c5f418e1aae702
 
 //tror vansklighetsgraden fra lettest til vanskligst er: 2, 1, 3
 

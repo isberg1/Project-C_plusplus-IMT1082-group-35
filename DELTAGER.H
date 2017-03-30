@@ -32,6 +32,7 @@ public:
 	void endreKjonn();								// Endrer kjonnet til en deltager.			// // // NB! Flytter ikke deltager til motsatt ovelse NB! // // //
 	void displayHoved();                            // Skriver ut Hoveddata for en deltager.
 	char *hentNavn();                               // Returnerer navnet til deltageren.
+	char *hentNajon();								// Returnerer en deltagers najon	brukes til aa lage en Statistikk Raport
 };
 
 #endif
