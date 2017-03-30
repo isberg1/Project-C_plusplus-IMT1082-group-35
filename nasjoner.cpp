@@ -21,7 +21,7 @@ extern Deltagere deltagerObj;                       // Deltager-objekt fra main.
 
 
 Nasjoner :: ~Nasjoner() {
-//delete nasjonsListe;                              // Sletter liste.					//$$$$$$ ma fikses faar 
+  //delete nasjonsListe;                              // Sletter liste.					//$$$$$$ ma fikses faar
 }
 
 void Nasjoner :: skrivMeny() {                      // Tiljgengelige valg.
@@ -46,7 +46,6 @@ void Nasjoner :: menyValg() {                       // Valg av funksjonalitet.
       case 'A': skrivHoveddata();     break;        // Skriver hovedata om alle nasjoner.
       case 'T': skrivDeltagerTropp(); break;        // Skriver ut alle deltagere i nasjonens tropp.
       case 'S': skrivAllData();       break;        // Skriver ut all data om en gitt nasjon.
-      default : skrivMeny();          break;        // Meny av brukerens valg.
     }
     skrivMeny();
     valg = les("\nNasjoner: ");                     // Leser brukerens ønske/valg.
@@ -55,7 +54,7 @@ void Nasjoner :: menyValg() {                       // Valg av funksjonalitet.
 
 void Nasjoner :: endreNasjonMeny() {                // Menyvalg av hva som skal endres hos en nasjon.
   cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
-       << "\n\tN - Det fulle navnet på Nasjonen"
+       << "\n\tN - Det fulle navnet paa Nasjonen"
        << "\n\tE - Navn på kontaktperson"
        << "\n\tA - Tlf til kontaktperson"
        << "\n\tT - Feltet 'Annet'"
@@ -104,7 +103,6 @@ void Nasjoner :: endreNasjon() {                    // Endre data for en nasjon 
         case 'E' : nasjon->endreKontaktperson(); break;
         case 'A' : nasjon->endreTlf();           break;
         case 'T' : nasjon->endreAnnet();         break;
-        default  : endreNasjonMeny();            break;
       }
       endreNasjonMeny();
       valg = les("\nNasjoner/Endre nasjon: ");
@@ -177,7 +175,7 @@ void Nasjoner :: skrivAllData() {                   // Skriver alle data om en g
 bool Nasjoner :: finnesNasjon(char *sjekkNasjon) {  // Hvis Nasjon finnes                    : Valg D N
 
                                                     // Hvis nasjonenslista finnes
-  if (nasjonsListe && nasjonsListe->inList(sjekkNasjon)) // og nasjonen ligger i lista.			//!!!!!!!! vurder bruk av nasjonsListe.isEmpty()
+  if (nasjonsListe && nasjonsListe->inList(sjekkNasjon)) // og nasjonen ligger i lista.
     return true;
   else
     return false;                                   // Hvis usant.
@@ -250,7 +248,7 @@ void Nasjoner :: skrivUtForkortelse() {             // Skriver ut nasjonens fork
       nasjon->skrivForkortelse();                   // Skriver ut text (forkortelsen).
       nasjonsListe->add(nasjon);                    // Legger tilbake i listen.
 
-      if (newLineTeller % 6 == 0)                   // Skriver ut "new line" hvis 6 nasjoner
+      if (newLineTeller % 6 == 0)                   // Legger paa linjeskift hvis 6 nasjoner
         cout << '\n';                               // ligger etter hverandre på skjermen.
       newLineTeller ++;                             // Teller opp med en.
     }
@@ -258,7 +256,7 @@ void Nasjoner :: skrivUtForkortelse() {             // Skriver ut nasjonens fork
   else                                              // Hvis ingen ligger i listen.
     cout << "\n\tIngen nasjoner er registrert";
 }
-//
+
 //char * Nasjoner::hentFulltNavn(char * nasjonsForkortelse)
 //{
 //	char *buffer;

@@ -8,31 +8,30 @@
 #include"ENUM.H"
 
 
-class Ovelse 
+
+class Ovelse
 {
 private:
-	static int navnTeller;		//brukes til datamedlemm  int "nr"
+	static int navnTeller;		                    // Brukes til datamedlemm  int "nr"
 
 	int nr;
-	registerTidPoeng maaling;		//hvilken type maaling skal registrers
-	char *navn;											//ovelsens navn
-	int antDeltagere;	//brukes som teller
+	registerTidPoeng maaling;		                // Hvilken type maaling skal registrers
+	char *navn;									    // Ovelsens navn
+	int antDeltagere;
 	int dato;
 	int klokkeslett;
-						
-	int *deltagerListe;													//deltager array			 
-	int *resultatListe;													//resultat array
-	int log[ANTALLVINNERE + 1];  //loggfører seiersrekkefolgen brukes til R <id> S NB!
+	int *deltagerListe;                             // Deltager array
+	int *resultatListe;                             // Resultat array ( MinSECTidel;	MinSecHundredel; MinSekTusendel; PoengX; PoengXX;)
+	int log[ANTALLVINNERE + 1];                     // Loggfører seiersrekkefolgen brukes til R <id> S NB!
+
 public:
-	Ovelse( registerTidPoeng typeMaaling, char * nv);	//constructor    får et arg. fra Grener som viser hva slags maaling som skal registreres
+	Ovelse();                                       // Constructor.
+	Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling);// Constructor, får et arg. fra Grener som viser hva slags maaling som skal registreres
 	~Ovelse();
 	void skrivData();
-	char *filNavn(int type = 0);// genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES eller ingenting for .STA
+	char *filNavn(int type = 0);                    // Genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES eller ingenting for .STA
 	void skrivTilFil(ofstream & ut);
 	void lesFraFil(ifstream & inn);
-	void nyResultatListe();																	//lag en ny resultatliste
-	int lagUniktNr();										//lager et unikt tall som brukes til datamedlemm  int "nr"
-	int skaffVerdi();										  //henter inn og sikkrer riktig verdi til resultatlisten
 	void bubbleSort();							//sorterer 2 int array
 	void ajourforeLog(int flagg = 0);//ma testes		ajourforer log arrayen og sender rapport til medaljer og poeng.  ma teste global funksjon raport
 	void skrivResultatliste();
@@ -41,6 +40,18 @@ public:
 	void resultaterLesFraFil(); //ma lages
 	int sjekkID();
 	bool fjernResultatliste();
+
+	void nyResultatListe();						    // Lag en ny resultatliste
+	int lagUniktNr();								// Lager et unikt tall som brukes til datamedlemm  int "nr"
+	int skaffVerdi();							    // Henter inn og sikkrer riktig verdi til resultatlisten
+	char *hentNavn();                               // Returnerer navnet til Ovelsen.
+	int datoSjekk(int dato);                        // Sjekker om dato er på riktig format.
+	int klokkeSjekk(int kl);                        // Sjekker om kl. er på riktig format.
+	void skrivNavn();                               // Skriver ut ovelsens navn.
+	void endreNavn(char *ovelseNavn);               // Endrer navnet til ovelsen.
+	void endreDato();                               // Endrer datoen til ovelsen.
+	void endreKlokkeslett();                        // Endrer kl. til ovelsen.
+
 };
 
 /*
@@ -50,9 +61,15 @@ lag en funksjon som lager et unikt filnavn (til OVxxx.STA og OVxxxx.RES)
 lag en funksjon som sletter en fil fra HDD( til O F  ,  O L <id> F  og  O R <id> F)				
 
 Forslag til implimentasjnsrekkefolge etter at det ovenfor er gjort:
+<<<<<<< HEAD
 1. valg :O     N  ->  A  ->  E  -> skriv til fil  -> les fra fil  ->  F
 2. Valg :O L   N  ->  S  ->  E  -> skriv til fil  -> les fra fil  ->  F							
 3. Valg :O S   N  ->  S(før NB!)  -> skriv til fil  -> les fra fil ->  F  ->  S(NB!)			
+=======
+1. valg :O     N  ->  A  ->  E  -> skriv til fil  -> les fra fil  ->  F                         mats
+2. Valg :O L   N  ->  S  ->  E  -> skriv til fil  -> les fra fil  ->  F
+3. Valg :O S   N  ->  S(før NB!)  -> skriv til fil  -> les fra fil ->  F  ->  S(NB!)			alex
+>>>>>>> fba18e15f40aa6df5a14b012c5c5f418e1aae702
 
 //tror vansklighetsgraden fra lettest til vanskligst er: 2, 1, 3
 

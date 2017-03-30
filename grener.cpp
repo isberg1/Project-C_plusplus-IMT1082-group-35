@@ -277,7 +277,7 @@ void Grener::menyValgOvelse()						// MainSwitch for Ovelse.
 		default:		break;
 		}
 		skrivOvelseMeny();
-		valg = les("\novelser: ");
+		valg = les("\nOvelser: ");
 	}
 }
 
@@ -294,8 +294,7 @@ void Grener::skrivOvelseMeny()					// KommandoMeny for Ovelser.
 		<< "\n\tQ - Tilbake til hovedmeny";
 }
 
-void Grener::nyOvelse()
-{
+void Grener :: nyOvelse() {
 
 }
 

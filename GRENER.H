@@ -24,11 +24,9 @@ public:
 	void testResListe();
 	void testResSkriv();
 
-
-
-	void skrivUtNavn();         // Skriver ut navnene på Gren : Meny i O...
+	void skrivUtNavn();             // Skriver ut navnene på Gren.
 	void menyValgOvelse();			// Switch for Ovelse.				   Valg : O
-	void skrivOvelseMeny();			// KommandoMeny for Ovelse.			  
+	void skrivOvelseMeny();			// KommandoMeny for Ovelse.
 	void nyOvelse();				// Lager ny Ovelse.					   Valg : O N
 	void endreOvelse();				// Endrer en Ovelse.				   Valg : O E
 	void fjernOvelse();				// Fjerner en Ovelse.				   Valg : O	F

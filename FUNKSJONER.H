@@ -9,7 +9,7 @@
 using namespace std;
 
 char les();											//leser en char
-char les(char *menyPlass);                          // Leser en char og skriver ut plassering i meny.
+char les(char menyPlass[]);                          // Leser en char og skriver ut plassering i meny.
 void les(const char t[], char s[], const int LEN);	//leser text string
 int  les(const char t[], const int min, const int max);//leser en int med ledetext
 int lesInt(ifstream& inn);			                //leser en int fra fil i et standardforman
@@ -27,7 +27,7 @@ char *konverter(char t[]);					        //konverter char [] til char *
 
 void MainMeny();
 
-char *nasjonsForkortelse(char *t);                  // Sjekker at chars=3, gjør dem store. Med ledetext.
+char *nasjonsForkortelse(char t[]);                 // Sjekker at chars=3, gjør dem store. Med ledetext.
 bool erBokstaver(char tekst[]);                     // Sjekker om alle indekser i array er bokstav.
 bool erBokstaverEllerSpace(char tekst[]);           // Sjekker om indekser i array er bokstaver/ space.
 char *konverterTilStore(char *tekst);               // Gjør om til store bokstaver.

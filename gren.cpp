@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstring>
 #include "GREN.H"
+#include "OVELSE.H" // fungerer ikke?
 #include"FUNKSJONER.H"
 using namespace std;
 
@@ -147,7 +148,7 @@ void Gren::skrivTilFIl(ofstream & ut)
 
 }
 
-void Gren :: skrivGrenNavn() {           // Skriver ut navnet på grenen.
+void Gren :: skrivGrenNavn() {                      // Skriver ut navnet på grenen.
   cout << '\t' << text;
 }
 
@@ -158,12 +159,12 @@ int Gren::hentAntalOvelser()
 
 void Gren::testingNyOvelse()
 {
-	char temp[STRLEN];
+	/*char temp[STRLEN];
 	les("skriv inn ovelsesnavn: ", temp, STRLEN);
 	
 	*(array +1) = new Ovelse(typeMaaling, temp);
 	
-	++antallRegistrerteOvelser;
+	++antallRegistrerteOvelser;*/
 }
 
 void Gren::testingSkrivResListe()
@@ -187,3 +188,114 @@ void Gren::testingSkrivResListe()
 
 
 }
+void Gren :: registrerNyOvelse() {                  // Registrerer ny Ovelse.               : O N
+  char buffer[STRLEN];
+  char *ovelseNavn;
+
+  if (antallRegistrerteOvelser < antOvelser ) {     // Hvis det er plass i array.
+
+    les ("\nNavnet paa ovelsen", buffer, NVLEN);    // Leser inn navnet på ovelsen.
+
+    if (!finnesOvelse(buffer)) {                    // Hvis Ovelsen ikke finnes i array:
+      ovelseNavn = konverter(buffer);               // Lager ny char og setter korrekt lengde.
+                                                    // Lager peker til ny Ovelse på neste ledige indeks,
+      array[++antallRegistrerteOvelser] =           // oppretter Ovelse-objekt, sender med navn og enum,
+      new Ovelse(ovelseNavn, typeMaaling);          // +1 i array-teller.
+    }
+    else                                            // Hvis Ovelsen allerede finnes:
+      cout << "\n\tDet finnes allerede en ovelse med dette navnet i grenen";
+  }
+  else                                              // Hvis array er full:
+    cout << "\n\tDet er ikke plass til flere ovelser for denne grenen";
+}
+
+void Gren :: endreOvelseMeny() {                    // Meny for hva som kan endres for en Ovelse.
+  cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+       << "\n\tN - Navnet paa ovelsen"
+       << "\n\tE - Datoen ovelsen er"
+       << "\n\tA - Klokkeslett ovelsen starter"
+       << "\n\tQ - Tilbake til Ovelsers meny";
+}
+
+void Gren :: endreOvelse() {                        // Endrer data for en Ovelse.           : O E
+  int indeks;
+  char valg;
+
+  if (antallRegistrerteOvelser != 0) {              // Hvis array med Ovelser ikke er tom:
+
+    cout << "\nTilgjengelige ovelser:\n";
+    skrivUtRegistrerteOvelser();                    // Skriver ut nr og navn på ovelser i array.
+    indeks = les("\nHvilke ovelse vil du endre paa? (tall)", 1, antallRegistrerteOvelser);
+
+    endreOvelseMeny();                              // Skriver ut hvilke valg som kan foretas.
+    valg = les("\nOvelser/Endre ovelse: ");
+    while (valg != 'Q') {
+      switch (valg) {
+        case 'N' : endreOvelseNavn(indeks);           break;
+        case 'E' : array[indeks]->endreDato();        break;
+        case 'A' : array[indeks]->endreKlokkeslett(); break;
+      }
+      endreOvelseMeny();
+      valg = les("\nOvelser/Endre ovelse: ");
+    }
+  }
+  else
+    cout << "\n\tDet er ikke registrert noen ovelser for denne grenen";
+}
+
+void Gren :: endreOvelseNavn(int indeks) {          // Endrer navnet for en Ovelse.
+  char buffer[NVLEN];
+  char *navn;
+
+  les ("\nNavn paa ovelse", buffer, NVLEN);         // Leser inn navnet på ovelsen.
+
+  while (finnesOvelse(buffer)) {                    // Loop hvis navnet paa ovelsen finnes.
+    cout << "\n\t" << buffer << " finnes allerede, velg et nytt navn.";
+    les ("\n\tNavn paa ovelse", buffer, NVLEN);
+  }
+  navn = konverter(buffer);                         // Lager ny char og setter korrekt lengde.
+  array[indeks]->endreNavn(navn);                   // Setter navn paa ovelse.
+}
+
+void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.                   : O F
+
+}
+
+void Gren :: skrivHoveddataOvelser() {              // Skriver hoveddata for alle Ovelser.  : O A
+  // Looper gjennom alle ovelser og skriver ut all data.
+  // Ovelsens navn. Prestasjoner (tid/poeng). Nummer. Antall deltagere. Dato. Klokkeslett.
+
+  // Hvis array har objekter.
+  //   Gå inn i objekt og display data på en hensiktmessig måte.
+  //   Gå inn i neste objekt.
+  // Hvis array ikke har objekter: feilmelding.
+}
+
+bool Gren :: finnesOvelse(char navn[]) {             // Sjekk om Ovelsen finnes i array med param. navn.
+  char *navnIarray;
+
+  navn = konverter(navn);                           // Gjør om størrelsen og lager ny char.
+  navn = konverterTilStore(navn);                   // Gjør om parameters navn til store bokstaver.
+
+  for (int i = 1; i <= antallRegistrerteOvelser; i++) { // Looper gjennom array.
+    navnIarray = konverterTilStore(array[i]->hentNavn()); // Gjør om til store bokstaver.
+
+    if ( strcmp(navn, navnIarray ) == 0)            // Hvis medsendt param er lik Ovelses navn.
+      return true;
+  }
+}
+
+void Gren :: skrivUtRegistrerteOvelser() {          // Skriver ut alle registrerte ovelser.
+  int newLineTeller = 1;
+                                                    // Looper gjennom array med ovelser.
+  for (int i = 1; i <= antallRegistrerteOvelser; i++) {
+    cout << '\t' << i;                              // Skriver ut indeks i array.
+    array[i]->skrivNavn();                          // Skriver ut navnet paa ovelsen.
+
+    if (newLineTeller % 6 == 0)                     // Legger paa linjeskift hvis 6 ovelser
+      cout << '\n';                                 // ligger etter hverandre på skjermen.
+    newLineTeller ++;                               // Teller opp med en.
+  }
+}
+
+

@@ -15,6 +15,7 @@ private:
 	Ovelse *array[MAXOVELSER + 1];
 	char *annet;
 	int antallRegistrerteOvelser;
+
 public:
 	//constructor
 	Gren();
@@ -22,26 +23,24 @@ public:
 	Gren(ifstream & inn, char* a);
 	//destructor
 	~Gren();
-	void endreNavn();				// G E
-	void display();					// G A
-	void skrivOvelse();				// G S
-	void skrivGrenNavn();           // Skriver ut navnet på grenen.
+	void endreNavn();				                // G E
+	void display();					                // G A
+	void skrivOvelse();				                // G S
+	void skrivGrenNavn();                           // Skriver ut navnet på grenen.
 	void skrivTilFIl(ofstream & ut);
 	int hentAntalOvelser();
 	void testingNyOvelse();
 	void testingSkrivResListe();
 
 
-	//void ovelseMeny();          // Meny til Ovelse : O...
-	//void skrivUtNavn();         // Skriver ut navnene på Gren : Meny i O...
-	//void menyValgOvelse();			// Switch for Ovelse.				   Valg : O
-	//void skrivOvelseMeny();			// KommandoMeny for Ovelse.			  
-	//void nyOvelse();				// Lager ny Ovelse.					   Valg : O N
-	//void endreOvelse();				// Endrer en Ovelse.				   Valg : O E
-	//void fjernOvelse();				// Fjerner en Ovelse.				   Valg : O	F
-	//void skrivAlleOvelse();			// Skriver hoveddata for alle Ovelser. Valg : O	A
-	//void menyValgDelListe();		// Switch for deltagerLister.		   Valg : O L
-	//void menyValgResListe();		// Switch for resultatLister.		   Valg : O R
+	void registrerNyOvelse();                       // Registrerer ny Ovelse.               : O N
+	void endreOvelseMeny();                         // Meny for hva som kan endres for en Ovelse.
+	void endreOvelse();                             // Endrer data for en Ovelse.           : O E
+	void endreOvelseNavn(int indeks);               // Endrer navnet for en Ovelse.
+	void fjernOvelse();                             // Fjerner en Ovelse.                   : O F
+	void skrivHoveddataOvelser();                   // Skriver hoveddata for alle Ovelser.  : O A
+	bool finnesOvelse(char *navn);                  // Sjekk om Ovelsen finnes i array med param. navn.
+	void skrivUtRegistrerteOvelser();               // Skriver ut alle registrerte ovelser.
 
 };
 #endif

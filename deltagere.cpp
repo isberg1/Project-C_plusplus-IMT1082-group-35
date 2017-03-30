@@ -44,7 +44,6 @@ void Deltagere::menyValg()
 		case 'E': endreDeltager();	break;
 		case 'A': skrivDataAlle();	break;
 		case 'S': skrivDataEn();	break;
-		default :		break;
     }
     skrivMeny();
     valg = les("\nDeltagere: ");
@@ -108,7 +107,6 @@ void Deltagere::endreDeltager()
 		case 'E': tempDeltager->endreNasjon();	break;
 		case 'A': tempDeltager->endreData();	break;
 		case 'K': tempDeltager->endreKjonn();	break;
-		default: endreDeltagerMeny();			break;
 		}
 		tempDeltager->display();
 		endreDeltagerMeny();
@@ -177,7 +175,7 @@ void Deltagere :: skrivDataEn() {                   // Skriver all data om en gi
 
         string ord = sokEtter;                      // Gjør om til string for å bruke søkefunksjoner.
         string tekst = sokeTekst;
-        regex r("\\b" + ord + "\\b");               // Black magic. (?)
+        regex r("\\b" + ord + "\\b");               // Bruker regex.
         smatch m;
 
         if (regex_search(tekst, m, r))              // Hvis søket matcher:
