@@ -26,6 +26,7 @@ private:
 
 public:
 	Ovelse();                                       // Constructor.
+	Ovelse(ifstream & inn);                         // Constructor med filargunent
 	Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling);// Constructor, får et arg. fra Grener som viser hva slags maaling som skal registreres
 	~Ovelse();
 	void skrivData();
@@ -40,11 +41,11 @@ public:
 	void resultaterLesFraFil(); //ma lages
 	int sjekkID();
 	bool fjernResultatliste();
-
 	void nyResultatListe();						    // Lag en ny resultatliste
 	int lagUniktNr();								// Lager et unikt tall som brukes til datamedlemm  int "nr"
 	int skaffVerdi();							    // Henter inn og sikkrer riktig verdi til resultatlisten
 	char *hentNavn();                               // Returnerer navnet til Ovelsen.
+
 	int datoSjekk(int dato);                        // Sjekker om dato er på riktig format.
 	int klokkeSjekk(int kl);                        // Sjekker om kl. er på riktig format.
 	void skrivNavn();                               // Skriver ut ovelsens navn.
@@ -52,6 +53,10 @@ public:
 	void endreDato();                               // Endrer datoen til ovelsen.
 	void endreKlokkeslett();                        // Endrer kl. til ovelsen.
 
+
+	void menyValgResListe();		// Switch for resultatLister.		   Valg : O R
+
+	void skrivResListeMeny();		// KommandoMeny for resultatListe.
 };
 
 /*
@@ -61,15 +66,10 @@ lag en funksjon som lager et unikt filnavn (til OVxxx.STA og OVxxxx.RES)
 lag en funksjon som sletter en fil fra HDD( til O F  ,  O L <id> F  og  O R <id> F)				
 
 Forslag til implimentasjnsrekkefolge etter at det ovenfor er gjort:
-<<<<<<< HEAD
-1. valg :O     N  ->  A  ->  E  -> skriv til fil  -> les fra fil  ->  F
-2. Valg :O L   N  ->  S  ->  E  -> skriv til fil  -> les fra fil  ->  F							
-3. Valg :O S   N  ->  S(før NB!)  -> skriv til fil  -> les fra fil ->  F  ->  S(NB!)			
-=======
+
 1. valg :O     N  ->  A  ->  E  -> skriv til fil  -> les fra fil  ->  F                         mats
 2. Valg :O L   N  ->  S  ->  E  -> skriv til fil  -> les fra fil  ->  F
 3. Valg :O S   N  ->  S(før NB!)  -> skriv til fil  -> les fra fil ->  F  ->  S(NB!)			alex
->>>>>>> fba18e15f40aa6df5a14b012c5c5f418e1aae702
 
 //tror vansklighetsgraden fra lettest til vanskligst er: 2, 1, 3
 

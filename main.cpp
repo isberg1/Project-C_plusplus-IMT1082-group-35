@@ -51,7 +51,6 @@ int main() {
   poengObj.lesFraFil();								// Leser poeng fra fil.
   deltagerObj.lesFraFil();                          // Leser deltagers data fra fil.
 
-
   MainMeny();                                       // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");
 
