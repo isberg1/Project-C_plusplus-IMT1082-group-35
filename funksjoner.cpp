@@ -33,7 +33,7 @@ extern Poeng poengObj;
 
 char les() {			                            // Henter ett ikke-blankt upcaset tegn:
 	char ch;
-	cin >> ch;   cin.ignore();                      //  Leser ETT tegn. Forkaster '\n'.
+	cin >> ch;   cin.ignore(numeric_limits<streamsize>::max(), '\n');                      //  Leser ETT tegn. Forkaster '\n'.
 	return (toupper(ch));                           //  Upcaser og returnerer.
 }
 
@@ -41,7 +41,7 @@ char les() {			                            // Henter ett ikke-blankt upcaset teg
 char les(char *menyPlass) {			                // Henter ett ikke-blankt upcaset tegn:
 	char ch;
 	cout << menyPlass;                              // Skriver ut menyplass.
-	cin >> ch;   cin.ignore();                      // Leser ETT tegn. Forkaster '\n'.
+	cin >> ch;   cin.ignore(numeric_limits<streamsize>::max(), '\n');                      // Leser ETT tegn. Forkaster '\n'.
 	return (toupper(ch));                           // Upcaser og returnerer.
 }
 
@@ -59,12 +59,19 @@ int les(const char t[], const int min, const int max) {
 
 void les(const char t[], char s[], const int LEN)
 {
+	char buffer[STRLEN*2];
 	do {
-		cout << '\t' << t << ": ";	cin.getline(s, LEN);//Ledetekst og leser.
-		cin.clear();
-	//	cin.ignore();
 		
-	} while (strlen(s) == 0	&& strlen(s)<= LEN);						 //Sjekker at tekstlengden er ulik 0.
+		cout << '\t' << t << ": "; cin.getline(buffer, LEN);//Ledetekst og leser.
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	
+	} while (strlen(buffer) == 0 && strlen(buffer)> LEN);						 //Sjekker at tekstlengden er ulik 0.
+
+	fjernBlankeForanOgBak(buffer);
+	strcpy(s, buffer);
 }
 
                                                     // konverterer og returnerer char [] til char*
@@ -182,6 +189,34 @@ void lesFraFil(int alternativ) {							// leser alt fra fil
 	{
 		cout << "\n\nFinner ikke filen!\n\n";
 	}					 //feilmelding
+}
+
+void fjernBlankeForanOgBak(char txt[])
+{
+	char buff[STRLEN];
+	int t = 0;
+	int a = 0;
+
+	while (txt[t] == ' ')
+	{
+		t++;
+	}
+	while (t <= strlen(txt))
+	{
+		buff[a] = txt[t];
+		a++;
+		t++;
+	}
+	buff[t] = '\0';
+
+	t = strlen(buff);
+
+	while (buff[t - 1] == ' ')
+	{
+		t--;
+	}
+	buff[t] = '\0';
+	strcpy(txt, buff);
 }
 
 char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 og gjør dem store.

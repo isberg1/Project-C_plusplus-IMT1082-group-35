@@ -31,5 +31,17 @@ public:
 	void testingNyOvelse();
 	void testingSkrivResListe();
 
+
+	//void ovelseMeny();          // Meny til Ovelse : O...
+	//void skrivUtNavn();         // Skriver ut navnene på Gren : Meny i O...
+	//void menyValgOvelse();			// Switch for Ovelse.				   Valg : O
+	//void skrivOvelseMeny();			// KommandoMeny for Ovelse.			  
+	//void nyOvelse();				// Lager ny Ovelse.					   Valg : O N
+	//void endreOvelse();				// Endrer en Ovelse.				   Valg : O E
+	//void fjernOvelse();				// Fjerner en Ovelse.				   Valg : O	F
+	//void skrivAlleOvelse();			// Skriver hoveddata for alle Ovelser. Valg : O	A
+	//void menyValgDelListe();		// Switch for deltagerLister.		   Valg : O L
+	//void menyValgResListe();		// Switch for resultatLister.		   Valg : O R
+
 };
 #endif

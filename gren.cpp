@@ -96,7 +96,7 @@ void Gren::display()	//til komando G A
 {
 	skriv("Grenens navn er: ", text);
 	skriv("antall ovelser er:", antOvelser);
-	skriv("Annet: ", annet);
+	skriv("Annet:            ", annet);
 
 
 	if (typeMaaling == MinSECTidel)

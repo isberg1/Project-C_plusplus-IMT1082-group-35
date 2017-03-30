@@ -19,10 +19,9 @@ private:
 	int antDeltagere;	//brukes som teller
 	int dato;
 	int klokkeslett;
-					//deltager array	
-	int *deltagerListe;
-					//resultat array ( MinSECTidel;	MinSecHundredel; MinSekTusendel; PoengX; PoengXX;)
-	int *resultatListe;
+						
+	int *deltagerListe;													//deltager array			 
+	int *resultatListe;													//resultat array
 	int log[ANTALLVINNERE + 1];  //loggfører seiersrekkefolgen brukes til R <id> S NB!
 public:
 	Ovelse( registerTidPoeng typeMaaling, char * nv);	//constructor    får et arg. fra Grener som viser hva slags maaling som skal registreres
@@ -35,12 +34,13 @@ public:
 	int lagUniktNr();										//lager et unikt tall som brukes til datamedlemm  int "nr"
 	int skaffVerdi();										  //henter inn og sikkrer riktig verdi til resultatlisten
 	void bubbleSort();							//sorterer 2 int array
-	void ajourforeLog();//ma testes		ajourforer log arrayen og sender rapport til medaljer og poeng.  ma teste global funksjon raport
+	void ajourforeLog(int flagg = 0);//ma testes		ajourforer log arrayen og sender rapport til medaljer og poeng.  ma teste global funksjon raport
 	void skrivResultatliste();
 	void deltagerSkrivtilFil();	//ma lages	
 	void resultaterSkrivTilFil();//ma lages	
 	void resultaterLesFraFil(); //ma lages
 	int sjekkID();
+	bool fjernResultatliste();
 };
 
 /*

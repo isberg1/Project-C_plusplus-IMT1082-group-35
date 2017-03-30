@@ -213,11 +213,7 @@ void Grener::testResListe()
 		skriv("Finner ikke en gren med navn: ", temp);
 	}
 }
-	
-void Grener :: ovelseMeny() {                       // Meny til Ovelse : O...
 
-
-}
 
 void Grener::testResSkriv()
 {
@@ -284,6 +280,7 @@ void Grener::menyValgOvelse()						// MainSwitch for Ovelse.
 		valg = les("\novelser: ");
 	}
 }
+
 
 void Grener::skrivOvelseMeny()					// KommandoMeny for Ovelser.
 {

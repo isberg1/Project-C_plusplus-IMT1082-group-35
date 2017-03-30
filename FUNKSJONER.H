@@ -22,7 +22,7 @@ void skriv(ofstream& ut, char *string);			    //skriver en string til fil
 
 void skrivTilFil();				                    //styrer andre filfunksjoner.	  til komando (U)
 void lesFraFil(int alternativ = 0);                 //funksjonen kan gjør noe extra.  til komando (I)
-
+void fjernBlankeForanOgBak(char txt[]);
 char *konverter(char t[]);					        //konverter char [] til char *
 
 void MainMeny();
