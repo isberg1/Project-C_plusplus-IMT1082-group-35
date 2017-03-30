@@ -15,6 +15,7 @@
 #include <fstream>
 #include <stdio.h>      /* printf, fgets */
 #include <stdlib.h>     /* atoi */
+#include <regex>        // For numeric_limits.
 #include "CONST.H"
 #include "FUNKSJONER.H"
 using namespace std;
@@ -22,15 +23,19 @@ using namespace std;
 
 char les() {			                            // Henter ett ikke-blankt upcaset tegn:
 	char ch;
-	cin >> ch;   cin.ignore();                      //  Leser ETT tegn. Forkaster '\n'.
+	cin >> ch;                                      //  Leser ETT tegn.
+                                                    // Forkaster flere bokstaver enn 1 og '\n'.
+	cin.ignore(numeric_limits <streamsize> :: max(), '\n');
 	return (toupper(ch));                           //  Upcaser og returnerer.
 }
 
 
-char les(char menyPlass[]) {			                // Henter ett ikke-blankt upcaset tegn:
+char les(char menyPlass[]) {			            // Henter ett ikke-blankt upcaset tegn:
 	char ch;
 	cout << menyPlass;                              // Skriver ut menyplass.
-	cin >> ch;   cin.ignore();                      // Leser ETT tegn. Forkaster '\n'.
+	cin >> ch;                                      // Leser ETT tegn. Forkaster '\n'.
+                                                    // Forkaster flere bokstaver enn 1 og '\n'.
+	cin.ignore(numeric_limits <streamsize> :: max(), '\n');
 	return (toupper(ch));                           // Upcaser og returnerer.
 }
 

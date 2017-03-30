@@ -47,7 +47,6 @@ void Nasjoner :: menyValg() {                       // Valg av funksjonalitet.
       case 'A': skrivHoveddata();     break;        // Skriver hovedata om alle nasjoner.
       case 'T': skrivDeltagerTropp(); break;        // Skriver ut alle deltagere i nasjonens tropp.
       case 'S': skrivAllData();       break;        // Skriver ut all data om en gitt nasjon.
-      default : skrivMeny();          break;        // Meny av brukerens valg.
     }
     skrivMeny();
     valg = les("\nNasjoner: ");                     // Leser brukerens ønske/valg.
@@ -105,7 +104,6 @@ void Nasjoner :: endreNasjon() {                    // Endre data for en nasjon 
         case 'E' : nasjon->endreKontaktperson(); break;
         case 'A' : nasjon->endreTlf();           break;
         case 'T' : nasjon->endreAnnet();         break;
-        default  : endreNasjonMeny();            break;
       }
       endreNasjonMeny();
       valg = les("\nNasjoner/Endre nasjon: ");

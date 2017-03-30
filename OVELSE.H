@@ -8,6 +8,7 @@
 #include"ENUM.H"
 
 
+
 class Ovelse
 {
 private:
@@ -38,6 +39,9 @@ public:
 	int datoSjekk(int dato);                        // Sjekker om dato er på riktig format.
 	int klokkeSjekk(int kl);                        // Sjekker om kl. er på riktig format.
 	void skrivNavn();                               // Skriver ut ovelsens navn.
+	void endreNavn(char *ovelseNavn);               // Endrer navnet til ovelsen.
+	void endreDato();                               // Endrer datoen til ovelsen.
+	void endreKlokkeslett();                        // Endrer kl. til ovelsen.
 };
 
 /*

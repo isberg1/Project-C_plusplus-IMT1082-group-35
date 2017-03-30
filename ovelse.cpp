@@ -23,19 +23,14 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
 
   nr = lagUniktNr();						        // Faar et unikt nummer basert på static int navnTeller.
   maaling = typeMaaling;							// Faar enumen fra Gren.
-  navn = ovelseNavn;                                // Faar navn fra Gren.
 
+  endreNavn(ovelseNavn);                            // Setter navn fra parameter.
                                                     // Les inn antall deltagere.
   antDeltagere = les("Skriv inn antall deltagere i ovelsen", MINDELTAGERE, MAXDELTAGERE);
 
-  cout << "\nSkriv inn dato for ovelsen (aaaa mm dd)"; // Lovelig dato-interval: 2017.01.01-2116.12.31.
-  dato = les("\nDato", 20170101, 21161231);
-  dato = datoSjekk(dato);                           // Sjekker at dato er på riktig format.
+  endreDato();                                      // Setter dato.
 
-  cout << "\nKlokkeslett for ovelsen (ttmm)";
-  klokkeslett = les("\nKlokkeslett", 0000, 2459);   // Leser inn klokkeslett.
-  klokkeslett = klokkeSjekk(klokkeslett);           // Sjekker at kl. er på riktig format.
-
+  endreKlokkeslett();                               // Setter klokkeslett
 
   deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
   resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
@@ -243,3 +238,22 @@ int Ovelse :: klokkeSjekk(int kl) {                 // Sjekker om kl. er på rikt
 void Ovelse :: skrivNavn() {                        // Skriver ut ovelsens navn.
   cout << "  -  " << navn;
 }
+
+void Ovelse :: endreNavn(char *ovelseNavn) {        // Endrer navnet til ovelsen.
+  navn = ovelseNavn;
+}
+
+void Ovelse :: endreDato() {                        // Endrer datoen til ovelsen.
+  cout << "\nSkriv inn dato for ovelsen (aaaa mm dd)"; // Lovelig dato-interval: 2017.01.01-2116.12.31.
+  dato = les("\nDato", 20170101, 21161231);
+  dato = datoSjekk(dato);                           // Sjekker at dato er på riktig format.
+}
+
+void Ovelse :: endreKlokkeslett() {                 // Endrer kl. til ovelsen.
+  cout << "\nKlokkeslett for ovelsen (ttmm)";
+  klokkeslett = les("\nKlokkeslett", 0000, 2459);   // Leser inn klokkeslett.
+  klokkeslett = klokkeSjekk(klokkeslett);           // Sjekker at kl. er på riktig format.
+}
+
+
+
