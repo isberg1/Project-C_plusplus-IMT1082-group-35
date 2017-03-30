@@ -15,20 +15,35 @@ using namespace std;
 
 
 
-Ovelse::Ovelse(registerTidPoeng typeMaaling)		//constructor    får parameter sisteOvelse fra Gren
-{
-	nr = lagUniktNr();						// faar en unikt nummer basert på static int navnTeller
-	maaling = typeMaaling;													//faar enumen fra Gren
-																		//les inn egene datamedlemer
-	antDeltagere = les("Skriv inn antall deltagere i ovelsen. ", MINDELTAGERE, MAXDELTAGERE);
+
+Ovelse::Ovelse() {
+	cout << "\nAdvarsel, Ovelse-objekter skal ikke lages uten parameter";
+}
+                                                  //constructor, får param. navn,sisteOvelse fra Gren.
+Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
+
+  nr = lagUniktNr();						        // Faar et unikt nummer basert på static int navnTeller.
+  maaling = typeMaaling;							// Faar enumen fra Gren.
+  navn = ovelseNavn;                                // Faar navn fra Gren.
+
+                                                    // Les inn antall deltagere.
+  antDeltagere = les("Skriv inn antall deltagere i ovelsen", MINDELTAGERE, MAXDELTAGERE);
+
+  cout << "\nSkriv inn dato for ovelsen (aaaa mm dd)"; // Lovelig dato-interval: 2017.01.01-2116.12.31.
+  dato = les("\nDato", 20170101, 21161231);
+  dato = datoSjekk(dato);                           // Sjekker at dato er på riktig format.
 
 
-	deltagerListe = new int[MAXDELTAGERE + 1];			//setter deltagerListe peker til en int array
-	resultatListe = new int[MAXDELTAGERE + 1];			//setter resultatListe peker til en int array
+  cout << "\nKlokkeslett for ovelsen (ttmm)";
+  klokkeslett = les("\nKlokkeslett", 0000, 2459);   // Leser inn klokkeslett.
+  klokkeslett = klokkeSjekk(klokkeslett);           // Sjekker at kl. er på riktig format.
 
 
-	for (int i = 0; i <= ANTALLVINNERE + 1; i++)
-	{	log[i] = 0; 	}											//nullstiller log arryaen
+  deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
+  resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
+
+  for (int i = 0; i <= ANTALLVINNERE + 1; i++)      // Nullstiller log arrayen.
+    log[i] = 0;
 }
 
 Ovelse::~Ovelse()	//destructor
@@ -283,4 +298,42 @@ void Ovelse::nyResListe()
 void Ovelse::fjernResListe()
 {
 
+}
+
+char* Ovelse :: hentNavn() {                        // Returnerer navnet til Ovelsen.
+  return navn;
+}
+
+int Ovelse :: datoSjekk(int dato) {                 // Sjekker om dato er på riktig format.
+  int maaned, dag;
+
+  maaned = (dato / 100) % 100;                      // Finner hvilke måned det er.
+  dag = dato % 100;                                 // Finner hvilke dag det er.
+
+  while ((maaned < 1 || maaned > 12) ||             // Looper hvis måned ikke er fra 1-12
+         (dag < 1 || dag > 31)) {                   // og dag fra 1-31.
+    dato = les("\tDato", 20170101, 21161231);
+    maaned = (dato / 100) % 100;                    // Oppdaterer måned.
+    dag = dato % 100;                               // Oppdaterer dag.
+  }
+  return dato;
+}
+
+int Ovelse :: klokkeSjekk(int kl) {                 // Sjekker om kl. er på riktig format.
+  int time, minutt;
+
+  time = kl / 100;                                  // Finner time fra klokkeslett.
+  minutt = kl % 100;                                // Finner minutt fra klokkeslett.
+
+  while ((time < 00 || time > 24) ||                // Looper hvis time ikke er fra 00-24
+         (minutt < 00 || minutt > 60)) {            // og minutt fra 00-60.
+    klokkeslett = les("\n\tKlokkeslett", 0000, 2459);
+    time = kl / 100;                                // Oppdaterer time.
+    minutt = kl % 100;                              // Oppdaterer minutt.
+  }
+  return klokkeslett;
+}
+
+void Ovelse :: skrivNavn() {                        // Skriver ut ovelsens navn.
+  cout << "  -  " << navn;
 }

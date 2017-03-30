@@ -27,7 +27,7 @@ char les() {			                            // Henter ett ikke-blankt upcaset teg
 }
 
 
-char les(char *menyPlass) {			                // Henter ett ikke-blankt upcaset tegn:
+char les(char menyPlass[]) {			                // Henter ett ikke-blankt upcaset tegn:
 	char ch;
 	cout << menyPlass;                              // Skriver ut menyplass.
 	cin >> ch;   cin.ignore();                      // Leser ETT tegn. Forkaster '\n'.
@@ -52,7 +52,7 @@ void les(const char t[], char s[], const int LEN)
 		cout << '\t' << t << ": ";	cin.getline(s, LEN);//Ledetekst og leser.
 		cin.clear();
 	//	cin.ignore();
-		
+
 	} while (strlen(s) == 0	&& strlen(s)<= LEN);						 //Sjekker at tekstlengden er ulik 0.
 }
 
@@ -172,11 +172,11 @@ void lesFraFil(int alternativ) {							// leser alt fra fil
 	}					 //feilmelding
 }
 
-char *nasjonsForkortelse(char *t) {                 // Sjekker at bokstaver = 3 og gjør dem store.
+char *nasjonsForkortelse(char t[]) {                // Sjekker at bokstaver = 3 og gjør dem store.
   char buffer[STRLEN];
   char *forkortelse;
 
-  cout << t;                                      // Skriver ut ledetekst.
+  cout << t;                                        // Skriver ut ledetekst.
 
   do {                                              // Loop:
     les("\nNasjonsforkortelse (3 bokstaver)", buffer, NVLEN);
