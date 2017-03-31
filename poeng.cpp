@@ -73,7 +73,6 @@ void Poeng::skrivPoeng()	//displayer 2 arrayer
 
 void Poeng::testFunksjon()		//test funksjon		slettes før siste innlevering
 {
-	int dummy;
 	positivNegativ posNeg;
 	int antallPoeng = 0;
 	char temp[MAXNASJONER + 1];

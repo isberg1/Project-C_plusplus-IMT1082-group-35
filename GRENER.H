@@ -21,9 +21,9 @@ public:
 	void skrivEnGren();			// G S
 	void skrivTilFIl();
 	void lesFraFil();
+	void ovelseGrenMeny();          // Meny til Ovelse : O...
 	void testResListe();
 	void testResSkriv();
-
 	void skrivUtNavn();             // Skriver ut navnene på Gren.
 	void menyValgOvelse();			// Switch for Ovelse.				   Valg : O
 	void skrivOvelseMeny();			// KommandoMeny for Ovelse.

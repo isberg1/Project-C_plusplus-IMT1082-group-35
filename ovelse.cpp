@@ -13,13 +13,13 @@
 
 using namespace std;
 
-
-Ovelse :: Ovelse () {
-  cout << "\nAdvarsel, Ovelse-objekter skal ikke lages uten parameter";
+Ovelse::Ovelse() {
+	cout << "\nAdvarsel, Ovelse-objekter skal ikke lages uten parameter";
 }
 Ovelse::Ovelse(ifstream & inn)
 {	lesFraFil(inn);	 }
                                                     //constructor, får param. navn,sisteOvelse fra Gren.
+                                                  //constructor, får param. navn,sisteOvelse fra Gren.
 Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
 
   nr = lagUniktNr();						        // Faar et unikt nummer basert på static int navnTeller.
@@ -29,8 +29,14 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
                                                     // Les inn antall deltagere.
   antDeltagere = les("Skriv inn antall deltagere i ovelsen", MINDELTAGERE, MAXDELTAGERE);
 
-  endreDato();                                      // Setter dato.
+  cout << "\nSkriv inn dato for ovelsen (aaaa mm dd)"; // Lovelig dato-interval: 2017.01.01-2116.12.31.
+  dato = les("\nDato", 20170101, 21161231);
+  dato = datoSjekk(dato);                           // Sjekker at dato er på riktig format.
 
+  cout << "\nKlokkeslett for ovelsen (ttmm)";
+  klokkeslett = les("\nKlokkeslett", 0000, 2459);   // Leser inn klokkeslett.
+  klokkeslett = klokkeSjekk(klokkeslett);           // Sjekker at kl. er på riktig format.
+  endreDato();                                      // Setter dato.
   endreKlokkeslett();                               // Setter klokkeslett
 
   deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
@@ -567,6 +573,101 @@ bool Ovelse::fjernResultatliste()
 		skriv("Finner ingen fil med navn: ", temp );
 		return false;
 	}
+
+}
+
+int Ovelse::hentId()
+{
+	return nr;
+}
+
+void Ovelse::menyValgDelListe()						// ValgSwitch for deltagerLister.
+{
+	char valg;
+
+	skrivDelListeMeny();
+	valg = les("\nDeltagerLister ");
+	while (valg != 'Q')
+	{
+		switch (valg)
+		{
+		case 'S': skrivDelListe();	    break;		// Skriver ut en deltagerListe.
+		case 'N': nyDelListe();			break;		// Lager en ny deltagerListe.
+		case 'E': endreDelListe();		break;		// Endrer en deltagerListe.
+		case 'F': fjernDelListe();		break;		// Fjerner en deltagerListe.
+		default:		break;
+		}
+		skrivDelListeMeny();
+		valg = les("\nDeltagerLister: ");
+	}
+}
+
+void Ovelse::skrivDelListeMeny()					// KommandoMeny for deltagerLister.
+{
+	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+		<< "\n\tS - Skriv ut deltagerliste"
+		<< "\n\tN - Lag ny deltagerliste"
+		<< "\n\tE - Endre deltagerliste"
+		<< "\n\tF - Fjern deltagerliste"
+		<< "\n\tQ - Tilbake til ovelsemeny";
+}
+
+void Ovelse::skrivDelListe()
+{
+
+}
+
+void Ovelse::nyDelListe()
+{
+
+}
+
+void Ovelse::endreDelListe()
+{
+
+}
+
+void Ovelse::fjernDelListe()
+{
+
+}
+
+void Ovelse::menyValgResListe()						// ValgSwitch for resultatLister.
+{
+	char valg;
+
+	skrivResListeMeny();
+	valg = les("\nResultatLister: ");
+	while (valg != 'Q')
+	{
+		switch (valg)
+		{
+		case 'S': skrivResListe();		break;		// Skriver ut en resultatListe.
+		case 'N': nyResultatListe();	break;		// Lager en ny resultatListe.
+		case 'F': fjernResListe();		break;		// Fjerner en resultatListe.
+		default:						break;
+		}
+		skrivResListeMeny();
+		valg = les("\nResultatlister: ");
+	}
+}
+
+void Ovelse::skrivResListeMeny()					// KommandoMeny for resultatLister.
+{
+	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+		<< "\n\tS - Skriv ut resultatliste"
+		<< "\n\tN - Ny resultatliste"
+		<< "\n\tF - Fjern resultatliste"
+		<< "\n\tQ - Tilbake til ovelsemeny";
+}
+
+void Ovelse::skrivResListe()
+{
+
+}
+
+void Ovelse::fjernResListe()
+{
 
 }
 
