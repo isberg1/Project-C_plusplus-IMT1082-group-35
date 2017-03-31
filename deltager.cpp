@@ -169,3 +169,11 @@ void Deltager :: skrivTilFil(ofstream & ut) {       // Skriver til fil.
 char* Deltager :: hentNavn() {                      // Returnerer navnet til deltageren.
   return fullNavn;
 }
+
+char * Deltager::hentNajon()  // Returnerer en deltagers najon	brukes til aa lage en Statistikk Raport
+{
+	char temp[NASJONLEN +1];
+
+	strcpy(temp, nasjon);
+	return temp;
+}

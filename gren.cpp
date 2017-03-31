@@ -34,9 +34,9 @@ Gren::Gren(char * a) : TextElement(a)
 
 	switch (tilEnum)
 	{//usikker på hva "antSifre" skal brukens til bare gjetter her
-	case 1:	typeMaaling = MinSECTidel;		antSifre = 6; break;
-	case 2: typeMaaling = MinSecHundredel;	antSifre = 7; break;
-	case 3:	typeMaaling = MinSekTusendel;	antSifre = 8; break;
+	case 1:	typeMaaling = MinSECTidel;		antSifre = 1; break;
+	case 2: typeMaaling = MinSecHundredel;	antSifre = 2; break;
+	case 3:	typeMaaling = MinSekTusendel;	antSifre = 3; break;
 	case 4: typeMaaling = PoengX;			antSifre = 1; break;
 	case 5:	typeMaaling = PoengXX;			antSifre = 2; break;
 	}
@@ -71,7 +71,7 @@ Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 		//leser inn ovelser fra fil
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{
-			 array[i]->lesFraFil(inn);
+			 array[i]->lesFraFil(inn);		// skal kansjke skrives:  *(array+i)->lesFraFil(inn);
 		}
 	}
 }
@@ -96,9 +96,8 @@ void Gren::endreNavn()// til komado G E
 void Gren::display()	//til komando G A
 {
 	skriv("Grenens navn er: ", text);
-	skriv("antall ovelser er:", antOvelser);
+	skriv("Antall ovelser er:", antOvelser);
 	skriv("Annet: ", annet);
-
 
 	if (typeMaaling == MinSECTidel)
 	{	skriv("Maalingstype er: ","MinSECTidel");		}
@@ -115,7 +114,7 @@ void Gren::display()	//til komando G A
 void Gren::skrivOvelse()//til komando G S
 {
 	for (int i = 1; i <= antallRegistrerteOvelser; i++)
-	{	array[i]->skrivData();	}
+	{	array[i]->skrivData();	}		// skal kansjke skrives:  *(array+i)->skrivData();
 }
 //til fil
 void Gren::skrivTilFIl(ofstream & ut)
@@ -143,7 +142,7 @@ void Gren::skrivTilFIl(ofstream & ut)
 	{
 		//skriver ovelsesobjekter til fil
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
-		{	array[i]->skrivTilFil(ut);	}
+		{	array[i]->skrivTilFil(ut);	}		// skal kansjke skrives:  *(array+i)->skrivTilFil();
 	}
 
 }
@@ -155,6 +154,108 @@ void Gren :: skrivGrenNavn() {                      // Skriver ut navnet på gren
 int Gren::hentAntalOvelser()
 {
 	return antallRegistrerteOvelser;
+}
+
+void Gren::menyValgOvelse()							// MainSwitch for Ovelse.
+{
+	char valg;
+
+	skrivOvelseMeny();
+	valg = les("\nOvelser: ");
+	while (valg != 'Q')
+	{
+		switch (valg)
+		{
+		case 'N': registrerNyOvelse();		 break;			// Registrerer en ny Ovelse.
+		case 'E': endreOvelse();	 break;			// Endrer informasjon i ne Ovelse.
+		case 'F': fjernOvelse();	 break;			// Fjerner en Ovelse.
+		case 'A': skrivAlleOvelse(); break;			// Viser hoveddata for alle Ovelser.
+		case 'L': ovelseDelMeny();	 break;			// Sender til deltagerListeSwitch.
+		case 'R': ovelseResMeny();	 break;			// Sender til resultatListeSwitch.
+		}
+		skrivOvelseMeny();
+		valg = les("\novelser: ");
+	}
+}
+
+void Gren::skrivOvelseMeny()						// KommandoMeny for Ovelser.
+{
+	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+		<< "\n\tN - Ny ovelse"
+		<< "\n\tE - Endre ovelse"
+		<< "\n\tF - Fjern ovelse"
+		<< "\n\tA - Skriv ut alle ovelser"
+		<< "\n\tL - Deltagerliste"
+		<< "\n\tR - Resultatliste"
+		<< "\n\tQ - Tilbake til hovedmeny";
+}
+
+void Gren::skrivAlleOvelse()
+{
+
+}
+
+void Gren::ovelseDelMeny()
+{
+	int buffer, temp;
+
+	Gren::skrivAlleOvelse();
+	buffer = les("\n\tSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
+
+	for (int i = 0; i < antallRegistrerteOvelser; i++)
+	{
+		temp = array[i]->hentId();
+		if (temp == buffer)
+		{
+			array[i]->menyValgDelListe();
+		}
+	}
+}
+
+void Gren::ovelseResMeny()
+{
+	int buffer, temp;
+
+	Gren::skrivAlleOvelse();
+	buffer = les("\n\tSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
+
+	for (int i = 0; i < antallRegistrerteOvelser; i++)
+	{
+		temp = array[i]->hentId();
+		if (temp == buffer)
+		{
+			array[i]->menyValgResListe();
+		}
+	}
+}
+
+void Gren::testingNyOvelse()
+{
+	/*char temp[STRLEN];
+	les("skriv inn ovelsesnavn: ", temp, STRLEN);
+
+	*(array +1) = new Ovelse(typeMaaling, temp);
+
+	++antallRegistrerteOvelser;*/
+}
+
+void Gren::testingSkrivResListe()
+{
+	int temp;
+	int teller = 0;
+	bool bryt = true;
+
+	temp = les("skriv in ovelse ID-nr: ", 1000, 9999);
+
+	while (++teller <= antallRegistrerteOvelser && bryt)
+	{
+		if (array[teller]->sjekkID() == temp)
+		{
+			skriv("WWWWWWWW", "");
+			bryt = false;		//avbryt lup
+			array[teller]->skrivResultatliste();
+		}
+	}
 }
 
 void Gren :: registrerNyOvelse() {                  // Registrerer ny Ovelse.               : O N
@@ -238,7 +339,7 @@ void Gren :: skrivHoveddataOvelser() {              // Skriver hoveddata for all
     array[i]->skrivHovedData();                     // Skriver ut hoveddata for ovelsen.
 }
 
-bool Gren :: finnesOvelse(char navn[]) {            // Sjekk om Ovelsen finnes i array med param. navn.
+bool Gren :: finnesOvelse(char* navn) {             // Sjekk om Ovelsen finnes i array med param. navn.
   char *navnIarray;
 
   navn = konverter(navn);                           // Gjør om størrelsen og lager ny char.
@@ -264,5 +365,6 @@ void Gren :: skrivUtRegistrerteOvelser() {          // Skriver ut alle registrer
     newLineTeller ++;                               // Teller opp med en.
   }
 }
+
 
 

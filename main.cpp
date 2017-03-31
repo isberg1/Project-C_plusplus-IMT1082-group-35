@@ -34,9 +34,10 @@ Grener grenenerObj;
 //extern Deltagere deltagerObj;
 //extern Grener grenenerObj;
 //extern Medaljer medaljeObj;
+//extern Poeng poengObj;
 
 
-int Ovelse::navnTeller = 1000;	//static int brukes til å genere unike nr til ovelsesObjekter
+int Ovelse::navnTeller = 999;	//static int brukes til å genere unike nr til ovelsesObjekter
 
 
 // **********************************  H O V E D P R O G R A M M E T  **********************************
@@ -49,7 +50,6 @@ int main() {
   medaljeObj.lesFraFil();							// Leser medaljer fra fil.
   poengObj.lesFraFil();								// Leser poeng fra fil.
   deltagerObj.lesFraFil();                          // Leser deltagers data fra fil.
-
 
   MainMeny();                                       // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");

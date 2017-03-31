@@ -108,7 +108,7 @@ class List  {                          //  The class 'List'.
 		//  15 functions available for the user/program
    	        //     (some of them are overloaded).
 		//  For different type of lists are the following functions relevant:
-		              		//  LIFO/FIFO   Num Sort   Text Sort
+		              					//  LIFO/FIFO   Num Sort   Text Sort
     bool isEmpty();                     //      X          X           X 
     int noOfElements();                 //      X          X           X
     bool add(Element* el);              //      X          X           X 

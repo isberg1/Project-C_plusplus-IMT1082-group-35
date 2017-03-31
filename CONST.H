@@ -7,7 +7,7 @@ const int NASJONLEN = 3;
 const int MAXNASJONER = 200;
 const int MAXOVELSER = 20;
 const int MINDELTAGERE = 2;
-const int MAXDELTAGERE = 100; // consten star i opp.text. men riktig verdi er ukjent. jeg bare satt den til 100 
-const int ANTALLVINNERE = 7;	//avgjoor hvor mange som nasjoner som faar poeng
+const int MAXDELTAGERE = 100;		// Consten star i opp.text. men riktig verdi er ukjent. Satt tilfeldig til 100. 
+const int ANTALLVINNERE = 7;		// Avgjoor hvor mange nasjoner som faar poeng.
 
 #endif

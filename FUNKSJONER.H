@@ -1,4 +1,3 @@
-
 #if !defined(__FUNKSJONER_H)
 #define  __FUNKSJONER_H
 
@@ -19,21 +18,17 @@ void skriv(const char* text, const char* string);   //display string med ledetex
 void skriv(const char* text, const int dataMedlem); //display int med ledetext
 void skriv(ofstream& ut, int tall);	                //skriver en int til fil i et standardforman
 void skriv(ofstream& ut, char *string);			    //skriver en string til fil
-
 void skrivTilFil();				                    //styrer andre filfunksjoner.	  til komando (U)
 void lesFraFil(int alternativ = 0);                 //funksjonen kan gjør noe extra.  til komando (I)
-
+void fjernBlankeForanOgBak(char txt[]);
 char *konverter(char t[]);					        //konverter char [] til char *
-
 void MainMeny();
-
 char *nasjonsForkortelse(char t[]);                 // Sjekker at chars=3, gjør dem store. Med ledetext.
 bool erBokstaver(char tekst[]);                     // Sjekker om alle indekser i array er bokstav.
 bool erBokstaverEllerSpace(char tekst[]);           // Sjekker om indekser i array er bokstaver/ space.
 char *konverterTilStore(char *tekst);               // Gjør om til store bokstaver.
 bool slettFil(char fil[]);                          // Sletter fil fra disk, send med filnavn.
-
-void bubbleSort(int array[]);							//sorterer 1 int array
+void StatistikkRaport(int deltager, int log, int teller);			//reduser poeng og medaljefordelingen til en nasjon
+void HentNavnOgNasjonFraDeltager(char nv[], char nasj[], int nr);
 
 #endif
-

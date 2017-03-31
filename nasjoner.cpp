@@ -20,7 +20,6 @@ using namespace std;
 extern Deltagere deltagerObj;                       // Deltager-objekt fra main.
 
 
-
 Nasjoner :: ~Nasjoner() {
   //delete nasjonsListe;                              // Sletter liste.					//$$$$$$ ma fikses faar
 }
@@ -274,17 +273,24 @@ void Nasjoner::reduserAntDeltagere(char *nasjonsforkortelse)		//reduser antall d
 {
 	Nasjon *ptr;
 
-	ptr = (Nasjon *)nasjonsListe->remove(nasjonsforkortelse);
-	ptr->minus1Deltager();
-	nasjonsListe->add(ptr);
+	if (nasjonsListe) {                               // Hvis listen finnes og det er elementer i den.
+      ptr = (Nasjon *)nasjonsListe->remove(nasjonsforkortelse);
+      ptr->minus1Deltager();
+      nasjonsListe->add(ptr);
+    }
+    else
+      cout << "\n\tEr ikke registrert noen nasjoner";
 }
 
 void Nasjoner::okAntalletDeltagere(char *nasjonsForkortelse)
 {
 	Nasjon *ptr;
 
-	ptr = (Nasjon*) nasjonsListe->remove(nasjonsForkortelse);
-	ptr->oppdaterAntDeltagere();
-	nasjonsListe->add(ptr);
-
+    if (nasjonsListe) {
+	  ptr = (Nasjon*) nasjonsListe->remove(nasjonsForkortelse);
+	  ptr->oppdaterAntDeltagere();
+	  nasjonsListe->add(ptr);
+	}
+	else
+	  cout << "\n\tEr ikke registrert noen nasjoner";
 }

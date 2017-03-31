@@ -29,7 +29,14 @@ public:
 	void skrivGrenNavn();                           // Skriver ut navnet på grenen.
 	void skrivTilFIl(ofstream & ut);
 	int hentAntalOvelser();
-	void registrerNyOvelse();                       // Registrerer ny Ovelse.               : O N
+	void menyValgOvelse();							// Switch for Ovelse.						Valg : O
+	void skrivOvelseMeny();							// KommandoMeny for Ovelse.
+	void registrerNyOvelse();						// Lager ny Ovelse.							Valg : O N
+	void skrivAlleOvelse();							// Skriver hoveddata for alle Ovelser.		Valg : O A
+	void ovelseDelMeny();							// Henter funksjon for deltagerListe switch	Valg : O L
+	void ovelseResMeny();							// henter funksjon for resultatListe switch	Valg : O R
+	void testingNyOvelse();
+	void testingSkrivResListe();
 	void endreOvelseMeny();                         // Meny for hva som kan endres for en Ovelse.
 	void endreOvelse();                             // Endrer data for en Ovelse.           : O E
 	void endreOvelseNavn(int indeks);               // Endrer navnet for en Ovelse.
@@ -37,6 +44,7 @@ public:
 	void skrivHoveddataOvelser();                   // Skriver hoveddata for alle Ovelser.  : O A
 	bool finnesOvelse(char *navn);                  // Sjekk om Ovelsen finnes i array med param. navn.
 	void skrivUtRegistrerteOvelser();               // Skriver ut alle registrerte ovelser.
+
 
 };
 #endif
