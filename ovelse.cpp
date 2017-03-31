@@ -213,7 +213,7 @@ int Ovelse :: datoSjekk(int dato) {                 // Sjekker om dato er på rik
 
   while ((maaned < 1 || maaned > 12) ||             // Looper hvis måned ikke er fra 1-12
          (dag < 1 || dag > 31)) {                   // og dag fra 1-31.
-    dato = les("\tDato", 20170101, 21161231);
+    dato = les("\n\tDato", 20170101, 21161231);
     maaned = (dato / 100) % 100;                    // Oppdaterer måned.
     dag = dato % 100;                               // Oppdaterer dag.
   }
@@ -254,6 +254,25 @@ void Ovelse :: endreKlokkeslett() {                 // Endrer kl. til ovelsen.
   klokkeslett = les("\nKlokkeslett", 0000, 2459);   // Leser inn klokkeslett.
   klokkeslett = klokkeSjekk(klokkeslett);           // Sjekker at kl. er på riktig format.
 }
+
+void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en ovelse.
+  cout << "\nNummer:            " << nr
+       << "\nNavn:              " << navn
+       << "\nAntall deltagere:  " << antDeltagere
+       << "\nDato:              " << dato
+       << "\nKlokkeslett:       " << klokkeslett;
+
+// Må testes, vente på switch.
+//  switch (registerTidPoeng) {
+//    case "MinSECTidel"      :
+//    case "MinSecHundredel"  :
+//    case "MinSekTusendel"   :
+//    case "PoengX"           :
+//    case "PoengXX"          :
+//  }
+}
+
+
 
 
 

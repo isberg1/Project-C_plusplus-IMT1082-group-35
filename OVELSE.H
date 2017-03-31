@@ -42,6 +42,7 @@ public:
 	void endreNavn(char *ovelseNavn);               // Endrer navnet til ovelsen.
 	void endreDato();                               // Endrer datoen til ovelsen.
 	void endreKlokkeslett();                        // Endrer kl. til ovelsen.
+	void skrivHovedData();                          // Skriver hoveddata for en ovelse.
 };
 
 /*

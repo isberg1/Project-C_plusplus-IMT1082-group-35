@@ -231,22 +231,20 @@ void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.       
 }
 
 void Gren :: skrivHoveddataOvelser() {              // Skriver hoveddata for alle Ovelser.  : O A
-  // Looper gjennom alle ovelser og skriver ut all data.
-  // Ovelsens navn. Prestasjoner (tid/poeng). Nummer. Antall deltagere. Dato. Klokkeslett.
-
-  // Hvis array har objekter.
-  //   Gå inn i objekt og display data på en hensiktmessig måte.
-  //   Gå inn i neste objekt.
-  // Hvis array ikke har objekter: feilmelding.
+  if (antallRegistrerteOvelser == 0)
+    cout << "\n\tDet er ikke registrert noen ovelser for denne grenen";
+                                                    // Looper gjennom alle ovelser.
+  for (int i = 1; i <= antallRegistrerteOvelser; i++)
+    array[i]->skrivHovedData();                     // Skriver ut hoveddata for ovelsen.
 }
 
-bool Gren :: finnesOvelse(char navn[]) {             // Sjekk om Ovelsen finnes i array med param. navn.
+bool Gren :: finnesOvelse(char navn[]) {            // Sjekk om Ovelsen finnes i array med param. navn.
   char *navnIarray;
 
   navn = konverter(navn);                           // Gjør om størrelsen og lager ny char.
   navn = konverterTilStore(navn);                   // Gjør om parameters navn til store bokstaver.
 
-  for (int i = 1; i <= antallRegistrerteOvelser; i++) { // Looper gjennom array.
+  for (int i = 1; i <= antallRegistrerteOvelser; i++) {   // Looper gjennom array.
     navnIarray = konverterTilStore(array[i]->hentNavn()); // Gjør om til store bokstaver.
 
     if ( strcmp(navn, navnIarray ) == 0)            // Hvis medsendt param er lik Ovelses navn.
