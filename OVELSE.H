@@ -35,8 +35,9 @@ public:
 	void bubbleSort();							//sorterer 2 int array
 	void ajourforeLog(int flagg = 0);//ma testes		ajourforer log arrayen og sender rapport til medaljer og poeng.  ma teste global funksjon raport
 	void skrivResultatliste();
-		
+
 	int sjekkID();
+
 	int lagUniktNr();								// Lager et unikt tall som brukes til datamedlemm  int "nr"
 	int skaffVerdi();							    // Henter inn og sikkrer riktig verdi til resultatlisten
 	char *hentNavn();                               // Returnerer navnet til Ovelsen.
@@ -45,10 +46,6 @@ public:
 	int klokkeSjekk(int kl);                        // Sjekker om kl. er på riktig format.
 	void skrivNavn();                               // Skriver ut ovelsens navn.
 	int hentId();									// henter en ovelses id.
-	void endreNavn(char *ovelseNavn);               // Endrer navnet til ovelsen.
-	void endreDato();                               // Endrer datoen til ovelsen.
-	void endreKlokkeslett();                        // Endrer kl. til ovelsen.
-
 
 	//StartListe
 	void menyValgDelListe();						// Switch for deltagerLister.		   Valg : O L
@@ -64,18 +61,23 @@ public:
 	void menyValgResListe();						// Switch for resultatLister.		   Valg : O R
 	void skrivResListeMeny();						// KommandoMeny for resultatListe.
 	void skrivResListe();							// Skriver ut en resultatListe.		   Valg : O R S
-	void nyResultatListe();								// Lager en ny resultatListe.		   Valg : O R N
+	void nyResultatListe();							// Lager en ny resultatListe.		   Valg : O R N
 	void fjernResListe();							// Fjerner en resultatListe.
 	bool fjernResultatliste();
 	void resultaterSkrivTilFil();//ma lages	
 	void resultaterLesFraFil(); //ma lages
+	
+	void endreNavn(char *ovelseNavn);               // Endrer navnet til ovelsen.
+	void endreDato();                               // Endrer datoen til ovelsen.
+	void endreKlokkeslett();                        // Endrer kl. til ovelsen.
+	void skrivHovedData();                          // Skriver hoveddata for en ovelse.
 };
 
 /*
 liste over ting som må gjores i ovelse
 lag alle 3 menyene. start med aa lagen en meny til i Grener. lag saa 2 menyer i Ovelse
-lag en funksjon som lager et unikt filnavn (til OVxxx.STA og OVxxxx.RES)						
-lag en funksjon som sletter en fil fra HDD( til O F  ,  O L <id> F  og  O R <id> F)				
+lag en funksjon som lager et unikt filnavn (til OVxxx.STA og OVxxxx.RES)
+lag en funksjon som sletter en fil fra HDD( til O F  ,  O L <id> F  og  O R <id> F)
 
 Forslag til implimentasjnsrekkefolge etter at det ovenfor er gjort:
 

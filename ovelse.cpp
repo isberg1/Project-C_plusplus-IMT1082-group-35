@@ -47,8 +47,8 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
                                                     // Les inn antall deltagere.
   antDeltagere = les("Skriv inn antall deltagere i ovelsen", MINDELTAGERE, MAXDELTAGERE);
 
-//  endreDato();                                      // Setter dato.
- // endreKlokkeslett();                               // Setter klokkeslett
+  endreDato();                                      // Setter dato.
+  endreKlokkeslett();                               // Setter klokkeslett
 
   deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
   resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
@@ -61,12 +61,10 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
   for (int i = 0; i <= ANTALLVINNERE + 1; i++)      // Nullstiller log arrayen.
     log[i] = 0;
 
-  if (navnTeller < nr)					//setter verdien til navnteller.	
+  if (navnTeller < nr)					//setter verdien til navnteller.
   {
 	  navnTeller = nr;
   }
-  
- // grenenerObj.skrivTilFIl();
 }
 
 Ovelse::~Ovelse()	//destructor
@@ -158,8 +156,8 @@ void Ovelse::lesFraFil(ifstream & inn)
 	case 4:	maaling = MinSecHundredel;	break;
 	case 5:	maaling = MinSekTusendel;	break;
 	}
-	
-	if (navnTeller < nr)					//setter verdien til navnteller.	
+
+	if (navnTeller < nr)					//setter verdien til navnteller.
 	{	navnTeller = nr;	}
 }
 
@@ -174,7 +172,7 @@ void Ovelse::nyResultatListe()	//lager ny resultatliste
 
 	ifstream ut(t);
 	ifstream inn(x);
-	
+
 				//$$ testing
 	if (true/*inn*/)																//hvis en deltagerliste finnes
 	{
@@ -189,7 +187,7 @@ void Ovelse::nyResultatListe()	//lager ny resultatliste
 			for (int i = 1; i <= antDeltagere; i++)
 			{
 					skriv("Skriv inn resutatet for deltager: ", *(deltagerListe + i));
-					*(resultatListe + i) = skaffVerdi();				//leser inn gyldige verdier til resultatlisten					
+					*(resultatListe + i) = skaffVerdi();				//leser inn gyldige verdier til resultatlisten
 			}
 			bubbleSort();
 			ajourforeLog();			
@@ -257,7 +255,7 @@ int Ovelse::skaffVerdi()
 		{
 			desimal = les("Skriv desimaltallsdelen av resultatet i poeng: ", 0, 9);
 			return ((poengX * 10) + desimal);							// maxverdi 99
-		}																
+		}
 	}
 	else if (maaling== PoengXX)
 	{
@@ -269,11 +267,11 @@ int Ovelse::skaffVerdi()
 		}
 	}
 
-	return -1;										//returnerer brudd/diskvalifiserings verdi		
+	return -1;										//returnerer brudd/diskvalifiserings verdi
 }
 
-void Ovelse::bubbleSort()    //sorterer 2 int arrayer.  
-{	
+void Ovelse::bubbleSort()    //sorterer 2 int arrayer.
+{
 
 		int dummy;
 		int temp, bytter;
@@ -301,7 +299,7 @@ void Ovelse::bubbleSort()    //sorterer 2 int arrayer.
 }
 
 
-void Ovelse::ajourforeLog(int flagg)										//ajourforer log[] etter at en ny resultatliste er skrevet inn 
+void Ovelse::ajourforeLog(int flagg)										//ajourforer log[] etter at en ny resultatliste er skrevet inn
 {											//eller etter at .RES og .STA fil har blitt endret og sender raport til statistikk
 	int poengTeller = 7;
 	int lupteller;
@@ -315,19 +313,19 @@ void Ovelse::ajourforeLog(int flagg)										//ajourforer log[] etter at en ny 
 	int index = 1;
 
 	if (inn)   //hvis .RES  finnes
-	{			
+	{
 		inn.close();
 							//trekk tilbake tidligere poengfordeling
 		while (log[index] != 0 && index <= ANTALLVINNERE)
 		{
 
 			StatistikkRaport(0, log[index], poengTeller); //reduser poeng og medaljefordelingen til en nasjon
-			log[index] = 0;			//ajourfor log	
+			log[index] = 0;			//ajourfor log
 			poengTeller--;					//tell ned antal poeng som gis neste gang
-			index++;					//tell opp index 
+			index++;					//tell opp index
 		}
 	}
-		
+
 		// tildel nye poeng
 	if (flagg == 0)				// sa lenge filen ikke skal slettes men er usortert og poengfordeling maa gjores pa nytt
 	{
@@ -341,11 +339,11 @@ void Ovelse::ajourforeLog(int flagg)										//ajourforer log[] etter at en ny 
 				if (*(resultatListe + lupteller) > 0)	// lupen blar seg frem til den kommer til gyldige resultater
 				{
 					StatistikkRaport(*(deltagerListe + lupteller), log[index], poengTeller);//ook/reduser poeng og medaljefordelingen til en nasjon
-					log[index] = *(deltagerListe + lupteller);			//ajourfor log	
+					log[index] = *(deltagerListe + lupteller);			//ajourfor log
 					poengTeller--;		//tell ned antal poeng som gis neste gang
 					index++;			//tell opp slik at neste logg innleg sjekkes neste gang
 				}
-				lupteller--;			//tell ned lupteller 
+				lupteller--;			//tell ned lupteller
 			}
 		}
 		else												//hvis vi maaler poeng
@@ -354,11 +352,11 @@ void Ovelse::ajourforeLog(int flagg)										//ajourforer log[] etter at en ny 
 			//finn de med hoyest poengsumm
 			// kjor til alle vinnerne har foot poeng eller til resultatet ikke er gyldig
 			while (lupteller <= ANTALLVINNERE && *(resultatListe + lupteller) > -1)
-			{				
+			{
 					StatistikkRaport(*(deltagerListe + lupteller), log[lupteller], poengTeller); //ook/reduser poeng og medaljefordelingen til en nasjon
-					log[lupteller] = *(deltagerListe + lupteller);			//ajourfor log	
+					log[lupteller] = *(deltagerListe + lupteller);			//ajourfor log
 					poengTeller--;					//tell ned antal poeng som gis neste gang
-					lupteller++;					//tell opp lupteller 
+					lupteller++;					//tell opp lupteller
 			}
 		}
 	}
@@ -462,7 +460,7 @@ void Ovelse::skrivResultatliste()
 
 				lupTeller--;
 			}
-		}		
+		}
 	}
 	else
 	{	skriv("Finner ingen fil med navn: ", fil);	}
@@ -564,14 +562,14 @@ bool Ovelse::fjernResultatliste()
 		Men, husk først å oppdatere statistikkene.
 */
 
-	
+
 	char temp[STRLEN];
 	strcpy(temp, filNavn(1));
 
 	ifstream inn(temp);
 
 	if (inn)	//hvis OVxxxx.RES finnes
-	{		
+	{
 		inn.close();
 
 		if (slettFil(temp))
@@ -718,7 +716,7 @@ int Ovelse :: datoSjekk(int dato) {                 // Sjekker om dato er på rik
 
   while ((maaned < 1 || maaned > 12) ||             // Looper hvis måned ikke er fra 1-12
          (dag < 1 || dag > 31)) {                   // og dag fra 1-31.
-    dato = les("\tDato", 20170101, 21161231);
+    dato = les("\n\tDato", 20170101, 21161231);
     maaned = (dato / 100) % 100;                    // Oppdaterer måned.
     dag = dato % 100;                               // Oppdaterer dag.
   }
@@ -760,6 +758,22 @@ void Ovelse :: endreKlokkeslett() {                 // Endrer kl. til ovelsen.
   klokkeslett = klokkeSjekk(klokkeslett);           // Sjekker at kl. er på riktig format.
 }
 
+void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en ovelse.
+  cout << "\nNummer:            " << nr
+       << "\nNavn:              " << navn
+       << "\nAntall deltagere:  " << antDeltagere
+       << "\nDato:              " << dato
+       << "\nKlokkeslett:       " << klokkeslett;
+
+// Må testes, vente på switch.
+//  switch (registerTidPoeng) {
+//    case "MinSECTidel"      :
+//    case "MinSecHundredel"  :
+//    case "MinSekTusendel"   :
+//    case "PoengX"           :
+//    case "PoengXX"          :
+//  }
+}
 
 void Ovelse::menyValgResListe()					// ValgSwitch for resultatLister.
 {

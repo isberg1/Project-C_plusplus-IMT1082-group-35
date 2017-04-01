@@ -31,7 +31,7 @@ public:
 	int hentAntalOvelser();
 	
 	void menyValgOvelse();							// Switch for Ovelse.						Valg : O
-	void skrivOvelseMeny();							// KommandoMeny for Ovelse.			  
+	void skrivOvelseMeny();							// KommandoMeny for Ovelse.
 	void registrerNyOvelse();						// Lager ny Ovelse.							Valg : O N
 	void skrivAlleOvelse();							// Skriver hoveddata for alle Ovelser.		Valg : O A
 	void ovelseDelMeny();							// Henter funksjon for deltagerListe switch	Valg : O L
@@ -48,6 +48,7 @@ public:
 	void skrivHoveddataOvelser();                   // Skriver hoveddata for alle Ovelser.  : O A
 	bool finnesOvelse(char *navn);                  // Sjekk om Ovelsen finnes i array med param. navn.
 	void skrivUtRegistrerteOvelser();               // Skriver ut alle registrerte ovelser.
+	char *hentNavn();                               // Returnerer navnet (text).
 
 
 };

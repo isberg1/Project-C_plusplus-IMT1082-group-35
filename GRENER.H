@@ -26,10 +26,12 @@ public:
 
 	void testResListe();
 	void testResSkriv();
-	void skrivUtNavn();             // Skriver ut navnene på Gren.
+
 	void addTilLIst(Gren *ptr);
-	void fjernFraList(char navn[]);
+	void fjernFraList(char navn[]);  
 	void finnGrenOvelse();
+
+	char *velgGren(char t[]);       // valg av gren utfra navn.
 };
 
 
