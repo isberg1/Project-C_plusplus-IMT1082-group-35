@@ -10,14 +10,32 @@
 #include <string.h>
 #include "OVELSE.H"
 #include"ENUM.H"
-
+#include"GRENER.H"
 using namespace std;
+
+extern Grener grenenerObj;
+
 
 Ovelse::Ovelse() {
 	cout << "\nAdvarsel, Ovelse-objekter skal ikke lages uten parameter";
 }
 Ovelse::Ovelse(ifstream & inn)
-{	lesFraFil(inn);	 }
+{	lesFraFil(inn);	
+
+deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
+resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
+
+for (int i = 1; i <= antDeltagere; i++)
+{
+	*(resultatListe + i) = *(deltagerListe + i) = 0;
+}
+
+if (navnTeller < nr)					//setter verdien til navnteller.	
+{
+	navnTeller = nr;
+}
+
+}
                                                     //constructor, får param. navn,sisteOvelse fra Gren.
                                                   //constructor, får param. navn,sisteOvelse fra Gren.
 Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
@@ -29,18 +47,16 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
                                                     // Les inn antall deltagere.
   antDeltagere = les("Skriv inn antall deltagere i ovelsen", MINDELTAGERE, MAXDELTAGERE);
 
-  cout << "\nSkriv inn dato for ovelsen (aaaa mm dd)"; // Lovelig dato-interval: 2017.01.01-2116.12.31.
-  dato = les("\nDato", 20170101, 21161231);
-  dato = datoSjekk(dato);                           // Sjekker at dato er på riktig format.
-
-  cout << "\nKlokkeslett for ovelsen (ttmm)";
-  klokkeslett = les("\nKlokkeslett", 0000, 2459);   // Leser inn klokkeslett.
-  klokkeslett = klokkeSjekk(klokkeslett);           // Sjekker at kl. er på riktig format.
-  endreDato();                                      // Setter dato.
-  endreKlokkeslett();                               // Setter klokkeslett
+//  endreDato();                                      // Setter dato.
+ // endreKlokkeslett();                               // Setter klokkeslett
 
   deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
   resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
+
+  for (int i = 1; i <= antDeltagere; i++)
+  {
+	  *(resultatListe + i) = *(deltagerListe + i) = 0;
+  }
 
   for (int i = 0; i <= ANTALLVINNERE + 1; i++)      // Nullstiller log arrayen.
     log[i] = 0;
@@ -49,22 +65,15 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
   {
 	  navnTeller = nr;
   }
-
-  //$$ til testing
- /* char t[20];
-  strcpy(t, filNavn(1));
-
-  ofstream ut(t);
-
-  skrivTilFil(ut);*/
-
+  
+ // grenenerObj.skrivTilFIl();
 }
 
 Ovelse::~Ovelse()	//destructor
 {
-	delete[] navn;
+	/*delete[] navn;
 	delete[] deltagerListe;
-	delete[] resultatListe;
+	delete[] resultatListe;*/
 }
 
 void Ovelse::skrivData()	//Displayer egne datamedlemmer
@@ -108,48 +117,32 @@ void Ovelse::skrivTilFil(ofstream & ut)
 	skriv(ut, antDeltagere);
 	skriv(ut, navn);
 	for (int i = 0; i <= ANTALLVINNERE; i++)
-	{
-		skriv(ut, log[i]);
-	}
+	{	skriv(ut, log[i]);	}
 
 	if (maaling == PoengX )
-	{
-		skriv(ut, 1);
-	}
+	{	skriv(ut, 1);	}
 	else if(maaling == PoengXX)
-	{
-		skriv(ut, 2);
-	}
+	{	skriv(ut, 2);	}
 	else if (maaling == MinSECTidel)
-	{
-		skriv(ut, 3);
-	}
+	{	skriv(ut, 3);	}
 	else if (maaling == MinSecHundredel)
-	{
-		skriv(ut, 4);
-	}
+	{	skriv(ut, 4);	}
 	else if (maaling == MinSekTusendel)
-	{
-		skriv(ut, 5);
-	} 
-
-
-//!!!!!!!!!! maa lages!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//deltager array skriv til fil
-		//resultat array skriv til fil
+	{	skriv(ut, 5);	} 
 }
 
 void Ovelse::lesFraFil(ifstream & inn)
 {
+	
 	int dummy;
 				//leser egne datamedlemmer fra fil
-	nr = lesInt(inn);
+	nr = lesInt(inn); 
 	dato = lesInt(inn);
 	klokkeslett = lesInt(inn);
 	antDeltagere = lesInt(inn);
 	navn = lesTxt(inn);
 
-
+	
 	for (int i = 0; i <= ANTALLVINNERE; i++)
 	{
 		log[i] = lesInt(inn);
@@ -159,19 +152,15 @@ void Ovelse::lesFraFil(ifstream & inn)
 
 	switch (dummy)
 	{
-	case 1:	maaling == PoengX;			break;
-	case 2:	maaling == PoengXX;			break;
-	case 3:	maaling == MinSECTidel;		break;
-	case 4:	maaling == MinSecHundredel;	break;
-	case 5:	maaling == MinSekTusendel;	break;
+	case 1:	maaling = PoengX;			break;
+	case 2:	maaling = PoengXX;			break;
+	case 3:	maaling = MinSECTidel;		break;
+	case 4:	maaling = MinSecHundredel;	break;
+	case 5:	maaling = MinSekTusendel;	break;
 	}
 	
 	if (navnTeller < nr)					//setter verdien til navnteller.	
 	{	navnTeller = nr;	}
-
-	//!!!!!!!!!! maa lages!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//deltager array les fra fil
-	//resultat array les fra fil
 }
 
 void Ovelse::nyResultatListe()	//lager ny resultatliste
@@ -189,32 +178,32 @@ void Ovelse::nyResultatListe()	//lager ny resultatliste
 				//$$ testing
 	if (true/*inn*/)																//hvis en deltagerliste finnes
 	{
+
+		deltagerLesFraFil();
+		inn.close();
+
 		if (!ut )														//hvis en resultatliste ikke finnes
 		{
-
+			
 			skriv("Skriv in resultater (hvis en deltager har brutt, ikke moott eller blit disket tast -1):", "");
 			for (int i = 1; i <= antDeltagere; i++)
 			{
 					skriv("Skriv inn resutatet for deltager: ", *(deltagerListe + i));
 					*(resultatListe + i) = skaffVerdi();				//leser inn gyldige verdier til resultatlisten					
 			}
-
 			bubbleSort();
-			ajourforeLog();			//ma lages
-			resultaterSkrivTilFil();	//ma lages
-
+			ajourforeLog();			
+			resultaterSkrivTilFil();	
 		}
 		else
 		{		//lukk filer og skriv ut feilmelding			//noe usikker paa denne				//$$$$$$$$$$$$ ma testes
 			ut.close();
-			inn.close();
 			skriv("Resultatlisten finnes alerede!", "");
 		}
 	}
 	else
 	{			//lukk filer og skriv ut feilmelding			//noe usikker paa denne				//$$$$$$$$$$$$ ma testes
 		ut.close();
-		inn.close();
 		skriv("Deltagerlisten finnes ikke! lag den foor Resultatliste", "");
 	}
 }
@@ -395,7 +384,7 @@ void Ovelse::skrivResultatliste()
 		inn.close();
 
 		skriv("Resultatliste sortert best til minst best","\n(-1 betyr disket, brutt eller ikke moot opp)");
-		skriv("\nDeltager:  Navn:  Nasjon  Resultat:", "");
+		skriv("Deltager:  Navn:  Nasjon  Resultat:", "");
 
 		if (maaling ==PoengX || maaling == PoengXX)		// hvis maaligstypen er poeng
 		{
@@ -404,14 +393,14 @@ void Ovelse::skrivResultatliste()
 				HentNavnOgNasjonFraDeltager(nv, nasj, *(deltagerListe + i));
 				temp = (maaling == PoengX) ? (*(resultatListe + i) / 10) : (*(resultatListe + i) / 100);
 
-				cout << *(deltagerListe + i) << "  "
-					<< nv << "  " << nasj << "  "
+				cout << *(deltagerListe + i) << "\t"
+					<< nv << "\t" << nasj << "\t"
 					<< temp << "\n";
 			}
 		}
 		else        // hvis maaligstypen er tid
 		{
-			while (*(resultatListe + lupTeller) < 1)
+			while (*(resultatListe + lupTeller) < 1)		
 			{
 				lupTeller--;
 			}
@@ -437,8 +426,8 @@ void Ovelse::skrivResultatliste()
 					sec = (*(resultatListe + lupTeller) % 10000) / 1000;
 					tid = *(resultatListe + lupTeller) % 1000;
 				}
-				cout << *(deltagerListe + lupTeller) << "  "
-					<< nv << "  " << nasj << " "
+				cout << "    " <<*(deltagerListe + lupTeller) << "\t    "
+					<< nv << "\t   " << nasj << "\t    "
 					<< min << ":" << sec << ":" << tid << "\n";
 
 				lupTeller--;
@@ -481,7 +470,18 @@ void Ovelse::skrivResultatliste()
 
 void Ovelse::deltagerSkrivtilFil()
 {
+	char fil[20];
+	strcpy(fil, filNavn());
+	
+	ofstream ut(fil);
+
+	for (int i = 1; i <= antDeltagere; i++)
+	{
+		skriv(ut, *(deltagerListe + i) ); 
+	}
+	ut.close();
 }
+
 
 void Ovelse::resultaterSkrivTilFil()
 {
@@ -493,13 +493,12 @@ void Ovelse::resultaterSkrivTilFil()
 
 	ofstream ut(t);
 
-
 	if (ut)
 	{
 		skriv(ut, "S");								// S for sortert liste
 		skriv(ut, antDeltagere);
 
-		for (int i = 1; i <= antDeltagere * 2; i++)
+		for (int i = 1; i <= antDeltagere; i++)
 		{
 			skriv(ut, *(deltagerListe + i));
 			skriv(ut, *(resultatListe + i));
@@ -520,7 +519,7 @@ void Ovelse::resultaterLesFraFil()
 	lesTxt2(inn, buffer);		//leser inn om listern er sortert eller ikke
 	antDeltagere = lesInt(inn);
 
-	for (int i = 1; i <= antDeltagere * 2; i++)
+	for (int i = 1; i <= antDeltagere; i++)
 	{
 		*(deltagerListe + i) = lesInt(inn);
 		*(resultatListe + i) = lesInt(inn);
@@ -531,6 +530,25 @@ void Ovelse::resultaterLesFraFil()
 		bubbleSort();
 		ajourforeLog();
 	}
+}
+
+void Ovelse::deltagerLesFraFil()
+{
+	char fil[20];
+	strcpy(fil, filNavn());
+
+	ifstream inn(fil);
+
+	if (inn)
+	{
+		for (int i = 1; i <= antDeltagere; i++)
+		{
+			*(deltagerListe + i) = lesInt(inn);
+		}
+	}
+	else
+	{	skriv("Finner ingen fil med navn: ", fil); 	}
+	inn.close();
 }
 
 
@@ -591,10 +609,10 @@ void Ovelse::menyValgDelListe()						// ValgSwitch for deltagerLister.
 	{
 		switch (valg)
 		{
-		case 'S': skrivDelListe();	    break;		// Skriver ut en deltagerListe.
-		case 'N': nyDelListe();			break;		// Lager en ny deltagerListe.
-		case 'E': endreDelListe();		break;		// Endrer en deltagerListe.
-		case 'F': fjernDelListe();		break;		// Fjerner en deltagerListe.
+		case 'S': skrivDelListe();	    break;		// Skriver ut en deltagerListe.		maa ¨lages
+		case 'N': nyDelListe();			break;		// Lager en ny deltagerListe.		
+		case 'E': endreDelListe();		break;		// Endrer en deltagerListe.			maa ¨lages
+		case 'F': fjernDelListe();		break;		// Fjerner en deltagerListe.		maa ¨lages
 		default:		break;
 		}
 		skrivDelListeMeny();
@@ -619,7 +637,53 @@ void Ovelse::skrivDelListe()
 
 void Ovelse::nyDelListe()
 {
+	int deltagerNv;
+	char fil[20];
+	bool sjekk=false;
+	strcpy(fil, filNavn());
+	
+	ifstream inn(fil);
+	
+	if (!inn)
+	{
+		inn.close();
 
+		for (int i = 1; i <= antDeltagere; i++)
+		{
+			cout << "\nDeltager nr. " << i << " Av: " << antDeltagere;
+			*(deltagerListe + i) = les("\nSkriv ID-nr. paa deltager som skal legges til startlisten: ", 1, 9999);			
+
+			for (int k = 1; k <= i-1; k++)
+			{
+			if (*(deltagerListe + i) == *(deltagerListe + k))
+			{	sjekk = true;	}
+			}
+			
+			while (!sjekkDeltagerId(*(deltagerListe + i))  ||  sjekk)  //finnes deltageren eller er han registrert fra foor
+			{
+				if (sjekk)
+				{	skriv("numeret er allerede registrert!", "");	}
+				else
+				{	skriv("Finner ingen deltager med det nummeret i arkivet!", ""); 	}
+
+				sjekk = false;
+
+				cout << "\nDeltager nr. " << i << " Av: " << antDeltagere;
+				*(deltagerListe + i) = les("\nSkriv ID-nr. paa deltager som skal legges til startlisten: ", 1, 9999);
+				
+				
+				for (int a = 1; a <= i-1; a++)
+				{
+					if (*(deltagerListe + i) == *(deltagerListe + a))
+					{	sjekk = true;	}
+				}
+			}
+			skriv("startliste er oppdadert med deltager: ", *(deltagerListe + i));
+		}
+		deltagerSkrivtilFil();
+	}
+	else
+	{	skriv("En startliste er allerede registrert.", ""); 	}
 }
 
 void Ovelse::endreDelListe()
@@ -630,35 +694,6 @@ void Ovelse::endreDelListe()
 void Ovelse::fjernDelListe()
 {
 
-}
-
-void Ovelse::menyValgResListe()						// ValgSwitch for resultatLister.
-{
-	char valg;
-
-	skrivResListeMeny();
-	valg = les("\nResultatLister: ");
-	while (valg != 'Q')
-	{
-		switch (valg)
-		{
-		case 'S': skrivResListe();		break;		// Skriver ut en resultatListe.
-		case 'N': nyResultatListe();	break;		// Lager en ny resultatListe.
-		case 'F': fjernResListe();		break;		// Fjerner en resultatListe.
-		default:						break;
-		}
-		skrivResListeMeny();
-		valg = les("\nResultatlister: ");
-	}
-}
-
-void Ovelse::skrivResListeMeny()					// KommandoMeny for resultatLister.
-{
-	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
-		<< "\n\tS - Skriv ut resultatliste"
-		<< "\n\tN - Ny resultatliste"
-		<< "\n\tF - Fjern resultatliste"
-		<< "\n\tQ - Tilbake til ovelsemeny";
 }
 
 void Ovelse::skrivResListe()

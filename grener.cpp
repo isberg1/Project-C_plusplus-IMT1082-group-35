@@ -31,9 +31,7 @@ void Grener::skrivMeny()
 	char valgGrener = 'k';
 
 	do												// lupper til brukeren taster 'Q'
-	{
-
-													// meny
+	{												// meny
 		cout <<"\nPath: Hovedmeny->Grenermeny"
 			<< "\n(N) Ny gren"
 			<< "\n(E) Endre gren"
@@ -107,8 +105,7 @@ void Grener::skrivAllGrener()						// til komando G A
 	{												// ga gjennom alle Grenobj i listen
 
 		for (int i = 1; i <= listGren->noOfElements(); i++)
-		{
-													// ta obj ut av liste, skriv data og legg obj i liste
+		{													// ta obj ut av liste, skriv data og legg obj i liste
 			temp = (Gren*)listGren->removeNo(i);
 			temp->display();
 			listGren->add(temp);
@@ -140,15 +137,12 @@ void Grener::skrivEnGren()							// til komando G S
 void Grener::skrivTilFIl()
 {
 	ofstream ut("GRENER.DTA");
-	Gren *ptr;
-
-													// skriv egne datamedlemmer til fil
+	Gren *ptr;					// skriv egne datamedlemmer til fil
 
 	int antalIListe = listGren->noOfElements();
 
 	skriv(ut, antalIListe);
 	//skriv(ut, sisteOvelse);
-
 													// skriv alle grenobj til fil
 	for (int i = 1; i <= listGren->noOfElements(); i++)
 	{
@@ -169,29 +163,21 @@ void Grener::lesFraFil()
 		antallIListe = lesInt(inn);
 	 // sisteOvelse = lesInt(inn);
 
-
 		if (!listGren->isEmpty())					// hvis listen ikke er tom
 		{											// slett listn og lag ny
 			delete listGren;
 			listGren = new List(Sorted);
 		}
-
-
 													// les in alle Grenobj fra fil
 		for (int i = 1; i <= antallIListe; i++)
 		{											// lag nytt obj og legg det i listen
 			lesTxt2(inn, navn);
-
-
 			ptr = new Gren(inn, navn);
 			listGren->add(ptr);
 		}
 	}
 	else											// feilmelding
 	{	skriv("\nFinner ikke fil GRENER.DTA\n", "");	}
-
-
-
 }
 
 void Grener :: ovelseGrenMeny() 						// Meny til Ovelse : O...
@@ -210,7 +196,6 @@ void Grener :: ovelseGrenMeny() 						// Meny til Ovelse : O...
 	{
 		cout << "Finner ikke Gren med " << buffer << " som navn.";
 	}
-
 }
 
 void Grener::testResListe()
@@ -224,12 +209,9 @@ void Grener::testResListe()
 		ptr = (Gren*)listGren->remove(temp);
 		ptr->testingNyOvelse();
 		listGren->add(ptr);
-
 	}
 	else
-	{
-		skriv("Finner ikke en gren med navn: ", temp);
-	}
+	{	skriv("Finner ikke en gren med navn: ", temp);	}
 }
 
 void Grener::testResSkriv()
@@ -243,12 +225,9 @@ void Grener::testResSkriv()
 		ptr = (Gren*)listGren->remove(temp);
 		ptr->testingSkrivResListe();
 		listGren->add(ptr);
-
 	}
 	else
-	{
-		skriv("Finner ikke en gren med navn: ", temp);
-	}
+	{	skriv("Finner ikke en gren med navn: ", temp);	}
 }
 
 void Grener :: skrivUtNavn() {                      // Skriver ut navnene på Gren : Meny i O.
@@ -275,152 +254,42 @@ void Grener :: skrivUtNavn() {                      // Skriver ut navnene på Gre
 
 }
 
-void Grener::menyValgOvelse()						// MainSwitch for Ovelse.
+void Grener::addTilLIst(Gren * ptr)
 {
-	char valg;
-
-	skrivOvelseMeny();
-	valg = les("\nOvelser: ");
-	while (valg != 'Q')
+	if (listGren != nullptr)
 	{
-		switch (valg)
-		{
-		case 'N': nyOvelse();		 break;	    // Registrerer en ny Ovelse.
-		case 'E': endreOvelse();	 break;		// Endrer informasjon i ne Ovelse.
-		case 'F': fjernOvelse();	 break;		// Fjerner en Ovelse.
-		case 'A': skrivAlleOvelse(); break;		// Viser hoveddata for alle Ovelser.
-		case 'L': menyValgDelListe(); break;	// Sender til deltagerListeSwitch.
-		case 'R': menyValgResListe(); break;	// Sender til resultatListeSwitch.
-		default:		break;
-		}
-		skrivOvelseMeny();
-		valg = les("\nOvelser: ");
+		listGren->add(ptr);
 	}
+
 }
 
-
-void Grener::skrivOvelseMeny()					// KommandoMeny for Ovelser.
+void Grener::fjernFraList(char navn[])
 {
-	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
-		<< "\n\tN - Ny ovelse"
-		<< "\n\tE - Endre ovelse"
-		<< "\n\tF - Fjern ovelse"
-		<< "\n\tA - Skriv ut alle ovelser"
-		<< "\n\tL - Deltagerliste"
-		<< "\n\tR - Resultatliste"
-		<< "\n\tQ - Tilbake til hovedmeny";
-}
-
-void Grener :: nyOvelse() {
-
-}
-
-void Grener::endreOvelse()
-{
-
-}
-
-void Grener::fjernOvelse()
-{
-
-}
-
-void Grener::skrivAlleOvelse()
-{
-
-}
-
-void Grener::menyValgDelListe()					// ValgSwitch for deltagerLister.
-{
-	char valg;
-
-	skrivDelListeMeny();
-	valg = les("\nDeltagerLister ");
-	while (valg != 'Q')
+	Gren *ptr;
+	if (listGren != nullptr)
 	{
-		switch (valg)
+		if (listGren->inList(navn))
 		{
-		case 'S': skrivDelListe();	    break;	// Skriver ut en deltagerListe.
-		case 'N': nyDelListe();			break;	// Lager en ny deltagerListe.
-		case 'E': endreDelListe();		break;	// Endrer en deltagerListe.
-		case 'F': fjernDelListe();		break;	// Fjerner en deltagerListe.
-		default:		break;
+			ptr = (Gren*)listGren->remove(navn);
 		}
-		skrivDelListeMeny();
-		valg = les("\nDeltagerLister: ");
 	}
-}
-
-void Grener::skrivDelListeMeny()					// KommandoMeny for deltagerLister.
-{
-	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
-		<< "\n\tS - Skriv ut deltagerliste"
-		<< "\n\tN - Lag ny deltagerliste"
-		<< "\n\tE - Endre deltagerliste"
-		<< "\n\tF - Fjern deltagerliste"
-		<< "\n\tQ - Tilbake til hovedmeny";
-}
-
-void Grener::skrivDelListe()
-{
 
 }
 
-void Grener::nyDelListe()
+void Grener::finnGrenOvelse()
 {
+	Gren *ptr;
+	char navn[NVLEN];
 
-}
-
-void Grener::endreDelListe()
-{
-
-}
-
-void Grener::fjernDelListe()
-{
-
-}
-
-void Grener::menyValgResListe()					// ValgSwitch for resultatLister.
-{
-	char valg;
-
-	skrivResListeMeny();
-	valg = les("\nResultatLister: ");
-	while (valg != 'Q')
+	if (listGren)
 	{
-		switch (valg)
+		les("Skriv Grenens navn: ", navn, NVLEN);
+
+		if (listGren->inList(navn))
 		{
-		case 'S': skrivResListe();		break;	// Skriver ut en resultatListe.
-		case 'N': nyResListe();			break;	// Lager en ny resultatListe.
-		case 'F': fjernResListe();		break;	// Fjerner en resultatListe.
-		default:						break;
+			ptr = (Gren*)listGren->remove(navn);
+			ptr->menyValgOvelse();
+			listGren->add(ptr);
 		}
-		skrivResListeMeny();
-		valg = les("\nResultatlister: ");
 	}
-}
-
-void Grener::skrivResListeMeny()					// KommandoMeny for resultatLister.
-{
-	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
-		<< "\n\tS - Skriv ut resultatliste"
-		<< "\n\tN - Ny resultatliste"
-		<< "\n\tF - Fjern resultatliste"
-		<< "\n\tQ - Tilbake til hovedmeny";
-}
-
-void Grener::skrivResListe()
-{
-
-}
-
-void Grener::nyResListe()
-{
-
-}
-
-void Grener::fjernResListe()
-{
-
 }

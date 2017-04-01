@@ -24,7 +24,9 @@ public:
     void skrivTilFil();                             // Skriver til fil.
     void lesFraFil();                               // Leser datastruktur fra fil.
 	char *hentNasjon(int deltager);					//faar et deltagernr. og returnerer nasjonen.  brukes til aa lage en Statistikk Raport
-	char *hentNavn(int deltager);
+	char *hentNavn(int deltager);					//hent deltagers navn
+	bool sjekkId(int deltagerNr);					//sjekker deltager nr 
+
 };
 
 #endif

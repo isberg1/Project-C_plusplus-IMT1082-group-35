@@ -30,5 +30,6 @@ char *konverterTilStore(char *tekst);               // Gjør om til store bokstav
 bool slettFil(char fil[]);                          // Sletter fil fra disk, send med filnavn.
 void StatistikkRaport(int deltager, int log, int teller);			//reduser poeng og medaljefordelingen til en nasjon
 void HentNavnOgNasjonFraDeltager(char nv[], char nasj[], int nr);
-
+bool sjekkDeltagerId(int deltagerNv);				//sjekker om et nummer er likt nummeret til en deltager
+void tr(int t=0);	//til testing
 #endif

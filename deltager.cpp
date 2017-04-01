@@ -177,3 +177,5 @@ char * Deltager::hentNajon()  // Returnerer en deltagers najon	brukes til aa lag
 	strcpy(temp, nasjon);
 	return temp;
 }
+
+	

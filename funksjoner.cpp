@@ -104,13 +104,13 @@ void MainMeny()
 
 void skriv(const char * text, const char * string)
 {
-	cout << '\n' << text << '\t' << string << '\n';
+	cout << '\n' << text << '\t' << string;
 }
 
 //displayer int med ledetext på standarformat
 void skriv(const char * text, const int dataMedlem)
 {
-	cout << '\n' << text << '\t' << dataMedlem << '\n';
+	cout << '\n' << text << '\t' << dataMedlem;
 }
 
 //   !!!!!!!!!!   FIL FUNKSJONER()  !!!!!!!!!!!!!!!!!!!!!!!!
@@ -325,8 +325,6 @@ void StatistikkRaport(int deltager, int log, int teller)
 			}
 	}
 
-	//til testing
-	cout << "\n" << nasjon << " " << teller << " " << posNeg;
 	
 	if (log != 0)			//hvis det skal sendes en rapport om aa redusere ant. medaljer og poeng saa er ikke "log" lik 0.
 	{	
@@ -346,6 +344,25 @@ void HentNavnOgNasjonFraDeltager(char nv[], char nasj[], int nr)
 {
 	strcpy(nv, deltagerObj.hentNavn(nr));
 	strcpy(nasj, deltagerObj.hentNasjon(nr));
+
+}
+
+bool sjekkDeltagerId(int deltagerNv)
+{
+	return deltagerObj.sjekkId(deltagerNv);
+}
+
+void tr(int t)
+{
+	if (t ==0)
+	{
+		skriv("TEST\t", "TEST");
+	}
+	else
+	{
+		skriv("TEST\t", t);
+	}
+	
 
 }
 

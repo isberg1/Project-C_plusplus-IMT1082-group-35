@@ -16,7 +16,7 @@ private:
  	int nr;
 	registerTidPoeng maaling;		                // Hvilken type maaling skal registrers
 	char *navn;									    // Ovelsens navn
-	int antDeltagere;
+	int antDeltagere;		//teller
 	int dato;
 	int klokkeslett;
 	int *deltagerListe;                             // Deltager array
@@ -35,12 +35,8 @@ public:
 	void bubbleSort();							//sorterer 2 int array
 	void ajourforeLog(int flagg = 0);//ma testes		ajourforer log arrayen og sender rapport til medaljer og poeng.  ma teste global funksjon raport
 	void skrivResultatliste();
-	void deltagerSkrivtilFil();	//ma lages	
-	void resultaterSkrivTilFil();//ma lages	
-	void resultaterLesFraFil(); //ma lages
+		
 	int sjekkID();
-	bool fjernResultatliste();
-	void nyResultatListe();						    // Lag en ny resultatliste
 	int lagUniktNr();								// Lager et unikt tall som brukes til datamedlemm  int "nr"
 	int skaffVerdi();							    // Henter inn og sikkrer riktig verdi til resultatlisten
 	char *hentNavn();                               // Returnerer navnet til Ovelsen.
@@ -49,24 +45,30 @@ public:
 	int klokkeSjekk(int kl);                        // Sjekker om kl. er på riktig format.
 	void skrivNavn();                               // Skriver ut ovelsens navn.
 	int hentId();									// henter en ovelses id.
+	void endreNavn(char *ovelseNavn);               // Endrer navnet til ovelsen.
+	void endreDato();                               // Endrer datoen til ovelsen.
+	void endreKlokkeslett();                        // Endrer kl. til ovelsen.
+
+
+	//StartListe
 	void menyValgDelListe();						// Switch for deltagerLister.		   Valg : O L
 	void skrivDelListeMeny();						// KomandoMeny for deltagerListe.
 	void skrivDelListe();							// Skriver ut en deltagerListe.		   Valg : O L S
 	void nyDelListe();								// Lager ny deltagerListe.			   Valg : O L N
 	void endreDelListe();							// Endrer en deltagerListe.			   Valg : O L E
 	void fjernDelListe();							// Fjerner en deltagerListe.		   Valg : O L F
+	void deltagerSkrivtilFil();					
+	void deltagerLesFraFil();
+
+	//ResListe
 	void menyValgResListe();						// Switch for resultatLister.		   Valg : O R
 	void skrivResListeMeny();						// KommandoMeny for resultatListe.
 	void skrivResListe();							// Skriver ut en resultatListe.		   Valg : O R S
 	void nyResultatListe();								// Lager en ny resultatListe.		   Valg : O R N
 	void fjernResListe();							// Fjerner en resultatListe.
-	void endreNavn(char *ovelseNavn);               // Endrer navnet til ovelsen.
-	void endreDato();                               // Endrer datoen til ovelsen.
-	void endreKlokkeslett();                        // Endrer kl. til ovelsen.
-
-	void menyValgResListe();		// Switch for resultatLister.		   Valg : O R
-
-	void skrivResListeMeny();		// KommandoMeny for resultatListe.
+	bool fjernResultatliste();
+	void resultaterSkrivTilFil();//ma lages	
+	void resultaterLesFraFil(); //ma lages
 };
 
 /*

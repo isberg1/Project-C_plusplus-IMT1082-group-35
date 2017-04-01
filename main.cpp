@@ -51,6 +51,11 @@ int main() {
   poengObj.lesFraFil();								// Leser poeng fra fil.
   deltagerObj.lesFraFil();                          // Leser deltagers data fra fil.
 
+// Ovelse t("langrenn", PoengXX);
+
+ //t.menyValgResListe();
+
+
   MainMeny();                                       // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");
 
@@ -59,7 +64,7 @@ int main() {
       case 'N' : nasjonObj.menyValg();	       break; // Kaller Nasjoner sin meny.
       case 'D' : deltagerObj.menyValg();       break; // Kaller Deltagere sin meny.
 	  case 'G' : grenenerObj.skrivMeny();      break; // kaller Grener sin meny.
-      case 'O' : grenenerObj.menyValgOvelse(); break; // Kaller Grener sin Ovelse meny.
+      case 'O' : grenenerObj.finnGrenOvelse(); break; // Kaller Grener sin Ovelse meny.
 	  case 'M' : medaljeObj.skrivMedaljer();   break; // viser medaljeoversikt
 	  case 'P' : poengObj.skrivPoeng();        break; // viser poengoversikt
     }
