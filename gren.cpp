@@ -148,7 +148,7 @@ void Gren::skrivTilFIl(ofstream & ut)
 }
 
 void Gren :: skrivGrenNavn() {                      // Skriver ut navnet på grenen.
-  cout << '\t' << text;
+  cout  << text << '\t';
 }
 
 int Gren::hentAntalOvelser()
@@ -366,5 +366,6 @@ void Gren :: skrivUtRegistrerteOvelser() {          // Skriver ut alle registrer
   }
 }
 
-
-
+char *Gren :: hentNavn() {                          // Returnerer navnet (text).
+  return text;
+}

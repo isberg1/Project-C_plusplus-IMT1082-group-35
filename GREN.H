@@ -44,6 +44,7 @@ public:
 	void skrivHoveddataOvelser();                   // Skriver hoveddata for alle Ovelser.  : O A
 	bool finnesOvelse(char *navn);                  // Sjekk om Ovelsen finnes i array med param. navn.
 	void skrivUtRegistrerteOvelser();               // Skriver ut alle registrerte ovelser.
+	char *hentNavn();                               // Returnerer navnet (text).
 
 
 };

@@ -24,7 +24,8 @@ public:
 	void ovelseGrenMeny();          // Meny til Ovelse : O...
 	void testResListe();
 	void testResSkriv();
-	void skrivUtNavn();             // Skriver ut navnene på Gren.
+
+	char *velgGren(char t[]);       // valg av gren utfra navn.
 	void menyValgOvelse();			// Switch for Ovelse.				   Valg : O
 	void skrivOvelseMeny();			// KommandoMeny for Ovelse.
 	void nyOvelse();				// Lager ny Ovelse.					   Valg : O N
