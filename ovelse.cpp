@@ -75,15 +75,6 @@ Ovelse::~Ovelse()	//destructor
 	delete[] resultatListe;*/
 }
 
-void Ovelse::skrivData()	//Displayer egne datamedlemmer
-{
-	skriv("ID: ", nr);
-	skriv("Fullt navn: ", navn);
-	skriv("Dato: ", dato);
-	skriv("Klokkeslett: ", klokkeslett);
-	skriv("Antall deltagere: ", antDeltagere);
-}
-
 char * Ovelse::filNavn(int type)		//send med 1 for .RES eller ingenting for .STA
 {
 		char name[15] = "OV";
@@ -780,17 +771,17 @@ void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en 
        << ((time < 10) ? "0" : "") << time << ":"
        << ((minutt < 10) ? "0" : "") << minutt;
 
-	if (maaling == PoengX )
-	  cout << "\nMaalingsType:      " << "PoengX";  // Skriver ut maalingstypen for ovelsen:
-	else if(maaling == PoengXX)
-	  cout << "\nMaalingsType:      " << "PoengXX";
-	else if (maaling == MinSECTidel)
-	  cout << "\nMaalingsType:      " << "MinSECTidel";
-	else if (maaling == MinSecHundredel)
-	  cout << "\nMaalingsType:      " << "MinSecHundredel";
-	else if (maaling == MinSekTusendel)
-	  cout << "\nMaalingsType:      " << "MinSekTusendel";
-
+// Trenger ikke denne?
+//	if (maaling == PoengX )
+//	  cout << "\nMaalingsType:      " << "PoengX";  // Skriver ut maalingstypen for ovelsen:
+//	else if(maaling == PoengXX)
+//	  cout << "\nMaalingsType:      " << "PoengXX";
+//	else if (maaling == MinSECTidel)
+//	  cout << "\nMaalingsType:      " << "MinSECTidel";
+//	else if (maaling == MinSecHundredel)
+//	  cout << "\nMaalingsType:      " << "MinSecHundredel";
+//	else if (maaling == MinSekTusendel)
+//	  cout << "\nMaalingsType:      " << "MinSekTusendel";
 }
 
 void Ovelse::menyValgResListe()					    // ValgSwitch for resultatLister.

@@ -28,7 +28,6 @@ public:
 	Ovelse(ifstream & inn);                         // Constructor med filargunent
 	Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling);// Constructor, får et arg. fra Grener som viser hva slags maaling som skal registreres
 	~Ovelse();
-	void skrivData();
 	char *filNavn(int type = 0);                    // Genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES eller ingenting for .STA
 	void skrivTilFil(ofstream & ut);
 	void lesFraFil(ifstream & inn);
@@ -54,7 +53,7 @@ public:
 	void nyDelListe();								// Lager ny deltagerListe.			   Valg : O L N
 	void endreDelListe();							// Endrer en deltagerListe.			   Valg : O L E
 	void fjernDelListe();							// Fjerner en deltagerListe.		   Valg : O L F
-	void deltagerSkrivtilFil();					
+	void deltagerSkrivtilFil();
 	void deltagerLesFraFil();
 
 	//ResListe
@@ -64,9 +63,9 @@ public:
 	void nyResultatListe();							// Lager en ny resultatListe.		   Valg : O R N
 	void fjernResListe();							// Fjerner en resultatListe.
 	bool fjernResultatliste();
-	void resultaterSkrivTilFil();//ma lages	
+	void resultaterSkrivTilFil();//ma lages
 	void resultaterLesFraFil(); //ma lages
-	
+
 	void endreNavn(char *ovelseNavn);               // Endrer navnet til ovelsen.
 	void endreDato();                               // Endrer datoen til ovelsen.
 	void endreKlokkeslett();                        // Endrer kl. til ovelsen.

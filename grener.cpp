@@ -52,7 +52,7 @@ void Grener::skrivMeny()
 
 }
 													// Registrer ny gren
-void Grener::nyGren()								// til komando G E
+void Grener::nyGren()								// til komando G N
 {
 	char buffer[NVLEN];
 	Gren *temp;
@@ -72,29 +72,28 @@ void Grener::nyGren()								// til komando G E
 
 
 }
-													// endre navnet paa en eksisterende gren
-void Grener::endreGren()							// til komando G E
+
+void Grener::endreGren()							// Endre navnet paa en eksisterende gren : Valg G E
 {
-	char buffer[NVLEN];
-	Gren *temp;
+	int valg;
+	Gren *gren;
 
+	if (listGren && !listGren->isEmpty()) {         // Hvis listen finnes og det er elementer i den.
+      cout << "\nGrener som kan velges: \n";
 
-	les("Skriv unikt navn: ", buffer, NVLEN);       // les navn
+      skrivUtRegistrerteGrener();                   // Skriver ut oversikt over tilgjengelige grener.
 
+      valg = les("\n\nVelg nr", 1, listGren->noOfElements());
+      gren = (Gren*) listGren->removeNo(valg);      // Tar gren-objektet ut av lista.
+      gren->endreNavn();                            // Endrer navnet paa grenen.
+      cout << "\n\nGrenen har blitt endret, dataene er naa:";
+      gren->display();                              // Displayer endringer.
+      listGren->add(gren);                          // Legger tilbake i lista.
 
-	if (listGren->inList(buffer))					// hvis navnet  er i bruk
-	{												// hent objekten, endre navn og legg tilbake i liste
-		temp = (Gren*)listGren->remove(buffer);
-		do
-		{
-			temp->endreNavn();
-		} while (listGren->inList(buffer));			// looper til brukeren taster inn et unikt navn
-		listGren->add(temp);
-
-		skrivTilFIl();
+      skrivTilFIl();                                // Skriver til fil.
 	}
-	else											// feilmelding
-	{  cout << "\n\tFinner ikke navnet " << buffer; }
+	else
+	  cout << "\n\tIngen grener er registrert";
 }
 
 void Grener::skrivAllGrener()						// til komando G A
@@ -115,23 +114,26 @@ void Grener::skrivAllGrener()						// til komando G A
 
 void Grener::skrivEnGren()							// til komando G S
 {
-	char buffer[NVLEN];
-	Gren *temp;
-													// les et navn fra bruker
-	les("Skriv navnet pa grenen: ", buffer, NVLEN);
+  Gren *gren;
+  int valg;
 
-	if ( listGren->inList(buffer))					// hvis navnet finnes
-	{												// ta obj ut av liste, skriv data og legg obj i liste
-		temp = (Gren*)listGren->remove(buffer);
-		temp->display();							// skriv grendata
-		if (temp->hentAntalOvelser() > 0 )			// hvis noen ovelser er registrer
-		{	temp->skrivOvelse();	}				// skriv data om alle ovelsene
-		else
-		{	skriv("Ingen ovelse er registrert paa gren: ", buffer);		}
-		listGren->add(temp);						// legg obj i list
-	}
-	else											// feilmelding
-	{	skriv("finner ikke gren med navn: ", buffer);	}
+  if (listGren && !listGren->isEmpty()) {           // Hvis listen finnes og det er elementer i den.
+    cout << "\nGrener som kan velges:\n";
+
+    skrivUtRegistrerteGrener();                     // Skriver ut oversikt over tilgjengelige grener.
+                                                    // Bruker velger gren.
+    valg = les("\n\nVelg nr", 1, listGren->noOfElements());
+    gren = (Gren*) listGren->removeNo(valg);        // Valgt gren fjernes fra liste.
+    gren->display();                                // Skriv grendata.
+
+    if (gren->hentAntalOvelser() > 0)               // hvis noen ovelser er registrer
+      gren->skrivOvelse();                          // skriv data om alle ovelsene
+    else
+      cout << "\n\tIngen ovelser er registrert paa denne grenen";
+    listGren->add(gren);                            // Legger objektet tilbake i lista.
+  }
+  else                                              // Hvis ingen ligger i listen.
+    cout << "\n\tIngen grener er registrert";
 }
 													// skriv til fil
 void Grener::skrivTilFIl()
@@ -214,24 +216,11 @@ void Grener::testResSkriv()
 
 void Grener :: ovelseGrenMeny() {                   // Velger navn paa gren og kaller meny for ovelse.
   Gren *gren;
-  int newLineTeller = 1;
   int valg;
 
   if (listGren && !listGren->isEmpty()) {           // Hvis listen finnes og det er elementer i den.
-    cout << "\nGrener som kan velges:" << "\n\n";                            // Skriver ut lederteskt.
-
-                                                    // Looper gjennom alle elementer.
-    for (int i = 1; i <= listGren->noOfElements(); i++) {
-
-      gren = (Gren*) listGren->removeNo(i);         // Fjerner objekt fra liste.
-      cout << "nr " << i << ": ";
-      gren->skrivGrenNavn();                        // Skriver ut text (navnet).
-      listGren->add(gren);                          // Legger tilbake i listen.
-
-      if (newLineTeller % 3 == 0)                   // Skriver ut "new line" hvis 6 grener
-        cout << '\n';                               // ligger etter hverandre pa skjermen.
-      newLineTeller++;                              // Teller opp med en.
-    }
+    cout << "\nGrener som kan velges:" << "\n\n";   // Skriver ut lederteskt.
+    skrivUtRegistrerteGrener();                     // Skriver ut oversikt over tilgjengelige grener.
                                                     // Bruker velger gren.
     valg = les("\n\nVelg nr", 1, listGren->noOfElements());
     gren = (Gren*) listGren->removeNo(valg);        // Valgt gren fjernes fra liste.
@@ -264,20 +253,38 @@ void Grener::fjernFraList(char navn[])
 	}
 }
 
-void Grener::finnGrenOvelse()                       // Fjernet fra main og la til velgGren.
-{
-	Gren *ptr;
-	char navn[NVLEN];
+//void Grener::finnGrenOvelse()                       // Fjernet fra main og la til velgGren.
+//{
+//	Gren *ptr;
+//	char navn[NVLEN];
+//
+//	if (listGren)
+//	{
+//		les("Skriv Grenens navn: ", navn, NVLEN);
+//
+//		if (listGren->inList(navn))
+//		{
+//			ptr = (Gren*)listGren->remove(navn);
+//			ptr->menyValgOvelse();
+//			listGren->add(ptr);
+//		}
+//	}
+//}
 
-	if (listGren)
-	{
-		les("Skriv Grenens navn: ", navn, NVLEN);
+void Grener :: skrivUtRegistrerteGrener() {         // Skriver ut alle registrerte gren-objekter.
+  Gren *gren;
+  int newLineTeller = 1;
+                                                    // Looper gjennom alle elementer.
+  for (int i = 1; i <= listGren->noOfElements(); i++) {
 
-		if (listGren->inList(navn))
-		{
-			ptr = (Gren*)listGren->remove(navn);
-			ptr->menyValgOvelse();
-			listGren->add(ptr);
-		}
-	}
+    gren = (Gren*) listGren->removeNo(i);           // Fjerner objekt fra liste.
+    cout << "nr " << i << ": ";
+    gren->skrivGrenNavn();                          // Skriver ut text (navnet).
+    listGren->add(gren);                            // Legger tilbake i listen.
+
+    if (newLineTeller % 3 == 0)                     // Skriver ut "new line" hvis 3 grener
+      cout << '\n';                                 // ligger etter hverandre pa skjermen.
+    newLineTeller++;                                // Teller opp med en.
+  }
 }
+

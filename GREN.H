@@ -25,7 +25,7 @@ public:
 	~Gren();
 	void endreNavn();				                // G E
 	void display();					                // G A
-	void skrivOvelse();				                // G S
+	void skrivOvelse();				                // Skriver ut all data for alle ovelser     Valg : G S og O A
 	void skrivGrenNavn();                           // Skriver ut navnet på grenen.
 	void skrivTilFIl(ofstream & ut);
 	int hentAntalOvelser();

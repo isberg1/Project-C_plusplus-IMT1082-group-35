@@ -2,7 +2,6 @@
     funksjoner.cpp
     Globale funksjoner
 */
-////////////////////////////////////////////////////:://///////////////////////////////
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
@@ -113,7 +112,7 @@ void skriv(const char * text, const int dataMedlem)
 	cout << '\n' << text << '\t' << dataMedlem;
 }
 
-//   !!!!!!!!!!   FIL FUNKSJONER()  !!!!!!!!!!!!!!!!!!!!!!!!
+///   !!!!!!!!!!   FIL FUNKSJONER()  !!!!!!!!!!!!!!!!!!!!!!!!
 
 //skriver en int til fil på standarformat
 void skriv(ofstream& ut, int tall)
@@ -233,7 +232,7 @@ char *nasjonsForkortelse(char t[]) {                // Sjekker at bokstaver = 3 
 
   do {                                              // Loop:
     les("\nNasjonsforkortelse (3 bokstaver)", buffer, NVLEN);
-    fjernBlankeForanOgBak(buffer);             // Fjerner blanke foran og bak.
+    fjernBlankeForanOgBak(buffer);                  // Fjerner blanke foran og bak.
     forkortelse = konverter(buffer);                // Gjør om størrelsen og lager ny char.
   } while (!erBokstaver(forkortelse) ||             // Så lenge det ikke er bokstaver og
             strlen(forkortelse) != NASJONLEN);      // lengder på array ikke er 3.
@@ -266,7 +265,7 @@ bool erBokstaverEllerSpace(char tekst[]) {          // Sjekker om indekser i arr
   return true;
 }
 
-char *konverterTilStore(char *tekst) {              // Gjør om til store bokstaver.
+char *konverterTilStore(char *tekst) {              // Gjor om til store bokstaver.
   char nyTekst[STRLEN];
   char *tekstPeker;
   int lengde = strlen(tekst);

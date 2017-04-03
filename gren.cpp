@@ -119,11 +119,11 @@ void Gren::display()	//til komando G A
 	if (typeMaaling == PoengXX)
 	{	skriv("Maalingstype er: ","PoengXX");			}
 }
-//skriver alle data om alle ovelser
-void Gren::skrivOvelse()//til komando G S
+
+void Gren::skrivOvelse()                            // Skriver ut all data for alle ovelser : G S og O A
 {
 	for (int i = 1; i <= antallRegistrerteOvelser; i++)
-	{	array[i]->skrivData();	}		// skal kansjke skrives:  *(array+i)->skrivData();
+	{	array[i]->skrivHovedData();	}		        // skal kansjke skrives:  *(array+i)->skrivData(); | Endret skrivData til skrivHovedData (Mats)
 }
 //til fil
 void Gren::skrivTilFIl(ofstream & ut)
@@ -190,7 +190,7 @@ void Gren::menyValgOvelse()							// MainSwitch for Ovelse.
 
 void Gren::skrivOvelseMeny()						// KommandoMeny for Ovelser.
 {
-	cout << "\n\nMENY FOR OVELSER:"
+	cout << "\n\nMENY FOR OVELSEN: '" << text << "' "
 		<< "\n\tN - Ny ovelse"
 		<< "\n\tE - Endre ovelse"
 		<< "\n\tF - Fjern ovelse"
@@ -333,6 +333,7 @@ void Gren :: endreOvelse() {                        // Endrer data for en Ovelse
     skrivUtRegistrerteOvelser();                    // Skriver ut nr og navn paa ovelser i array.
     indeks = les("\n\nHvilke ovelse vil du endre paa?", 1, antallRegistrerteOvelser);
 
+    array[indeks]->skrivHovedData();                // Skriver ut hoveddata for ovelsen.
     endreOvelseMeny();                              // Skriver ut hvilke valg som kan foretas.
     valg = les("\nOvelser/Endre ovelse: ");
     while (valg != 'Q') {
@@ -341,6 +342,7 @@ void Gren :: endreOvelse() {                        // Endrer data for en Ovelse
         case 'E' : array[indeks]->endreDato();        break;
         case 'A' : array[indeks]->endreKlokkeslett(); break;
       }
+      array[indeks]->skrivHovedData();              // Skriver ut hoveddata for ovelsen.
       endreOvelseMeny();
       valg = les("\nOvelser/Endre ovelse: ");
     }
@@ -394,9 +396,8 @@ void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.       
 void Gren :: skrivHoveddataOvelser() {              // Skriver hoveddata for alle Ovelser.  : O A
   if (antallRegistrerteOvelser == 0)
     cout << "\n\tDet er ikke registrert noen ovelser for denne grenen";
-                                                    // Looper gjennom alle ovelser.
-  for (int i = 1; i <= antallRegistrerteOvelser; i++)
-    array[i]->skrivHovedData();                     // Skriver ut hoveddata for ovelsen.
+  else
+    skrivOvelse();                                  // Skriver ut alle ovelser.
 }
 
 bool Gren :: finnesOvelse(char* navn) {             // Sjekk om Ovelsen finnes i array med param. navn.
