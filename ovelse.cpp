@@ -745,7 +745,7 @@ void Ovelse :: endreDato() {                        // Endrer datoen til ovelsen
 
 void Ovelse :: endreKlokkeslett() {                 // Endrer kl. til ovelsen.
   cout << "\nKlokkeslett for ovelsen (ttmm)";
-  klokkeslett = les("\nKlokkeslett", 0000, 2459);   // Leser inn klokkeslett.
+  klokkeslett = les("\nKlokkeslett", 0000, 2359);   // Leser inn klokkeslett.
   klokkeslett = klokkeSjekk(klokkeslett);           // Sjekker at kl. er på riktig format.
 }
 
@@ -760,7 +760,7 @@ void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en 
   minutt = klokkeslett % 100;                       // Finner minutt fra klokkeslett.
 
 
-  cout << "\n\nNummer:            " << nr
+  cout << "\n\nID:                " << nr
        << "\nNavn:              " << navn
        << "\nAntall deltagere:  " << antDeltagere
        << "\nDato:              "                   // Skriver ut dato paa leslig form.

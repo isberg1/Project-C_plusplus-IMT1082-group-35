@@ -391,6 +391,8 @@ void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.       
   else                                              // Hvis ikke 'J' blir valgt over.
     cout << "\n\tFjerning av ovelse ble avbrutt av bruker";
   }
+  else
+    cout << "\n\tDet er ikke registrert noen ovelser for denne grenen";
 }
 
 void Gren :: skrivHoveddataOvelser() {              // Skriver hoveddata for alle Ovelser.  : O A
