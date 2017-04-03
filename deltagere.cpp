@@ -24,7 +24,7 @@ Deltagere::~Deltagere()
 
 void Deltagere::skrivMeny()
 {
-   cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+   cout << "\n\nMENY FOR DELTAGERE:"
 		<< "\n\tN - Registrer ny deltager"
 		<< "\n\tE - Endre deltager"
 		<< "\n\tA - Skriv hoveddataene om alle deltagere"
@@ -84,41 +84,41 @@ void Deltagere :: nyDeltager() {                    // Oppretter ny Deltager    
 
 void Deltagere::endreDeltager()
 {
-	int buffer = 0;
 	char valg;
+	int valgID;
 	Deltager *tempDeltager;
 
-	buffer = les("Skriv inn id'en til deltageren", 0001, 9999);
-	while (!DeltagerListe->inList(buffer))
-	{
-		cout << "Kunne ikke finne deltageren med id " << buffer;
-		buffer = les("Skriv inn korrekt id", 0001, 9999);
-	}
-	tempDeltager = (Deltager*)DeltagerListe->remove(buffer);
-	tempDeltager->display();
+    cout << "\nTilgjengelige deltagere:\n";
+    skrivUtRegistrerteDeltagere();                  // Skriver ut alle tilgjengelige deltagere.
+	valgID = les("\nHvilke deltager vil du endra paa? (nr)", 1, DeltagerListe->noOfElements());
 
-	endreDeltagerMeny();
-	valg = les("\nEndre deltager: ");
-	while (valg != 'Q')
-	{
-		switch (valg)
-		{
-		case 'N': tempDeltager->endreNavn();	break;
-		case 'E': tempDeltager->endreNasjon();	break;
-		case 'A': tempDeltager->endreData();	break;
-		case 'K': tempDeltager->endreKjonn();	break;
-		}
-		tempDeltager->display();
-		endreDeltagerMeny();
-	valg = les("\nEndre deltager: ");
-	}
+	if (DeltagerListe ) {                           // Hvis deltagerlisten finnes:
+      tempDeltager = (Deltager*)DeltagerListe->removeNo(valgID);
+	  tempDeltager->display();
+
+	  endreDeltagerMeny();
+	  valg = les("\nDeltagere/Endre deltager: ");
+	  while (valg != 'Q') {
+        switch (valg) {
+          case 'N': tempDeltager->endreNavn();	break;
+		  case 'E': tempDeltager->endreNasjon();break;
+		  case 'A': tempDeltager->endreData();	break;
+		  case 'K': tempDeltager->endreKjonn();	break;
+        }
+      tempDeltager->display();
+      endreDeltagerMeny();
+	  valg = les("\nDeltagere/Endre deltager: ");
+	  }
 	DeltagerListe->add(tempDeltager);
 	skrivTilFil();
+	}
+	else
+	  cout << "\n\tDet finnes ingen deltager med ID-en " << valgID;
 }
 
 void Deltagere::endreDeltagerMeny()
 {
-	cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+	cout << "\n\nMENY FOR AA ENDRE PAA EN DELTAGER:"
 		<< "\n\tN - Endre navn"
 		<< "\n\tE - Endre nasjon"
 		<< "\n\tA - Endre annen info"
@@ -158,10 +158,9 @@ void Deltagere :: skrivDataEn() {                   // Skriver all data om en gi
   } while (valg != 'A' && valg != 'B');             // Looper hvis ikke A eller B er valg.
 
   if (valg == 'A') {
-    do {
-      les("\nNavnet du vil soke etter", buffer, STRLEN);
-    } while (!erBokstaverEllerSpace(buffer));       // Looper så lenge det ikke er bokstav eller space.
+    les("\nNavnet du vil sooke etter", buffer, STRLEN);
 
+    fjernBlankeForanOgBak(buffer);                  // Fjerner blanke foran og bak.
     sokEtter = konverter(buffer);                   // Lager string med ny lengde.
     sokEtter = konverterTilStore(sokEtter);         // Gjør om til store bokstaver.
 
@@ -256,8 +255,8 @@ void Deltagere :: lesFraFil() {                     // Leser datastruktur fra fi
     cout << "\nFinner ikke filen 'DELTAGERE.DTA'";
 }
 
-char * Deltagere::hentNasjon(int deltag)	// henter en deltagers najon fra deltagerListe	
-{											//brukes til aa lage en Statistikk Raport.
+char * Deltagere::hentNasjon(int deltag)	        // Henter en deltagers najon fra deltagerListe.
+{											        // Brukes til aa lage en Statistikk Raport.
 	Deltager *ptr;
 	char temp[STRLEN];
 
@@ -271,7 +270,7 @@ char * Deltagere::hentNasjon(int deltag)	// henter en deltagers najon fra deltag
 		return temp;
 	}
 
-	strcpy(temp, "££deltager finnes ikke");
+	strcpy(temp, "££deltager finnes ikke");         // Hva er ££ til? (Mats)
 	return	temp;
 }
 
@@ -293,16 +292,28 @@ char * Deltagere::hentNavn(int deltag)
 	strcpy(temp, "££deltager finnes ikke");
 	return	temp;
 }
-		
-bool Deltagere::sjekkId(int deltagerNr)			//hent deltager nr og legg objekt tilbake i liste
+
+bool Deltagere::sjekkId(int deltagerNr)             // Hent deltager nr og legg objekt tilbake i liste.
 {
-	if (DeltagerListe)							//hvis deltagerliste finnes
+	if (DeltagerListe)		                        // Hvis deltagerliste finnes.
 	{
-		if (DeltagerListe->inList(deltagerNr))	// hvis deltager finnes
-		{	
+		if (DeltagerListe->inList(deltagerNr))      // Hvis deltager finnes.
+		{
 			return true;
 		}
 		return false;
 	}
 	return false;
 }
+
+void Deltagere :: skrivUtRegistrerteDeltagere() {   // Skriver ut navn og id paa alle deltagere.
+  Deltager *deltager;
+                                                    // Looper gjennom objekter.
+  for (int i = 1; i <= DeltagerListe->noOfElements(); i++) {
+    deltager = (Deltager*) DeltagerListe->removeNo(i); // Fjerner deltager fra lista.
+    cout << "nr " << i << ": ";
+    deltager->skrivNavn();                          // Skriver navnet paa deltageren.
+    DeltagerListe->add(deltager);
+  }
+}
+

@@ -25,7 +25,7 @@ Nasjoner :: ~Nasjoner() {
 }
 
 void Nasjoner :: skrivMeny() {                      // Tiljgengelige valg.
-  cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+  cout << "\n\nMENY FOR NASJONER:"
        << "\n\tN - Registrer en ny nasjon"
        << "\n\tE - Endre en nasjon"
        << "\n\tA - Skriv hoveddataene om alle nasjoner"
@@ -53,7 +53,7 @@ void Nasjoner :: menyValg() {                       // Valg av funksjonalitet.
 }
 
 void Nasjoner :: endreNasjonMeny() {                // Menyvalg av hva som skal endres hos en nasjon.
-  cout << "\n\nFOLGENDE KOMMANDOER ER TILGJENGELIGE:"
+  cout << "\n\nMENY FOR AA ENDRE PAA EN NASJON:"
        << "\n\tN - Det fulle navnet paa Nasjonen"
        << "\n\tE - Navn på kontaktperson"
        << "\n\tA - Tlf til kontaktperson"
@@ -95,6 +95,8 @@ void Nasjoner :: endreNasjon() {                    // Endre data for en nasjon 
 
     nasjon = (Nasjon*) nasjonsListe->remove(forkortelse);  // Fjerner fra lista.
 
+    nasjon->display();                              // Skriver ut data for nasjonen.
+
     endreNasjonMeny();                              // Oversikt over valg.
     valg = les("\nNasjoner/Endre nasjon: ");
     while (valg != 'Q') {
@@ -104,6 +106,7 @@ void Nasjoner :: endreNasjon() {                    // Endre data for en nasjon 
         case 'A' : nasjon->endreTlf();           break;
         case 'T' : nasjon->endreAnnet();         break;
       }
+      nasjon->display();                            // Skriver ut data for nasjonen.
       endreNasjonMeny();
       valg = les("\nNasjoner/Endre nasjon: ");
     }

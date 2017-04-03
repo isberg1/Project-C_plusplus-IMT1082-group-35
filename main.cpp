@@ -46,10 +46,10 @@ int main() {
   char valgMain;
 
   nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
+  deltagerObj.lesFraFil();                          // Leser deltagers data fra fil.
   grenenerObj.lesFraFil();							// Leser grener fra fil.
   medaljeObj.lesFraFil();							// Leser medaljer fra fil.
   poengObj.lesFraFil();								// Leser poeng fra fil.
-  deltagerObj.lesFraFil();                          // Leser deltagers data fra fil.
 
 // Ovelse t("langrenn", PoengXX);
 

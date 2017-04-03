@@ -2,7 +2,7 @@
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
 #include <iostream>
 #include <cstring>
@@ -16,7 +16,7 @@ using namespace std;
 Medaljer::Medaljer()//constructor
 {
 	for (int i = 0; i <= MAXNASJONER; i++)
-	{	medaljer[i] = 0;	} //nullstiller hele arrayen 
+	{	medaljer[i] = 0;	} //nullstiller hele arrayen
 
 }
 //legg til eller fjern medalje og sorter array
@@ -59,28 +59,29 @@ void Medaljer::endreAntMedaljer(char nasjon[], seiersType medaljeType, positivNe
 	}
 
 												//hvis nasjon ikke er registert fra for
-	if (sjekk && sistebrukt < MAXNASJONER && posNeg == positiv)	
+	if (sjekk && sistebrukt < MAXNASJONER && posNeg == positiv)
 	{
 		sistebrukt++;
 							//adderer paa korekt verdi
-		if (medaljeType == gull)					
+		if (medaljeType == gull)
 		{	medaljer[sistebrukt] += 10000; 	}											//ook med 1 gull
 		else if (medaljeType == solv)
 		{	medaljer[sistebrukt] += 100;	}											//ook med 1 solv
 		else if (medaljeType == bronsje)
 		{	medaljer[sistebrukt] += 1;		}											//ook med 1 bronsje
-								
-		strcpy(nasjonsForkort[sistebrukt], nasjon);		//legger til nasjonsforkortelsen helt bakerst i arrayen		
+
+		strcpy(nasjonsForkort[sistebrukt], nasjon);		//legger til nasjonsforkortelsen helt bakerst i arrayen
 
 		sorter1(medaljer);									//sorterer 2 arrayer, starter fra sisteBrukt
 	}
+
 	skrivTilFil();
 }
 
 
 void Medaljer::skrivMedaljer()		//displayer 2 arrayer med data
 {
-	skriv("Medaljeoversikt sortert høyest til lavest\n\n", "Nasjonsforkortelse\t Gull\t Solv\tBronsje");
+	skriv("Medaljeoversikt sortert hoyest til lavest\n\n", "Nasjonsforkortelse\t Gull\t Solv\tBronsje");
 
 	for (int i = 1; i <= sistebrukt; i++)
 	{
@@ -105,7 +106,7 @@ void Medaljer::testFunksjon()		//test funksjon  fjernes før siste innlevering
 	skriv("skriv statistikk vedier", "");
 
 	while (les("skriv") != 'Q')			//kjører til brukeren taster 'Q'
-	{			
+	{
 			cout << "\nlegge til(+) eller trekke fra(-)\t";
 			type = les();
 			dummy = les("Gull(1), Solv(2), Bronsje(3)", 1, 3);
@@ -144,19 +145,19 @@ void Medaljer::testFunksjon()		//test funksjon  fjernes før siste innlevering
 	}
 }
 
-void Medaljer::skrivTilFil()		//skriv til fil 
+void Medaljer::skrivTilFil()		//skriv til fil
 {
 
 	/*
 	filformat:
-	int  sistebrukt 
+	int  sistebrukt
 	char nasjonsForkortelse
 	int  medaljer
 	(gjenta * sistebrukt)
 	*/
-	
+
 	ofstream ut("MEDALJER.DTA");
-	
+
 	if (ut)																//hvis filen finnes
 	{
 		skriv(ut, sistebrukt);								//skriv antall i arrayen til fil
@@ -167,7 +168,7 @@ void Medaljer::skrivTilFil()		//skriv til fil
 		}
 	}
 	else
-	{	skriv("finner ikke fil MEDALJER.DTA", "");	}	
+	{	skriv("finner ikke fil MEDALJER.DTA", "");	}
 }
 
 void Medaljer::lesFraFil()		// les fra fil
@@ -181,17 +182,17 @@ void Medaljer::lesFraFil()		// les fra fil
 	*/
 
 	ifstream inn("MEDALJER.DTA");
-	
+
 	if (inn)														//hvis filen finnes
 	{
 		sistebrukt = lesInt(inn);								//les inn antall i array
 		for (int i = 1; i <= sistebrukt; i++)
 		{								//les inn egne datamedlemmer
 			lesTxt2(inn, nasjonsForkort[i]);
-			medaljer[i] = lesInt(inn);	
+			medaljer[i] = lesInt(inn);
 		}
 	}
 	else
-	{	skriv("finner ikke fil MEDALJER.DTA", "");	}
+	{	cout << "\nFinner ikke filen 'MEDALJER.DTA'";	}
 }
 
