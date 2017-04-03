@@ -21,6 +21,7 @@ extern Grener grenenerObj;
 Ovelse::Ovelse() {
 	cout << "\nAdvarsel, Ovelse-objekter skal ikke lages uten parameter";
 }
+
 Ovelse::Ovelse(ifstream & inn)
 {	
 	lesFraFil(inn);	
@@ -33,7 +34,7 @@ Ovelse::Ovelse(ifstream & inn)
 	*(resultatListe + i) = *(deltagerListe + i) = 0;
 	}
 
-	if (navnTeller < nr)					//setter verdien til navnteller.	
+	if (navnTeller < nr)					//setter verdien til navnteller.
 	{
 	navnTeller = nr;
 	}
@@ -41,8 +42,8 @@ Ovelse::Ovelse(ifstream & inn)
 	for (int i = 0; i <= ANTALLVINNERE + 1; i++)      // Nullstiller log arrayen.
 	{	log[i] = 0;	}
 }
-                                                    //constructor, får param. navn,sisteOvelse fra Gren.
-                                                  //constructor, får param. navn,sisteOvelse fra Gren.
+
+                                                    // Constructor,får param. navn,sisteOvelse fra Gren.
 Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
 
   nr = lagUniktNr();						        // Faar et unikt nummer basert på static int navnTeller.
@@ -66,7 +67,7 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
   for (int i = 0; i <= ANTALLVINNERE + 1; i++)      // Nullstiller log arrayen.
     log[i] = 0;
 
-  if (navnTeller < nr)					//setter verdien til navnteller.
+  if (navnTeller < nr)					            // Setter verdien til navnteller.
   {
 	  navnTeller = nr;
   }
@@ -77,15 +78,6 @@ Ovelse::~Ovelse()	//destructor
 	/*delete[] navn;
 	delete[] deltagerListe;
 	delete[] resultatListe;*/
-}
-
-void Ovelse::skrivData()	//Displayer egne datamedlemmer
-{
-	skriv("ID: ", nr);
-	skriv("Fullt navn: ", navn);
-	skriv("Dato: ", dato);
-	skriv("Klokkeslett: ", klokkeslett);
-	skriv("Antall deltagere: ", antDeltagere);
 }
 
 char * Ovelse::filNavn(int type)		//send med 1 for .RES eller ingenting for .STA
@@ -129,15 +121,15 @@ void Ovelse::skrivTilFil(ofstream & ut)		//skriv ovelse til fil
 	else if (maaling == MinSecHundredel)
 	{	skriv(ut, 4);	}
 	else if (maaling == MinSekTusendel)
-	{	skriv(ut, 5);	} 
+	{	skriv(ut, 5);	}
 }
 
 void Ovelse::lesFraFil(ifstream & inn)		//les ovelse fra fil
 {
-	
+
 	int dummy;
 				//leser egne datamedlemmer fra fil
-	nr = lesInt(inn); 
+	nr = lesInt(inn);
 	dato = lesInt(inn);
 	klokkeslett = lesInt(inn);
 	antDeltagere = lesInt(inn);
@@ -472,7 +464,7 @@ void Ovelse::deltagerSkrivtilFil()			//skrid startliste til fil
 
 	for (int i = 1; i <= antDeltagere; i++)
 	{
-		skriv(ut, *(deltagerListe + i) ); 
+		skriv(ut, *(deltagerListe + i) );
 	}
 	ut.close();				//lukk fil
 }
@@ -639,7 +631,7 @@ void Ovelse::menyValgDelListe()						// ValgSwitch for deltagerLister.
 		switch (valg)
 		{
 		case 'S': skrivDelListe();	    break;		// Skriver ut en deltagerListe.		maa ¨lages
-		case 'N': nyDelListe();			break;		// Lager en ny deltagerListe.		
+		case 'N': nyDelListe();			break;		// Lager en ny deltagerListe.
 		case 'E': endreDelListe();		break;		// Endrer en deltagerListe.			maa ¨lages
 		case 'F': fjernDelListe();		break;		// Fjerner en deltagerListe.		maa ¨lages
 		default:		break;
@@ -687,7 +679,7 @@ void Ovelse::nyDelListe()			//lager en ny deltager liste
 			if (*(deltagerListe + i) == *(deltagerListe + k))
 			{	sjekk = true;	}
 			}
-			
+
 			while (!sjekkDeltagerId(*(deltagerListe + i))  ||  sjekk)  //finnes deltageren eller er han registrert fra foor
 			{
 			//felimeldinger
@@ -781,15 +773,42 @@ void Ovelse :: endreKlokkeslett() {                 // Endrer kl. til ovelsen.
 }
 
 void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en ovelse.
-  cout << "\nNummer:            " << nr
+  int aar, maaned, dag, time, minutt;
+
+
+  aar = dato / 10000;                               // Finner hvilke år det er.
+  maaned = (dato / 100) % 100;                      // Finner hvilke måned det er.
+  dag = dato % 100;                                 // Finner hvilke dag det er.
+
+  time = klokkeslett / 100;                         // Finner time fra klokkeslett.
+  minutt = klokkeslett % 100;                       // Finner minutt fra klokkeslett.
+
+
+  cout << "\n\nNummer:            " << nr
        << "\nNavn:              " << navn
        << "\nAntall deltagere:  " << antDeltagere
-       << "\nDato:              " << dato
-       << "\nKlokkeslett:       " << klokkeslett;
+       << "\nDato:              "                   // Skriver ut dato paa leslig form.
+       << ((dag < 10) ? "0" : "") << dag << "."
+       << ((maaned < 10) ? "0" : "") << maaned << "."
+       << aar
+       << "\nKlokkeslett:       "                   // Skriver ut klokkeslett paa leslig form.
+       << ((time < 10) ? "0" : "") << time << ":"
+       << ((minutt < 10) ? "0" : "") << minutt;
 
+// Trenger ikke denne?
+//	if (maaling == PoengX )
+//	  cout << "\nMaalingsType:      " << "PoengX";  // Skriver ut maalingstypen for ovelsen:
+//	else if(maaling == PoengXX)
+//	  cout << "\nMaalingsType:      " << "PoengXX";
+//	else if (maaling == MinSECTidel)
+//	  cout << "\nMaalingsType:      " << "MinSECTidel";
+//	else if (maaling == MinSecHundredel)
+//	  cout << "\nMaalingsType:      " << "MinSecHundredel";
+//	else if (maaling == MinSekTusendel)
+//	  cout << "\nMaalingsType:      " << "MinSekTusendel";
 }
 
-void Ovelse::menyValgResListe()					// ValgSwitch for resultatLister.
+void Ovelse::menyValgResListe()					    // ValgSwitch for resultatLister.
 {
 	char valg;
 	

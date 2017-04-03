@@ -15,22 +15,22 @@ public:
 	~Grener();//destructor
 	//Ande funksjoner
 	void skrivMeny();
-	void nyGren();				// G N
-	void endreGren();			// G E
-	void skrivAllGrener();		// G A
-	void skrivEnGren();			// G S
+	void nyGren();				                    // G N
+	void endreGren();			                    // G E
+	void skrivAllGrener();		                    // G A
+	void skrivEnGren();			                    // G S
 	void skrivTilFIl();
 	void lesFraFil();
-	void ovelseGrenMeny();          // Meny til Ovelse : O...
+	void ovelseGrenMeny();                          // Velger navn paa gren og kaller meny for ovelse.
 
 	void testResListe();
 	void testResSkriv();
 
 	void addTilLIst(Gren *ptr);
-	void fjernFraList(char navn[]);  
-	void finnGrenOvelse();
+	void fjernFraList(char navn[]);
+//	void finnGrenOvelse();
+	void skrivUtRegistrerteGrener();                // Skriver ut alle registrerte gren-objekter.
 
-	char *velgGren(char t[]);       // valg av gren utfra navn.
 };
 
 

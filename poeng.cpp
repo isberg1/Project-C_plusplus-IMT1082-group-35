@@ -36,10 +36,10 @@ void Poeng::endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg)	//
 		{
 			sjekk = false;												//avbryter While lupen
 							//tar kopier av aktuell int og char
-			dummy = poeng[teller];					
+			dummy = poeng[teller];
 			strcpy(temp, nasjonsForkort[teller]);
 												//legg til eller trekk fra "antPoeng" fra riktik posisjon i poeng array
-			((posNeg == positiv) ? dummy += antPoeng : dummy -= antPoeng);				
+			((posNeg == positiv) ? dummy += antPoeng : dummy -= antPoeng);
 									//omsorterer arrayer og fjerner det som ble kopiert, sisteBrukt blir ledig til slutt
 			omsorter(teller, poeng);
 
@@ -51,13 +51,13 @@ void Poeng::endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg)	//
 	}
 
 	if (sjekk && sistebrukt < MAXNASJONER && posNeg == positiv)					//hvis nasjon ikke er registert fra før
-	{	
+	{
 		sistebrukt++;
 
 		//legger til nasjonsforkortelsen og poeng helt bakerst i arrayen
 		poeng[sistebrukt] = antPoeng;
 		strcpy(nasjonsForkort[sistebrukt], nasjon);
-		
+
 		sorter1(poeng);					//sorterer 2 arrayer
 	}
 	skrivTilFil();						//skriv til fil
@@ -69,8 +69,8 @@ void Poeng::endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg)	//
 
 void Poeng::skrivPoeng()	//displayer 2 arrayer
 {
-	
-	skriv("Poengoversikt sortert høyest til lavest\n\n", "Nasjonsforkortelse\tPoeng");
+
+	skriv("Poengoversikt sortert hoyest til lavest\n\n", "Nasjonsforkortelse\tPoeng");
 
 	for (int i = 1; i <= sistebrukt; i++)
 	{
@@ -152,6 +152,6 @@ void Poeng::lesFraFil()		//les fra fil
 		}
 	}
 	else
-	{	skriv("finner ikke fil POENG.DTA", "");  }
+	{	cout << "\nFinner ikke filen 'POENG.DTA'";  }
 }
 
