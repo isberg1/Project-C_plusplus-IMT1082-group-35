@@ -18,15 +18,13 @@ using namespace std;
 													// constructor
 Grener::Grener()
 {
-
-	listGren = new List(Sorted);
-													// sisteOvelse = 0;
+	listGren = new List(Sorted);		
 }
 													// destructor
 Grener::~Grener()
 {	delete listGren;  }
-													// skriver menyen i GrenerObj
-void Grener::skrivMeny()
+													
+void Grener::skrivMeny()					// skriver menyen i GrenerObj
 {
 	char valgGrener = 'k';
 
@@ -184,7 +182,7 @@ void Grener :: ovelseGrenMeny() 						// Meny til Ovelse : O...
 {
 	char buffer[NVLEN];
 	Gren *temp;
-
+													//finner riktig Gren Objekt og sender brukeren til menyen dens
 	les("\n\tSkriv inn navn pa Gren", buffer, NVLEN);
 	if (listGren->inList(buffer))
 	{
@@ -193,11 +191,9 @@ void Grener :: ovelseGrenMeny() 						// Meny til Ovelse : O...
 		listGren->add(temp);
 	}
 	else
-	{
-		cout << "Finner ikke Gren med " << buffer << " som navn.";
-	}
+	{	cout << "Finner ikke Gren med " << buffer << " som navn.";	}		//feilmelding
 }
-
+				//til testing
 void Grener::testResListe()
 {
 	char temp[STRLEN];
@@ -213,7 +209,7 @@ void Grener::testResListe()
 	else
 	{	skriv("Finner ikke en gren med navn: ", temp);	}
 }
-
+						//til testing
 void Grener::testResSkriv()
 {
 	char temp[STRLEN];
@@ -266,28 +262,24 @@ char *Grener :: velgGren(char t[]) {                // valg av gren utfra navn.
   }
 }
 
-void Grener::addTilLIst(Gren * ptr)
-{
+void Grener::addTilLIst(Gren * ptr)		//lar et Gren Objekt utenfor listen legge seg selv til listen
+{										//brukes til aa lagre endringer i OvelsesObjekter
 	if (listGren != nullptr)
-	{
-		listGren->add(ptr);
-	}
+	{	listGren->add(ptr); 	}
 }
 
-void Grener::fjernFraList(char navn[])
-{
-	Gren *ptr;
+void Grener::fjernFraList(char navn[])				//lar et Gren Objekt inni listen ta seg selv ut av listen
+{													//brukes til aa lagre endringer i OvelsesObjekter
+	Gren *ptr;	
 
 	if (listGren != nullptr)
 	{
 		if (listGren->inList(navn))
-		{
-			ptr = (Gren*)listGren->remove(navn);
-		}
+		{	ptr = (Gren*)listGren->remove(navn);	}
 	}
 }
 
-void Grener::finnGrenOvelse()
+void Grener::finnGrenOvelse()		//finner riktig GrenObjekt og sender brukeren til dens meny
 {
 	Gren *ptr;
 	char navn[NVLEN];

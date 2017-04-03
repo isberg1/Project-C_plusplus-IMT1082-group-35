@@ -291,7 +291,7 @@ void StatistikkRaport(int deltager, int log, int teller)
 	int dummy;
 	/*
 	"deltager" brukes til aa finne ut hvilken najson sjom skal okke ant poeng og medaljer
-	"log" brukes til aa finne ut hvilken najson sjom skal redusere ant poeng og medaljer
+	"log" brukes til aa finne ut hvilken najson som skal redusere ant poeng og medaljer
 	"teller" forteller hvor mye og hva det skal ookes/reduseres med
 	*/
 	seiersType	med;									//{ gull, solv, bronsje };
@@ -301,16 +301,14 @@ void StatistikkRaport(int deltager, int log, int teller)
 
 	switch (teller)	//hva slags medalje skal det sendes i rapporten
 	{
-	case 1:	med = gull;		break;
-	case 2: med = solv;		break;
-	case 3: med = bronsje;	break;
+	case 7:	med = gull;		break;		//endret 1,2,3 til 7,6,5,
+	case 6: med = solv;		break;
+	case 5: med = bronsje;	break;
 	default:				break;
 	}
 
-	//til testing
-	deltager = 1;
 
-	if (deltager != 0)	//hvis det skal sendes en rapport om aa okke ant. medaljer og poeng saa er ikke "deltager" lik 0.
+	if (deltager != 0)	//hvis det skal sendes en rapport om aa okke ant. medaljer og poeng saa er ikke "deltager" = 0.
 	{
 		posNeg = positiv;									//settes til default verdi positiv 	
 
@@ -319,51 +317,45 @@ void StatistikkRaport(int deltager, int log, int teller)
 			//send raport for aa ooke antall poeng 
 			poengObj.endreAntPoeng(nasjon, teller, posNeg);
 
-			if (teller < 4)							 //hvis det er aktuelt aa sende raport til medaljeObjektet
+			if (teller > 4)							 //hvis det er aktuellt aa sende raport til medaljeObjektet
 			{
 				medaljeObj.endreAntMedaljer(nasjon, med, posNeg);
 			}
 	}
-
 	
-	if (log != 0)			//hvis det skal sendes en rapport om aa redusere ant. medaljer og poeng saa er ikke "log" lik 0.
+	if (log != 0)	//hvis det skal sendes en rapport om aa redusere ant. medaljer og poeng saa er ikke "log" = 0.
 	{	
 		posNeg = negativ;
-		strcpy(nasjon, deltagerObj.hentNasjon(log));	 // hent "log" sin najon
-			poengObj.endreAntPoeng(nasjon, teller, posNeg);  //send raport for aa redusere antall poeng
+		strcpy(nasjon, deltagerObj.hentNasjon(log));	 // hent "log" sin nasjon
+			poengObj.endreAntPoeng(nasjon, teller, posNeg);  //send rapport for aa redusere antall poeng
 
-			if (teller < 4)			//hvis det er aktuellt aa sende rapport til medalje
+			if (teller > 4)			//hvis det er aktuellt aa sende rapport til medalje
 			{
 				medaljeObj.endreAntMedaljer(nasjon, med, posNeg);
 			}			//send raport for aa redusere antall medaljer
-		}
-		
+		}		
 	}
+
 
 void HentNavnOgNasjonFraDeltager(char nv[], char nasj[], int nr)
 {
 	strcpy(nv, deltagerObj.hentNavn(nr));
 	strcpy(nasj, deltagerObj.hentNasjon(nr));
-
 }
+
 
 bool sjekkDeltagerId(int deltagerNv)
 {
 	return deltagerObj.sjekkId(deltagerNv);
 }
 
+//brukes til testing  skriver test med eller uten arg. paa skjerm
 void tr(int t)
 {
 	if (t ==0)
-	{
-		skriv("TEST\t", "TEST");
-	}
+	{	skriv("TEST\t", "TEST"); }
 	else
-	{
-		skriv("TEST\t", t);
-	}
-	
-
+	{	skriv("TEST\t", t);	}
 }
 
 

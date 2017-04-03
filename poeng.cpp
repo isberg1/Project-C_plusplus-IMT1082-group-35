@@ -20,6 +20,9 @@ Poeng::Poeng()		//constructor
 	{	poeng[i] = 0;	}
 }
 
+
+
+
 void Poeng::endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg)	//endre en nasjons antall poeng
 {
 	char temp[MAXNASJONER + 1];
@@ -29,7 +32,7 @@ void Poeng::endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg)	//
 
 	while (teller < sistebrukt && sjekk)							//lupper til hele arrayen er sjekket
 	{
-		if (!strcmp(nasjon, nasjonsForkort[++teller]))				//hvis nasjonen alerede er registrer med medaljer
+		if (!strcmp(nasjon, nasjonsForkort[++teller]))				//hvis nasjonen alerede er registrer med poeng
 		{
 			sjekk = false;												//avbryter While lupen
 							//tar kopier av aktuell int og char
@@ -59,6 +62,10 @@ void Poeng::endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg)	//
 	}
 	skrivTilFil();						//skriv til fil
 }
+
+
+
+
 
 void Poeng::skrivPoeng()	//displayer 2 arrayer
 {

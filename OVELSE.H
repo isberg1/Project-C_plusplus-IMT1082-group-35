@@ -30,13 +30,14 @@ public:
 	~Ovelse();
 	void skrivData();
 	char *filNavn(int type = 0);                    // Genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES eller ingenting for .STA
-	void skrivTilFil(ofstream & ut);
-	void lesFraFil(ifstream & inn);
+	void skrivTilFil(ofstream & ut);				//skriv ovelse til fil
+	void lesFraFil(ifstream & inn);					//les ovelse fra fil
 	void bubbleSort();							//sorterer 2 int array
-	void ajourforeLog(int flagg = 0);//ma testes		ajourforer log arrayen og sender rapport til medaljer og poeng.  ma teste global funksjon raport
-	void skrivResultatliste();
+	void fjernPoeng();							//reduserer tidliger fordelte poeng og medaljer
+	void okPoengPoeng();						//oker antall poeng naar maaletypen er poeng
+	void okPoengTid();							//oker antall poeng naar maaletypen er tid
 
-	int sjekkID();
+	void sjekkID(int & temp, char buffer[]);		//brukes til aa skrive ut data 
 
 	int lagUniktNr();								// Lager et unikt tall som brukes til datamedlemm  int "nr"
 	int skaffVerdi();							    // Henter inn og sikkrer riktig verdi til resultatlisten
@@ -46,6 +47,8 @@ public:
 	int klokkeSjekk(int kl);                        // Sjekker om kl. er på riktig format.
 	void skrivNavn();                               // Skriver ut ovelsens navn.
 	int hentId();									// henter en ovelses id.
+	void nullstillLister();							//nullstiller strart og resultatlister
+	void logResett();								//nullstiller log
 
 	//StartListe
 	void menyValgDelListe();						// Switch for deltagerLister.		   Valg : O L
@@ -60,12 +63,11 @@ public:
 	//ResListe
 	void menyValgResListe();						// Switch for resultatLister.		   Valg : O R
 	void skrivResListeMeny();						// KommandoMeny for resultatListe.
-	void skrivResListe();							// Skriver ut en resultatListe.		   Valg : O R S
+	void skrivResultatliste();						//skriv resultatlisten til skjerm
 	void nyResultatListe();							// Lager en ny resultatListe.		   Valg : O R N
-	void fjernResListe();							// Fjerner en resultatListe.
-	bool fjernResultatliste();
-	void resultaterSkrivTilFil();//ma lages	
-	void resultaterLesFraFil(); //ma lages
+	bool fjernResultatliste();						//fjern resultatliste
+	void resultaterSkrivTilFil();					// skriv resultatliste til fil
+	void resultaterLesFraFil();						// les resultatliste fra fil
 	
 	void endreNavn(char *ovelseNavn);               // Endrer navnet til ovelsen.
 	void endreDato();                               // Endrer datoen til ovelsen.

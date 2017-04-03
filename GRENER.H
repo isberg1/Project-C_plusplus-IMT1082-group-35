@@ -9,7 +9,6 @@
 class Grener {
 private:
 	List *listGren;
-//	int sisteOvelse;
 
 public:
 	Grener();//constructor

@@ -39,6 +39,7 @@ public:
 	void testingNyOvelse();
 	void testingSkrivResListe();
 	void skrivIdTilRegistrerteOvelser();
+	void skrivListGrenTilFil();
 
 	                       // Registrerer ny Ovelse.               : O N
 	void endreOvelseMeny();                         // Meny for hva som kan endres for en Ovelse.
