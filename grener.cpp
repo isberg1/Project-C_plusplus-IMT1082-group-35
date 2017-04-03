@@ -18,15 +18,13 @@ using namespace std;
 													// constructor
 Grener::Grener()
 {
-
-	listGren = new List(Sorted);
-													// sisteOvelse = 0;
+	listGren = new List(Sorted);		
 }
 													// destructor
 Grener::~Grener()
 {	delete listGren;  }
-													// skriver menyen i GrenerObj
-void Grener::skrivMeny()
+													
+void Grener::skrivMeny()					// skriver menyen i GrenerObj
 {
 	char valgGrener = 'k';
 
@@ -179,9 +177,10 @@ void Grener::lesFraFil()
 		}
 	}
 	else											// feilmelding
-	{	cout << "\nFinner ikke filen 'GRENER.DTA'";	}
+	{	skriv("\nFinner ikke fil GRENER.DTA\n", "");	}
 }
 
+				//til testing
 void Grener::testResListe()
 {
 	char temp[STRLEN];
@@ -197,7 +196,7 @@ void Grener::testResListe()
 	else
 	{	skriv("Finner ikke en gren med navn: ", temp);	}
 }
-
+						//til testing
 void Grener::testResSkriv()
 {
 	char temp[STRLEN];
@@ -214,45 +213,75 @@ void Grener::testResSkriv()
 	{	skriv("Finner ikke en gren med navn: ", temp);	}
 }
 
-void Grener :: ovelseGrenMeny() {                   // Velger navn paa gren og kaller meny for ovelse.
-  Gren *gren;
-  int valg;
 
-  if (listGren && !listGren->isEmpty()) {           // Hvis listen finnes og det er elementer i den.
-    cout << "\nGrener som kan velges:" << "\n\n";   // Skriver ut lederteskt.
-    skrivUtRegistrerteGrener();                     // Skriver ut oversikt over tilgjengelige grener.
-                                                    // Bruker velger gren.
-    valg = les("\n\nVelg nr", 1, listGren->noOfElements());
-    gren = (Gren*) listGren->removeNo(valg);        // Valgt gren fjernes fra liste.
-    gren->menyValgOvelse();                         // Kaller gren sin funksjon.
-    listGren->add(gren);                            // Legger objektet tilbake i lista.
-  }
-  else                                              // Hvis ingen ligger i listen.
-    cout << "\n\tIngen grener er registrert"
-         << "\n\tDu maa registrere grener for du lager ovelser for den";
-}
+//!!!!!! ser ut som om vi har 2 funksjoner som gjør det samme her  vi må velge 1
 
-void Grener::addTilLIst(Gren * ptr)
+void Grener::ovelseGrenMeny() 						// Meny til Ovelse : O...
 {
-	if (listGren != nullptr)
+	char buffer[NVLEN];
+	Gren *temp;
+	//finner riktig Gren Objekt og sender brukeren til menyen dens
+	les("\n\tSkriv inn navn pa Gren", buffer, NVLEN);
+	if (listGren->inList(buffer))
 	{
-		listGren->add(ptr);
+		temp = (Gren*)listGren->remove(buffer);
+		temp->menyValgOvelse();
+		listGren->add(temp);
 	}
+	else
+	{
+		cout << "Finner ikke Gren med " << buffer << " som navn.";
+	}		//feilmelding
+}
+//
+//void Grener :: ovelseGrenMeny() {                   // Velger navn paa gren og kaller meny for ovelse.
+//  Gren *gren;
+//  int valg;
+//
+//  if (listGren && !listGren->isEmpty()) {           // Hvis listen finnes og det er elementer i den.
+//    cout << "\nGrener som kan velges:" << "\n\n";   // Skriver ut lederteskt.
+//    skrivUtRegistrerteGrener();                     // Skriver ut oversikt over tilgjengelige grener.
+//                                                    // Bruker velger gren.
+//    valg = les("\n\nVelg nr", 1, listGren->noOfElements());
+//    gren = (Gren*) listGren->removeNo(valg);        // Valgt gren fjernes fra liste.
+//    gren->menyValgOvelse();                         // Kaller gren sin funksjon.
+//    listGren->add(gren);                            // Legger objektet tilbake i lista.
+//  }
+//  else                                              // Hvis ingen ligger i listen.
+//    cout << "\n\tIngen grener er registrert"
+//         << "\n\tDu maa registrere grener for du lager ovelser for den";
+//}
+
+
+
+
+
+
+
+
+
+
+void Grener::addTilLIst(Gren * ptr)		//lar et Gren Objekt utenfor listen legge seg selv til listen
+{										//brukes til aa lagre endringer i OvelsesObjekter
+	if (listGren != nullptr)
+	{	listGren->add(ptr); 	}
 }
 
-void Grener::fjernFraList(char navn[])
-{
-	Gren *ptr;
+void Grener::fjernFraList(char navn[])				//lar et Gren Objekt inni listen ta seg selv ut av listen
+{													//brukes til aa lagre endringer i OvelsesObjekter
+	Gren *ptr;	
 
 	if (listGren != nullptr)
 	{
 		if (listGren->inList(navn))
-		{
-			ptr = (Gren*)listGren->remove(navn);
-		}
+		{	ptr = (Gren*)listGren->remove(navn);	}
 	}
 }
-
+//
+//void Grener::finnGrenOvelse()		//finner riktig GrenObjekt og sender brukeren til dens meny
+//{
+//	Gren *ptr;
+//	char navn[NVLEN];
 //void Grener::finnGrenOvelse()                       // Fjernet fra main og la til velgGren.
 //{
 //	Gren *ptr;
@@ -268,7 +297,7 @@ void Grener::fjernFraList(char navn[])
 //			ptr->menyValgOvelse();
 //			listGren->add(ptr);
 //		}
-//	}
+////	}
 //}
 
 void Grener :: skrivUtRegistrerteGrener() {         // Skriver ut alle registrerte gren-objekter.
@@ -276,8 +305,7 @@ void Grener :: skrivUtRegistrerteGrener() {         // Skriver ut alle registrer
   int newLineTeller = 1;
                                                     // Looper gjennom alle elementer.
   for (int i = 1; i <= listGren->noOfElements(); i++) {
-
-    gren = (Gren*) listGren->removeNo(i);           // Fjerner objekt fra liste.
+	gren = (Gren*) listGren->removeNo(i);           // Fjerner objekt fra liste.
     cout << "nr " << i << ": ";
     gren->skrivGrenNavn();                          // Skriver ut text (navnet).
     listGren->add(gren);                            // Legger tilbake i listen.

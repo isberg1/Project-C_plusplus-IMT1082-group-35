@@ -316,3 +316,4 @@ void Deltagere :: skrivUtRegistrerteDeltagere() {   // Skriver ut navn og id paa
     DeltagerListe->add(deltager);
   }
 }
+

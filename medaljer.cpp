@@ -74,6 +74,7 @@ void Medaljer::endreAntMedaljer(char nasjon[], seiersType medaljeType, positivNe
 
 		sorter1(medaljer);									//sorterer 2 arrayer, starter fra sisteBrukt
 	}
+
 	skrivTilFil();
 }
 
