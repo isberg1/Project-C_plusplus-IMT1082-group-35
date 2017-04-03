@@ -69,17 +69,17 @@ Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 	case 4: typeMaaling = PoengX;			 break;
 	case 5:	typeMaaling = PoengXX;			 break;
 	}
-	
+
 	if (antallRegistrerteOvelser > 0) //hvis det er registrert noen ovelser i det hele tatt
 	{
-		
+
 		//leser inn ovelser fra fil
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{
 			*(array + i) = new Ovelse(inn);
 
 		//	 array[i]->lesFraFil(inn);		// skal kansjke skrives:  *(array+i)->lesFraFil(inn);
-			 
+
 		}
 	}
 }
@@ -104,7 +104,7 @@ void Gren::endreNavn()// til komado G E
 //skriver alle data om denne grenen
 void Gren::display()	//til komando G A
 {
-	skriv("Grenens navn er: ", text);
+	skriv("\nGrenens navn er: ", text);
 	skriv("Antall registrerte ovelser er:", antallRegistrerteOvelser);
 	skriv("Annet:              ", annet);
 
@@ -151,7 +151,7 @@ void Gren::skrivTilFIl(ofstream & ut)
 	{
 		//skriver ovelsesobjekter til fil
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
-		{	array[i]->skrivTilFil(ut);	}		
+		{	array[i]->skrivTilFil(ut);	}
 	}
 }
 
@@ -175,18 +175,17 @@ void Gren::menyValgOvelse()							// MainSwitch for Ovelse.
 
 		switch (valg)
 		{
-		case 'N': registrerNyOvelse();		 break;			// Registrerer en ny Ovelse.
-		case 'E': endreOvelse();			 break;			// Endrer informasjon i ne Ovelse.
-		case 'F': fjernOvelse();			 break;			// Fjerner en Ovelse.
-		case 'A': skrivAlleOvelse();		break;			// Viser hoveddata for alle Ovelser.
-		case 'L': ovelseDelMeny();			break;			// Sender til deltagerListeSwitch.
-		case 'R': ovelseResMeny();			break;			// Sender til resultatListeSwitch.
-		default:							break;
+		case 'N': registrerNyOvelse();		break;  // Registrerer en ny Ovelse.
+		case 'E': endreOvelse();			break;	// Endrer informasjon i ne Ovelse.
+		case 'F': fjernOvelse();			break;	// Fjerner en Ovelse.
+		case 'A': skrivHoveddataOvelser();  break;	// Viser hoveddata for alle Ovelser.
+		case 'L': ovelseDelMeny();			break;	// Sender til deltagerListeSwitch.
+		case 'R': ovelseResMeny();			break;	// Sender til resultatListeSwitch.
 		}
 		skrivOvelseMeny();
-		valg = les("\novelser: ");
+		valg = les("\nOvelser: ");
 	}
-	
+
 }
 
 void Gren::skrivOvelseMeny()						// KommandoMeny for Ovelser.
@@ -201,11 +200,6 @@ void Gren::skrivOvelseMeny()						// KommandoMeny for Ovelser.
 		<< "\n\tQ - Tilbake til hovedmeny";
 }
 
-
-void Gren::skrivAlleOvelse()
-{
-
-}
 
 void Gren::ovelseDelMeny()
 {
@@ -223,10 +217,10 @@ void Gren::ovelseDelMeny()
 			{
 				array[i]->menyValgDelListe();
 			}
-		}		
+		}
 	}
 	else
-	{	skriv("Ingen ovelser er registrert", "");	}	
+	{	skriv("Ingen ovelser er registrert", "");	}
 }
 
 
@@ -308,14 +302,12 @@ void Gren :: registrerNyOvelse() {                  // Registrerer ny Ovelse.   
       array[++antallRegistrerteOvelser] =           // oppretter Ovelse-objekt, sender med navn og enum,
       new Ovelse(ovelseNavn, typeMaaling);          // +1 i array-teller.
 
-	  grenenerObj.addTilLIst(ptr);
-
-	  grenenerObj.skrivTilFIl();
-
-	  grenenerObj.fjernFraList(text);
+	  grenenerObj.addTilLIst(ptr);                  // Legger til gren tilbake i liste for å
+	  grenenerObj.skrivTilFIl();                    // skrive ut datastruktur.
+	  grenenerObj.fjernFraList(text);               // Fjerner fra liste igjen.
     }
     else                                            // Hvis Ovelsen allerede finnes:
-      cout << "\n\tDet finnes allerede en ovelse med dette navnet i grenen";
+      cout << "\n\tDet finnes allerede en ovelse med dette navnet";
   }
   else                                              // Hvis array er full:
     cout << "\n\tDet er ikke plass til flere ovelser for denne grenen";
@@ -332,12 +324,14 @@ void Gren :: endreOvelseMeny() {                    // Meny for hva som kan endr
 void Gren :: endreOvelse() {                        // Endrer data for en Ovelse.           : O E
   int indeks;
   char valg;
+  Gren *ptr;
+  ptr = this;
 
   if (antallRegistrerteOvelser != 0) {              // Hvis array med Ovelser ikke er tom:
 
     cout << "\nTilgjengelige ovelser:\n";
     skrivUtRegistrerteOvelser();                    // Skriver ut nr og navn på ovelser i array.
-    indeks = les("\nHvilke ovelse vil du endre paa? (tall)", 1, antallRegistrerteOvelser);
+    indeks = les("\n\nHvilke ovelse vil du endre paa?", 1, antallRegistrerteOvelser);
 
     endreOvelseMeny();                              // Skriver ut hvilke valg som kan foretas.
     valg = les("\nOvelser/Endre ovelse: ");
@@ -349,7 +343,10 @@ void Gren :: endreOvelse() {                        // Endrer data for en Ovelse
       }
       endreOvelseMeny();
       valg = les("\nOvelser/Endre ovelse: ");
-    }grenenerObj.skrivTilFIl();
+    }
+    grenenerObj.addTilLIst(ptr);                  // Legger til gren tilbake i liste for å
+	grenenerObj.skrivTilFIl();                    // skrive ut datastruktur.
+	grenenerObj.fjernFraList(text);               // Fjerner fra liste igjen.
   }
   else
     cout << "\n\tDet er ikke registrert noen ovelser for denne grenen";
@@ -361,12 +358,12 @@ void Gren :: endreOvelseNavn(int indeks) {          // Endrer navnet for en Ovel
 
   les ("\nNavn paa ovelse", buffer, NVLEN);         // Leser inn navnet på ovelsen.
 
-  while (finnesOvelse(buffer)) {                    // Loop hvis navnet paa ovelsen finnes.
-    cout << "\n\t" << buffer << " finnes allerede, velg et nytt navn.";
-    les ("\n\tNavn paa ovelse", buffer, NVLEN);
+  if (!finnesOvelse(buffer)) {                      // Hvis navnet er unikt:
+    navn = konverter(buffer);                       // Lager ny char og setter korrekt lengde.
+    array[indeks]->endreNavn(navn);                 // Setter navn paa ovelse.
   }
-  navn = konverter(buffer);                         // Lager ny char og setter korrekt lengde.
-  array[indeks]->endreNavn(navn);                   // Setter navn paa ovelse.
+  else
+    cout << "\n\t" << buffer << " finnes allerede, velg et nytt navn.";
 }
 
 void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.                   : O F
@@ -384,14 +381,17 @@ void Gren :: skrivHoveddataOvelser() {              // Skriver hoveddata for all
 bool Gren :: finnesOvelse(char* navn) {             // Sjekk om Ovelsen finnes i array med param. navn.
   char *navnIarray;
 
-  navn = konverter(navn);                           // Gjør om størrelsen og lager ny char.
   navn = konverterTilStore(navn);                   // Gjør om parameters navn til store bokstaver.
+  fjernBlankeForanOgBak(navn);                      // Fjerner blanke.
 
   for (int i = 1; i <= antallRegistrerteOvelser; i++) {   // Looper gjennom array.
     navnIarray = konverterTilStore(array[i]->hentNavn()); // Gjør om til store bokstaver.
+    fjernBlankeForanOgBak(navnIarray);              // Fjerner blanke.
 
-    if ( strcmp(navn, navnIarray ) == 0)            // Hvis medsendt param er lik Ovelses navn.
+    if (strcmp(navn, navnIarray ) == 0)             // Hvis medsendt param er lik Ovelses navn.
       return true;
+    else                                            // Hvis de ikke er like.
+      return false;
   }
 }
 
@@ -399,15 +399,11 @@ void Gren :: skrivUtRegistrerteOvelser() {          // Skriver ut alle registrer
   int newLineTeller = 1;
                                                     // Looper gjennom array med ovelser.
   for (int i = 1; i <= antallRegistrerteOvelser; i++) {
-    cout << '\t' << i;                              // Skriver ut indeks i array.
+    cout << "\tnr " << i;                     // Skriver ut indeks i array.
     array[i]->skrivNavn();                          // Skriver ut navnet paa ovelsen.
 
-    if (newLineTeller % 6 == 0)                     // Legger paa linjeskift hvis 6 ovelser
+    if (newLineTeller % 2 == 0)                     // Legger paa linjeskift hvis 6 ovelser
       cout << '\n';                                 // ligger etter hverandre på skjermen.
     newLineTeller ++;                               // Teller opp med en.
   }
-}
-
-char *Gren :: hentNavn() {                          // Returnerer navnet (text).
-  return text;
 }

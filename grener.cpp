@@ -180,24 +180,6 @@ void Grener::lesFraFil()
 	{	skriv("\nFinner ikke fil GRENER.DTA\n", "");	}
 }
 
-void Grener :: ovelseGrenMeny() 						// Meny til Ovelse : O...
-{
-	char buffer[NVLEN];
-	Gren *temp;
-
-	les("\n\tSkriv inn navn pa Gren", buffer, NVLEN);
-	if (listGren->inList(buffer))
-	{
-		temp = (Gren*)listGren->remove(buffer);
-		temp->menyValgOvelse();
-		listGren->add(temp);
-	}
-	else
-	{
-		cout << "Finner ikke Gren med " << buffer << " som navn.";
-	}
-}
-
 void Grener::testResListe()
 {
 	char temp[STRLEN];
@@ -230,14 +212,13 @@ void Grener::testResSkriv()
 	{	skriv("Finner ikke en gren med navn: ", temp);	}
 }
 
-char *Grener :: velgGren(char t[]) {                // valg av gren utfra navn.
+void Grener :: ovelseGrenMeny() {                   // Velger navn paa gren og kaller meny for ovelse.
   Gren *gren;
   int newLineTeller = 1;
   int valg;
-  char *returNavn;
 
   if (listGren && !listGren->isEmpty()) {           // Hvis listen finnes og det er elementer i den.
-    cout << t << "\n\n";                            // Skriver ut lederteskt.
+    cout << "\nGrener som kan velges:" << "\n\n";                            // Skriver ut lederteskt.
 
                                                     // Looper gjennom alle elementer.
     for (int i = 1; i <= listGren->noOfElements(); i++) {
@@ -251,19 +232,14 @@ char *Grener :: velgGren(char t[]) {                // valg av gren utfra navn.
         cout << '\n';                               // ligger etter hverandre pa skjermen.
       newLineTeller++;                              // Teller opp med en.
     }
-
                                                     // Bruker velger gren.
     valg = les("\n\nVelg tall", 1, listGren->noOfElements());
     gren = (Gren*) listGren->removeNo(valg);        // Valgt gren fjernes fra liste.
-    returNavn = gren->hentNavn();                   // Kaller gren sin funksjon.
+    gren->menyValgOvelse();                         // Kaller gren sin funksjon.
     listGren->add(gren);                            // Legger objektet tilbake i lista.
-
-    return returNavn;                               // Returnerer navent på gren.
   }
-  else {                                            // Hvis ingen ligger i listen.
+  else                                              // Hvis ingen ligger i listen.
     cout << "\n\tIngen grener er registrert";
-    return "";                                      // Returnerer "".
-  }
 }
 
 void Grener::addTilLIst(Gren * ptr)
@@ -287,7 +263,7 @@ void Grener::fjernFraList(char navn[])
 	}
 }
 
-void Grener::finnGrenOvelse()
+void Grener::finnGrenOvelse()                       // Fjernet fra main og la til velgGren.
 {
 	Gren *ptr;
 	char navn[NVLEN];

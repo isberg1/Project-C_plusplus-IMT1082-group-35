@@ -64,7 +64,7 @@ int main() {
       case 'N' : nasjonObj.menyValg();	       break; // Kaller Nasjoner sin meny.
       case 'D' : deltagerObj.menyValg();       break; // Kaller Deltagere sin meny.
 	  case 'G' : grenenerObj.skrivMeny();      break; // kaller Grener sin meny.
-      case 'O' : grenenerObj.finnGrenOvelse(); break; // Kaller Grener sin Ovelse meny.
+      case 'O' : grenenerObj.ovelseGrenMeny(); break; // Kaller Grener sin Ovelse meny.
 	  case 'M' : medaljeObj.skrivMedaljer();   break; // viser medaljeoversikt
 	  case 'P' : poengObj.skrivPoeng();        break; // viser poengoversikt
     }
