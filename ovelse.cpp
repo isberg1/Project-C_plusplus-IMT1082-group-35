@@ -19,6 +19,7 @@ extern Grener grenenerObj;
 Ovelse::Ovelse() {
 	cout << "\nAdvarsel, Ovelse-objekter skal ikke lages uten parameter";
 }
+
 Ovelse::Ovelse(ifstream & inn)
 {	lesFraFil(inn);
 
@@ -36,8 +37,8 @@ if (navnTeller < nr)					//setter verdien til navnteller.
 }
 
 }
-                                                    //constructor, får param. navn,sisteOvelse fra Gren.
-                                                  //constructor, får param. navn,sisteOvelse fra Gren.
+
+                                                    // Constructor,får param. navn,sisteOvelse fra Gren.
 Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
 
   nr = lagUniktNr();						        // Faar et unikt nummer basert på static int navnTeller.
@@ -61,7 +62,7 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
   for (int i = 0; i <= ANTALLVINNERE + 1; i++)      // Nullstiller log arrayen.
     log[i] = 0;
 
-  if (navnTeller < nr)					            //setter verdien til navnteller.
+  if (navnTeller < nr)					            // Setter verdien til navnteller.
   {
 	  navnTeller = nr;
   }
@@ -548,7 +549,6 @@ void Ovelse::deltagerLesFraFil()
 	{	skriv("Finner ingen fil med navn: ", fil); 	}
 	inn.close();
 }
-
 
 int Ovelse::sjekkID()
 {

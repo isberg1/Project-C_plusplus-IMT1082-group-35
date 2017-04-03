@@ -66,13 +66,13 @@ void les(const char t[], char s[], const int LEN)
 {
 	char buffer[STRLEN*2];
 	do {
-		
+
 		cout << '\t' << t << ": "; cin.getline(buffer, LEN);//Ledetekst og leser.
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
-	
+
 	} while (strlen(buffer) == 0 && strlen(buffer)> LEN);						 //Sjekker at tekstlengden er ulik 0.
 
 	fjernBlankeForanOgBak(buffer);
@@ -91,14 +91,14 @@ char *konverter(char t[]) {
 
 void MainMeny()
 {
-	cout << "\n\nHovedmeny \nMulige brukervalg"
-		<< "\n(N) Nasjoner"
-		<< "\n(D) Deltagere"
-		<< "\n(G) Grener"
-		<< "\n(O) Ovelse"
-		<< "\n(M) Medaljer"
-		<< "\n(P) Poeng"
-		<< "\n(X) Avslutt";
+	cout << "\n\nPROGRAMMETS HOVEDMENY:"
+		 << "\n\tN - Nasjoner"
+		 << "\n\tD - Deltagere"
+		 << "\n\tG - Grener"
+		 << "\n\tO - Ovelse"
+		 << "\n\tM - Medaljer"
+		 << "\n\tP - Poeng"
+		 << "\n\tX - Avslutt";
 }
 
 
@@ -233,6 +233,7 @@ char *nasjonsForkortelse(char t[]) {                // Sjekker at bokstaver = 3 
 
   do {                                              // Loop:
     les("\nNasjonsforkortelse (3 bokstaver)", buffer, NVLEN);
+    fjernBlankeForanOgBak(buffer);             // Fjerner blanke foran og bak.
     forkortelse = konverter(buffer);                // Gjør om størrelsen og lager ny char.
   } while (!erBokstaver(forkortelse) ||             // Så lenge det ikke er bokstaver og
             strlen(forkortelse) != NASJONLEN);      // lengder på array ikke er 3.
@@ -312,11 +313,11 @@ void StatistikkRaport(int deltager, int log, int teller)
 
 	if (deltager != 0)	//hvis det skal sendes en rapport om aa okke ant. medaljer og poeng saa er ikke "deltager" lik 0.
 	{
-		posNeg = positiv;									//settes til default verdi positiv 	
+		posNeg = positiv;									//settes til default verdi positiv
 
-		strcpy(nasjon, deltagerObj.hentNasjon(deltager));  // hent "deltager" sin nasjon 
+		strcpy(nasjon, deltagerObj.hentNasjon(deltager));  // hent "deltager" sin nasjon
 
-			//send raport for aa ooke antall poeng 
+			//send raport for aa ooke antall poeng
 			poengObj.endreAntPoeng(nasjon, teller, posNeg);
 
 			if (teller < 4)							 //hvis det er aktuelt aa sende raport til medaljeObjektet
@@ -325,9 +326,9 @@ void StatistikkRaport(int deltager, int log, int teller)
 			}
 	}
 
-	
+
 	if (log != 0)			//hvis det skal sendes en rapport om aa redusere ant. medaljer og poeng saa er ikke "log" lik 0.
-	{	
+	{
 		posNeg = negativ;
 		strcpy(nasjon, deltagerObj.hentNasjon(log));	 // hent "log" sin najon
 			poengObj.endreAntPoeng(nasjon, teller, posNeg);  //send raport for aa redusere antall poeng
@@ -337,7 +338,7 @@ void StatistikkRaport(int deltager, int log, int teller)
 				medaljeObj.endreAntMedaljer(nasjon, med, posNeg);
 			}			//send raport for aa redusere antall medaljer
 		}
-		
+
 	}
 
 void HentNavnOgNasjonFraDeltager(char nv[], char nasj[], int nr)
@@ -362,7 +363,7 @@ void tr(int t)
 	{
 		skriv("TEST\t", t);
 	}
-	
+
 
 }
 

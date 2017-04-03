@@ -33,6 +33,7 @@ public:
 	void displayHoved();                            // Skriver ut Hoveddata for en deltager.
 	char *hentNavn();                               // Returnerer navnet til deltageren.
 	char *hentNajon();								// Returnerer en deltagers najon	brukes til aa lage en Statistikk Raport
+    void skrivNavn();                               // Skriver ut navnet til deltageren.
 };
 
 #endif

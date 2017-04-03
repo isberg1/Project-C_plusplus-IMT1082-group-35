@@ -9,6 +9,7 @@
 #include "CONST.H"
 #include "FUNKSJONER.H"
 #include <iostream>
+#include <iomanip>
 #include <cstring>
 #include <fstream>
 
@@ -34,18 +35,20 @@ Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
   nasjon = nyNasjon;                                // Setter nasjon på deltageren, fra param.
 
   les("\nNavnet paa deltageren: ", buffer, NVLEN);  // Leser in nnavet på deltageren.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   fullNavn = konverter(buffer);                     // Gjør om størrelsen og lager ny.
 
   do {                                              // Loop hvis M eller K ikke blir valg.
     valg = les("\nKjonn (m/k): ");
-  } while (valg != 'M' && valg != 'K');														
+  } while (valg != 'M' && valg != 'K');
 
   if (valg == 'M')
     deltagerKjonn = Mann;                           // kjønn blir satt til Mann.
   else
     deltagerKjonn = Kvinne;                         // kjønn blir satt til Kvinne.
 
-  les("\nAnnet: ", buffer, STRLEN);                 // Leser inn annet.
+  les("\nAnnet", buffer, STRLEN);                   // Leser inn annet.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   data = konverter(buffer);                         // Gjør om størrelsen og lager ny.
 
   nasjonObj.oppdaterNasjon(nyNasjon);               // Oppdaterer Nasjon obj. med antDeltagere +1.
@@ -75,17 +78,16 @@ Deltager::~Deltager()
 }
 
 void Deltager::endreNavn()
-{																		
-																		
-	strcpy(fullNavn, "");													
-	les("Skriv inn nytt navn", fullNavn, NVLEN);						
-	cout << "\nNavn endret til: " << fullNavn;			
+{
+	strcpy(fullNavn, "");
+	les("Skriv inn nytt navn", fullNavn, NVLEN);
+	cout << "\nNavn endret til: " << fullNavn;
 }
 
-void Deltager::endreNasjon()													//endrer nasjonen til en deltager
-{														
+void Deltager::endreNasjon()						// Endrer nasjonen til en deltager
+{
 	char *forkortelse;
-	
+
 	forkortelse = nasjonsForkortelse("\nSkriv inn den nye nasjonens forkortelse"); //les ny nasjon
 
 	if (nasjonObj.finnesNasjon(forkortelse)) {									//hvis ny najon finnes
@@ -105,10 +107,9 @@ void Deltager::endreNasjon()													//endrer nasjonen til en deltager
 
 void Deltager::endreData()
 {
-																			
-	strcpy(data, "");													
-	les("\nSkriv inn ny info", data, STRLEN);								
-	cout << "\nEkstra info endret til: " << data;							
+	strcpy(data, "");
+	les("\nSkriv inn ny info", data, STRLEN);
+	cout << "\nEkstra info endret til: " << data;
 }
 
 void Deltager::endreKjonn()						    // Endre kjonn på deltager.
@@ -125,7 +126,7 @@ void Deltager::endreKjonn()						    // Endre kjonn på deltager.
 	cout << "\nKjonn endret til: " << ((deltagerKjonn == Mann) ? "Mann" : "Kvinne");
 }
 
-void Deltager::display()							//	Skriver ut alle data om en deltager.
+void Deltager::display()							// Skriver ut alle data om en deltager.
 {
 	cout << "\n\nDeltagers id:           " << number
 		 << "\nDeltagers navn:         " << fullNavn
@@ -135,7 +136,7 @@ void Deltager::display()							//	Skriver ut alle data om en deltager.
 }
 
 void Deltager::displayHoved()
-{													//	Skriver kun ut hoveddataene for en deltager.
+{													// Skriver kun ut hoveddataene for en deltager.
 	cout << "\n\nDeltagers id:    " << number
 		 << "\nDeltagers navn:  " << fullNavn
 		 << "\nDeltagers kjonn: " << ((deltagerKjonn == Mann) ? "Mann" : "Kvinne");
@@ -166,11 +167,11 @@ void Deltager :: skrivTilFil(ofstream & ut) {       // Skriver til fil.
   skriv(ut, deltagerKjonn);
 }
 
-char* Deltager :: hentNavn() {                      // Returnerer navnet til deltageren.
+char* Deltager :: hentNavn() {                      // Returnerer navnet til deltageren.                Brukes ikke?
   return fullNavn;
 }
 
-char * Deltager::hentNajon()  // Returnerer en deltagers najon	brukes til aa lage en Statistikk Raport
+char * Deltager::hentNajon()                        // Returnerer en deltagers najon, brukes til aa lage en Statistikk Raport.
 {
 	char temp[NASJONLEN +1];
 
@@ -178,4 +179,6 @@ char * Deltager::hentNajon()  // Returnerer en deltagers najon	brukes til aa lag
 	return temp;
 }
 
-	
+void Deltager :: skrivNavn() {                      // Skriver ut navnet til deltageren.
+  cout << "\tNavn: " << fullNavn << '\n';
+}

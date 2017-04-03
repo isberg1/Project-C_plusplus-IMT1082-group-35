@@ -11,7 +11,6 @@ class Nasjoner {
     List *nasjonsListe;                             // Peker til liste.
 
   public:
-	
     ~Nasjoner();                                    // Deconstructor.
     void skrivMeny();                               // Skriver ut meny for Nasjoner.
     void menyValg();                                // Valg av funksjoner.

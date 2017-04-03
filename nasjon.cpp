@@ -18,25 +18,28 @@ using namespace std;
 
 
 Nasjon :: Nasjon() {
-  cout << "\nAdvarsel, Nasjon-objekter skal ikke lages uten parameter";
+  cout << "\n\tAdvarsel, Nasjon-objekter skal ikke lages uten parameter";
 }
 
                                                     // Sender med forkortelsen til constructor.
 Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
 
-  les("\nFullt navn for nasjonen", buffer, NVLEN);// Leser inn full navn på nasjon.
+  les("\nFullt navn for nasjonen", buffer, NVLEN);  // Leser inn full navn på nasjon.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   fulltNavn = konverter(buffer);                    // Gjør om størrelsen.
 
   // AntDeltagere blir lest inn fra 'finnesNasjonOgOppdater()' fra Nasjoner.
   antDeltagere = 0;
 
-  les("\nKontaktperson", buffer, NVLEN);          // Leser inn navn på kontaktperson.
+  les("\nKontaktperson", buffer, NVLEN);            // Leser inn navn på kontaktperson.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   kontaktNavn = konverter(buffer);                  // Gjør om størrelsen.
                                                     // Leser inn tlf i interval.
   kontaktTlf = les("\nKontaktpersonens tlf", 10000000, 99999999);
 
-  les("\nAnnet: ", buffer, STRLEN);                  // Leser inn annen data.
+  les("\nAnnet", buffer, STRLEN);                   // Leser inn annen data.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   andreData = konverter(buffer);                    // Gjør om størrelsen.
 }
 
@@ -91,6 +94,7 @@ void Nasjon :: endreNasjonsNavn() {                 // Endrer det fulle navnet t
 
   les("\nNasjonens fulle navn", buffer, NVLEN);
   delete[] fulltNavn;                               // Sletter fulltNavn før det lages ny.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   fulltNavn = konverter(buffer);                    // Gjør om størrelsen og lager ny peker.
 }
 
@@ -99,6 +103,7 @@ void Nasjon :: endreKontaktperson() {               // Endrer navnet til kontakt
 
   les("\nKontaktpersonens navn", buffer, NVLEN);
   delete[] kontaktNavn;                             // Sletter kontaktnavn før det lages ny.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   kontaktNavn = konverter(buffer);                  // Gjør om størrelsen og lager ny peker.
 }
 
@@ -111,6 +116,7 @@ void Nasjon :: endreAnnet() {                       // Endrer feltet 'Annet'.
 
   les("\nAnnet", buffer, STRLEN);
   delete[] andreData;                               // Sletter andreData før det lages ny.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   andreData = konverter(buffer);                    // Gjør om størrelsen og lager ny peker.
 }
 
