@@ -294,11 +294,11 @@ char * Deltagere::hentNavn(int deltag)
 	return	temp;
 }
 		
-bool Deltagere::sjekkId(int deltagerNr)  //hent deltager nr og legg objekt tilbake i liste
+bool Deltagere::sjekkId(int deltagerNr)			//hent deltager nr og legg objekt tilbake i liste
 {
-	if (DeltagerListe)		//hvis deltagerliste finnes
+	if (DeltagerListe)							//hvis deltagerliste finnes
 	{
-		if (DeltagerListe->inList(deltagerNr)) // hvis deltager finnes
+		if (DeltagerListe->inList(deltagerNr))	// hvis deltager finnes
 		{	
 			return true;
 		}

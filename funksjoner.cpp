@@ -288,7 +288,6 @@ bool slettFil(char fil[]) {                         // Sletter fil fra disk, sen
 //funksjonen sender en rapport til medalje og poeng om aa enten ooke eller redusere antallet til en nasjon
 void StatistikkRaport(int deltager, int log, int teller)
 {
-	int dummy;
 	/*
 	"deltager" brukes til aa finne ut hvilken najson sjom skal okke ant poeng og medaljer
 	"log" brukes til aa finne ut hvilken najson sjom skal redusere ant poeng og medaljer

@@ -11,9 +11,12 @@
 #include "OVELSE.H"
 #include"ENUM.H"
 #include"GRENER.H"
+#include"DELTAGERE.H"
+#include"DELTAGER.H"
+
 using namespace std;
 
-extern Grener grenenerObj;
+extern Deltagere deltagerObj;
 
 
 Ovelse::Ovelse() {
@@ -163,8 +166,6 @@ void Ovelse::lesFraFil(ifstream & inn)
 
 void Ovelse::nyResultatListe()	//lager ny resultatliste
 {
-	int dummy;
-	int temp;
 	char x[20];
 	char t[20];
 	strcpy(t, filNavn(1));
@@ -274,7 +275,7 @@ void Ovelse::bubbleSort()    //sorterer 2 int arrayer.
 {
 
 		int dummy;
-		int temp, bytter;
+		int temp;
 
 		for (int i = 1; i <= antDeltagere - 1; i++)
 		{
@@ -299,7 +300,7 @@ void Ovelse::bubbleSort()    //sorterer 2 int arrayer.
 }
 
 
-void Ovelse::ajourforeLog(int flagg)										//ajourforer log[] etter at en ny resultatliste er skrevet inn
+void Ovelse::ajourforeLog(int flagg)		//ajourforer log[] etter at en ny resultatliste er skrevet inn
 {											//eller etter at .RES og .STA fil har blitt endret og sender raport til statistikk
 	int poengTeller = 7;
 	int lupteller;
@@ -560,7 +561,7 @@ bool Ovelse::fjernResultatliste()
 	/*Fjerne / slette resultatliste:
 		Om denne(filen) finnes så slettes den.
 		Men, husk først å oppdatere statistikkene.
-*/
+	*/
 
 
 	char temp[STRLEN];
@@ -589,7 +590,6 @@ bool Ovelse::fjernResultatliste()
 		skriv("Finner ingen fil med navn: ", temp );
 		return false;
 	}
-
 }
 
 int Ovelse::hentId()
@@ -628,14 +628,18 @@ void Ovelse::skrivDelListeMeny()					// KommandoMeny for deltagerLister.
 		<< "\n\tQ - Tilbake til ovelsemeny";
 }
 
-void Ovelse::skrivDelListe()
+void Ovelse::skrivDelListe()						
 {
-
+	for (int i = 0; i < antDeltagere; i++)
+	{
+		cout << i << '\n' << deltagerListe[i] << '\n'
+			<< deltagerObj.hentNavn(deltagerListe[i]) << '\n'
+			<< deltagerObj.hentNasjon(deltagerListe[i]);
+	}
 }
 
 void Ovelse::nyDelListe()
 {
-	int deltagerNv;
 	char fil[20];
 	bool sjekk=false;
 	strcpy(fil, filNavn());
@@ -689,17 +693,33 @@ void Ovelse::endreDelListe()
 
 }
 
-void Ovelse::fjernDelListe()
+void Ovelse::fjernDelListe()					// Sletter spesifisert deltagerListe-fil.
 {
+	char temp[STRLEN];
+	strcpy(temp, filNavn());					// Hent filnavn til temp.
 
+	ifstream inn(temp);							// Apne filstrom for temp.STA.
+
+	if (inn)									// Hvis OVxxxx.STA finnes.
+	{
+		inn.close();							// Lukk filstrom
+
+		if (slettFil(temp))						// og om sletting fungerte
+		{
+			skriv("Filen er slettet", "");		// Skriv ut melding
+		}
+		else									// Ellers skriv ut feilmelding.
+		{
+			skriv("Filen ble ikke slettet", "");
+		}
+	}
+	else									   // Hvis OVxxxx.STA ikke finnes skriv feilmelding.
+	{
+		skriv("Finner ingen fil med navn: ", temp);
+	}
 }
 
 void Ovelse::skrivResListe()
-{
-
-}
-
-void Ovelse::fjernResListe()
 {
 
 }
@@ -731,7 +751,7 @@ int Ovelse :: klokkeSjekk(int kl) {                 // Sjekker om kl. er på rikt
 
   while ((time < 00 || time > 24) ||                // Looper hvis time ikke er fra 00-24
          (minutt < 00 || minutt > 60)) {            // og minutt fra 00-60.
-    klokkeslett = les("\n\tKlokkeslett", 0000, 2459);
+    klokkeslett = les("\n\tKlokkeslett", 0000, 2359);
     time = kl / 100;                                // Oppdaterer time.
     minutt = kl % 100;                              // Oppdaterer minutt.
   }
@@ -787,8 +807,8 @@ void Ovelse::menyValgResListe()					// ValgSwitch for resultatLister.
 		{
 		case 'S': skrivResultatliste(); 		break;	// Skriver ut en resultatListe.
 		case 'N': nyResultatListe();			break;	// Lager en ny resultatListe.
-		case 'F': fjernResultatliste();		break;	// Fjerner en resultatListe.
-		default:						break;
+		case 'F': fjernResultatliste();			break;	// Fjerner en resultatListe.
+		default:								break;
 		}
 		skrivResListeMeny();
 		valg = les("\nResultatlister: ");

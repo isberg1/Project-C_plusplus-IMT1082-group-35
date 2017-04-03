@@ -62,8 +62,7 @@ public:
 	void skrivResListeMeny();						// KommandoMeny for resultatListe.
 	void skrivResListe();							// Skriver ut en resultatListe.		   Valg : O R S
 	void nyResultatListe();							// Lager en ny resultatListe.		   Valg : O R N
-	void fjernResListe();							// Fjerner en resultatListe.
-	bool fjernResultatliste();
+	bool fjernResultatliste();						// Fjerner en resultatListe.		   Valg : O R F
 	void resultaterSkrivTilFil();//ma lages	
 	void resultaterLesFraFil(); //ma lages
 	

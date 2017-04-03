@@ -294,7 +294,7 @@ void Grener::finnGrenOvelse()
 
 	if (listGren)
 	{
-		les("Skriv Grenens navn: ", navn, NVLEN);
+		les("Skriv Grenens navn ", navn, NVLEN);
 
 		if (listGren->inList(navn))
 		{

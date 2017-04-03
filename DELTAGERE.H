@@ -26,7 +26,6 @@ public:
 	char *hentNasjon(int deltager);					//faar et deltagernr. og returnerer nasjonen.  brukes til aa lage en Statistikk Raport
 	char *hentNavn(int deltager);					//hent deltagers navn
 	bool sjekkId(int deltagerNr);					//sjekker deltager nr 
-
 };
 
 #endif

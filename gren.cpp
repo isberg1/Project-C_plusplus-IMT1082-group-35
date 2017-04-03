@@ -214,8 +214,8 @@ void Gren::ovelseDelMeny()
 	if (array != nullptr)
 	{
 		skrivIdTilRegistrerteOvelser();
-		buffer = les("\n\tSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
-
+		buffer = les("\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
+		
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{
 			temp = array[i]->hentId();
@@ -235,7 +235,7 @@ void Gren::ovelseResMeny()
 	int buffer, temp;
 
 	skrivIdTilRegistrerteOvelser();
-	buffer = les("\n\tSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
+	buffer = les("\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
 
 	if (array != nullptr)
 	{
@@ -392,7 +392,7 @@ bool Gren :: finnesOvelse(char* navn) {             // Sjekk om Ovelsen finnes i
 
     if ( strcmp(navn, navnIarray ) == 0)            // Hvis medsendt param er lik Ovelses navn.
       return true;
-  }
+	}
 }
 
 void Gren :: skrivUtRegistrerteOvelser() {          // Skriver ut alle registrerte ovelser.
