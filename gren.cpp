@@ -26,7 +26,7 @@ Gren::Gren(char * a) : TextElement(a)
 	char buffer[STRLEN];
 	int tilEnum;
 	//leser inn egne datamedlemmer
-	antOvelser = les("Skriv antall ovelser: ", 1, MAXOVELSER);
+	antOvelser = les("Skriv antall ovelser", 1, MAXOVELSER);
 	antallRegistrerteOvelser=0;
 
 	cout << "\nskriv type maaling: "
@@ -46,7 +46,7 @@ Gren::Gren(char * a) : TextElement(a)
 	case 5:	typeMaaling = PoengXX;			antSifre = 2; break;
 	}
 
-	les("Skriv inn annet: ", buffer, STRLEN);
+	les("Skriv inn annet", buffer, STRLEN);
 	annet = konverter(buffer);
 }
 //constructor med filargument
@@ -208,8 +208,8 @@ void Gren::ovelseDelMeny()
 	if (array != nullptr)
 	{
 		skrivIdTilRegistrerteOvelser();
-		buffer = les("\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
-		
+		buffer = les("\n\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
+
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{
 			temp = array[i]->hentId();
@@ -229,7 +229,7 @@ void Gren::ovelseResMeny()
 	int buffer, temp;
 
 	skrivIdTilRegistrerteOvelser();
-	buffer = les("\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
+	buffer = les("\n\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
 
 	if (array != nullptr)
 	{

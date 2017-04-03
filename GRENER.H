@@ -28,7 +28,6 @@ public:
 
 	void addTilLIst(Gren *ptr);
 	void fjernFraList(char navn[]);
-//	void finnGrenOvelse();
 	void skrivUtRegistrerteGrener();                // Skriver ut alle registrerte gren-objekter.
 
 };
