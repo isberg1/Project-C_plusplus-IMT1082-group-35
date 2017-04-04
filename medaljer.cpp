@@ -81,7 +81,7 @@ void Medaljer::endreAntMedaljer(char nasjon[], seiersType medaljeType, positivNe
 
 void Medaljer::skrivMedaljer()		//displayer 2 arrayer med data
 {
-	skriv("Medaljeoversikt sortert hoyest til lavest\n\n", "Nasjonsforkortelse\t Gull\t Solv\tBronsje");
+	skriv("Medaljeoversikt sortert hoyest til lavest\n\n", "Nasjonsforkortelse\t Gull\t Solv\tBronsje\n");
 
 	for (int i = 1; i <= sistebrukt; i++)
 	{

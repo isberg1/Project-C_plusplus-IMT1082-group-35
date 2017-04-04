@@ -63,14 +63,10 @@ void Poeng::endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg)	//
 	skrivTilFil();						//skriv til fil
 }
 
-
-
-
-
 void Poeng::skrivPoeng()	//displayer 2 arrayer
 {
 
-	skriv("Poengoversikt sortert hoyest til lavest\n\n", "Nasjonsforkortelse\tPoeng");
+	skriv("Poengoversikt sortert hoyest til lavest\n\n", "Nasjonsforkortelse\tPoeng\n");
 
 	for (int i = 1; i <= sistebrukt; i++)
 	{

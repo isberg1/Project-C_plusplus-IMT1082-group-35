@@ -27,6 +27,7 @@ public:
 	char *hentNavn(int deltager);					// Hent deltagers navn.
 	bool sjekkId(int deltagerNr);					// Sjekker deltager nr.
     void skrivUtRegistrerteDeltagere();             // Skriver ut navn og id paa alle deltagere.
+	int antallRegistrerteDeltagere();
 };
 
 #endif
