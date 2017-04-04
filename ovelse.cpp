@@ -272,7 +272,7 @@ int Ovelse::skaffVerdi()                            // Leser inn gyldige verdier
 void Ovelse::bubbleSort()                           // Sorterer 2 int arrayer.
 {
 		int dummy;
-		int temp, bytter;
+		int temp;
 					//gaar gjennom alle medlemme i arrayen og sammenlikner den med alle andre
 		for (int i = 1; i <= antDeltagere - 1; i++)
 		{
@@ -349,7 +349,6 @@ void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 	char fil[STRLEN];
 	char nv[STRLEN];
 	char nasj[STRLEN];
-	float temp;
 	int min, sec, tid;
 	int lupTeller = antDeltagere;
 
