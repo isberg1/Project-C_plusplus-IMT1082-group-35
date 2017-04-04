@@ -345,6 +345,7 @@ void Ovelse::okPoengTid()                           // Oker antall poeng naar ma
 
 void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 {
+
 	char fil[STRLEN];
 	char nv[STRLEN];
 	char nasj[STRLEN];
@@ -352,6 +353,7 @@ void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 	int min, sec, tid;
 	int lupTeller = antDeltagere;
 
+	tr(1);
 	strcpy(fil, filNavn(1));
 
 	ifstream inn(fil);
@@ -545,7 +547,6 @@ void Ovelse::deltagerLesFraFil()			        // Leser inn deltagerlisten fra fil.
 	{	skriv("Finner ingen fil med navn: ", fil); 	}
 	inn.close();		//lukk  fill
 }
-
 
 void Ovelse::sjekkID(int & temp, char buffer[])	    // Reurnerer Ovelsens ID nummer og navn,   brukes til aa skrive ut data.
 {
@@ -835,7 +836,6 @@ void Ovelse::menyValgResListe()					    // ValgSwitch for resultatLister.
 	{
 		skrivResListeMeny();
 		valg = les("\nOvelser/DeltagerListe: ");
-
 		switch (valg)
 		{
 		case 'S': skrivResultatliste(); 	break;	// Skriver ut en resultatListe.

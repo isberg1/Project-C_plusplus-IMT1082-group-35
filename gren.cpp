@@ -200,7 +200,6 @@ void Gren::skrivOvelseMeny()						// KommandoMeny for Ovelser.
 		<< "\n\tQ - Tilbake til hovedmeny";
 }
 
-
 void Gren::ovelseDelMeny()
 {
 	int buffer, temp;
@@ -222,7 +221,6 @@ void Gren::ovelseDelMeny()
 	else
 	{	skriv("Ingen ovelser er registrert", "");	}
 }
-
 
 void Gren::ovelseResMeny()
 {
@@ -307,8 +305,8 @@ void Gren :: registrerNyOvelse() {                  // Registrerer ny Ovelse.   
   if (antallRegistrerteOvelser < antOvelser ) {     // Hvis det er plass i array.
 
     les ("\nNavnet paa ovelsen", buffer, NVLEN);    // Leser inn navnet på ovelsen.
-		//$$$$$fungerer ikke har satt den til alltid true pga testing
-    if (true/*!finnesOvelse(buffer)*/) {                    // Hvis Ovelsen ikke finnes i array:
+
+    if (!finnesOvelse(buffer)) {                    // Hvis Ovelsen ikke finnes i array:
       ovelseNavn = konverter(buffer);               // Lager ny char og setter korrekt lengde.
                                                     // Lager peker til ny Ovelse på neste ledige indeks,
       array[++antallRegistrerteOvelser] =           // oppretter Ovelse-objekt, sender med navn og enum,
@@ -391,12 +389,9 @@ void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.       
     valg = les();
 
     if (valg == 'J') {                              // Sletter ovelsen:
-    // Resultatliste = array, deltagerliste = array.
-    // Hvis ovelse har res og/eller deltager filer så må disse slettes?
-    // Oppdater statistikk først hvis det ikke allerede er gjort.
+      // Hent ID-en til objektet.
+      // Brukes til å søke etter fil.
 
-    // Sorter ovelse array.
-    // Skriv til fil.
     }
   else                                              // Hvis ikke 'J' blir valgt over.
     cout << "\n\tFjerning av ovelse ble avbrutt av bruker";
@@ -424,6 +419,8 @@ bool Gren :: finnesOvelse(char* navn) {             // Sjekk om Ovelsen finnes i
 
 	  if (strcmp(navn, navnIarray) == 0)             // Hvis medsendt param er lik Ovelses navn.
 		  return true;
+      else
+        return false;
   }
 }
 
