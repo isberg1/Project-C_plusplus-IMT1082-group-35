@@ -422,9 +422,9 @@ bool Gren :: finnesOvelse(char* navn) {             // Sjekk om Ovelsen finnes i
 	  fjernBlankeForanOgBak(navnIarray);              // Fjerner blanke.
 
 	  if (strcmp(navn, navnIarray) == 0)             // Hvis medsendt param er lik Ovelses navn.
-		  return true;
+		return 1;
       else
-        return false;
+        return 0;
   }
 }
 
