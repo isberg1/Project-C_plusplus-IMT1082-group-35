@@ -79,11 +79,11 @@ Ovelse::~Ovelse()	//destructor
 	delete[] resultatListe;
 }
 
-char * Ovelse::filNavn(int type)		            // Send med 1 for .RES eller ingenting for .STA
+char *Ovelse::filNavn(int type)		                // Send med 1 for .RES eller ingenting for .STA
 {
 		char name[15] = "OV";
 		char end[5] = ".STA";
-		char* middle;
+		char *middle;
 		stringstream strs;
 		string buffer;
 
@@ -271,7 +271,7 @@ int Ovelse::skaffVerdi()                            // Leser inn gyldige verdier
 void Ovelse::bubbleSort()                           // Sorterer 2 int arrayer.
 {
 		int dummy;
-		int temp, bytter;
+		int temp;
 					//gaar gjennom alle medlemme i arrayen og sammenlikner den med alle andre
 		for (int i = 1; i <= antDeltagere - 1; i++)
 		{
@@ -362,12 +362,12 @@ void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 	char fil[STRLEN];
 	char nv[STRLEN];
 	char nasj[STRLEN];
-	float temp;
 	int min, sec, tid;
 	int lupTeller;
 
-	
+
 	strcpy(fil, filNavn(1));
+
 
 	ifstream inn(fil);
 
@@ -463,7 +463,7 @@ void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 				lupTeller--;
 			}
 		}
-	//	frigiMinne();
+		frigiMinne();
 	}
 	else
 	{	skriv("Finner ingen fil med navn: ", fil);	}
