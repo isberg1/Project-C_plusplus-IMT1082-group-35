@@ -31,12 +31,12 @@ public:
 	char *filNavn(int type = 0);                    // Genererer et unik filnavn basert på ovelsens unike "nr" og send med 1 for .RES eller ingenting for .STA
 	void skrivTilFil(ofstream & ut);				//skriv ovelse til fil
 	void lesFraFil(ifstream & inn);					//les ovelse fra fil
-	void bubbleSort();							//sorterer 2 int array
-	void fjernPoeng();							//reduserer tidliger fordelte poeng og medaljer
-	void okPoengPoeng();						//oker antall poeng naar maaletypen er poeng
-	void okPoengTid();							//oker antall poeng naar maaletypen er tid
+	void bubbleSort();							    //sorterer 2 int array
+	void fjernPoeng();							    //reduserer tidliger fordelte poeng og medaljer
+	void okPoengPoeng();						    //oker antall poeng naar maaletypen er poeng
+	void okPoengTid();							    //oker antall poeng naar maaletypen er tid
 
-	void sjekkID(int & temp, char buffer[]);		//brukes til aa skrive ut data 
+	void sjekkID(int & temp, char buffer[]);		//brukes til aa skrive ut data
 
 	int lagUniktNr();								// Lager et unikt tall som brukes til datamedlemm  int "nr"
 	int skaffVerdi();							    // Henter inn og sikkrer riktig verdi til resultatlisten

@@ -83,11 +83,11 @@ Ovelse::~Ovelse()	//destructor
 	delete[] resultatListe;*/
 }
 
-char * Ovelse::filNavn(int type)		            // Send med 1 for .RES eller ingenting for .STA
+char *Ovelse::filNavn(int type)		                // Send med 1 for .RES eller ingenting for .STA
 {
 		char name[15] = "OV";
 		char end[5] = ".STA";
-		char* middle;
+		char *middle;
 		stringstream strs;
 		string buffer;
 
@@ -353,8 +353,9 @@ void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 	int min, sec, tid;
 	int lupTeller = antDeltagere;
 
-	tr(1);
+	char *filnavn = filNavn(1);
 	strcpy(fil, filNavn(1));
+
 
 	ifstream inn(fil);
 

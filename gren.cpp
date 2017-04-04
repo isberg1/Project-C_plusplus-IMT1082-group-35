@@ -377,7 +377,7 @@ void Gren :: endreOvelseNavn(int indeks) {          // Endrer navnet for en Ovel
 }
 
 void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.                   : O F
-  int indeks;
+  int indeks, id;
   char valg;
 
   if (antallRegistrerteOvelser != 0) {              // Hvis gren har en eller flere ovelser:
@@ -389,8 +389,12 @@ void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.       
     valg = les();
 
     if (valg == 'J') {                              // Sletter ovelsen:
-      // Hent ID-en til objektet.
-      // Brukes til å søke etter fil.
+      array[indeks]->fjernDelListe();               // Sletter deltagerListen.
+      array[indeks]->fjernResultatliste();          // Sletter resultatListen.
+
+
+
+
 
     }
   else                                              // Hvis ikke 'J' blir valgt over.
