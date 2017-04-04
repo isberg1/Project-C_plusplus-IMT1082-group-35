@@ -110,7 +110,6 @@ void Ovelse::skrivTilFil(ofstream & ut)		        // Skriv ovelse til fil.
 	skriv(ut, nr);
 	skriv(ut, dato);
 	skriv(ut, klokkeslett);
-	//skriv(ut, antDeltagere);
 	skriv(ut, navn);
 								//loggen skrives til .RES fil istede  Alex
 	if (maaling == PoengX )
@@ -133,10 +132,11 @@ void Ovelse::lesFraFil(ifstream & inn)		        // Les ovelse fra fil.
 	nr = lesInt(inn);
 	dato = lesInt(inn);
 	klokkeslett = lesInt(inn);
-//	antDeltagere = lesInt(inn);
 	navn = lesTxt(inn);
 						//loggen leser fra .RES fil istede  Alex
 	dummy = lesInt(inn);
+	
+	antDeltagere = 0;								// AntDeltagere blir satt av DeltagerListen.
 
 	switch (dummy)
 	{

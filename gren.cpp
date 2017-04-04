@@ -392,7 +392,8 @@ void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.       
       array[indeks]->fjernResultatliste();          // Sletter resultatListen.
       array[indeks]->fjernDelListe();               // Sletter deltagerListen.
 
-      delete array[indeks];                         // Sletter objektet fra array.
+	  //delete array[indeks];                         // Sletter objektet fra array. Fungerer ikke.
+
       if (indeks < antallRegistrerteOvelser)        // Hvis objektet sin indeks er mindre enn siste brukte i array:
         array[indeks] = array[antallRegistrerteOvelser]; // Setter den slettede peker til aa peke paa siste.
 
