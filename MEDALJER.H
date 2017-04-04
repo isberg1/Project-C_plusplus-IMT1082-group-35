@@ -12,7 +12,6 @@ class Medaljer : public Statisikk
 private:
 	int medaljer[MAXNASJONER + 1];															//arry med en medaljene
 public:
-	
 	Medaljer();		//constructor															  nullstiller hele arrayen 
 	void endreAntMedaljer(char nasjon[], seiersType medaljeType, positivNegativ posNeg);	//endrer en nasjons medaljefordeling med +- 1
 	

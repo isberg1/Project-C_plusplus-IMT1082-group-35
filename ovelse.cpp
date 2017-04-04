@@ -12,11 +12,12 @@
 #include"ENUM.H"
 #include"GRENER.H"
 #include<iomanip>
+#include"DELTAGERE.H"
 
 using namespace std;
 
 extern Grener grenenerObj;
-
+extern Deltagere deltagerObj;
 
 Ovelse::Ovelse() {
 	cout << "\nAdvarsel, Ovelse-objekter skal ikke lages uten parameter";
@@ -29,10 +30,10 @@ Ovelse::Ovelse(ifstream & inn)
 	deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
 	resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
 	
-	for (int i = 1; i <= antDeltagere; i++)
+	/*for (int i = 1; i <= antDeltagere; i++)
 	{
 	*(resultatListe + i) = *(deltagerListe + i) = 0;
-	}
+	}*/
 
 	if (navnTeller < nr)					//setter verdien til navnteller.
 	{
@@ -51,18 +52,18 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
 
   endreNavn(ovelseNavn);                            // Setter navn fra parameter.
                                                     // Les inn antall deltagere.
-  antDeltagere = les("Skriv inn antall deltagere i ovelsen", MINDELTAGERE, MAXDELTAGERE);
-
+  //antDeltagere = les("Skriv inn antall deltagere i ovelsen", MINDELTAGERE, MAXDELTAGERE);
+  antDeltagere = 0;
   endreDato();                                      // Setter dato.
   endreKlokkeslett();                               // Setter klokkeslett
 
   deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
   resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
 
-  for (int i = 1; i <= antDeltagere; i++)
+  /*for (int i = 1; i <= antDeltagere; i++)
   {
 	  *(resultatListe + i) = *(deltagerListe + i) = 0;
-  }
+  }*/
 
   for (int i = 0; i <= ANTALLVINNERE + 1; i++)      // Nullstiller log arrayen.
     log[i] = 0;
@@ -75,9 +76,9 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
 
 Ovelse::~Ovelse()	//destructor
 {
-	/*delete[] navn;
+	delete[] navn;
 	delete[] deltagerListe;
-	delete[] resultatListe;*/
+	delete[] resultatListe;
 }
 
 char * Ovelse::filNavn(int type)		//send med 1 for .RES eller ingenting for .STA
@@ -109,7 +110,7 @@ void Ovelse::skrivTilFil(ofstream & ut)		//skriv ovelse til fil
 	skriv(ut, nr);
 	skriv(ut, dato);
 	skriv(ut, klokkeslett);
-	skriv(ut, antDeltagere);
+	//skriv(ut, antDeltagere);
 	skriv(ut, navn);
 								//loggen skrives til .RES fil istede  Alex
 	if (maaling == PoengX )
@@ -132,7 +133,7 @@ void Ovelse::lesFraFil(ifstream & inn)		//les ovelse fra fil
 	nr = lesInt(inn);
 	dato = lesInt(inn);
 	klokkeslett = lesInt(inn);
-	antDeltagere = lesInt(inn);
+//	antDeltagere = lesInt(inn);
 	navn = lesTxt(inn);
 						//loggen leser fra .RES fil istede  Alex
 	dummy = lesInt(inn);
@@ -304,7 +305,6 @@ void Ovelse::fjernPoeng()				//reduserer tidliger fordelte poeng og medaljer
 		{
 			if (log[i] != -1)
 			{
-				tr(log[i]);
 				StatistikkRaport(0, log[i], poengTeller); //reduser poeng og medaljefordelingen til nasjoner
 				poengTeller--;		//tell ned antal poeng som gis neste gang
 			}								
@@ -461,6 +461,7 @@ void Ovelse::deltagerSkrivtilFil()			//skrid startliste til fil
 	strcpy(fil, filNavn());				//hent riktig filnavn
 	
 	ofstream ut(fil);
+	skriv(ut, antDeltagere);
 
 	for (int i = 1; i <= antDeltagere; i++)
 	{
@@ -538,9 +539,10 @@ void Ovelse::deltagerLesFraFil()			//leser inn deltagerlisten fra fil
 	strcpy(fil, filNavn());					//hent riktig filnavn
 
 	ifstream inn(fil);
-
+	
 	if (inn)					//hvis .STA finnes
 	{
+		antDeltagere = lesInt(inn);
 		for (int i = 1; i <= antDeltagere; i++)
 		{									//les inn deltagerlisten
 			*(deltagerListe + i) = lesInt(inn);
@@ -622,7 +624,6 @@ void Ovelse::menyValgDelListe()						// ValgSwitch for deltagerLister.
 {
 	char valg;
 
-	
 	do
 	{
 		skrivDelListeMeny();
@@ -668,6 +669,10 @@ void Ovelse::nyDelListe()			//lager en ny deltager liste
 	if (!inn)			//hvis filen ikke alerede eksisterer
 	{
 		inn.close();  //lukk filen
+
+																	//finner ut Hvor mange deltagere som skal registreres
+		antDeltagere = les("Skriv inn antall deltagere som skal registreres: ", 2, deltagerObj.antallRegistrerteDeltagere());
+
 											//gaar gjennom alle deltagerne som skal skrives inn
 		for (int i = 1; i <= antDeltagere; i++)
 		{														//leser inn deltagere

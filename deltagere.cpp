@@ -316,3 +316,14 @@ void Deltagere :: skrivUtRegistrerteDeltagere() {   // Skriver ut navn og id paa
     DeltagerListe->add(deltager);
   }
 }
+
+int Deltagere::antallRegistrerteDeltagere()	//henter antall elementer i deltagerlisten
+{
+
+	if (DeltagerListe)								//hvis listen eksisterer
+	{
+		return DeltagerListe->noOfElements();		//returner antaller
+	}
+
+	return 0;										//eller returner 0
+}

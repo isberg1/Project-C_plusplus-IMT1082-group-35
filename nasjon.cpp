@@ -53,7 +53,6 @@ Nasjon :: Nasjon(ifstream & inn, char *nasjonKort) : TextElement(nasjonKort)  {
 }
 
 Nasjon :: ~Nasjon() {
-  delete[] text;
   delete[] fulltNavn;
   delete[] kontaktNavn;
   delete[] andreData;
