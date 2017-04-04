@@ -84,6 +84,7 @@ char *Ovelse::filNavn(int type)		                // Send med 1 for .RES eller in
 		char name[15] = "OV";
 		char end[5] = ".STA";
 		char *middle;
+		char *fulltnavn;
 		stringstream strs;
 		string buffer;
 
@@ -98,8 +99,9 @@ char *Ovelse::filNavn(int type)		                // Send med 1 for .RES eller in
 
 		strcat(name, middle);
 		strcat(name, end);
+        fulltnavn = konverter(name);                // Gjor om name til peker.
 
-		return name;													//returnerer det unike filnavnet
+		return fulltnavn;							// Returnerer det unike filnavnet
 }
 
 void Ovelse::skrivTilFil(ofstream & ut)		        // Skriv ovelse til fil.
@@ -531,7 +533,7 @@ void Ovelse::deltagerLesFraFil()			        // Leser inn deltagerlisten fra fil.
 	strcpy(fil, filNavn());					//hent riktig filnavn
 
 	ifstream inn(fil);
-	
+
 	if (inn)					//hvis .STA finnes
 	{
 		antDeltagere = lesInt(inn);
@@ -815,18 +817,6 @@ void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en 
        << "\nKlokkeslett:       "                   // Skriver ut klokkeslett paa leslig form.
        << ((time < 10) ? "0" : "") << time << ":"
        << ((minutt < 10) ? "0" : "") << minutt;
-
-// Trenger ikke denne?
-//	if (maaling == PoengX )
-//	  cout << "\nMaalingsType:      " << "PoengX";  // Skriver ut maalingstypen for ovelsen:
-//	else if(maaling == PoengXX)
-//	  cout << "\nMaalingsType:      " << "PoengXX";
-//	else if (maaling == MinSECTidel)
-//	  cout << "\nMaalingsType:      " << "MinSECTidel";
-//	else if (maaling == MinSecHundredel)
-//	  cout << "\nMaalingsType:      " << "MinSecHundredel";
-//	else if (maaling == MinSekTusendel)
-//	  cout << "\nMaalingsType:      " << "MinSekTusendel";
 }
 
 void Ovelse::menyValgResListe()					    // ValgSwitch for resultatLister.

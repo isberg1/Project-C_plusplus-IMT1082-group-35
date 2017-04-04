@@ -377,7 +377,7 @@ void Gren :: endreOvelseNavn(int indeks) {          // Endrer navnet for en Ovel
 }
 
 void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.                   : O F
-  int indeks, id;
+  int indeks;
   char valg;
 
   if (antallRegistrerteOvelser != 0) {              // Hvis gren har en eller flere ovelser:
@@ -389,13 +389,19 @@ void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.       
     valg = les();
 
     if (valg == 'J') {                              // Sletter ovelsen:
-      array[indeks]->fjernDelListe();               // Sletter deltagerListen.
       array[indeks]->fjernResultatliste();          // Sletter resultatListen.
+      array[indeks]->fjernDelListe();               // Sletter deltagerListen.
 
+      delete array[indeks];                         // Sletter objektet fra array.
+      if (indeks < antallRegistrerteOvelser)        // Hvis objektet sin indeks er mindre enn siste brukte i array:
+        array[indeks] = array[antallRegistrerteOvelser]; // Setter den slettede peker til aa peke paa siste.
 
+      array[antallRegistrerteOvelser] = nullptr;    // Siste indeks brukt peker naa til nullptr.
+      antallRegistrerteOvelser--;                   // Teller ned siste brukte indeks.
 
+      cout << "\nOvelsen har blitt fjernet";
 
-
+      skrivListGrenTilFil();                        // Skriver endringer til fil.
     }
   else                                              // Hvis ikke 'J' blir valgt over.
     cout << "\n\tFjerning av ovelse ble avbrutt av bruker";
@@ -417,14 +423,17 @@ bool Gren :: finnesOvelse(char* navn) {             // Sjekk om Ovelsen finnes i
   navn = konverterTilStore(navn);                   // Gjør om parameters navn til store bokstaver.
   fjernBlankeForanOgBak(navn);                      // Fjerner blanke.
 
-  for (int i = 1; i <= antallRegistrerteOvelser; i++) {   // Looper gjennom array.
-	  navnIarray = konverterTilStore(array[i]->hentNavn()); // Gjør om til store bokstaver.
-	  fjernBlankeForanOgBak(navnIarray);              // Fjerner blanke.
+  if (antallRegistrerteOvelser == 0)				// Hvis arrayen er tom.
+    return false;
 
-	  if (strcmp(navn, navnIarray) == 0)             // Hvis medsendt param er lik Ovelses navn.
-		return 1;
+  for (int i = 1; i <= antallRegistrerteOvelser; i++) {		// Looper gjennom array.
+	  navnIarray = konverterTilStore(array[i]->hentNavn()); // Gjør om til store bokstaver.
+	  fjernBlankeForanOgBak(navnIarray);			// Fjerner blanke.
+
+	  if (strcmp(navn, navnIarray) == 0)			// Hvis medsendt param er lik Ovelses navn.
+		return true;
       else
-        return 0;
+        return false;
   }
 }
 

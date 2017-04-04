@@ -215,7 +215,6 @@ void Grener::testResSkriv()
 
 
 //!!!!!! ser ut som om vi har 2 funksjoner som gjør det samme her  vi må velge 1
-
 //void Grener::ovelseGrenMeny() 						// Meny til Ovelse : O...
 //{
 //	char buffer[NVLEN];
