@@ -26,7 +26,7 @@ Gren::Gren(char * a) : TextElement(a)
 	char buffer[STRLEN];
 	int tilEnum;
 	//leser inn egne datamedlemmer
-	antOvelser = les("Skriv antall ovelser: ", 1, MAXOVELSER);
+	antOvelser = les("Skriv antall ovelser", 1, MAXOVELSER);
 	antallRegistrerteOvelser=0;
 
 	cout << "\nskriv type maaling: "
@@ -46,7 +46,7 @@ Gren::Gren(char * a) : TextElement(a)
 	case 5:	typeMaaling = PoengXX;			antSifre = 2; break;
 	}
 
-	les("Skriv inn annet: ", buffer, STRLEN);
+	les("Skriv inn annet", buffer, STRLEN);
 	annet = konverter(buffer);
 }
 //constructor med filargument
@@ -200,7 +200,6 @@ void Gren::skrivOvelseMeny()						// KommandoMeny for Ovelser.
 		<< "\n\tQ - Tilbake til hovedmeny";
 }
 
-
 void Gren::ovelseDelMeny()
 {
 	int buffer, temp;
@@ -208,7 +207,7 @@ void Gren::ovelseDelMeny()
 	if (array != nullptr)
 	{
 		skrivIdTilRegistrerteOvelser();
-		buffer = les("\n\tSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
+		buffer = les("\n\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
 
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{
@@ -223,13 +222,12 @@ void Gren::ovelseDelMeny()
 	{	skriv("Ingen ovelser er registrert", "");	}
 }
 
-
 void Gren::ovelseResMeny()
 {
 	int buffer, temp;
 
 	skrivIdTilRegistrerteOvelser();
-	buffer = les("\n\tSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
+	buffer = les("\n\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
 
 	if (array != nullptr)
 	{
@@ -307,8 +305,8 @@ void Gren :: registrerNyOvelse() {                  // Registrerer ny Ovelse.   
   if (antallRegistrerteOvelser < antOvelser ) {     // Hvis det er plass i array.
 
     les ("\nNavnet paa ovelsen", buffer, NVLEN);    // Leser inn navnet på ovelsen.
-		//$$$$$fungerer ikke har satt den til alltid true pga testing
-    if (true/*!finnesOvelse(buffer)*/) {                    // Hvis Ovelsen ikke finnes i array:
+
+    if (!finnesOvelse(buffer)) {                    // Hvis Ovelsen ikke finnes i array:
       ovelseNavn = konverter(buffer);               // Lager ny char og setter korrekt lengde.
                                                     // Lager peker til ny Ovelse på neste ledige indeks,
       array[++antallRegistrerteOvelser] =           // oppretter Ovelse-objekt, sender med navn og enum,
@@ -391,16 +389,15 @@ void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.       
     valg = les();
 
     if (valg == 'J') {                              // Sletter ovelsen:
-    // Resultatliste = array, deltagerliste = array.
-    // Hvis ovelse har res og/eller deltager filer så må disse slettes?
-    // Oppdater statistikk først hvis det ikke allerede er gjort.
+      // Hent ID-en til objektet.
+      // Brukes til å søke etter fil.
 
-    // Sorter ovelse array.
-    // Skriv til fil.
     }
   else                                              // Hvis ikke 'J' blir valgt over.
     cout << "\n\tFjerning av ovelse ble avbrutt av bruker";
   }
+  else
+    cout << "\n\tDet er ikke registrert noen ovelser for denne grenen";
 }
 
 void Gren :: skrivHoveddataOvelser() {              // Skriver hoveddata for alle Ovelser.  : O A
@@ -417,13 +414,13 @@ bool Gren :: finnesOvelse(char* navn) {             // Sjekk om Ovelsen finnes i
   fjernBlankeForanOgBak(navn);                      // Fjerner blanke.
 
   for (int i = 1; i <= antallRegistrerteOvelser; i++) {   // Looper gjennom array.
-    navnIarray = konverterTilStore(array[i]->hentNavn()); // Gjør om til store bokstaver.
-    fjernBlankeForanOgBak(navnIarray);              // Fjerner blanke.
+	  navnIarray = konverterTilStore(array[i]->hentNavn()); // Gjør om til store bokstaver.
+	  fjernBlankeForanOgBak(navnIarray);              // Fjerner blanke.
 
-    if (strcmp(navn, navnIarray ) == 0)             // Hvis medsendt param er lik Ovelses navn.
-      return true;
-    else                                            // Hvis de ikke er like.
-      return false;
+	  if (strcmp(navn, navnIarray) == 0)             // Hvis medsendt param er lik Ovelses navn.
+		  return true;
+      else
+        return false;
   }
 }
 
