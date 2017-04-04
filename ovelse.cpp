@@ -30,8 +30,8 @@ Ovelse::Ovelse(ifstream & inn)
 {
 	lesFraFil(inn);
 
-	deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
-	resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
+	//deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
+	//resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
 
 	if (navnTeller < nr)					//setter verdien til navnteller.
 	{
@@ -55,8 +55,8 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
   endreDato();                                      // Setter dato.
   endreKlokkeslett();                               // Setter klokkeslett.
 
-  deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
-  resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
+ // deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
+ // resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
 
   /*for (int i = 1; i <= antDeltagere; i++)
   {
@@ -158,17 +158,19 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 	strcpy(t, filNavn(1));
 	strcpy(x, filNavn());
 
-	ifstream ut(t);
 	ifstream inn(x);
+	ifstream inn2(t);
+	
 
 				//$$ testing
 	if (inn)																//hvis en deltagerliste finnes
 	{
+		alokerMinne();
 		nullstillLister();
-		deltagerLesFraFil();
+		deltagerLesFraFil();			//leses inn for aa finne akuelle deltagere og "antDeltagere"
 		inn.close();
 
-		if (!ut )														//hvis en resultatliste ikke finnes
+		if (!inn2)														//hvis en resultatliste ikke finnes
 		{
 
 			skriv("Skriv in resultater (hvis en deltager har brutt, ikke moott eller blit disket tast -1):", "");
@@ -180,25 +182,26 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 
 			bubbleSort();
 
-			if (maaling == PoengX || maaling == PoengXX)
+			if (maaling == PoengX || maaling == PoengXX)	//hvis det maales poeng
 			{
 				okPoengPoeng();	 ;
 			}
 			else
-			{	okPoengTid();		}
+			{	okPoengTid();		}					//hvis det maales tid
 
-			resultaterSkrivTilFil();
-			nullstillLister();
+			resultaterSkrivTilFil();					//skriv resultater til fil
+			nullstillLister();							
 		}
 		else
 		{		//lukk filer og skriv ut feilmelding
-			ut.close();
+			inn2.close();
 			skriv("Resultatlisten finnes alerede!", "");
 		}
+		frigiMinne();				//frigi minne og sett pekerne til resultatliste og deltagerliste til nullptr
 	}
 	else
 	{			//lukk filer og skriv ut feilmelding
-		ut.close();
+		inn2.close();
 		skriv("Deltagerlisten finnes ikke! lag den foor Resultatliste", "");
 	}
 }
@@ -340,6 +343,21 @@ void Ovelse::okPoengTid()                           // Oker antall poeng naar ma
 	}
 }
 
+void Ovelse::alokerMinne()
+{
+	deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
+	resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
+}
+
+void Ovelse::frigiMinne()
+{
+	delete[]deltagerListe;    // Setter deltagerListe peker til en int array.
+	delete[]resultatListe;		// Setter resultatListe peker til en int array.
+
+	deltagerListe = resultatListe = nullptr;
+
+}
+
 void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 {
 
@@ -347,9 +365,9 @@ void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 	char nv[STRLEN];
 	char nasj[STRLEN];
 	int min, sec, tid;
-	int lupTeller = antDeltagere;
+	int lupTeller;
 
-	char *filnavn = filNavn(1);
+
 	strcpy(fil, filNavn(1));
 
 
@@ -358,8 +376,10 @@ void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 
 	if (inn)						//hvis .RES fil finnes
 	{
+		alokerMinne();		
 		resultaterLesFraFil();		//les inn resultatliste fra fil
 		inn.close();				//lukk fil
+		lupTeller = antDeltagere;
 		skriv("Resultatliste sortert best til minst best","\n(-1 betyr disket, brutt eller ikke moot opp)");
 
 		cout << "\n " << "Deltager:" << setw(17)
@@ -445,6 +465,7 @@ void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 				lupTeller--;
 			}
 		}
+		frigiMinne();
 	}
 	else
 	{	skriv("Finner ingen fil med navn: ", fil);	}
@@ -565,10 +586,14 @@ bool Ovelse::fjernResultatliste()					// Fjerner en eksisterende resultatliste.
 	strcpy(temp, filNavn(1));
 
 	ifstream inn(temp);
-	nullstillLister();
+
 	logResett();
+
 	if (inn)	//hvis OVxxxx.RES finnes
 	{
+		alokerMinne();
+		nullstillLister();
+
 		resultaterLesFraFil();				//les inn resultatlisten fra fil
 		inn.close();						//lukk fil
 
@@ -583,6 +608,7 @@ bool Ovelse::fjernResultatliste()					// Fjerner en eksisterende resultatliste.
 			skriv("Filen ble ikke slettet", "");
 			return false;
 		}
+		frigiMinne();
 	}
 	else
 	{										//feilmelding
@@ -647,14 +673,29 @@ void Ovelse::skrivDelListe()						// Skriver ut info om alle deltagere i en Ovel
 {
 	char navnTemp[NVLEN], nasjonTemp[NVLEN];
 
-	for (int i = 0; i < antDeltagere; i++)
-	{												// Henter ut deltagerNavn og nasjon.
-		HentNavnOgNasjonFraDeltager(navnTemp, nasjonTemp, i + 1);
-		skriv("Navn:\t", navnTemp);					// Skriver ut Navn,
-		skriv("Startnr:", i);						// StartNr,
-		skriv("ID:\t", i + 1);						// ID og
-		skriv("Nasjon:\t", nasjonTemp);				// Nasjon.
-	}
+	char fil[NVLEN];
+	strcpy(fil, filNavn());
+
+	ifstream inn(fil);
+
+	if (inn)			//hvis en deltagerliste finnes
+	{
+		alokerMinne();
+
+		deltagerLesFraFil();
+
+		for (int i = 1; i <= antDeltagere; i++)
+		{												// Henter ut deltagerNavn og nasjon.
+			HentNavnOgNasjonFraDeltager(navnTemp, nasjonTemp, *(deltagerListe + i));
+			skriv("\nNavn:\t", navnTemp);					// Skriver ut Navn,
+			skriv("ID:\t", *(deltagerListe + i));						// ID og
+			skriv("Nasjon:\t", nasjonTemp);				// Nasjon.
+		}
+		frigiMinne();
+	} 
+	else     //hvis en deltagerliste ikke finnes
+	{	skriv("Ingen deltagerliste er registrert.", "");	}
+	
 }
 
 void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
@@ -668,7 +709,7 @@ void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
 	if (!inn)			//hvis filen ikke alerede eksisterer
 	{
 		inn.close();  //lukk filen
-
+		alokerMinne();
 																	//finner ut Hvor mange deltagere som skal registreres
 		antDeltagere = les("Skriv inn antall deltagere som skal registreres: ", 2, deltagerObj.antallRegistrerteDeltagere());
 
@@ -706,6 +747,7 @@ void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
 			skriv("startliste er oppdadert med deltager: ", *(deltagerListe + i));  //bekreftelsesmelding
 		}
 		deltagerSkrivtilFil();												//skriv deltagerlisten til fil
+		frigiMinne();
 	}
 	else													//feilmelding
 	{	skriv("En startliste er allerede registrert.", ""); 	}
@@ -719,25 +761,36 @@ void Ovelse::endreDelListe()
 void Ovelse::fjernDelListe()					    // Sletter spesifisert deltagerListe-fil.
 {
 	char temp[STRLEN];
+	char fil[NVLEN];
+	strcpy(fil, filNavn(1));
 	strcpy(temp, filNavn());					// Hent filnavn til temp.
 
 	ifstream inn(temp);							// Apne filstrom for temp.STA.
-	if (inn)									// Hvis OVxxxx.STA finnes.
-	{
-		inn.close();							// Lukk filstrom
+	ifstream inn2(fil);
 
-		if (slettFil(temp))						// og om sletting fungerte
+	if (!inn2)		//hvis en .RES fil allerede finnes saa skal brukeren ikke kunne slette .STA filen
+	{
+		if (inn)									// Hvis OVxxxx.STA finnes.
 		{
-			skriv("Filen er slettet", "");		// Skriv ut melding
+			inn.close();							// Lukk filstrom
+
+			if (slettFil(temp))						// og om sletting fungerte
+			{
+				skriv("Filen er slettet", "");		// Skriv ut melding
+			}
+			else									// Ellers skriv ut feilmelding.
+			{
+				skriv("Filen ble ikke slettet", "");
+			}
 		}
-		else									// Ellers skriv ut feilmelding.
+		else									   // Hvis OVxxxx.STA ikke finnes skriv feilmelding.
 		{
-			skriv("Filen ble ikke slettet", "");
+			skriv("Finner ingen fil med navn: ", temp);
 		}
 	}
-	else									   // Hvis OVxxxx.STA ikke finnes skriv feilmelding.
-	{
-		skriv("Finner ingen fil med navn: ", temp);
+	else
+	{													//hvis en .RES fil eksisterer
+		skriv("En resultatliste er allerede lagret,", "\nDenne maa slettes for du kan slette startlisten");
 	}
 }
 
@@ -797,7 +850,17 @@ void Ovelse :: endreKlokkeslett() {                 // Endrer kl. til ovelsen.
 
 void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en ovelse.
   int aar, maaned, dag, time, minutt;
+  char fil[NVLEN];
+  strcpy(fil, filNavn());
 
+  ifstream inn(fil);
+  
+  if (inn)
+  {
+	  alokerMinne();
+	  deltagerLesFraFil();		//leses inn for aa finna antall deltagere i ovelsen
+	  frigiMinne();
+  }
 
   aar = dato / 10000;                               // Finner hvilke år det er.
   maaned = (dato / 100) % 100;                      // Finner hvilke måned det er.
