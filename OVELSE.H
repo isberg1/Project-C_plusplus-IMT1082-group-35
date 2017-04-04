@@ -35,7 +35,8 @@ public:
 	void fjernPoeng();							//reduserer tidliger fordelte poeng og medaljer
 	void okPoengPoeng();						//oker antall poeng naar maaletypen er poeng
 	void okPoengTid();							//oker antall poeng naar maaletypen er tid
-
+	void alokerMinne();
+	void frigiMinne();
 	void sjekkID(int & temp, char buffer[]);		//brukes til aa skrive ut data 
 
 	int lagUniktNr();								// Lager et unikt tall som brukes til datamedlemm  int "nr"
