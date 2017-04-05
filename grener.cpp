@@ -178,40 +178,6 @@ void Grener::lesFraFil()
 	{	cout << "\nFinner ikke filen 'GRENER.DTA'";	}
 }
 
-/// Test funksjoner:
-void Grener::testResListe()
-{
-	char temp[STRLEN];
-	Gren *ptr;
-	les("skriv grenens Navn; ", temp, STRLEN);
-
-	if (listGren->inList(temp))
-	{
-		ptr = (Gren*)listGren->remove(temp);
-		ptr->testingNyOvelse();
-		listGren->add(ptr);
-	}
-	else
-	{	skriv("Finner ikke en gren med navn: ", temp);	}
-}
-
-void Grener::testResSkriv()
-{
-	char temp[STRLEN];
-	Gren *ptr;
-	les("skriv grenens Navn; ", temp, STRLEN);
-
-	if (listGren->inList(temp))
-	{
-		ptr = (Gren*)listGren->remove(temp);
-		ptr->testingSkrivResListe();
-		listGren->add(ptr);
-	}
-	else
-	{	skriv("Finner ikke en gren med navn: ", temp);	}
-}
-/// :Slutt paa test funksjoner
-
 void Grener :: ovelseGrenMeny() {                   // Velger navn paa gren og kaller meny for ovelse.
   Gren *gren;
   int valg;
