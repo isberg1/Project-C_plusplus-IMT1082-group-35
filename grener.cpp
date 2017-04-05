@@ -22,7 +22,9 @@ Grener::Grener()
 }
 													// destructor
 Grener::~Grener()
-{	delete listGren;  }
+{	
+	delete listGren; 
+}
 
 void Grener::skrivMeny()					        // skriver menyen i GrenerObj
 {
@@ -161,7 +163,7 @@ void Grener::lesFraFil()
 	if (inn)										// hvis filen finnes
 	{												// les in egne datamedlemmer fra fil
 		antallIListe = lesInt(inn);
-	 // sisteOvelse = lesInt(inn);
+	
 
 		if (!listGren->isEmpty())					// hvis listen ikke er tom
 		{											// slett listn og lag ny

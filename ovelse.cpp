@@ -28,11 +28,9 @@ Ovelse::Ovelse() {
 
 Ovelse::Ovelse(ifstream & inn)
 {
-	lesFraFil(inn);
+	lesFraFil(inn);	
 
-	//deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
-	//resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
-
+	antDeltagere = 0;
 	if (navnTeller < nr)					//setter verdien til navnteller.
 	{
 	navnTeller = nr;
@@ -40,6 +38,8 @@ Ovelse::Ovelse(ifstream & inn)
 
 	for (int i = 0; i <= ANTALLVINNERE + 1; i++)      // Nullstiller log arrayen.
 	{	log[i] = 0;	}
+
+	deltagerListe = resultatListe = nullptr;
 }
 
                                                     // Constructor,får param. navn,sisteOvelse fra Gren.
@@ -50,18 +50,10 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
 
   endreNavn(ovelseNavn);                            // Setter navn fra parameter.
                                                     // Les inn antall deltagere.
-  //antDeltagere = les("Skriv inn antall deltagere i ovelsen", MINDELTAGERE, MAXDELTAGERE);
   antDeltagere = 0;
   endreDato();                                      // Setter dato.
   endreKlokkeslett();                               // Setter klokkeslett.
-
- // deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
- // resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
-
-  /*for (int i = 1; i <= antDeltagere; i++)
-  {
-	  *(resultatListe + i) = *(deltagerListe + i) = 0;
-  }*/
+  deltagerListe = resultatListe = nullptr;
 
   for (int i = 0; i <= ANTALLVINNERE + 1; i++)      // Nullstiller log arrayen.
     log[i] = 0;
@@ -75,8 +67,7 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
 Ovelse::~Ovelse()	//destructor
 {
 	delete[] navn;
-	delete[] deltagerListe;
-	delete[] resultatListe;
+
 }
 
 char *Ovelse::filNavn(int type)		                // Send med 1 for .RES eller ingenting for .STA
@@ -108,7 +99,6 @@ void Ovelse::skrivTilFil(ofstream & ut)		        // Skriv ovelse til fil.
 	skriv(ut, nr);
 	skriv(ut, dato);
 	skriv(ut, klokkeslett);
-	//skriv(ut, antDeltagere);
 	skriv(ut, navn);
 								//loggen skrives til .RES fil istede  Alex
 	if (maaling == PoengX )
@@ -125,13 +115,11 @@ void Ovelse::skrivTilFil(ofstream & ut)		        // Skriv ovelse til fil.
 
 void Ovelse::lesFraFil(ifstream & inn)		        // Les ovelse fra fil.
 {
-
 	int dummy;
 				//leser egne datamedlemmer fra fil
 	nr = lesInt(inn);
 	dato = lesInt(inn);
 	klokkeslett = lesInt(inn);
-//	antDeltagere = lesInt(inn);
 	navn = lesTxt(inn);
 						//loggen leser fra .RES fil istede  Alex
 	dummy = lesInt(inn);
@@ -160,7 +148,6 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 	ifstream inn2(t);
 	
 
-				//$$ testing
 	if (inn)																//hvis en deltagerliste finnes
 	{
 		alokerMinne();
@@ -365,12 +352,8 @@ void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 	int min, sec, tid;
 	int lupTeller;
 
-
 	strcpy(fil, filNavn(1));
-
-
 	ifstream inn(fil);
-
 
 	if (inn)						//hvis .RES fil finnes
 	{
@@ -572,6 +555,7 @@ void Ovelse::sjekkID(int & temp, char buffer[])	    // Reurnerer Ovelsens ID num
 	strcpy(buffer, navn);
 }
 
+
 bool Ovelse::fjernResultatliste()					// Fjerner en eksisterende resultatliste.
 {
 	/*Fjerne / slette resultatliste:
@@ -653,7 +637,6 @@ void Ovelse::menyValgDelListe()						// ValgSwitch for deltagerLister.
 		case 'F': fjernDelListe();		break;		// Fjerner en deltagerListe.		maa ¨lages
 		}
 
-		void nullstillLister();                     // Hvorfor void?
 	} while (valg != 'Q');
 }
 
@@ -692,8 +675,7 @@ void Ovelse::skrivDelListe()						// Skriver ut info om alle deltagere i en Ovel
 		frigiMinne();
 	} 
 	else     //hvis en deltagerliste ikke finnes
-	{	skriv("Ingen deltagerliste er registrert.", "");	}
-	
+	{	skriv("Ingen deltagerliste er registrert.", "");	}	
 }
 
 void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
@@ -831,7 +813,8 @@ void Ovelse :: skrivNavn() {                        // Skriver ut ovelsens navn.
 }
 
 void Ovelse :: endreNavn(char *ovelseNavn) {        // Endrer navnet til ovelsen.
-  navn = ovelseNavn;
+	delete[]navn;
+	navn = konverter(ovelseNavn);
 }
 
 void Ovelse :: endreDato() {                        // Endrer datoen til ovelsen.
@@ -879,17 +862,6 @@ void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en 
        << ((time < 10) ? "0" : "") << time << ":"
        << ((minutt < 10) ? "0" : "") << minutt;
 
-// Trenger ikke denne?
-//	if (maaling == PoengX )
-//	  cout << "\nMaalingsType:      " << "PoengX";  // Skriver ut maalingstypen for ovelsen:
-//	else if(maaling == PoengXX)
-//	  cout << "\nMaalingsType:      " << "PoengXX";
-//	else if (maaling == MinSECTidel)
-//	  cout << "\nMaalingsType:      " << "MinSECTidel";
-//	else if (maaling == MinSecHundredel)
-//	  cout << "\nMaalingsType:      " << "MinSecHundredel";
-//	else if (maaling == MinSekTusendel)
-//	  cout << "\nMaalingsType:      " << "MinSekTusendel";
 }
 
 void Ovelse::menyValgResListe()					    // ValgSwitch for resultatLister.
@@ -919,5 +891,3 @@ void Ovelse::skrivResListeMeny()					// KommandoMeny for resultatLister.
 		<< "\n\tF - Fjern resultatliste"
 		<< "\n\tQ - Tilbake til hovedmeny";
 }
-
-
