@@ -107,9 +107,12 @@ void Deltager::endreNasjon()						// Endrer nasjonen til en deltager
 
 void Deltager::endreData()
 {
-	strcpy(data, "");
-	les("\nSkriv inn ny info", data, STRLEN);
-	cout << "\nEkstra info endret til: " << data;
+	char buffer[STRLEN];
+
+	delete[] data;									// Slett gammel data.
+	les("\nSkriv inn ny info", buffer, STRLEN);		// Spor etter ny data.
+	fjernBlankeForanOgBak(buffer);					// Fjern unødvendig whitespace.
+	data = konverter(buffer);						// Konverter fra array til peker.
 }
 
 void Deltager::endreKjonn()						    // Endre kjonn på deltager.

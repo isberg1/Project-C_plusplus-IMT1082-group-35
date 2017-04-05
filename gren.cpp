@@ -16,16 +16,16 @@ extern Grener grenenerObj;
 
 
 
-Gren::Gren() 	//constructor uten arg.
+Gren::Gren() 	                                    // Constructor uten arg.
 {
 	cout << "\nAdvarsel GrenConstructor uten arg, skal ikke brukes\n";
 }
-//constructor med string argument
-Gren::Gren(char * a) : TextElement(a)
+
+Gren::Gren(char * a) : TextElement(a)               // Constructor med string argument.
 {
 	char buffer[STRLEN];
 	int tilEnum;
-	//leser inn egne datamedlemmer
+	// leser inn egne datamedlemmer
 	antOvelser = les("Skriv antall ovelser", 1, MAXOVELSER);
 	antallRegistrerteOvelser=0;
 
@@ -46,14 +46,15 @@ Gren::Gren(char * a) : TextElement(a)
 	case 5:	typeMaaling = PoengXX;			antSifre = 2; break;
 	}
 
-	les("Skriv inn annet", buffer, STRLEN);
+	les("Skriv inn annet: ", buffer, STRLEN);
 	annet = konverter(buffer);
 }
-//constructor med filargument
+
+// Constructor med filargument.
 Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 {
 	int tilEnum;
-
+	
 	//leser inn egne datamedlemer
 	annet = lesTxt(inn);
 	antOvelser = lesInt(inn);
@@ -70,26 +71,34 @@ Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 	case 5:	typeMaaling = PoengXX;			 break;
 	}
 
+
 	if (antallRegistrerteOvelser > 0) //hvis det er registrert noen ovelser i det hele tatt
 	{
 
 		//leser inn ovelser fra fil
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{
-			*(array + i) = new Ovelse(inn);
-
+			//*(array + i) = new Ovelse(inn);
+				array[i]= new Ovelse(inn);
 		//	 array[i]->lesFraFil(inn);		// skal kansjke skrives:  *(array+i)->lesFraFil(inn);
 
 		}
 	}
 }
+
 //destructor
 Gren::~Gren()
 {
 	delete[] annet;
-	for (int i = 1; i <= antOvelser; i++)
-	{	/*delete []array;*/	}	//sletter alle Ovelsesobjekter		//$$$ gjor at programmet krasjer
 
+	for (int i = 1; i <= antallRegistrerteOvelser; i++)
+	{
+	//	delete array[i];
+		//cout << array[i]->hentId() << " ";
+		
+	}//sletter alle Ovelsesobjekter		//$$$ gjor at programmet krasjer
+	//delete []array;
+	
 }
 
 void Gren::endreNavn()// til komado G E
@@ -99,7 +108,7 @@ void Gren::endreNavn()// til komado G E
 	les("Skriv nytt unikt navn: ", buffer, NVLEN);
 	delete []text;
 	text = konverter(buffer);
-	grenenerObj.skrivTilFIl();
+	//grenenerObj.skrivTilFIl();
 }
 //skriver alle data om denne grenen
 void Gren::display()	//til komando G A
@@ -124,7 +133,7 @@ void Gren::display()	//til komando G A
 void Gren::skrivOvelse()                            // Skriver ut all data for alle ovelser : G S og O A
 {
 	for (int i = 1; i <= antallRegistrerteOvelser; i++)
-	{	array[i]->skrivHovedData();	}		        // skal kansjke skrives:  *(array+i)->skrivData(); | Endret skrivData til skrivHovedData (Mats)
+	{	array[i]->skrivHovedData();	}		        // skal kansjke skrives:  *(array+i)->skrivHovedData();
 }
 //til fil
 void Gren::skrivTilFIl(ofstream & ut)
@@ -185,7 +194,6 @@ void Gren::menyValgOvelse()							// MainSwitch for Ovelse.
 		skrivOvelseMeny();
 		valg = les("\nOvelser: ");
 	}
-
 }
 
 void Gren::skrivOvelseMeny()						// KommandoMeny for Ovelser.
@@ -242,37 +250,6 @@ void Gren::ovelseResMeny()
 	}
 	else
 	{  skriv("Ingen ovelser er registrert", "");	}
-}
-
-void Gren::testingNyOvelse()
-{
-	/*char temp[STRLEN];
-	les("skriv inn ovelsesnavn: ", temp, STRLEN);
-
-	*(array +1) = new Ovelse(typeMaaling, temp);
-
-	++antallRegistrerteOvelser;*/
-}
-
-void Gren::testingSkrivResListe()
-{
-	//int temp;
-	//int dummy;
-	//char buffer[NVLEN],
-	//int teller = 0;
-	//bool bryt = true;
-
-	//temp = les("skriv in ovelse ID-nr: ", 1000, 9999);
-
-	//while (++teller <= antallRegistrerteOvelser && bryt)
-	//{
-	//	array[teller]->sjekkID(dummy, buffer);
-	//	if (dummy == temp)
-	//	{
-	//		bryt = false;		//avbryt lup
-	//		array[teller]->skrivResultatliste();
-	//	}
-	//}
 }
 
 void Gren::skrivIdTilRegistrerteOvelser()
@@ -369,8 +346,7 @@ void Gren :: endreOvelseNavn(int indeks) {          // Endrer navnet for en Ovel
   les ("\nNavn paa ovelse", buffer, NVLEN);         // Leser inn navnet på ovelsen.
 
   if (!finnesOvelse(buffer)) {                      // Hvis navnet er unikt:
-    navn = konverter(buffer);                       // Lager ny char og setter korrekt lengde.
-    array[indeks]->endreNavn(navn);                 // Setter navn paa ovelse.
+    array[indeks]->endreNavn(buffer);                 // Setter navn paa ovelse.
   }
   else
     cout << "\n\t" << buffer << " finnes allerede, velg et nytt navn.";
@@ -392,7 +368,8 @@ void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.       
       array[indeks]->fjernResultatliste();          // Sletter resultatListen.
       array[indeks]->fjernDelListe();               // Sletter deltagerListen.
 
-      delete array[indeks];                         // Sletter objektet fra array.
+	  //delete array[indeks];                         // Sletter objektet fra array. Fungerer ikke.
+
       if (indeks < antallRegistrerteOvelser)        // Hvis objektet sin indeks er mindre enn siste brukte i array:
         array[indeks] = array[antallRegistrerteOvelser]; // Setter den slettede peker til aa peke paa siste.
 

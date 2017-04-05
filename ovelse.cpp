@@ -172,13 +172,17 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 			}
 
 			bubbleSort();
-
+			
 			if (maaling == PoengX || maaling == PoengXX)	//hvis det maales poeng
 			{
+				korigerVinnerePoeng();		//sjekker om to deltagere har samme verdi og spør brukeren om en korreksjon
 				okPoengPoeng();	 ;
 			}
-			else
-			{	okPoengTid();		}					//hvis det maales tid
+			else											//hvis det maales tid
+			{
+				korigerVinnereTid();
+				okPoengTid();		
+			}					
 
 			resultaterSkrivTilFil();					//skriv resultater til fil
 			nullstillLister();
@@ -216,7 +220,12 @@ int Ovelse::skaffVerdi()                            // Leser inn gyldige verdier
 		if (min != -1)
 		{
 			sec = les("\nSkriv resultat i sekunder: ", 0, 59);
-			tidel = les("nSkriv resultat i tidelssekunder: ", 0, 9);
+								
+			if (min + sec == 0)			//en gjennomforingstid paa 0 akksepteres ikke
+			{	tidel = les("nSkriv resultat i tidelssekunder: ", 1, 9);	}
+			else
+			{	tidel = les("nSkriv resultat i tidelssekunder: ", 0, 9);	}
+
 			return ((min * 1000) + (sec * 10) + tidel); 					// maxverdi 120 59 9
 		}
 	}
@@ -226,7 +235,12 @@ int Ovelse::skaffVerdi()                            // Leser inn gyldige verdier
 		if (min != -1)
 		{
 			sec = les("\nSkriv resultat i sekunder: ", 0, 59);
-			hundredel = les("\nSkriv resultat i hundredelssekunder: ", 0, 99);
+
+			if (min + sec == 0)			//en gjennomforingstid paa 0 akksepteres ikke
+			{	hundredel = les("\nSkriv resultat i hundredelssekunder: ", 1, 99);	}
+			else
+			{	hundredel = les("\nSkriv resultat i hundredelssekunder: ", 0, 99);	}
+		
 			return ((min * 10000) + (sec * 100) + hundredel); 					// maxverdi 120 59 99
 		}
 	}
@@ -236,8 +250,13 @@ int Ovelse::skaffVerdi()                            // Leser inn gyldige verdier
 		if (min != -1)
 		{
 			sec = les("\nSkriv resultat i sekunder: ", 0, 59);
-			tusendel = les("\nSkriv resultat i tusendelssekunder: ", 0, 999);
-			return ((min * 100000) + (sec * 1000) + tusendel); 					// maxverdi 120 59 999
+
+			if (min + sec == 0)			//en gjennomforingstid paa 0 akksepteres ikke
+			{	tusendel = les("\nSkriv resultat i tusendelssekunder: ", 1, 999);	}
+			else
+			{	tusendel = les("\nSkriv resultat i tusendelssekunder: ", 0, 999);	}
+
+			return ((min * 10000) + (sec * 1000) + tusendel); 					// maxverdi 120 59 999
 		}
 	}
 	else if (maaling== PoengX)				//poeng
@@ -943,6 +962,76 @@ void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en 
        << "\nKlokkeslett:       "                   // Skriver ut klokkeslett paa leslig form.
        << ((time < 10) ? "0" : "") << time << ":"
        << ((minutt < 10) ? "0" : "") << minutt;
+}
+
+void Ovelse::korigerVinnerePoeng()									//korigerer for like resultater
+{
+	int valg;
+	int dummy;
+	int temp;
+
+	for (int i = 1; i <= antDeltagere-1; i++)						//luup gjennom alle deltagerne
+	{
+		if (*(resultatListe + i) > -1)										//hvis gyldig resultat
+		{
+			if (*(resultatListe + i) == *(resultatListe + (i + 1)))		//hvis 2 resultater er like
+			{
+				cout << "\nDeltager: " << *(deltagerListe + i) << " og " << *(deltagerListe + (i + 1))
+					<< " er registrert med samme verdi. \nHvem av den skal ha den beste pallplaseringen? "
+					<< "\ntast (1) for Deltager: " << *(deltagerListe + i) << " eller tast (2) for Deltager: "
+					<< *(deltagerListe + (i + 1));
+
+				valg = les("\nVelg vinner: ", 1, 2);							//brukerne velger vinneren av de 2
+
+				if (valg==2)											//hvis brukeren velger aa endre rekkefoolgen
+				{							//swap resultat array
+					dummy = *(resultatListe + i);
+					*(resultatListe + i) = *(resultatListe + (i + 1));
+					*(resultatListe + (i + 1)) = dummy;
+											//swap deltager array
+					temp = *(deltagerListe + i);
+					*(deltagerListe + i) = *(deltagerListe + (i + 1));
+					*(deltagerListe + (i + 1)) = temp;
+				}
+			}
+		}
+	}
+}
+
+void Ovelse::korigerVinnereTid()
+{
+	int valg;
+	int dummy;
+	int temp;
+
+	tr(antDeltagere);
+	for (int i = antDeltagere; i >= 2; i--)										//luup gjennom alle deltagerne
+	{
+		tr(i);
+		if (*(resultatListe + i) > 0)													  //hvis gyldig resultat
+		{
+			if (*(resultatListe + i) == *(resultatListe + (i - 1)))						//hvis 2 like resultater
+			{
+				cout << "\nDeltager: " << *(deltagerListe + i) << " og " << *(deltagerListe + (i - 1))
+					<< " er registrert med samme verdi. \nHvem av den skal ha den beste pallplaseringen? "
+					<< "\ntast (1) for Deltager: " << *(deltagerListe + i) << " eller tast (2) for Deltager: "
+					<< *(deltagerListe + (i - 1));
+
+				valg = les("\nVelg vinner: ", 1, 2);							//brukeren velger vinneren av de 2
+
+				if (valg == 2)											//hvis brukeren velger aa endre rekkefoolgen
+				{							//swap resultat array
+					dummy = *(resultatListe + i);
+					*(resultatListe + i) = *(resultatListe + (i - 1));
+					*(resultatListe + (i - 1)) = dummy;
+											//swap deltager array
+					temp = *(deltagerListe + i);
+					*(deltagerListe + i) = *(deltagerListe + (i - 1));
+					*(deltagerListe + (i - 1)) = temp;
+				}
+			}
+		}
+	}
 }
 
 void Ovelse::menyValgResListe()					    // ValgSwitch for resultatLister.
