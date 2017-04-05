@@ -21,7 +21,7 @@
 #include"ENUM.H"
 #include"POENG.H"
 #include"MEDALJER.H"
-
+#include <ctype.h>
 
 using namespace std;
 
