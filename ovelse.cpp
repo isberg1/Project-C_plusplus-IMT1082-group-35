@@ -8,19 +8,21 @@
 #include <cstring>
 #include <sstream>
 #include <string.h>
+#include <iomanip>
 #include "OVELSE.H"
-#include"ENUM.H"
-#include"GRENER.H"
-#include"DELTAGERE.H"
-#include"DELTAGER.H"
-#include<iomanip>
-#include"DELTAGERE.H"
+#include "ENUM.H"
+#include "GRENER.H"
+#include "DELTAGERE.H"
+#include "DELTAGER.H"
+#include "DELTAGERE.H"
 
 
 using namespace std;
 
 extern Grener grenenerObj;
 extern Deltagere deltagerObj;
+
+
 
 Ovelse::Ovelse() {
 	cout << "\nAdvarsel, Ovelse-objekter skal ikke lages uten parameter";
@@ -135,7 +137,7 @@ void Ovelse::lesFraFil(ifstream & inn)		        // Les ovelse fra fil.
 	navn = lesTxt(inn);
 						//loggen leser fra .RES fil istede  Alex
 	dummy = lesInt(inn);
-	
+
 	antDeltagere = 0;								// AntDeltagere blir satt av DeltagerListen.
 
 	switch (dummy)
@@ -160,7 +162,7 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 
 	ifstream inn(x);
 	ifstream inn2(t);
-	
+
 
 				//$$ testing
 	if (inn)																//hvis en deltagerliste finnes
@@ -190,7 +192,7 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 			{	okPoengTid();		}					//hvis det maales tid
 
 			resultaterSkrivTilFil();					//skriv resultater til fil
-			nullstillLister();							
+			nullstillLister();
 		}
 		else
 		{		//lukk filer og skriv ut feilmelding
@@ -376,7 +378,7 @@ void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 
 	if (inn)						//hvis .RES fil finnes
 	{
-		alokerMinne();		
+		alokerMinne();
 		resultaterLesFraFil();		//les inn resultatliste fra fil
 		inn.close();				//lukk fil
 		lupTeller = antDeltagere;
@@ -692,10 +694,10 @@ void Ovelse::skrivDelListe()						// Skriver ut info om alle deltagere i en Ovel
 			skriv("Nasjon:\t", nasjonTemp);				// Nasjon.
 		}
 		frigiMinne();
-	} 
+	}
 	else     //hvis en deltagerliste ikke finnes
 	{	skriv("Ingen deltagerliste er registrert.", "");	}
-	
+
 }
 
 void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
@@ -854,7 +856,7 @@ void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en 
   strcpy(fil, filNavn());
 
   ifstream inn(fil);
-  
+
   if (inn)
   {
 	  alokerMinne();

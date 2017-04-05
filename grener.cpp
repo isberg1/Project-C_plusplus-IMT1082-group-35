@@ -124,8 +124,8 @@ void Grener::skrivEnGren()							// til komando G S
     gren = (Gren*) listGren->removeNo(valg);        // Valgt gren fjernes fra liste.
     gren->display();                                // Skriv grendata.
 
-    if (gren->hentAntalOvelser() > 0)               // hvis noen ovelser er registrer
-      gren->skrivOvelse();                          // skriv data om alle ovelsene
+    if (gren->hentAntalOvelser() > 0)               // hvis en eller flere ovelser er registrer:
+      gren->skrivOvelse();                          // skriv data om alle ovelsene.
     else
       cout << "\n\tIngen ovelser er registrert paa denne grenen";
     listGren->add(gren);                            // Legger objektet tilbake i lista.
@@ -137,12 +137,11 @@ void Grener::skrivEnGren()							// til komando G S
 void Grener::skrivTilFIl()
 {
 	ofstream ut("GRENER.DTA");
-	Gren *ptr;					// skriv egne datamedlemmer til fil
+	Gren *ptr;					                    // skriv egne datamedlemmer til fil
 
 	int antalIListe = listGren->noOfElements();
 
 	skriv(ut, antalIListe);
-	//skriv(ut, sisteOvelse);
 													// skriv alle grenobj til fil
 	for (int i = 1; i <= listGren->noOfElements(); i++)
 	{
@@ -161,7 +160,6 @@ void Grener::lesFraFil()
 	if (inn)										// hvis filen finnes
 	{												// les in egne datamedlemmer fra fil
 		antallIListe = lesInt(inn);
-	 // sisteOvelse = lesInt(inn);
 
 		if (!listGren->isEmpty())					// hvis listen ikke er tom
 		{											// slett listn og lag ny
@@ -180,7 +178,7 @@ void Grener::lesFraFil()
 	{	cout << "\nFinner ikke filen 'GRENER.DTA'";	}
 }
 
-				//til testing
+/// Test funksjoner:
 void Grener::testResListe()
 {
 	char temp[STRLEN];
@@ -196,7 +194,7 @@ void Grener::testResListe()
 	else
 	{	skriv("Finner ikke en gren med navn: ", temp);	}
 }
-						//til testing
+
 void Grener::testResSkriv()
 {
 	char temp[STRLEN];
@@ -212,28 +210,8 @@ void Grener::testResSkriv()
 	else
 	{	skriv("Finner ikke en gren med navn: ", temp);	}
 }
+/// :Slutt paa test funksjoner
 
-
-//!!!!!! ser ut som om vi har 2 funksjoner som gjør det samme her  vi må velge 1
-//void Grener::ovelseGrenMeny() 						// Meny til Ovelse : O...
-//{
-//	char buffer[NVLEN];
-//	Gren *temp;
-//	finner riktig Gren Objekt og sender brukeren til menyen dens
-//	les("\n\tSkriv inn navn pa Gren", buffer, NVLEN);
-//	if (listGren->inList(buffer))
-//	{
-//		temp = (Gren*)listGren->remove(buffer);
-//		temp->menyValgOvelse();
-//		listGren->add(temp);
-//	}
-//	else
-//	{
-//		cout << "Finner ikke Gren med " << buffer << " som navn.";
-//	}		//feilmelding
-//}
-
-//!!!!!!  Denne er mer brukervennlig?
 void Grener :: ovelseGrenMeny() {                   // Velger navn paa gren og kaller meny for ovelse.
   Gren *gren;
   int valg;

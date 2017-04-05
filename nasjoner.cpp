@@ -21,7 +21,7 @@ extern Deltagere deltagerObj;                       // Deltager-objekt fra main.
 
 
 Nasjoner :: ~Nasjoner() {
-  delete nasjonsListe;                              // Sletter liste.					//$$$$$$ ma fikses faar
+  delete nasjonsListe;                              // Sletter liste.
 }
 
 void Nasjoner :: skrivMeny() {                      // Tiljgengelige valg.
@@ -188,9 +188,9 @@ void Nasjoner :: oppdaterNasjon(char *oppdNasjon) { // Plusser på antDeltagere 
   Nasjon *nasjon;
 
   nasjon = (Nasjon*) nasjonsListe->remove(oppdNasjon);  // Fjerner objekt fra liste.
-  nasjon->oppdaterAntDeltagere();                 // Oppdaterer antDeltagere med 1.
-  nasjonsListe->add(nasjon);                      // Legger tilbake i liste.
-  skrivTilFil();                                  // Skriver endringer til fil.
+  nasjon->oppdaterAntDeltagere();                   // Oppdaterer antDeltagere med 1.
+  nasjonsListe->add(nasjon);                        // Legger tilbake i liste.
+  skrivTilFil();                                    // Skriver endringer til fil.
 }
 
 void Nasjoner :: skrivTilFil() {                    // Skriver til fil.
@@ -259,18 +259,6 @@ void Nasjoner :: skrivUtForkortelse() {             // Skriver ut nasjonens fork
   else                                              // Hvis ingen ligger i listen.
     cout << "\n\tIngen nasjoner er registrert";
 }
-
-//char * Nasjoner::hentFulltNavn(char * nasjonsForkortelse)
-//{
-//	char *buffer;
-//	Nasjon *ptr;
-//
-//	ptr = (Nasjon*)nasjonsListe->remove(nasjonsForkortelse);
-//	buffer = ptr->returnerFulltNavn();
-//	nasjonsListe->add(ptr);
-//
-//	return buffer;
-//}
 
 void Nasjoner::reduserAntDeltagere(char *nasjonsforkortelse)		//reduser antall deltagere med 1
 {

@@ -321,9 +321,9 @@ void StatistikkRaport(int deltager, int log, int teller)
 				medaljeObj.endreAntMedaljer(nasjon, med, posNeg);
 			}
 	}
-	
+
 	if (log != 0)	//hvis det skal sendes en rapport om aa redusere ant. medaljer og poeng saa er ikke "log" = 0.
-	{	
+	{
 		posNeg = negativ;
 		strcpy(nasjon, deltagerObj.hentNasjon(log));	 // hent "log" sin nasjon
 			poengObj.endreAntPoeng(nasjon, teller, posNeg);  //send rapport for aa redusere antall poeng
@@ -332,9 +332,8 @@ void StatistikkRaport(int deltager, int log, int teller)
 			{
 				medaljeObj.endreAntMedaljer(nasjon, med, posNeg);
 			}			//send raport for aa redusere antall medaljer
-		}		
-	}
-
+    }
+}
 
 void HentNavnOgNasjonFraDeltager(char nv[], char nasj[], int nr)
 {
@@ -356,6 +355,8 @@ void tr(int t)
 	else
 	{	skriv("TEST\t", t);	}
 }
+
+
 
 
 
