@@ -50,14 +50,22 @@ char les(char menyPlass[]) {			            // Henter ett ikke-blankt upcaset teg
 }
 
                                                     //  Leser et tall i et visst intervall:
+													//  Leser et tall i et visst intervall:
 int les(const char t[], const int min, const int max) {
 	int i;
 	char buffer[256];
+	bool erDetIkkeTall = false;
 	do {                                            // Skriver ledetekst:
 		cout << '\t' << t << " (" << min << '-' << max << "): ";
 		fgets(buffer, 256, stdin);
-		i = atoi(buffer);
-	} while (i < min || i > max);                   // Sjekker at i lovlig intervall.
+		if (isdigit(buffer[0]))			//sjekker om foorste inleste char er et siffer
+		{
+			i = atoi(buffer);			//hvis siffer, konverter char[] til tall
+			erDetIkkeTall = false;
+		}
+		else
+		{	erDetIkkeTall = true;	}
+	} while ((i < min || i > max) || erDetIkkeTall);      // Sjekker at i lovlig intervallo gat det er et tall.
 	return i;                                       // Returnerer innlest tall.
 }
 
