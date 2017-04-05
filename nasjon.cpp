@@ -27,9 +27,8 @@ Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
 
   les("\nFullt navn for nasjonen", buffer, NVLEN);  // Leser inn full navn på nasjon.
   fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
-  fulltNavn = konverter(buffer);                    // Gjør om størrelsen.
+  fulltNavn = konverter(buffer);                    // Gjor om storrelsen og gjor om til peker.
 
-  // AntDeltagere blir lest inn fra 'finnesNasjonOgOppdater()' fra Nasjoner.
   antDeltagere = 0;
 
   les("\nKontaktperson", buffer, NVLEN);            // Leser inn navn på kontaktperson.
@@ -40,7 +39,7 @@ Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
 
   les("\nAnnet", buffer, STRLEN);                   // Leser inn annen data.
   fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
-  andreData = konverter(buffer);                    // Gjør om størrelsen.
+  andreData = konverter(buffer);                    // Gjor om storrelsen og gjor om til peker.
 }
 
                                                     // Sender med forkortelsen til constructor.
@@ -133,7 +132,7 @@ void Nasjon :: oppdaterAntDeltagere() {             // Oppdaterer antall deltage
   antDeltagere ++;
 }
 
-void Nasjon::minus1Deltager()
+void Nasjon::minus1Deltager()                       // Oppdaterer antall deltagere med -1.
 {
 	antDeltagere--;
 }

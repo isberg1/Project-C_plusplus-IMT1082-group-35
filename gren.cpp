@@ -16,18 +16,16 @@ extern Grener grenenerObj;
 
 
 
-
-
-Gren::Gren() 	//constructor uten arg.
+Gren::Gren() 	                                    // Constructor uten arg.
 {
 	cout << "\nAdvarsel GrenConstructor uten arg, skal ikke brukes\n";
 }
-//constructor med string argument
-Gren::Gren(char * a) : TextElement(a)
+
+Gren::Gren(char * a) : TextElement(a)               // Constructor med string argument.
 {
 	char buffer[STRLEN];
 	int tilEnum;
-	//leser inn egne datamedlemmer
+	// leser inn egne datamedlemmer
 	antOvelser = les("Skriv antall ovelser", 1, MAXOVELSER);
 	antallRegistrerteOvelser=0;
 
@@ -51,7 +49,8 @@ Gren::Gren(char * a) : TextElement(a)
 	les("Skriv inn annet: ", buffer, STRLEN);
 	annet = konverter(buffer);
 }
-//constructor med filargument
+
+// Constructor med filargument.
 Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 {
 	int tilEnum;
@@ -134,7 +133,7 @@ void Gren::display()	//til komando G A
 void Gren::skrivOvelse()                            // Skriver ut all data for alle ovelser : G S og O A
 {
 	for (int i = 1; i <= antallRegistrerteOvelser; i++)
-	{	array[i]->skrivHovedData();	}		        // skal kansjke skrives:  *(array+i)->skrivData(); | Endret skrivData til skrivHovedData (Mats)
+	{	array[i]->skrivHovedData();	}		        // skal kansjke skrives:  *(array+i)->skrivHovedData();
 }
 //til fil
 void Gren::skrivTilFIl(ofstream & ut)
@@ -195,7 +194,6 @@ void Gren::menyValgOvelse()							// MainSwitch for Ovelse.
 		skrivOvelseMeny();
 		valg = les("\nOvelser: ");
 	}
-
 }
 
 void Gren::skrivOvelseMeny()						// KommandoMeny for Ovelser.
@@ -252,37 +250,6 @@ void Gren::ovelseResMeny()
 	}
 	else
 	{  skriv("Ingen ovelser er registrert", "");	}
-}
-
-void Gren::testingNyOvelse()
-{
-	/*char temp[STRLEN];
-	les("skriv inn ovelsesnavn: ", temp, STRLEN);
-
-	*(array +1) = new Ovelse(typeMaaling, temp);
-
-	++antallRegistrerteOvelser;*/
-}
-
-void Gren::testingSkrivResListe()
-{
-	//int temp;
-	//int dummy;
-	//char buffer[NVLEN],
-	//int teller = 0;
-	//bool bryt = true;
-
-	//temp = les("skriv in ovelse ID-nr: ", 1000, 9999);
-
-	//while (++teller <= antallRegistrerteOvelser && bryt)
-	//{
-	//	array[teller]->sjekkID(dummy, buffer);
-	//	if (dummy == temp)
-	//	{
-	//		bryt = false;		//avbryt lup
-	//		array[teller]->skrivResultatliste();
-	//	}
-	//}
 }
 
 void Gren::skrivIdTilRegistrerteOvelser()
@@ -386,7 +353,7 @@ void Gren :: endreOvelseNavn(int indeks) {          // Endrer navnet for en Ovel
 }
 
 void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.                   : O F
-  int indeks, id;
+  int indeks;
   char valg;
 
   if (antallRegistrerteOvelser != 0) {              // Hvis gren har en eller flere ovelser:
@@ -398,9 +365,20 @@ void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.       
     valg = les();
 
     if (valg == 'J') {                              // Sletter ovelsen:
-      array[indeks]->fjernDelListe();               // Sletter deltagerListen.
       array[indeks]->fjernResultatliste();          // Sletter resultatListen.
-	  
+      array[indeks]->fjernDelListe();               // Sletter deltagerListen.
+
+	  //delete array[indeks];                         // Sletter objektet fra array. Fungerer ikke.
+
+      if (indeks < antallRegistrerteOvelser)        // Hvis objektet sin indeks er mindre enn siste brukte i array:
+        array[indeks] = array[antallRegistrerteOvelser]; // Setter den slettede peker til aa peke paa siste.
+
+      array[antallRegistrerteOvelser] = nullptr;    // Siste indeks brukt peker naa til nullptr.
+      antallRegistrerteOvelser--;                   // Teller ned siste brukte indeks.
+
+      cout << "\nOvelsen har blitt fjernet";
+
+      skrivListGrenTilFil();                        // Skriver endringer til fil.
     }
   else                                              // Hvis ikke 'J' blir valgt over.
     cout << "\n\tFjerning av ovelse ble avbrutt av bruker";
@@ -422,14 +400,17 @@ bool Gren :: finnesOvelse(char* navn) {             // Sjekk om Ovelsen finnes i
   navn = konverterTilStore(navn);                   // Gjør om parameters navn til store bokstaver.
   fjernBlankeForanOgBak(navn);                      // Fjerner blanke.
 
-  for (int i = 1; i <= antallRegistrerteOvelser; i++) {   // Looper gjennom array.
-	  navnIarray = konverterTilStore(array[i]->hentNavn()); // Gjør om til store bokstaver.
-	  fjernBlankeForanOgBak(navnIarray);              // Fjerner blanke.
+  if (antallRegistrerteOvelser == 0)				// Hvis arrayen er tom.
+    return false;
 
-	  if (strcmp(navn, navnIarray) == 0)             // Hvis medsendt param er lik Ovelses navn.
-		return 1;
+  for (int i = 1; i <= antallRegistrerteOvelser; i++) {		// Looper gjennom array.
+	  navnIarray = konverterTilStore(array[i]->hentNavn()); // Gjør om til store bokstaver.
+	  fjernBlankeForanOgBak(navnIarray);			// Fjerner blanke.
+
+	  if (strcmp(navn, navnIarray) == 0)			// Hvis medsendt param er lik Ovelses navn.
+		return true;
       else
-        return 0;
+        return false;
   }
 }
 

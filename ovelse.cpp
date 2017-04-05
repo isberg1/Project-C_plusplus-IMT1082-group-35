@@ -8,19 +8,21 @@
 #include <cstring>
 #include <sstream>
 #include <string.h>
+#include <iomanip>
 #include "OVELSE.H"
-#include"ENUM.H"
-#include"GRENER.H"
-#include"DELTAGERE.H"
-#include"DELTAGER.H"
-#include<iomanip>
-#include"DELTAGERE.H"
+#include "ENUM.H"
+#include "GRENER.H"
+#include "DELTAGERE.H"
+#include "DELTAGER.H"
+#include "DELTAGERE.H"
 
 
 using namespace std;
 
 extern Grener grenenerObj;
 extern Deltagere deltagerObj;
+
+
 
 Ovelse::Ovelse() {
 	cout << "\nAdvarsel, Ovelse-objekter skal ikke lages uten parameter";
@@ -75,6 +77,7 @@ char *Ovelse::filNavn(int type)		                // Send med 1 for .RES eller in
 		char name[15] = "OV";
 		char end[5] = ".STA";
 		char *middle;
+		char *fulltnavn;
 		stringstream strs;
 		string buffer;
 
@@ -89,8 +92,9 @@ char *Ovelse::filNavn(int type)		                // Send med 1 for .RES eller in
 
 		strcat(name, middle);
 		strcat(name, end);
+        fulltnavn = konverter(name);                // Gjor om name til peker.
 
-		return name;													//returnerer det unike filnavnet
+		return fulltnavn;							// Returnerer det unike filnavnet
 }
 
 void Ovelse::skrivTilFil(ofstream & ut)		        // Skriv ovelse til fil.
@@ -124,6 +128,8 @@ void Ovelse::lesFraFil(ifstream & inn)		        // Les ovelse fra fil.
 						//loggen leser fra .RES fil istede  Alex
 	dummy = lesInt(inn);
 
+	antDeltagere = 0;								// AntDeltagere blir satt av DeltagerListen.
+
 	switch (dummy)
 	{
 	case 1:	maaling = PoengX;			break;
@@ -146,7 +152,7 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 
 	ifstream inn(x);
 	ifstream inn2(t);
-	
+
 
 	if (inn)																//hvis en deltagerliste finnes
 	{
@@ -175,7 +181,7 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 			{	okPoengTid();		}					//hvis det maales tid
 
 			resultaterSkrivTilFil();					//skriv resultater til fil
-			nullstillLister();							
+			nullstillLister();
 		}
 		else
 		{		//lukk filer og skriv ut feilmelding
@@ -357,7 +363,7 @@ void Ovelse::skrivResultatliste()			        // Skriv resultatlisten til skjerm.
 
 	if (inn)						//hvis .RES fil finnes
 	{
-		alokerMinne();		
+		alokerMinne();
 		resultaterLesFraFil();		//les inn resultatliste fra fil
 		inn.close();				//lukk fil
 		lupTeller = antDeltagere;
@@ -535,7 +541,7 @@ void Ovelse::deltagerLesFraFil()			        // Leser inn deltagerlisten fra fil.
 	strcpy(fil, filNavn());					//hent riktig filnavn
 
 	ifstream inn(fil);
-	
+
 	if (inn)					//hvis .STA finnes
 	{
 		antDeltagere = lesInt(inn);
@@ -673,7 +679,7 @@ void Ovelse::skrivDelListe()						// Skriver ut info om alle deltagere i en Ovel
 			skriv("Nasjon:\t", nasjonTemp);				// Nasjon.
 		}
 		frigiMinne();
-	} 
+	}
 	else     //hvis en deltagerliste ikke finnes
 	{	skriv("Ingen deltagerliste er registrert.", "");	}	
 }
@@ -835,7 +841,7 @@ void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en 
   strcpy(fil, filNavn());
 
   ifstream inn(fil);
-  
+
   if (inn)
   {
 	  alokerMinne();
@@ -861,7 +867,6 @@ void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en 
        << "\nKlokkeslett:       "                   // Skriver ut klokkeslett paa leslig form.
        << ((time < 10) ? "0" : "") << time << ":"
        << ((minutt < 10) ? "0" : "") << minutt;
-
 }
 
 void Ovelse::menyValgResListe()					    // ValgSwitch for resultatLister.

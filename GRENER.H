@@ -22,10 +22,6 @@ public:
 	void skrivTilFIl();
 	void lesFraFil();
 	void ovelseGrenMeny();                          // Velger navn paa gren og kaller meny for ovelse.
-
-	void testResListe();
-	void testResSkriv();
-
 	void addTilLIst(Gren *ptr);
 	void fjernFraList(char navn[]);
 	void skrivUtRegistrerteGrener();                // Skriver ut alle registrerte gren-objekter.
