@@ -4,13 +4,12 @@
 
 //brukes i Gren
 enum registerTidPoeng {MinSECTidel,MinSecHundredel, MinSekTusendel, PoengX, PoengXX};
+
 //brukes i medaljer
 enum seiersType {gull, solv, bronsje};
 enum positivNegativ{positiv, negativ};
+
 //brukes i deltager
 enum kjonn { Mann, Kvinne };
 
-
-
 #endif
-

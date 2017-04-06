@@ -20,7 +20,7 @@ using namespace std;
 extern Deltagere deltagerObj;                       // Deltager-objekt fra main.
 
 
-Nasjoner :: ~Nasjoner() {
+Nasjoner :: ~Nasjoner() {							//destructor
   delete nasjonsListe;                              // Sletter liste.
 }
 

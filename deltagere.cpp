@@ -17,12 +17,12 @@ using namespace std;
 extern Nasjoner nasjonObj;
 
 
-Deltagere::~Deltagere()
+Deltagere::~Deltagere()		//destructor
 {
 	delete DeltagerListe;
 }
 
-void Deltagere::skrivMeny()
+void Deltagere::skrivMeny()			//skriver ut meny
 {
    cout << "\n\nMENY FOR DELTAGERE:"
 		<< "\n\tN - Registrer ny deltager"
@@ -32,7 +32,7 @@ void Deltagere::skrivMeny()
 		<< "\n\tQ - Tilbake til hovedmeny";
 }
 
-void Deltagere::menyValg()
+void Deltagere::menyValg()		//lar brukeren velge i menyen
 {
 	char valg;
 
@@ -82,7 +82,7 @@ void Deltagere :: nyDeltager() {                    // Oppretter ny Deltager    
          << "\n\tDu maa registrere nasjonen for du legger til deltagere i den";
 }
 
-void Deltagere::endreDeltager()
+void Deltagere::endreDeltager()			//meny for aa endre en deltagers data
 {
 	char valg;
 	int valgID;
@@ -126,7 +126,7 @@ void Deltagere::endreDeltagerMeny()
 		<< "\n\tQ - Tilbake til deltagermeny";
 }
 
-void Deltagere::skrivDataAlle()
+void Deltagere::skrivDataAlle()			//skriver ut alle dataene til en deltager paa skjermen
 {
 	Deltager* tempDeltager;
 
@@ -260,8 +260,8 @@ char * Deltagere::hentNasjon(int deltag)	        // Henter en deltagers najon fr
 	char temp[STRLEN];
 
 
-	if (DeltagerListe->inList(deltag))
-	{
+	if (DeltagerListe->inList(deltag))			//hvis en daltager er i listen
+	{		// ta detltageren ut av listen hent ut Najonen og legg objektet tilbake i listen
 		ptr = (Deltager*)DeltagerListe->remove(deltag);
 		strcpy(temp, ptr->hentNajon());
 		DeltagerListe->add(ptr);
@@ -269,26 +269,28 @@ char * Deltagere::hentNasjon(int deltag)	        // Henter en deltagers najon fr
 		return temp;
 	}
 
-	strcpy(temp, "££deltager finnes ikke");         // Hva er ££ til? (Mats)
+	strcpy(temp, "deltager finnes ikke");         // feilmelding
 	return	temp;
 }
 
-char * Deltagere::hentNavn(int deltag)
+char * Deltagere::hentNavn(int deltag)	//henter en deltagers navn via en daltagers ID
 {
 	Deltager *ptr;
 	char temp[STRLEN];
 
-
-	if (DeltagerListe->inList(deltag))
+	if (DeltagerListe)		//hvis listen existerer
 	{
-		ptr = (Deltager*)DeltagerListe->remove(deltag);
-		strcpy(temp, ptr->hentNavn());
-		DeltagerListe->add(ptr);
+		if (DeltagerListe->inList(deltag))		//hvis deltageren er i listen
+		{			// ta detltageren ut av listen hent ut navnet og legg objektet tilbake i listen
+			ptr = (Deltager*)DeltagerListe->remove(deltag);
+			strcpy(temp, ptr->hentNavn());
+			DeltagerListe->add(ptr);
 
-		return temp;
-	}
+			return temp;
+		}
+	}	
 
-	strcpy(temp, "££deltager finnes ikke");
+	strcpy(temp, "deltager finnes ikke");		//feilmelding
 	return	temp;
 }
 

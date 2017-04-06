@@ -93,57 +93,7 @@ void Medaljer::skrivMedaljer()		//displayer 2 arrayer med data
 			<<"\n";
 	}
 }
-
-void Medaljer::testFunksjon()		//test funksjon  fjernes før siste innlevering
-{
-	//int antNasj;
-	int dummy;
-	positivNegativ posNeg;
-	seiersType med;
-	char temp[MAXNASJONER + 1];
-	char type;
-
-	skriv("skriv statistikk vedier", "");
-
-	while (les("skriv") != 'Q')			//kjører til brukeren taster 'Q'
-	{
-			cout << "\nlegge til(+) eller trekke fra(-)\t";
-			type = les();
-			dummy = les("Gull(1), Solv(2), Bronsje(3)", 1, 3);
-			les("skriv nasjonsforkortelse: ", temp, MAXNASJONER);
-
-			if (type == '+')
-			{
-				posNeg = positiv;
-
-				switch (dummy)
-				{
-				case 1: med = gull;		break;
-				case 2: med = solv;		break;
-				case 3: med = bronsje;  break;
-
-				default:
-					break;
-				}
-				endreAntMedaljer(temp, med, posNeg);
-			}
-			else
-			{
-				posNeg = negativ;
-
-				switch (dummy)
-				{
-				case 1: med = gull;  break;
-				case 2: med = solv;  break;
-				case 3: med = bronsje;  break;
-				default:
-					break;
-				}
-				endreAntMedaljer(temp, med, posNeg);
-			}
-			skrivMedaljer();
-	}
-}
+		
 
 void Medaljer::skrivTilFil()		//skriv til fil
 {

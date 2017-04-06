@@ -68,18 +68,21 @@ Deltager :: Deltager(ifstream & inn, int ID) : NumElement(ID) {
     deltagerKjonn = Kvinne;                         // Setter kjønn til å være Kvinne.
 }
 
-Deltager::~Deltager()
+Deltager::~Deltager()		//destructor
 {
   delete[] nasjon;
   delete[] fullNavn;
   delete[] data;
 }
 
-void Deltager::endreNavn()
+void Deltager::endreNavn()		//endrer en deltagers navn
 {
-	strcpy(fullNavn, "");
-	les("Skriv inn nytt navn", fullNavn, NVLEN);
-	cout << "\nNavn endret til: " << fullNavn;
+	char nv[NVLEN];
+
+	delete[] fullNavn;							//slett exsisterende navn
+	les("Skriv inn nytt navn", nv, NVLEN);		//les inn nytt navn
+	fullNavn = konverter(nv);					//konverter til char* 
+	cout << "\nNavn endret til: " << fullNavn;	//bekrefte endring til bruker
 }
 
 void Deltager::endreNasjon()						// Endrer nasjonen til en deltager
@@ -103,7 +106,7 @@ void Deltager::endreNasjon()						// Endrer nasjonen til en deltager
 	}
 }
 
-void Deltager::endreData()
+void Deltager::endreData()					//endrer dataen til en deltager
 {
 	char buffer[STRLEN];
 

@@ -4,8 +4,6 @@
 
 #include "NASJON.H"                                 // Klassen Nasjon.
 
-
-
 class Nasjoner {
   private:
     List *nasjonsListe;                             // Peker til liste.
@@ -24,9 +22,9 @@ class Nasjoner {
     void oppdaterNasjon(char *oppdNasjon);          // Plusser på antDeltagere med 1         : Valg D N
     void skrivTilFil();                             // Skriver til fil.
     void lesFraFil();                               // Leser datastruktur fra fil.
-    void skrivUtForkortelse();                      // Skriver ut nasjonens forkortelse.(Hjelpefunksjon)
-	void reduserAntDeltagere(char *fultNasjonsNavn);	//reduserer antall deltagere med 1
-	void okAntalletDeltagere(char *nasjonsForkortelse);	//oker antall deltagere med 1
+    void skrivUtForkortelse();                      // Skriver ut nasjonens forkortelse.
+	void reduserAntDeltagere(char *fultNasjonsNavn);	// Reduserer antall deltagere med 1.
+	void okAntalletDeltagere(char *nasjonsForkortelse);	// Oker antall deltagere med 1.
 };
 
 

@@ -4,8 +4,6 @@
 #include <fstream>
 #include "ListTool2B.h"
 
-
-
 class Deltagere
 {
 private:

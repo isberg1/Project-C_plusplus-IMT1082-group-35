@@ -63,7 +63,7 @@ void Grener::nyGren()								// til komando G N
 	{												// lag ny gren og legg det til i listen
 		temp = new Gren(buffer);
 		listGren->add(temp);
-		skriv("Ny gren registrert med navn", buffer);
+		skriv("Ny gren registrert med navn: ", buffer);
 
 		skrivTilFIl();
 	}

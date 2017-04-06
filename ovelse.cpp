@@ -1,4 +1,4 @@
-//ovelse.cpp alex
+//ovelse.cpp alle
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
@@ -30,7 +30,7 @@ Ovelse::Ovelse() {
 
 Ovelse::Ovelse(ifstream & inn)
 {
-	lesFraFil(inn);	
+	lesFraFil(inn);
 
 	antDeltagere = 0;
 	if (navnTeller < nr)					//setter verdien til navnteller.
@@ -104,7 +104,7 @@ void Ovelse::skrivTilFil(ofstream & ut)		        // Skriv ovelse til fil.
 	skriv(ut, dato);
 	skriv(ut, klokkeslett);
 	skriv(ut, navn);
-								//loggen skrives til .RES fil istede  Alex
+
 	if (maaling == PoengX )
 	{	skriv(ut, 1);	}
 	else if(maaling == PoengXX)
@@ -172,7 +172,7 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 			}
 
 			bubbleSort();
-			
+
 			if (maaling == PoengX || maaling == PoengXX)	//hvis det maales poeng
 			{
 				korigerVinnerePoeng();		//sjekker om to deltagere har samme verdi og spør brukeren om en korreksjon
@@ -181,8 +181,8 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 			else											//hvis det maales tid
 			{
 				korigerVinnereTid();
-				okPoengTid();		
-			}					
+				okPoengTid();
+			}
 
 			resultaterSkrivTilFil();					//skriv resultater til fil
 			nullstillLister();
@@ -220,7 +220,7 @@ int Ovelse::skaffVerdi()                            // Leser inn gyldige verdier
 		if (min != -1)
 		{
 			sec = les("\nSkriv resultat i sekunder: ", 0, 59);
-								
+
 			if (min + sec == 0)			//en gjennomforingstid paa 0 akksepteres ikke
 			{	tidel = les("nSkriv resultat i tidelssekunder: ", 1, 9);	}
 			else
@@ -240,7 +240,7 @@ int Ovelse::skaffVerdi()                            // Leser inn gyldige verdier
 			{	hundredel = les("\nSkriv resultat i hundredelssekunder: ", 1, 99);	}
 			else
 			{	hundredel = les("\nSkriv resultat i hundredelssekunder: ", 0, 99);	}
-		
+
 			return ((min * 10000) + (sec * 100) + hundredel); 					// maxverdi 120 59 99
 		}
 	}
@@ -353,13 +353,13 @@ void Ovelse::okPoengTid()                           // Oker antall poeng naar ma
 	}
 }
 
-void Ovelse::alokerMinne()
+void Ovelse::alokerMinne()		//oppretter 2 int arrayer
 {
 	deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
 	resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
 }
 
-void Ovelse::frigiMinne()
+void Ovelse::frigiMinne()		//destruerer 2 int arrayer
 {
 	delete[]deltagerListe;    // Setter deltagerListe peker til en int array.
 	delete[]resultatListe;		// Setter resultatListe peker til en int array.
@@ -523,7 +523,6 @@ void Ovelse::resultaterLesFraFil()			        // Leser inn resultatlista fra fil.
 {
 	char buffer[100];
 	char x[20];
-	int teller = 1;
 	strcpy(x, filNavn(1));					//hent riktig filnavn
 
 	ifstream inn(x);
@@ -546,11 +545,17 @@ void Ovelse::resultaterLesFraFil()			        // Leser inn resultatlista fra fil.
 		bubbleSort();			//sort
 		fjernPoeng();			//trekk tilbake tidligere tildelte poeng
 		if (maaling == PoengX || maaling == PoengXX)	//hvis maaling er poeng
-		{	okPoengPoeng();		}		// tildel nye poeng og medaljer
+		{
+			korigerVinnerePoeng();		//hvis 2 resultater er like så må vinneren av dem avgjoores
+			okPoengPoeng();				// tildel nye poeng og medaljer
+		}
 		else							//hvis maaling er tid
-		{	okPoengTid();		}		// tildel nye poeng og medaljer
+		{
+			korigerVinnereTid();   //hvis 2 resultater er like så må vinneren av dem avgjoores
+			okPoengTid();		   // tildel nye poeng og medaljer
+		}
 
-		resultaterSkrivTilFil();
+		resultaterSkrivTilFil();  //sriv til fil
 	}
 }
 
@@ -583,11 +588,6 @@ void Ovelse::sjekkID(int & temp, char buffer[])	    // Reurnerer Ovelsens ID num
 
 bool Ovelse::fjernResultatliste()					// Fjerner en eksisterende resultatliste.
 {
-	/*Fjerne / slette resultatliste:
-		Om denne(filen) finnes så slettes den.
-		Men, husk først å oppdatere statistikkene.
-	*/
-
 
 	char temp[STRLEN];
 	strcpy(temp, filNavn(1));
@@ -608,14 +608,15 @@ bool Ovelse::fjernResultatliste()					// Fjerner en eksisterende resultatliste.
 		{
 			skriv("Filen er slettet", "");	//bekreftelsesmelding
 			fjernPoeng();					//trekker tilbake tidligere tildelte poeng
+			frigiMinne();
 			return true;
 		}
 		else
 		{									//feilmelding
 			skriv("Filen ble ikke slettet", "");
+			frigiMinne();
 			return false;
 		}
-		frigiMinne();
 	}
 	else
 	{										//feilmelding
@@ -700,7 +701,7 @@ void Ovelse::skrivDelListe()						// Skriver ut info om alle deltagere i en Ovel
 		frigiMinne();
 	}
 	else     //hvis en deltagerliste ikke finnes
-	{	skriv("Ingen deltagerliste er registrert.", "");	}	
+	{	skriv("Ingen deltagerliste er registrert.", "");	}
 }
 
 void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
@@ -724,7 +725,7 @@ void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
 			{	skriv("max antal deltagere er :", MAXDELTAGERE);	}
 
 		} while (antDeltagere >= MAXDELTAGERE);
-		
+
 											//gaar gjennom alle deltagerne som skal skrives inn
 		for (int i = 1; i <= antDeltagere; i++)
 		{														//leser inn deltagere
@@ -779,8 +780,6 @@ void Ovelse::endreDelListe()
 	ifstream inn(buffer);								// Henter .STA-fil.
 	ifstream inn2(fil);									// Henter .RES-fil.
 
-	//hvis det finnes en deltagerliste
-
 	if (!inn2)		//hvis det ikke finnes en resultatliste
 	{
 		if (inn)	//hvis det finnes en deltagerliste
@@ -826,7 +825,7 @@ void Ovelse::endreDelListe()
 							{
 								if (*(deltagerListe + antDeltagere) == *(deltagerListe + (i - 1)))  //hvis deltageren er registrert fra for
 								{	sjekk = true;	}
-							}							
+							}
 						}
 						skriv("startliste er oppdadert med deltager: ", *(deltagerListe + antDeltagere));  //bekreftelsesmelding
 						deltagerSkrivtilFil();							// Skriver memory til fil.
@@ -852,12 +851,12 @@ void Ovelse::endreDelListe()
 
 					*(deltagerListe + temp) = *(deltagerListe + antDeltagere);  // Slett deltager fra liste,
 					*(deltagerListe + antDeltagere) = 0;						// overskriv med siste deltager og
-					antDeltagere--;												// tell ned registrerte deltagere.				
+					antDeltagere--;												// tell ned registrerte deltagere.
 
 					skriv("startliste er oppdadert", "");						//bekreftelsesmelding
 					deltagerSkrivtilFil();										// Skriver memory til fil.
 					frigiMinne();
-					// Fjerner arrayer fra memory etter bruk.	
+					// Fjerner arrayer fra memory etter bruk.
 				}
 				else   //hvis det er for faa deltagere i startlisten
 				{	skriv("en startliste maa ha mist 2 deltagere.", "\ndu maa legge til minst en deltager til, for du kan slette flere");	}

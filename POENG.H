@@ -8,15 +8,14 @@
 class Poeng : public Statisikk
 {
 private:
-	int poeng[MAXNASJONER + 1];												//array med poeng
+	int poeng[MAXNASJONER + 1];												// Array med poeng.
 
 public:
-	Poeng();	//constructor												  nullstiller array
-	void endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg);	//endrer ant poeng med +- 1
-	void skrivPoeng();														//display 2 arrayer
-	void testFunksjon();													//testfunksjon fjernes før siste innlevering
-	void skrivTilFil();														//skriv til fil
-	void lesFraFil();														//les fra fil
+	Poeng();	                                                            // Constructor som nullstiller array.
+	void endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg);	// Endrer ant poeng med +- 1.
+	void skrivPoeng();														// Display 2 arrayer.
+	void skrivTilFil();														// Skriv til fil.
+	void lesFraFil();														// Les fra fil.
 
 };
 #endif

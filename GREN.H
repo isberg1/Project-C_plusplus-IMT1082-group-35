@@ -1,5 +1,5 @@
 #if !defined(__GREN_H)
-//GREN.H alex
+//GREN.H alex + mats
 #define  __GREN_H
 
 #include"OVELSE.H"
@@ -7,14 +7,14 @@
 #include"ENUM.H"
 
 class Gren :public TextElement {
-private:
-	//navn lagres i TextElement
-	registerTidPoeng typeMaaling;
-	int antOvelser;
+private:                                            // Navn lagres i TextElement.
+
+	registerTidPoeng typeMaaling;		            // Hva slags maalintype er det.
+	int antOvelser;						            // Maxismlt antall ovelser for denne ovelsen.
 	int antSifre;
-	Ovelse *array[MAXOVELSER + 1];
-	char *annet;
-	int antallRegistrerteOvelser;
+	Ovelse *array[MAXOVELSER + 1];		            // Array med pekere til Ovelse Objekter.
+	char *annet;						            // Text med div info.
+	int antallRegistrerteOvelser;		            // Teller som hviser hvor mange ovelser som er registrert saa langt.
 
 public:
 	Gren();                                         // Constructor.
@@ -35,13 +35,12 @@ public:
 	void skrivIdTilRegistrerteOvelser();
 	void skrivListGrenTilFil();
 	void endreOvelseMeny();                         // Meny for hva som kan endres for en Ovelse.
-	void endreOvelse();                             // Endrer data for en Ovelse.           : O E
+	void endreOvelse();                             // Endrer data for en Ovelse.               Valg : O E
 	void endreOvelseNavn(int indeks);               // Endrer navnet for en Ovelse.
-	void fjernOvelse();                             // Fjerner en Ovelse.                   : O F
-	void skrivHoveddataOvelser();                   // Skriver hoveddata for alle Ovelser.  : O A
+	void fjernOvelse();                             // Fjerner en Ovelse.                       Valg : O F
+	void skrivHoveddataOvelser();                   // Skriver hoveddata for alle Ovelser.      Valg : O A
 	bool finnesOvelse(char *navn);                  // Sjekk om Ovelsen finnes i array med param. navn.
 	void skrivUtRegistrerteOvelser();               // Skriver ut alle registrerte ovelser.
-
 
 };
 #endif

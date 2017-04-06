@@ -48,7 +48,7 @@ Nasjon :: Nasjon(ifstream & inn, char *nasjonKort) : TextElement(nasjonKort)  {
   andreData = lesTxt(inn);
 }
 
-Nasjon :: ~Nasjon() {
+Nasjon :: ~Nasjon() {		//destructor
   delete[] fulltNavn;
   delete[] kontaktNavn;
   delete[] andreData;
@@ -63,7 +63,7 @@ void Nasjon :: display() {
        << "\nAnnet:                 " << andreData;
 }
 
-void Nasjon :: skrivTilFil(ofstream & ut) {
+void Nasjon :: skrivTilFil(ofstream & ut) {			//skriv fil fil
 
   /* Filoppsett:
 

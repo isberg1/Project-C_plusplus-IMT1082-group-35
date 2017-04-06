@@ -154,55 +154,6 @@ char *lesTxt(ifstream & inn)
 void lesTxt2(ifstream & inn, char string[])
 {	inn.getline(string, STRLEN); }
 
-// fjern foor siste innlevering
-void skrivTilFil() {										//skriver alt til fil
-
-	ofstream ut("LEGER.DTA"); //!!!!endre navn fÂ fil  è≈pner/skaper aktuell fil.
-
-	int antallObjekter = 20; //dummy for Â fjerne feilmld. mÂ fjernes!!!!!!!
-													//sortert liste
-	if (ut)													//hvis filen finnes
-	{
-
-		skriv(ut, antallObjekter);							  //antall legeobjekter
-
-		for (int i = 1; i <= antallObjekter; i++)		//gÂr gjennom alle legeobjektene
-		{
-			//hent legeobjekt
-			//skriv til fil
-			//legg legeobjekt tilbake i sortert liste
-		}
-	}
-	else
-	{
-		cout << "\n\nFinner ikke filene!\n\n";
-	}					//feilmeding
-}
-// fjern foor siste innlevering
-void lesFraFil(int alternativ) {							// leser alt fra fil
-
-	ifstream inn("LEGER.DTA");								//  è≈pner aktuell fil
-	int antallObjekter;
-
-
-	if (inn)												//hvis fillen finnes
-	{
-
-		antallObjekter = lesInt(inn);			//leser in antall legeobjekter pÂ filen
-
-		for (int i = 1; i <= antallObjekter; i++)
-		{
-			//les f¯rste
-			//nytt objekt med arg.
-			//legg til objekt i liste
-		}
-	}
-	else
-	{
-		cout << "\n\nFinner ikke filen!\n\n";
-	}					 //feilmelding
-}
-
 void fjernBlankeForanOgBak(char txt[])
 {
 	char buff[STRLEN];
@@ -240,7 +191,6 @@ char *nasjonsForkortelse(char t[]) {                // Sjekker at bokstaver = 3 
 
   do {                                              // Loop:
     les("\nNasjonsforkortelse (3 bokstaver)", buffer, NVLEN);
-    fjernBlankeForanOgBak(buffer);                  // Fjerner blanke foran og bak.
     forkortelse = konverter(buffer);                // Gj¯r om st¯rrelsen og lager ny char.
   } while (!erBokstaver(forkortelse) ||             // SÂ lenge det ikke er bokstaver og
             strlen(forkortelse) != NASJONLEN);      // lengder pÂ array ikke er 3.
@@ -257,17 +207,6 @@ bool erBokstaver(char tekst[]) {                    // Sjekker om alle indekser 
 
   for (int i = 0; i < lengde; i++) {                // Looper gjennom alle indekser.
     if (!isalpha(tekst[i]))                         // Hvis indeks ikke er bokstav sÂ
-      return false;                                 // returneres false.
-  }
-  return true;
-}
-
-bool erBokstaverEllerSpace(char tekst[]) {          // Sjekker om indekser i array er bokstaver/space.      //!!! IKKE ENDA I BRUK
-  int lengde;
-  lengde = strlen(tekst);                           // Lengden av array.
-
-  for (int i = 0; i < lengde; i++) {                // Looper gjennom alle indekser.
-    if (!isalpha(tekst[i]) && !isspace(tekst[i]))   // Hvis indeks ikke er bokstav eller space sÂ
       return false;                                 // returneres false.
   }
   return true;
