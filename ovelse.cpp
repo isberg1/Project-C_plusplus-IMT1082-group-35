@@ -715,9 +715,16 @@ void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
 	{
 		inn.close();  //lukk filen
 		alokerMinne();
-																	//finner ut Hvor mange deltagere som skal registreres
-		antDeltagere = les("Skriv inn antall deltagere som skal registreres: ", 2, deltagerObj.antallRegistrerteDeltagere());
 
+		do
+		{
+			//finner ut Hvor mange deltagere som skal registreres
+			antDeltagere = les("Skriv inn antall deltagere som skal registreres: ", 2, deltagerObj.antallRegistrerteDeltagere());
+			if (antDeltagere >= MAXDELTAGERE)		//sjekker at det ikke er for mange deltagere;
+			{	skriv("max antal deltagere er :", MAXDELTAGERE);	}
+
+		} while (antDeltagere >= MAXDELTAGERE);
+		
 											//gaar gjennom alle deltagerne som skal skrives inn
 		for (int i = 1; i <= antDeltagere; i++)
 		{														//leser inn deltagere
@@ -734,7 +741,7 @@ void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
 			{
 			//felimeldinger
 				if (sjekk)                          //hvis nummeret allerede er registrert
-				{	skriv("numeret er allerede registrert!", "");	}
+				{	skriv("deltageren er allerede registrert!", "");	}
 				else                        //hvis det ikke finnes en deltager med det nummeret
 				{	skriv("Finner ingen deltager med det nummeret i arkivet!", ""); 	}
 
@@ -761,83 +768,109 @@ void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
 void Ovelse::endreDelListe()
 {
 
-	//bool sjekk;
-	//int tempId;
-	//char valg;
-	//char temp[STRLEN];
-	//char fil[NVLEN];
-	//strcpy(temp, filNavn());						// Henter filnavnet til .STA-fil.
-	//strcpy(fil, filNavn(1));						// Henter filnavnet til .RES-fil.
+	bool sjekk=false;
+	int valg;
+	int temp;
+	char buffer[STRLEN];
+	char fil[NVLEN];
+	strcpy(buffer, filNavn());						// Henter filnavnet til .STA-fil.
+	strcpy(fil, filNavn(1));						// Henter filnavnet til .RES-fil.
 
-	//ifstream inn(temp);								// Henter .STA-fil.
-	//ifstream inn2(fil);								// Henter .RES-fil.
+	ifstream inn(buffer);								// Henter .STA-fil.
+	ifstream inn2(fil);									// Henter .RES-fil.
 
-	//alokerMinne();									// Oppretter arrayer for bruk.
-	//deltagerLesFraFil();							// Leser inn i memory fra .STA fil.
+	//hvis det finnes en deltagerliste
 
-	//if (antDeltagere > 0 && !inn2)					// Hvis det er registrerte deltagere og det ikke finnes resultatListe.
-	//{
-	//	valg = les("Vil du slette eller legge til en deltager?(S/L)");
-	//	valg = toupper(valg);
-	//	while (valg != 'S' && valg != 'L')			// Så lenge valg ikke er 'S' eller 'L', gi feilmelding og ta nytt input.
-	//	{
-	//		valg = les("Ukjent kommando\nTilgjengelig kommando Slett/Legg til: ");
-	//	}
-	//	if (valg == 'S')								// Om valg 'S'
-	//	{
-	//		tempId = les("Skriv inn Id for deltager du onsker a slette", 1, antDeltagere);
-	//		skriv("Deltager slettet: ", *(deltagerListe + tempId));
-	//		deltagerListe[tempId] = 0;				// Slett deltager fra liste,
-	//		deltagerListe[tempId] = deltagerListe[antDeltagere];	
-	//		antDeltagere--;							// overskriv med siste deltager og
-	//												// tell ned registrerte deltagere.
-	//	}
-	//	else										// Ellers anta valg 'L'.
-	//	{											// Les inn deltager id til neste ledig skuff.
-	//		*(deltagerListe + antDeltagere + 1) = les("\nSkriv ID-nr. paa deltager som skal legges til deltagerlisten: ", 1, 9999);
-	//												// Om deltageren er registrert allerede endre sjekk til true.
-	//		for (int k = 1; k <= antDeltagere - 1; k++)
-	//		{
-	//			if (*(deltagerListe + antDeltagere) == *(deltagerListe + k))
-	//			{
-	//				sjekk = true;
-	//			}
-	//		}
-	//												// Mens deltageren enten ikke eksisterer eller allerede er registrert
-	//		while (!sjekkDeltagerId(*(deltagerListe + antDeltagere + 1)) || sjekk)  
-	//		{
-	//			
-	//			if (sjekk)                          // Skriv ut feilmelding om deltager allerede er registrert eller
-	//			{
-	//				skriv("Nummeret er allerede registrert!", "");
-	//			}
-	//			else                        		// Skriv ut feilmelding om deltager ikke eksisterer.
-	//			{
-	//				skriv("Finner ingen deltager med det nummeret i arkivet!", "");
-	//			}
+	if (!inn2)		//hvis det ikke finnes en resultatliste
+	{
+		if (inn)	//hvis det finnes en deltagerliste
+		{
+			alokerMinne();									// Oppretter arrayer for bruk.
+			deltagerLesFraFil();							// Leser inn i memory fra .STA fil.
 
-	//			sjekk = false;
-	//												// Leser inn deltagerId på nytt.
-	//			*(deltagerListe + antDeltagere + 1) = les("\nSkriv ID-nr. paa deltager som skal legges til deltagerlisten: ", 1, 9999);
-	//												// Sjekker om deltageren allerede er registrert.
-	//			for (int a = 1; a <= antDeltagere - 1; a++)
-	//			{
-	//				if (*(deltagerListe + antDeltagere) == *(deltagerListe + a))
-	//				{
-	//					sjekk = true;
-	//				}
-	//			}
-	//		}
-	//		antDeltagere++;							// Pluss på antDeltager når ny deltager er registrert.
-	//		skriv("Nytt antall deltagere i deltagerlisten ", *(deltagerListe + antDeltagere));  
-	//	}
-	//}
-	//else											// Feilmelding om .RES eksisterer eller ny deltagerListe ikke har blitt opprettet.
-	//	cout << "\nOvelsen er enten over eller har ingen deltagere.\n";
-	//deltagerSkrivtilFil();							// Skriver memory til fil.
-	//frigiMinne();									// Fjerner arrayer fra memory etter bruk.
+			valg = les("skriv (1) for aa legge til en deltager, \n\teller\n\tskriv (2) for aa fjerne en deltager: ", 1, 2);
+
+
+			if (valg == 1) //hvis brukeren valgte  aa legge til en deltager
+			{
+				if (antDeltagere <  deltagerObj.antallRegistrerteDeltagere())	//sjekker om det er flere deltagere globalt som kan legges til
+				{
+					if (antDeltagere < MAXDELTAGERE)		//hvis det er plass til flere deltagere
+					{
+						antDeltagere++;
+						*(deltagerListe + antDeltagere) = les("skriv iden til deltageren du onsker aa legge til", 1, 9999);
+
+						for (int i = antDeltagere; i >= 2; i--)
+						{
+							if (*(deltagerListe + antDeltagere) == *(deltagerListe + (i - 1)))  //hvis deltageren er registrert fra for
+							{
+								tr(i);
+								sjekk = true;
+							}
+						}
+
+						while (!sjekkDeltagerId(*(deltagerListe + antDeltagere)) || sjekk)  //finnes deltageren eller er han registrert fra foor
+						{
+							//felimeldinger
+							if (sjekk)                          //hvis nummeret allerede er registrert
+							{	skriv("deltageren er allerede registrert!", "");		}
+							else                        //hvis det ikke finnes en deltager med det nummeret
+							{	skriv("Finner ingen deltager med det nummeret i arkivet!", "");		}
+
+							sjekk = false;
+							//leser inn deltagere
+							*(deltagerListe + antDeltagere) = les("\nskriv iden til deltageren du onsker aa legge til", 1, 9999);
+
+							//sjekker om en deltager allerede er registrert i samme ovelse
+							for (int i = antDeltagere; i >= 2; i--)
+							{
+								if (*(deltagerListe + antDeltagere) == *(deltagerListe + (i - 1)))  //hvis deltageren er registrert fra for
+								{	sjekk = true;	}
+							}							
+						}
+						skriv("startliste er oppdadert med deltager: ", *(deltagerListe + antDeltagere));  //bekreftelsesmelding
+						deltagerSkrivtilFil();							// Skriver memory til fil.
+						frigiMinne();									// Fjerner arrayer fra memory etter bruk.
+					}
+					else
+					{	skriv("Maxsimalt antall deltagere er allerede registert.", "");		}
+				}
+				else
+				{	skriv("Finnes ikke flere deltagere globalt aa legge til", "");			}
+		    }
+
+			if (valg==2)													//brukeren har valgt aa slette en deltager
+			{
+				if (antDeltagere > MINDELTAGERE)	//en startliste maa ha mist 2 deltagere
+				{
+
+					for (int i = 1; i <= antDeltagere; i++)						//skriv ut bukervalgene
+					{
+						cout << "\ntast: " << i << " for a slette deltager: " << *(deltagerListe + i);
+					}
+					temp = les("\nslett: ", 1, antDeltagere);					//brukeren skriver inn sitt valg
+
+					*(deltagerListe + temp) = *(deltagerListe + antDeltagere);  // Slett deltager fra liste,
+					*(deltagerListe + antDeltagere) = 0;						// overskriv med siste deltager og
+					antDeltagere--;												// tell ned registrerte deltagere.				
+
+					skriv("startliste er oppdadert", "");						//bekreftelsesmelding
+					deltagerSkrivtilFil();										// Skriver memory til fil.
+					frigiMinne();
+					// Fjerner arrayer fra memory etter bruk.	
+				}
+				else   //hvis det er for faa deltagere i startlisten
+				{	skriv("en startliste maa ha mist 2 deltagere.", "\ndu maa legge til minst en deltager til, for du kan slette flere");	}
+			}
+		}
+		else   //hvis det ikke finnes en deltagerliste
+		{	skriv("Ingen deltagerliste er registrert fra for", "");	}
+	}
+	else    //hvis det  finnes en resultatliste
+	{	skriv("En resultatliste finnes alerede, ", "denne maa slettes forst!"); }
 
 }
+
 
 void Ovelse::fjernDelListe()						// Sletter spesifisert deltagerListe-fil.
 {
