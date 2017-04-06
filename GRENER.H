@@ -8,24 +8,22 @@
 //Containerklasse
 class Grener {
 private:
-	List *listGren;			//liste med Gren Objekter
+	List *listGren;			                        // Liste med Gren Objekter.
 
 public:
-	Grener();//constructor
-	~Grener();//destructor
-	//Ande funksjoner
-	void skrivMeny();								//meny
+	Grener();                                       // Constructor.
+	~Grener();                                      // Destructor.
+	void skrivMeny();								// Meny
 	void nyGren();				                    // G N
 	void endreGren();			                    // G E
 	void skrivAllGrener();		                    // G A
 	void skrivEnGren();			                    // G S
-	void skrivTilFIl();								//skriv til fil
-	void lesFraFil();								//les fra fil
+	void skrivTilFIl();								// Skriv til fil.
+	void lesFraFil();								// Les fra fil.
 	void ovelseGrenMeny();                          // Velger navn paa gren og kaller meny for ovelse.
-	void addTilLIst(Gren *ptr);						//lar et Grenobjekt utenfor listen legge seg selv i listen
-	void fjernFraList(char navn[]);					//lar et Grenobjekt i listen fjerne seg selv fra listen
+	void addTilLIst(Gren *ptr);						// Lar et Grenobjekt utenfor listen legge seg selv i listen.
+	void fjernFraList(char navn[]);					// Lar et Grenobjekt i listen fjerne seg selv fra listen.
 	void skrivUtRegistrerteGrener();                // Skriver ut alle registrerte gren-objekter.
-
 };
 
 

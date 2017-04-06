@@ -154,8 +154,6 @@ char *lesTxt(ifstream & inn)
 void lesTxt2(ifstream & inn, char string[])
 {	inn.getline(string, STRLEN); }
 
-
-
 void fjernBlankeForanOgBak(char txt[])
 {
 	char buff[STRLEN];
@@ -193,7 +191,6 @@ char *nasjonsForkortelse(char t[]) {                // Sjekker at bokstaver = 3 
 
   do {                                              // Loop:
     les("\nNasjonsforkortelse (3 bokstaver)", buffer, NVLEN);
-    fjernBlankeForanOgBak(buffer);                  // Fjerner blanke foran og bak.
     forkortelse = konverter(buffer);                // Gjør om størrelsen og lager ny char.
   } while (!erBokstaver(forkortelse) ||             // Så lenge det ikke er bokstaver og
             strlen(forkortelse) != NASJONLEN);      // lengder på array ikke er 3.
@@ -210,17 +207,6 @@ bool erBokstaver(char tekst[]) {                    // Sjekker om alle indekser 
 
   for (int i = 0; i < lengde; i++) {                // Looper gjennom alle indekser.
     if (!isalpha(tekst[i]))                         // Hvis indeks ikke er bokstav så
-      return false;                                 // returneres false.
-  }
-  return true;
-}
-
-bool erBokstaverEllerSpace(char tekst[]) {          // Sjekker om indekser i array er bokstaver/space.      //!!! IKKE ENDA I BRUK
-  int lengde;
-  lengde = strlen(tekst);                           // Lengden av array.
-
-  for (int i = 0; i < lengde; i++) {                // Looper gjennom alle indekser.
-    if (!isalpha(tekst[i]) && !isspace(tekst[i]))   // Hvis indeks ikke er bokstav eller space så
       return false;                                 // returneres false.
   }
   return true;

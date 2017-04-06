@@ -37,7 +37,7 @@ Grener grenenerObj;
 //extern Poeng poengObj;
 
 
-int Ovelse::navnTeller = 999;	//static int brukes til å genere unike nr til ovelsesObjekter
+int Ovelse::navnTeller = 999;	// Static int brukes til å genere unike nr til ovelsesObjekter.
 
 
 // **********************************  H O V E D P R O G R A M M E T  **********************************
@@ -45,17 +45,17 @@ int Ovelse::navnTeller = 999;	//static int brukes til å genere unike nr til ove
 int main() {
   char valgMain;
 
-  nasjonObj.lesFraFil();                            // Leser nasjoners data fra fil.
-  deltagerObj.lesFraFil();                          // Leser deltagers data fra fil.
-  grenenerObj.lesFraFil();							// Leser grener fra fil.
-  medaljeObj.lesFraFil();							// Leser medaljer fra fil.
-  poengObj.lesFraFil();								// Leser poeng fra fil.
-    
+  nasjonObj.lesFraFil();                              // Leser nasjoners data fra fil.
+  deltagerObj.lesFraFil();                            // Leser deltagers data fra fil.
+  grenenerObj.lesFraFil();							  // Leser grener fra fil.
+  medaljeObj.lesFraFil();							  // Leser medaljer fra fil.
+  poengObj.lesFraFil();								  // Leser poeng fra fil.
 
-  MainMeny();                                       // Skriver ut meny.
+
+  MainMeny();                                         // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");
 
-  while (valgMain != 'X') {                         // Så lenge valg ikke er 'X':
+  while (valgMain != 'X') {                           // Så lenge valg ikke er 'X':
     switch (valgMain) {
       case 'N' : nasjonObj.menyValg();	       break; // Kaller Nasjoner sin meny.
       case 'D' : deltagerObj.menyValg();       break; // Kaller Deltagere sin meny.

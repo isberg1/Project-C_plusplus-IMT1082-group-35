@@ -13,6 +13,8 @@
 
 using namespace std;
 
+
+
 Medaljer::Medaljer()//constructor
 {
 	for (int i = 0; i <= MAXNASJONER; i++)
@@ -93,7 +95,7 @@ void Medaljer::skrivMedaljer()		//displayer 2 arrayer med data
 			<<"\n";
 	}
 }
-		
+
 
 void Medaljer::skrivTilFil()		//skriv til fil
 {
@@ -145,4 +147,3 @@ void Medaljer::lesFraFil()		// les fra fil
 	else
 	{	cout << "\nFinner ikke filen 'MEDALJER.DTA'";	}
 }
-

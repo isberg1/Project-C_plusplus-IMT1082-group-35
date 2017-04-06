@@ -181,7 +181,7 @@ void Gren::menyValgOvelse()							// MainSwitch for Ovelse.
 
 void Gren::skrivOvelseMeny()						// KommandoMeny for Ovelser.
 {
-	cout << "\n\nMENY FOR OVELSEN: '" << text << "' "
+	cout << "\n\nOVELSEMENY FOR GRENEN: '" << text << "' "
 		<< "\n\tN - Ny ovelse"
 		<< "\n\tE - Endre ovelse"
 		<< "\n\tF - Fjern ovelse"
@@ -215,7 +215,7 @@ void Gren::ovelseDelMeny()		//finner riktig Ovelses objekt  og sender brukeren t
 
 void Gren::ovelseResMeny()		//finner riktig Ovelses objekt  og sender brukeren til riktig meny
 {
-	int buffer, temp;	
+	int buffer, temp;
 
 	if (antallRegistrerteOvelser > 0)	//hvis det er registrert noen ovelser
 	{
