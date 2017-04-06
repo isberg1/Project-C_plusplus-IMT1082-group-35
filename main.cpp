@@ -50,11 +50,7 @@ int main() {
   grenenerObj.lesFraFil();							// Leser grener fra fil.
   medaljeObj.lesFraFil();							// Leser medaljer fra fil.
   poengObj.lesFraFil();								// Leser poeng fra fil.
-
-// Ovelse t("langrenn", PoengXX);
-
- //t.menyValgResListe();
-
+    
 
   MainMeny();                                       // Skriver ut meny.
   valgMain = les("\nHovedmeny: ");

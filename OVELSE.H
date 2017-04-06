@@ -72,6 +72,8 @@ public:
 	void endreDato();                               // Endrer datoen til ovelsen.
 	void endreKlokkeslett();                        // Endrer kl. til ovelsen.
 	void skrivHovedData();                          // Skriver hoveddata for en ovelse.
+	void korigerVinnerePoeng();
+	void korigerVinnereTid();
 };
 
 /*

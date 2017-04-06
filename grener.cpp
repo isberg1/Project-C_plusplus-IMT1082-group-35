@@ -22,7 +22,9 @@ Grener::Grener()
 }
 													// destructor
 Grener::~Grener()
-{	delete listGren;  }
+{	
+	delete listGren; 
+}
 
 void Grener::skrivMeny()					        // skriver menyen i GrenerObj
 {

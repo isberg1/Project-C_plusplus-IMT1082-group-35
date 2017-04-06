@@ -46,7 +46,7 @@ Gren::Gren(char * a) : TextElement(a)               // Constructor med string ar
 	case 5:	typeMaaling = PoengXX;			antSifre = 2; break;
 	}
 
-	les("Skriv inn annet", buffer, STRLEN);
+	les("Skriv inn annet: ", buffer, STRLEN);
 	annet = konverter(buffer);
 }
 
@@ -54,7 +54,7 @@ Gren::Gren(char * a) : TextElement(a)               // Constructor med string ar
 Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 {
 	int tilEnum;
-
+	
 	//leser inn egne datamedlemer
 	annet = lesTxt(inn);
 	antOvelser = lesInt(inn);
@@ -71,26 +71,34 @@ Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 	case 5:	typeMaaling = PoengXX;			 break;
 	}
 
+
 	if (antallRegistrerteOvelser > 0) //hvis det er registrert noen ovelser i det hele tatt
 	{
 
 		//leser inn ovelser fra fil
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{
-			*(array + i) = new Ovelse(inn);
-
+			//*(array + i) = new Ovelse(inn);
+				array[i]= new Ovelse(inn);
 		//	 array[i]->lesFraFil(inn);		// skal kansjke skrives:  *(array+i)->lesFraFil(inn);
 
 		}
 	}
 }
+
 //destructor
 Gren::~Gren()
 {
 	delete[] annet;
-	for (int i = 1; i <= antOvelser; i++)
-	{	/*delete []array;*/	}	//sletter alle Ovelsesobjekter		//$$$ gjor at programmet krasjer
 
+	for (int i = 1; i <= antallRegistrerteOvelser; i++)
+	{
+	//	delete array[i];
+		//cout << array[i]->hentId() << " ";
+		
+	}//sletter alle Ovelsesobjekter		//$$$ gjor at programmet krasjer
+	//delete []array;
+	
 }
 
 void Gren::endreNavn()// til komado G E
@@ -100,7 +108,7 @@ void Gren::endreNavn()// til komado G E
 	les("Skriv nytt unikt navn: ", buffer, NVLEN);
 	delete []text;
 	text = konverter(buffer);
-	grenenerObj.skrivTilFIl();
+	//grenenerObj.skrivTilFIl();
 }
 //skriver alle data om denne grenen
 void Gren::display()	//til komando G A
@@ -338,8 +346,7 @@ void Gren :: endreOvelseNavn(int indeks) {          // Endrer navnet for en Ovel
   les ("\nNavn paa ovelse", buffer, NVLEN);         // Leser inn navnet på ovelsen.
 
   if (!finnesOvelse(buffer)) {                      // Hvis navnet er unikt:
-    navn = konverter(buffer);                       // Lager ny char og setter korrekt lengde.
-    array[indeks]->endreNavn(navn);                 // Setter navn paa ovelse.
+    array[indeks]->endreNavn(buffer);                 // Setter navn paa ovelse.
   }
   else
     cout << "\n\t" << buffer << " finnes allerede, velg et nytt navn.";
