@@ -804,7 +804,6 @@ void Ovelse::endreDelListe()
 						{
 							if (*(deltagerListe + antDeltagere) == *(deltagerListe + (i - 1)))  //hvis deltageren er registrert fra for
 							{
-								tr(i);
 								sjekk = true;
 							}
 						}
@@ -1037,10 +1036,9 @@ void Ovelse::korigerVinnereTid()
 	int dummy;
 	int temp;
 
-	tr(antDeltagere);
 	for (int i = antDeltagere; i >= 2; i--)										//luup gjennom alle deltagerne
 	{
-		tr(i);
+		
 		if (*(resultatListe + i) > 0)													  //hvis gyldig resultat
 		{
 			if (*(resultatListe + i) == *(resultatListe + (i - 1)))						//hvis 2 like resultater
