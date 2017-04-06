@@ -74,30 +74,6 @@ void Poeng::skrivPoeng()	//displayer 2 arrayer
 	}
 }
 
-void Poeng::testFunksjon()		//test funksjon		slettes før siste innlevering
-{
-	positivNegativ posNeg;
-	int antallPoeng = 0;
-	char temp[MAXNASJONER + 1];
-	char type;
-	skriv("skriv statistikk vedier", "");
-
-	while (les("skriv: ") != 'Q')
-	{
-		cout << "\nlegge til(+) eller trekke fra(-)\t";
-		type = les();
-		antallPoeng = les("skriv", 1, 7);
-		les("skriv nasjonsforkortelse: ", temp, MAXNASJONER);
-
-		if (type == '+')
-		{	posNeg = positiv;	}
-		else
-		{	posNeg = negativ;	}
-
-		endreAntPoeng(temp, antallPoeng, posNeg);
-		skrivPoeng();
-	}
-}
 
 void Poeng::skrivTilFil()		//skriv til fil
 {

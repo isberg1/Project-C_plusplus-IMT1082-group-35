@@ -1,5 +1,5 @@
 #if !defined(__GREN_H)
-//GREN.H alex
+//GREN.H alex + mats
 #define  __GREN_H
 
 #include"OVELSE.H"
@@ -8,20 +8,18 @@
 
 class Gren :public TextElement {
 private:
-	//navn lagres i TextElement
-	registerTidPoeng typeMaaling;
-	int antOvelser;
-	int antSifre;
-	Ovelse *array[MAXOVELSER + 1];
-	char *annet;
-	int antallRegistrerteOvelser;
+				//navn lagres i TextElement
+	registerTidPoeng typeMaaling;		//hva slags maalintype er det
+	int antOvelser;						//maxismlt antall ovelser for denne ovelsen
+	int antSifre;						
+	Ovelse *array[MAXOVELSER + 1];		//array med pekere til Ovelse Objekter
+	char *annet;						//text med div info
+	int antallRegistrerteOvelser;		//teller som hviser hvor mange ovelser som er registrert saa langt 
 
 public:
 	Gren();                                         // Constructor.
 	Gren(char* a);                                  // Constructor med parametre.
 	Gren(ifstream & inn, char* a);                  // Constructor til lesing fra fil.
-	~Gren();                                        // Destructor
-
 	void endreNavn();				                // G E
 	void display();					                // G A
 	void skrivOvelse();				                // Skriver ut all data for alle ovelser     Valg : G S og O A
@@ -42,7 +40,6 @@ public:
 	void skrivHoveddataOvelser();                   // Skriver hoveddata for alle Ovelser.  : O A
 	bool finnesOvelse(char *navn);                  // Sjekk om Ovelsen finnes i array med param. navn.
 	void skrivUtRegistrerteOvelser();               // Skriver ut alle registrerte ovelser.
-
 
 };
 #endif

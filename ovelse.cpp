@@ -1,4 +1,4 @@
-//ovelse.cpp alex
+//ovelse.cpp alle
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
@@ -104,7 +104,7 @@ void Ovelse::skrivTilFil(ofstream & ut)		        // Skriv ovelse til fil.
 	skriv(ut, dato);
 	skriv(ut, klokkeslett);
 	skriv(ut, navn);
-								//loggen skrives til .RES fil istede  Alex
+								
 	if (maaling == PoengX )
 	{	skriv(ut, 1);	}
 	else if(maaling == PoengXX)
@@ -353,13 +353,13 @@ void Ovelse::okPoengTid()                           // Oker antall poeng naar ma
 	}
 }
 
-void Ovelse::alokerMinne()
+void Ovelse::alokerMinne()		//oppretter 2 int arrayer
 {
 	deltagerListe = new int[MAXDELTAGERE + 1];	    // Setter deltagerListe peker til en int array.
 	resultatListe = new int[MAXDELTAGERE + 1];		// Setter resultatListe peker til en int array.
 }
 
-void Ovelse::frigiMinne()
+void Ovelse::frigiMinne()		//destruerer 2 int arrayer
 {
 	delete[]deltagerListe;    // Setter deltagerListe peker til en int array.
 	delete[]resultatListe;		// Setter resultatListe peker til en int array.
@@ -546,11 +546,17 @@ void Ovelse::resultaterLesFraFil()			        // Leser inn resultatlista fra fil.
 		bubbleSort();			//sort
 		fjernPoeng();			//trekk tilbake tidligere tildelte poeng
 		if (maaling == PoengX || maaling == PoengXX)	//hvis maaling er poeng
-		{	okPoengPoeng();		}		// tildel nye poeng og medaljer
+		{
+			korigerVinnerePoeng();		//hvis 2 resultater er like så må vinneren av dem avgjoores
+			okPoengPoeng();				// tildel nye poeng og medaljer
+		}		
 		else							//hvis maaling er tid
-		{	okPoengTid();		}		// tildel nye poeng og medaljer
+		{
+			korigerVinnereTid();   //hvis 2 resultater er like så må vinneren av dem avgjoores
+			okPoengTid();		   // tildel nye poeng og medaljer
+		}		
 
-		resultaterSkrivTilFil();
+		resultaterSkrivTilFil();  //sriv til fil
 	}
 }
 
@@ -583,12 +589,7 @@ void Ovelse::sjekkID(int & temp, char buffer[])	    // Reurnerer Ovelsens ID num
 
 bool Ovelse::fjernResultatliste()					// Fjerner en eksisterende resultatliste.
 {
-	/*Fjerne / slette resultatliste:
-		Om denne(filen) finnes så slettes den.
-		Men, husk først å oppdatere statistikkene.
-	*/
-
-
+	
 	char temp[STRLEN];
 	strcpy(temp, filNavn(1));
 
@@ -608,14 +609,15 @@ bool Ovelse::fjernResultatliste()					// Fjerner en eksisterende resultatliste.
 		{
 			skriv("Filen er slettet", "");	//bekreftelsesmelding
 			fjernPoeng();					//trekker tilbake tidligere tildelte poeng
+			frigiMinne();
 			return true;
 		}
 		else
 		{									//feilmelding
 			skriv("Filen ble ikke slettet", "");
+			frigiMinne();
 			return false;
 		}
-		frigiMinne();
 	}
 	else
 	{										//feilmelding
@@ -778,8 +780,6 @@ void Ovelse::endreDelListe()
 
 	ifstream inn(buffer);								// Henter .STA-fil.
 	ifstream inn2(fil);									// Henter .RES-fil.
-
-	//hvis det finnes en deltagerliste
 
 	if (!inn2)		//hvis det ikke finnes en resultatliste
 	{

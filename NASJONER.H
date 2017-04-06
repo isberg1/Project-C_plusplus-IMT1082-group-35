@@ -4,8 +4,6 @@
 
 #include "NASJON.H"                                 // Klassen Nasjon.
 
-
-
 class Nasjoner {
   private:
     List *nasjonsListe;                             // Peker til liste.

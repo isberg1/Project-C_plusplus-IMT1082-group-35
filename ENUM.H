@@ -10,7 +10,5 @@ enum positivNegativ{positiv, negativ};
 //brukes i deltager
 enum kjonn { Mann, Kvinne };
 
-
-
 #endif
 

@@ -1,4 +1,4 @@
-//gren.cpp alex
+//gren.cpp alex + mats
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
@@ -29,6 +29,7 @@ Gren::Gren(char * a) : TextElement(a)               // Constructor med string ar
 	antOvelser = les("Skriv antall ovelser", 1, MAXOVELSER);
 	antallRegistrerteOvelser=0;
 
+								//lar brukeren vele hva slags maaling denne grenen har
 	cout << "\nskriv type maaling: "
 		<< "\n(1) MinSECTidel"
 		<< "\n(2) MinSecHundredel"
@@ -37,7 +38,7 @@ Gren::Gren(char * a) : TextElement(a)               // Constructor med string ar
 		<< "\n(5) PoengXX";
 	tilEnum = les("\nskriv type (1),(2),(3),(4),(5)", 1, 5);
 
-	switch (tilEnum)
+	switch (tilEnum)	//setter verdien til enumen basert paa inten tilEnum
 	{
 	case 1:	typeMaaling = MinSECTidel;		antSifre = 1; break;
 	case 2: typeMaaling = MinSecHundredel;	antSifre = 2; break;
@@ -46,8 +47,8 @@ Gren::Gren(char * a) : TextElement(a)               // Constructor med string ar
 	case 5:	typeMaaling = PoengXX;			antSifre = 2; break;
 	}
 
-	les("Skriv inn annet: ", buffer, STRLEN);
-	annet = konverter(buffer);
+	les("Skriv inn annet: ", buffer, STRLEN);	//les inn informajon til annet
+	annet = konverter(buffer);					// lagre informajonen til i buffer til annet via NEW
 }
 
 // Constructor med filargument.
@@ -74,32 +75,14 @@ Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 
 	if (antallRegistrerteOvelser > 0) //hvis det er registrert noen ovelser i det hele tatt
 	{
-
-		//leser inn ovelser fra fil
+									//leser inn ovelser fra fil
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{
-			//*(array + i) = new Ovelse(inn);
 				array[i]= new Ovelse(inn);
-		//	 array[i]->lesFraFil(inn);		// skal kansjke skrives:  *(array+i)->lesFraFil(inn);
-
 		}
 	}
 }
 
-//destructor
-Gren::~Gren()
-{
-	delete[] annet;
-
-	for (int i = 1; i <= antallRegistrerteOvelser; i++)
-	{
-	//	delete array[i];
-		//cout << array[i]->hentId() << " ";
-		
-	}//sletter alle Ovelsesobjekter		//$$$ gjor at programmet krasjer
-	//delete []array;
-	
-}
 
 void Gren::endreNavn()// til komado G E
 {//sletter exsisterende navn først og så hentes et nytt navn
@@ -110,8 +93,8 @@ void Gren::endreNavn()// til komado G E
 	text = konverter(buffer);
 	//grenenerObj.skrivTilFIl();
 }
-//skriver alle data om denne grenen
-void Gren::display()	//til komando G A
+							
+void Gren::display()	//til komando G A skriver alle data om denne grenen
 {
 	skriv("\nGrenens navn er:            ", text);
 	skriv("Antall registrerte ovelser er:", antallRegistrerteOvelser);
@@ -145,7 +128,7 @@ void Gren::skrivTilFIl(ofstream & ut)
 	skriv(ut, antSifre);
 	skriv(ut, antallRegistrerteOvelser);
 
-	//skriver enum til fil som en int mellom 0 til 4
+	//skriver enum til fil som en int mellom 1 til 5
 	if (typeMaaling == MinSECTidel)
 	{	skriv(ut, 1);   }
 	if (typeMaaling == MinSecHundredel)
@@ -159,7 +142,7 @@ void Gren::skrivTilFIl(ofstream & ut)
 
 	if (antallRegistrerteOvelser > 0) //hvis det er registrer noen ovelser i det hele tatt
 	{
-		//skriver ovelsesobjekter til fil
+								//skriver ovelsesobjekter til fil
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)
 		{	array[i]->skrivTilFil(ut);	}
 	}
@@ -208,51 +191,51 @@ void Gren::skrivOvelseMeny()						// KommandoMeny for Ovelser.
 		<< "\n\tQ - Tilbake til hovedmeny";
 }
 
-void Gren::ovelseDelMeny()
+void Gren::ovelseDelMeny()		//finner riktig Ovelses objekt  og sender brukeren til riktig meny
 {
 	int buffer, temp;
 
 	if (array != nullptr)
 	{
-		skrivIdTilRegistrerteOvelser();
+		skrivIdTilRegistrerteOvelser();	//skriver oversik over alle aktulle ovelser 
 		buffer = les("\n\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
 
-		for (int i = 1; i <= antallRegistrerteOvelser; i++)
+		for (int i = 1; i <= antallRegistrerteOvelser; i++)	//gaar gjennom hele arrayen
 		{
-			temp = array[i]->hentId();
+			temp = array[i]->hentId();		//hvis riktig nummer display meny
 			if (temp == buffer)
 			{
 				array[i]->menyValgDelListe();
 			}
 		}
 	}
-	else
+	else    //feilmelding
 	{	skriv("Ingen ovelser er registrert", "");	}
 }
 
-void Gren::ovelseResMeny()
+void Gren::ovelseResMeny()		//finner riktig Ovelses objekt  og sender brukeren til riktig meny
 {
 	int buffer, temp;
 
-	skrivIdTilRegistrerteOvelser();
+	skrivIdTilRegistrerteOvelser();   //skriver oversik over alle aktulle ovelser 
 	buffer = les("\n\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
 
 	if (array != nullptr)
 	{
-		for (int i = 1; i <= antallRegistrerteOvelser; i++)
+		for (int i = 1; i <= antallRegistrerteOvelser; i++)  //gaar gjennom hele arrayen
 		{
-			temp = array[i]->hentId();
-			if (temp == buffer)
+			temp = array[i]->hentId();  
+			if (temp == buffer)      //hvis riktig nummer display meny
 			{
 				array[i]->menyValgResListe();
 			}
 		}
 	}
-	else
+	else    //feilmelding
 	{  skriv("Ingen ovelser er registrert", "");	}
 }
 
-void Gren::skrivIdTilRegistrerteOvelser()
+void Gren::skrivIdTilRegistrerteOvelser()    //skriver oversik over alle aktulle ovelser 
 {
 	int temp;
 	char buffer[NVLEN];
@@ -260,17 +243,17 @@ void Gren::skrivIdTilRegistrerteOvelser()
 	skriv("ID-en til ovelser registrert pa denne gren: ", "");
 	for (int i = 1; i <= antallRegistrerteOvelser; i++)
 	{
-		array[i]->sjekkID(temp, buffer);
+		array[i]->sjekkID(temp, buffer); //henter en ovelses nr og navn
 		cout << "\n" << temp << ":  " << buffer;
 	}
 }
 
-void Gren::skrivListGrenTilFil()
+void Gren::skrivListGrenTilFil()   //skriv et grenobjekt utenfor listen til fil
 {
 	Gren *ptr;
 	ptr = this;
 
-	grenenerObj.addTilLIst(ptr);		//legger dette objektet tilbake i listGren
+	grenenerObj.addTilLIst(ptr);	//legger dette objektet tilbake i listGren
 	grenenerObj.skrivTilFIl();		//skriver alt i listGren til fil
 	grenenerObj.fjernFraList(text);	//tar dette objektet ut av listGren
 }

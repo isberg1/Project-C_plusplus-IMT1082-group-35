@@ -51,7 +51,7 @@ Nasjon :: Nasjon(ifstream & inn, char *nasjonKort) : TextElement(nasjonKort)  {
   andreData = lesTxt(inn);
 }
 
-Nasjon :: ~Nasjon() {
+Nasjon :: ~Nasjon() {		//destructor
   delete[] fulltNavn;
   delete[] kontaktNavn;
   delete[] andreData;
@@ -66,7 +66,7 @@ void Nasjon :: display() {
        << "\nAnnet:                 " << andreData;
 }
 
-void Nasjon :: skrivTilFil(ofstream & ut) {
+void Nasjon :: skrivTilFil(ofstream & ut) {			//skriv fil fil
 
   /* Filoppsett:
 
@@ -92,7 +92,6 @@ void Nasjon :: endreNasjonsNavn() {                 // Endrer det fulle navnet t
 
   les("\nNasjonens fulle navn", buffer, NVLEN);
   delete[] fulltNavn;                               // Sletter fulltNavn før det lages ny.
-  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   fulltNavn = konverter(buffer);                    // Gjør om størrelsen og lager ny peker.
 }
 
@@ -101,7 +100,6 @@ void Nasjon :: endreKontaktperson() {               // Endrer navnet til kontakt
 
   les("\nKontaktpersonens navn", buffer, NVLEN);
   delete[] kontaktNavn;                             // Sletter kontaktnavn før det lages ny.
-  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   kontaktNavn = konverter(buffer);                  // Gjør om størrelsen og lager ny peker.
 }
 

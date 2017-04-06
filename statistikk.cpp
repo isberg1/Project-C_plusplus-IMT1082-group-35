@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Statisikk::Statisikk()
+Statisikk::Statisikk()		//constructor
 {
 	sistebrukt = 0;
 
@@ -20,7 +20,7 @@ Statisikk::Statisikk()
 }
 
 
-void Statisikk::sorter1(int array[]) 
+void Statisikk::sorter1(int array[])		//sorterer en char array og en int array paa en gang
 {
 	int teller = sistebrukt;
 	int dummy;
@@ -46,7 +46,6 @@ void Statisikk::sorter1(int array[])
 		nasjonsForkort[sistebrukt][0] = '\0';
 		sistebrukt--;
 	}
-
 }
 
 void Statisikk::omsorter(int teller, int array[])		
