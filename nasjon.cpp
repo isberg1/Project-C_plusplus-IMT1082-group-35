@@ -26,16 +26,19 @@ Nasjon :: Nasjon(char *nasjonKort) : TextElement(nasjonKort) {
   char buffer[STRLEN];                              // Buffertekst som er 80 lang.
 
   les("\nFullt navn for nasjonen", buffer, NVLEN);  // Leser inn full navn på nasjon.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   fulltNavn = konverter(buffer);                    // Gjor om storrelsen og gjor om til peker.
 
   antDeltagere = 0;
 
   les("\nKontaktperson", buffer, NVLEN);            // Leser inn navn på kontaktperson.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   kontaktNavn = konverter(buffer);                  // Gjør om størrelsen.
                                                     // Leser inn tlf i interval.
   kontaktTlf = les("\nKontaktpersonens tlf", 10000000, 99999999);
 
   les("\nAnnet", buffer, STRLEN);                   // Leser inn annen data.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   andreData = konverter(buffer);                    // Gjor om storrelsen og gjor om til peker.
 }
 
@@ -109,6 +112,7 @@ void Nasjon :: endreAnnet() {                       // Endrer feltet 'Annet'.
 
   les("\nAnnet", buffer, STRLEN);
   delete[] andreData;                               // Sletter andreData før det lages ny.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   andreData = konverter(buffer);                    // Gjør om størrelsen og lager ny peker.
 }
 

@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cstring>
 #include "GREN.H"
-#include "OVELSE.H"
+#include "OVELSE.H" // fungerer ikke?
 #include"FUNKSJONER.H"
 #include"GRENER.H"
 using namespace std;
@@ -83,10 +83,6 @@ Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 	}
 }
 
-Gren::~Gren()                                       // Destructor
-{
-	delete[] annet;
-}
 
 void Gren::endreNavn()// til komado G E
 {//sletter exsisterende navn først og så hentes et nytt navn
@@ -328,6 +324,7 @@ void Gren :: endreOvelse() {                        // Endrer data for en Ovelse
 
 void Gren :: endreOvelseNavn(int indeks) {          // Endrer navnet for en Ovelse.
   char buffer[NVLEN];
+  char *navn;
 
   les ("\nNavn paa ovelse", buffer, NVLEN);         // Leser inn navnet på ovelsen.
 
@@ -353,6 +350,8 @@ void Gren :: fjernOvelse() {                        // Fjerner en Ovelse.       
     if (valg == 'J') {                              // Sletter ovelsen:
       array[indeks]->fjernResultatliste();          // Sletter resultatListen.
       array[indeks]->fjernDelListe();               // Sletter deltagerListen.
+
+	  //delete array[indeks];                         // Sletter objektet fra array. Fungerer ikke.
 
       if (indeks < antallRegistrerteOvelser)        // Hvis objektet sin indeks er mindre enn siste brukte i array:
         array[indeks] = array[antallRegistrerteOvelser]; // Setter den slettede peker til aa peke paa siste.
@@ -382,12 +381,14 @@ bool Gren :: finnesOvelse(char* navn) {             // Sjekk om Ovelsen finnes i
   char *navnIarray;
 
   navn = konverterTilStore(navn);                   // Gjør om parameters navn til store bokstaver.
+  fjernBlankeForanOgBak(navn);                      // Fjerner blanke.
 
   if (antallRegistrerteOvelser == 0)				// Hvis arrayen er tom.
     return false;
 
   for (int i = 1; i <= antallRegistrerteOvelser; i++) {		// Looper gjennom array.
 	  navnIarray = konverterTilStore(array[i]->hentNavn()); // Gjør om til store bokstaver.
+	  fjernBlankeForanOgBak(navnIarray);			// Fjerner blanke.
 
 	  if (strcmp(navn, navnIarray) == 0)			// Hvis medsendt param er lik Ovelses navn.
 		return true;

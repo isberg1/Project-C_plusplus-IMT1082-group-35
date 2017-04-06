@@ -35,6 +35,7 @@ Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
   nasjon = nyNasjon;                                // Setter nasjon på deltageren, fra param.
 
   les("\nNavnet paa deltageren: ", buffer, NVLEN);  // Leser in nnavet på deltageren.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   fullNavn = konverter(buffer);                     // Gjør om størrelsen og lager ny.
 
   do {                                              // Loop hvis M eller K ikke blir valg.
@@ -47,6 +48,7 @@ Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
     deltagerKjonn = Kvinne;                         // kjønn blir satt til Kvinne.
 
   les("\nAnnet", buffer, STRLEN);                   // Leser inn annet.
+  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   data = konverter(buffer);                         // Gjør om størrelsen og lager ny.
 
   nasjonObj.oppdaterNasjon(nyNasjon);               // Oppdaterer Nasjon obj. med antDeltagere +1.
@@ -155,7 +157,7 @@ void Deltager :: skrivDeltagerTropp(char *n) {
 void Deltager :: skrivTilFil(ofstream & ut) {       // Skriver til fil.
   /* Filoppsett:
 
-     antObjekter    -   Antall objeketer i liste.
+     antObjeketer   -   Antall objeketer i liste.
      number         -   Deltager ID-en.
      fullnavn       -   Navnet til deltageren.
      nasjon         -   Nasjonstilhørighet.

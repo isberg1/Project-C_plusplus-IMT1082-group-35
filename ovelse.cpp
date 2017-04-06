@@ -50,7 +50,7 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
   nr = lagUniktNr();						        // Faar et unikt nummer basert på static int navnTeller.
   maaling = typeMaaling;							// Faar enumen fra Gren.
 
-  endreNavn(ovelseNavn);                            // Setter navn fra parameter.
+  navn = konverter(ovelseNavn);                     // Setter navn fra parameter.
                                                     // Les inn antall deltagere.
   antDeltagere = 0;
   endreDato();                                      // Setter dato.
@@ -523,6 +523,7 @@ void Ovelse::resultaterLesFraFil()			        // Leser inn resultatlista fra fil.
 {
 	char buffer[100];
 	char x[20];
+	int teller = 1;
 	strcpy(x, filNavn(1));					//hent riktig filnavn
 
 	ifstream inn(x);
@@ -584,7 +585,6 @@ void Ovelse::sjekkID(int & temp, char buffer[])	    // Reurnerer Ovelsens ID num
 	temp = nr;
 	strcpy(buffer, navn);
 }
-
 
 bool Ovelse::fjernResultatliste()					// Fjerner en eksisterende resultatliste.
 {
@@ -870,7 +870,6 @@ void Ovelse::endreDelListe()
 
 }
 
-
 void Ovelse::fjernDelListe()						// Sletter spesifisert deltagerListe-fil.
 {
 	char temp[STRLEN];
@@ -951,8 +950,8 @@ void Ovelse :: endreNavn(char *ovelseNavn) {        // Endrer navnet til ovelsen
 }
 
 void Ovelse :: endreDato() {                        // Endrer datoen til ovelsen.
-  cout << "\nSkriv inn dato for ovelsen (aaaa mm dd)"; // Lovelig dato-interval: 2017.01.01-2116.12.31.
-  dato = les("\nDato", 20170101, 21161231);
+  cout << "\nSkriv inn dato for ovelsen (aaaa mm dd)"; // Lovelig dato-interval: 17.01.01-20.12.31.
+  dato = les("\nDato", 170101, 201231);
   dato = datoSjekk(dato);                           // Sjekker at dato er på riktig format.
 }
 
@@ -990,7 +989,7 @@ void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en 
        << "\nDato:              "                   // Skriver ut dato paa leslig form.
        << ((dag < 10) ? "0" : "") << dag << "."
        << ((maaned < 10) ? "0" : "") << maaned << "."
-       << aar
+       << "20" << aar
        << "\nKlokkeslett:       "                   // Skriver ut klokkeslett paa leslig form.
        << ((time < 10) ? "0" : "") << time << ":"
        << ((minutt < 10) ? "0" : "") << minutt;

@@ -160,6 +160,7 @@ void Deltagere :: skrivDataEn() {                   // Skriver all data om en gi
   if (valg == 'A') {
     les("\nNavnet du vil sooke etter", buffer, STRLEN);
 
+    fjernBlankeForanOgBak(buffer);                  // Fjerner blanke foran og bak.
     sokEtter = konverter(buffer);                   // Lager string med ny lengde.
     sokEtter = konverterTilStore(sokEtter);         // Gjør om til store bokstaver.
 
@@ -318,7 +319,7 @@ void Deltagere :: skrivUtRegistrerteDeltagere() {   // Skriver ut navn og id paa
   }
 }
 
-int Deltagere::antallRegistrerteDeltagere()	        // Henter antall elementer i deltagerlisten.
+int Deltagere::antallRegistrerteDeltagere()	//henter antall elementer i deltagerlisten
 {
 
 	if (DeltagerListe)								//hvis listen eksisterer
