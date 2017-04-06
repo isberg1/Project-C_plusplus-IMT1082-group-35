@@ -160,7 +160,6 @@ void Deltagere :: skrivDataEn() {                   // Skriver all data om en gi
   if (valg == 'A') {
     les("\nNavnet du vil sooke etter", buffer, STRLEN);
 
-    fjernBlankeForanOgBak(buffer);                  // Fjerner blanke foran og bak.
     sokEtter = konverter(buffer);                   // Lager string med ny lengde.
     sokEtter = konverterTilStore(sokEtter);         // Gjør om til store bokstaver.
 

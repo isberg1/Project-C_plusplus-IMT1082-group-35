@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cstring>
 #include "GREN.H"
-#include "OVELSE.H" // fungerer ikke?
+#include "OVELSE.H"
 #include"FUNKSJONER.H"
 #include"GRENER.H"
 using namespace std;
@@ -54,7 +54,7 @@ Gren::Gren(char * a) : TextElement(a)               // Constructor med string ar
 Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 {
 	int tilEnum;
-	
+
 	//leser inn egne datamedlemer
 	annet = lesTxt(inn);
 	antOvelser = lesInt(inn);
@@ -95,10 +95,10 @@ Gren::~Gren()
 	{
 	//	delete array[i];
 		//cout << array[i]->hentId() << " ";
-		
+
 	}//sletter alle Ovelsesobjekter		//$$$ gjor at programmet krasjer
 	//delete []array;
-	
+
 }
 
 void Gren::endreNavn()// til komado G E
@@ -398,14 +398,12 @@ bool Gren :: finnesOvelse(char* navn) {             // Sjekk om Ovelsen finnes i
   char *navnIarray;
 
   navn = konverterTilStore(navn);                   // Gjør om parameters navn til store bokstaver.
-  fjernBlankeForanOgBak(navn);                      // Fjerner blanke.
 
   if (antallRegistrerteOvelser == 0)				// Hvis arrayen er tom.
     return false;
 
   for (int i = 1; i <= antallRegistrerteOvelser; i++) {		// Looper gjennom array.
 	  navnIarray = konverterTilStore(array[i]->hentNavn()); // Gjør om til store bokstaver.
-	  fjernBlankeForanOgBak(navnIarray);			// Fjerner blanke.
 
 	  if (strcmp(navn, navnIarray) == 0)			// Hvis medsendt param er lik Ovelses navn.
 		return true;
