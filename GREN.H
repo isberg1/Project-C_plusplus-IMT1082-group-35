@@ -21,7 +21,6 @@ public:
 	Gren(char* a);                                  // Constructor med parametre.
 	Gren(ifstream & inn, char* a);                  // Constructor til lesing fra fil.
 	~Gren();                                        // Destructor
-
 	void endreNavn();				                // G E
 	void display();					                // G A
 	void skrivOvelse();				                // Skriver ut all data for alle ovelser     Valg : G S og O A
@@ -31,7 +30,7 @@ public:
 	void menyValgOvelse();							// Switch for Ovelse.						Valg : O
 	void skrivOvelseMeny();							// KommandoMeny for Ovelse.
 	void registrerNyOvelse();						// Lager ny Ovelse.							Valg : O N
-	void ovelseDelMeny();							// Henter funksjon for deltagerListe switch	Valg : O L
+	void ovelseDelMeny();							// Henter funksjon for deltagerListe switch Valg : O L
 	void ovelseResMeny();							// henter funksjon for resultatListe switch	Valg : O R
 	void skrivIdTilRegistrerteOvelser();
 	void skrivListGrenTilFil();

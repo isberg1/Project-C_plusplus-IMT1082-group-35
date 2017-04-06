@@ -43,8 +43,8 @@ char les() {			                            // Henter ett ikke-blankt upcaset teg
 char les(char menyPlass[]) {			            // Henter ett ikke-blankt upcaset tegn:
 	char ch;
 	cout << menyPlass;                              // Skriver ut menyplass.
-	cin >> ch;                                      // Leser ETT tegn. Forkaster '\n'.                                                    // Forkaster flere bokstaver enn 1 og '\n'.
-	cin.ignore(numeric_limits <streamsize> :: max(), '\n');
+	cin >> ch;                                      // Leser ETT tegn. Forkaster '\n'.
+	cin.ignore(numeric_limits <streamsize> :: max(), '\n');// Forkaster flere bokstaver enn 1 og '\n'.
 
 	return (toupper(ch));                           // Upcaser og returnerer.
 }

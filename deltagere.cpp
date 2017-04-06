@@ -317,7 +317,7 @@ void Deltagere :: skrivUtRegistrerteDeltagere() {   // Skriver ut navn og id paa
   }
 }
 
-int Deltagere::antallRegistrerteDeltagere()	//henter antall elementer i deltagerlisten
+int Deltagere::antallRegistrerteDeltagere()	        // Henter antall elementer i deltagerlisten.
 {
 
 	if (DeltagerListe)								//hvis listen eksisterer
