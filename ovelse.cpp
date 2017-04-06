@@ -718,48 +718,60 @@ void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
 		inn.close();  //lukk filen
 		alokerMinne();
 
-		do
+		if (deltagerObj.antallRegistrerteDeltagere() >= MINDELTAGERE)	//hvis det er registrert nook deltagere globalt
 		{
-			//finner ut Hvor mange deltagere som skal registreres
-			antDeltagere = les("Skriv inn antall deltagere som skal registreres: ", 2, deltagerObj.antallRegistrerteDeltagere());
-			if (antDeltagere >= MAXDELTAGERE)		//sjekker at det ikke er for mange deltagere;
-			{	skriv("max antal deltagere er :", MAXDELTAGERE);	}
-
-		} while (antDeltagere >= MAXDELTAGERE);
-
-											//gaar gjennom alle deltagerne som skal skrives inn
-		for (int i = 1; i <= antDeltagere; i++)
-		{														//leser inn deltagere
-			cout << "\nDeltager nr. " << i << " Av: " << antDeltagere;
-			*(deltagerListe + i) = les("\nSkriv ID-nr. paa deltager som skal legges til startlisten: ", 1, 9999);
-										//sjekker om en deltager allerede er registrert i samme ovelse
-			for (int k = 1; k <= i-1; k++)
+			do
 			{
-			if (*(deltagerListe + i) == *(deltagerListe + k))
-			{	sjekk = true;	}
-			}
+				//finner ut Hvor mange deltagere som skal registreres
+				antDeltagere = les("Skriv inn antall deltagere som skal registreres: ", 2, deltagerObj.antallRegistrerteDeltagere());
+				if (antDeltagere >= MAXDELTAGERE)		//sjekker at det ikke er for mange deltagere;
+				{
+					skriv("max antal deltagere er :", MAXDELTAGERE);
+				}
 
-			while (!sjekkDeltagerId(*(deltagerListe + i))  ||  sjekk)  //finnes deltageren eller er han registrert fra foor
-			{
-			//felimeldinger
-				if (sjekk)                          //hvis nummeret allerede er registrert
-				{	skriv("deltageren er allerede registrert!", "");	}
-				else                        //hvis det ikke finnes en deltager med det nummeret
-				{	skriv("Finner ingen deltager med det nummeret i arkivet!", ""); 	}
+			} while (antDeltagere >= MAXDELTAGERE);
 
-				sjekk = false;
-																	//leser inn deltagere
+			//gaar gjennom alle deltagerne som skal skrives inn
+			for (int i = 1; i <= antDeltagere; i++)
+			{														//leser inn deltagere
 				cout << "\nDeltager nr. " << i << " Av: " << antDeltagere;
 				*(deltagerListe + i) = les("\nSkriv ID-nr. paa deltager som skal legges til startlisten: ", 1, 9999);
-											//sjekker om en deltager allerede er registrert i samme ovelse
-				for (int a = 1; a <= i-1; a++)
+				//sjekker om en deltager allerede er registrert i samme ovelse
+				for (int k = 1; k <= i - 1; k++)
 				{
-					if (*(deltagerListe + i) == *(deltagerListe + a))
-					{	sjekk = true;	}
+					if (*(deltagerListe + i) == *(deltagerListe + k))
+					{		sjekk = true;			}
 				}
+
+				while (!sjekkDeltagerId(*(deltagerListe + i)) || sjekk)  //finnes deltageren eller er han registrert fra foor
+				{
+					//felimeldinger
+					if (sjekk)                          //hvis nummeret allerede er registrert
+					{
+						skriv("deltageren er allerede registrert!", "");
+					}
+					else                        //hvis det ikke finnes en deltager med det nummeret
+					{
+						skriv("Finner ingen deltager med det nummeret i arkivet!", "");
+					}
+
+					sjekk = false;
+					//leser inn deltagere
+					cout << "\nDeltager nr. " << i << " Av: " << antDeltagere;
+					*(deltagerListe + i) = les("\nSkriv ID-nr. paa deltager som skal legges til startlisten: ", 1, 9999);
+					//sjekker om en deltager allerede er registrert i samme ovelse
+					for (int a = 1; a <= i - 1; a++)
+					{
+						if (*(deltagerListe + i) == *(deltagerListe + a))
+						{	sjekk = true;		}
+					}
+				}
+				skriv("startliste er oppdadert med deltager: ", *(deltagerListe + i));  //bekreftelsesmelding
 			}
-			skriv("startliste er oppdadert med deltager: ", *(deltagerListe + i));  //bekreftelsesmelding
 		}
+		else
+		{		cout << "\nDet maa registreres minst: " << MINDELTAGERE << "for at det kan lages en deltagerliste\n";	}
+
 		deltagerSkrivtilFil();												//skriv deltagerlisten til fil
 		frigiMinne();
 	}
@@ -804,7 +816,6 @@ void Ovelse::endreDelListe()
 						{
 							if (*(deltagerListe + antDeltagere) == *(deltagerListe + (i - 1)))  //hvis deltageren er registrert fra for
 							{
-								tr(i);
 								sjekk = true;
 							}
 						}
@@ -890,6 +901,7 @@ void Ovelse::fjernDelListe()						// Sletter spesifisert deltagerListe-fil.
 			if (slettFil(temp))						// og om sletting fungerte
 			{
 				skriv("Filen er slettet", "");		// Skriv ut melding
+				antDeltagere = 0;
 			}
 			else									// Ellers skriv ut feilmelding.
 			{
@@ -1036,10 +1048,8 @@ void Ovelse::korigerVinnereTid()
 	int dummy;
 	int temp;
 
-	tr(antDeltagere);
 	for (int i = antDeltagere; i >= 2; i--)										//luup gjennom alle deltagerne
 	{
-		tr(i);
 		if (*(resultatListe + i) > 0)													  //hvis gyldig resultat
 		{
 			if (*(resultatListe + i) == *(resultatListe + (i - 1)))						//hvis 2 like resultater

@@ -195,7 +195,7 @@ void Gren::ovelseDelMeny()		//finner riktig Ovelses objekt  og sender brukeren t
 {
 	int buffer, temp;
 
-	if (array != nullptr)
+	if (antallRegistrerteOvelser > 0)	//hvis det er registrert noen ovelser
 	{
 		skrivIdTilRegistrerteOvelser();	//skriver oversik over alle aktulle ovelser
 		buffer = les("\n\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
@@ -215,13 +215,13 @@ void Gren::ovelseDelMeny()		//finner riktig Ovelses objekt  og sender brukeren t
 
 void Gren::ovelseResMeny()		//finner riktig Ovelses objekt  og sender brukeren til riktig meny
 {
-	int buffer, temp;
+	int buffer, temp;	
 
-	skrivIdTilRegistrerteOvelser();   //skriver oversik over alle aktulle ovelser
-	buffer = les("\n\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
-
-	if (array != nullptr)
+	if (antallRegistrerteOvelser > 0)	//hvis det er registrert noen ovelser
 	{
+		skrivIdTilRegistrerteOvelser();   //skriver oversik over alle aktulle ovelser
+		buffer = les("\n\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
+
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)  //gaar gjennom hele arrayen
 		{
 			temp = array[i]->hentId();
