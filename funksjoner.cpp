@@ -193,7 +193,6 @@ char *nasjonsForkortelse(char t[]) {                // Sjekker at bokstaver = 3 
 
   do {                                              // Loop:
     les("\nNasjonsforkortelse (3 bokstaver)", buffer, NVLEN);
-    fjernBlankeForanOgBak(buffer);                  // Fjerner blanke foran og bak.
     forkortelse = konverter(buffer);                // Gjør om størrelsen og lager ny char.
   } while (!erBokstaver(forkortelse) ||             // Så lenge det ikke er bokstaver og
             strlen(forkortelse) != NASJONLEN);      // lengder på array ikke er 3.

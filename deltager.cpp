@@ -35,7 +35,6 @@ Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
   nasjon = nyNasjon;                                // Setter nasjon på deltageren, fra param.
 
   les("\nNavnet paa deltageren: ", buffer, NVLEN);  // Leser in nnavet på deltageren.
-  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   fullNavn = konverter(buffer);                     // Gjør om størrelsen og lager ny.
 
   do {                                              // Loop hvis M eller K ikke blir valg.
@@ -48,7 +47,6 @@ Deltager :: Deltager(char *nyNasjon, int ID) : NumElement(ID) {
     deltagerKjonn = Kvinne;                         // kjønn blir satt til Kvinne.
 
   les("\nAnnet", buffer, STRLEN);                   // Leser inn annet.
-  fjernBlankeForanOgBak(buffer);                    // Fjerner blanke foran og bak.
   data = konverter(buffer);                         // Gjør om størrelsen og lager ny.
 
   nasjonObj.oppdaterNasjon(nyNasjon);               // Oppdaterer Nasjon obj. med antDeltagere +1.
@@ -83,7 +81,7 @@ void Deltager::endreNavn()		//endrer en deltagers navn
 
 	delete[] fullNavn;							//slett exsisterende navn
 	les("Skriv inn nytt navn", nv, NVLEN);		//les inn nytt navn
-	fullNavn = konverter(nv);					//konverter til char* 
+	fullNavn = konverter(nv);					//konverter til char*
 	cout << "\nNavn endret til: " << fullNavn;	//bekrefte endring til bruker
 }
 

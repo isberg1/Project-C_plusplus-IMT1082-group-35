@@ -22,8 +22,8 @@ Grener::Grener()
 }
 													// destructor
 Grener::~Grener()
-{	
-	delete listGren; 
+{
+	delete listGren;
 }
 
 void Grener::skrivMeny()					        // skriver menyen i GrenerObj
@@ -225,7 +225,7 @@ void Grener :: skrivUtRegistrerteGrener() {         // Skriver ut alle registrer
     gren->skrivGrenNavn();                          // Skriver ut text (navnet).
     listGren->add(gren);                            // Legger tilbake i listen.
 
-    if (newLineTeller % 3 == 0)                     // Skriver ut "new line" hvis 3 grener
+    if (newLineTeller % 2 == 0)                     // Skriver ut "new line" hvis 2 grener
       cout << '\n';                                 // ligger etter hverandre pa skjermen.
     newLineTeller++;                                // Teller opp med en.
   }

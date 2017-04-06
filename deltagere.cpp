@@ -65,7 +65,7 @@ void Deltagere :: nyDeltager() {                    // Oppretter ny Deltager    
 
   if (nasjonObj.finnesNasjon(tempNasjon)) {         // Hvis nasjonen finnes:
                                                     // Leser inn ID-en til deltageren.
-    deltagerID = les("\nSkriv inn ID for deltageren:", 0001, 9999);
+    deltagerID = les("\nSkriv inn ID for deltageren:", 100, 9999);
 
     if (!DeltagerListe->inList(deltagerID)) {       // Hvis deltager ikke allerede er registrert.
                                                     // Lager nytt Deltager obj. Sender med tempNasjon
@@ -160,7 +160,6 @@ void Deltagere :: skrivDataEn() {                   // Skriver all data om en gi
   if (valg == 'A') {
     les("\nNavnet du vil sooke etter", buffer, STRLEN);
 
-    fjernBlankeForanOgBak(buffer);                  // Fjerner blanke foran og bak.
     sokEtter = konverter(buffer);                   // Lager string med ny lengde.
     sokEtter = konverterTilStore(sokEtter);         // Gjør om til store bokstaver.
 
@@ -289,7 +288,7 @@ char * Deltagere::hentNavn(int deltag)	//henter en deltagers navn via en daltage
 
 			return temp;
 		}
-	}	
+	}
 
 	strcpy(temp, "deltager finnes ikke");		//feilmelding
 	return	temp;
