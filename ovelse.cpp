@@ -749,7 +749,7 @@ void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
 				sjekk = false;
 																	//leser inn deltagere
 				cout << "\nDeltager nr. " << i << " Av: " << antDeltagere;
-				*(deltagerListe + i) = les("\nSkriv ID-nr. paa deltager som skal legges til startlisten: ", 1, 9999);
+				*(deltagerListe + i) = les("\nSkriv ID-nr. paa deltager som skal legges til startlisten: ", 100, 9999);
 											//sjekker om en deltager allerede er registrert i samme ovelse
 				for (int a = 1; a <= i-1; a++)
 				{
@@ -818,7 +818,7 @@ void Ovelse::endreDelListe()
 
 							sjekk = false;
 							//leser inn deltagere
-							*(deltagerListe + antDeltagere) = les("\nskriv iden til deltageren du onsker aa legge til", 1, 9999);
+							*(deltagerListe + antDeltagere) = les("\nskriv ID-en til deltageren du onsker aa legge til", 100, 9999);
 
 							//sjekker om en deltager allerede er registrert i samme ovelse
 							for (int i = antDeltagere; i >= 2; i--)
@@ -918,7 +918,7 @@ int Ovelse :: datoSjekk(int dato) {                 // Sjekker om dato er på rik
 
   while ((maaned < 1 || maaned > 12) ||             // Looper hvis måned ikke er fra 1-12
          (dag < 1 || dag > 31)) {                   // og dag fra 1-31.
-    dato = les("\n\tDato", 20170101, 21161231);
+    dato = les("\n\tDato", 170101, 201231);
     maaned = (dato / 100) % 100;                    // Oppdaterer måned.
     dag = dato % 100;                               // Oppdaterer dag.
   }

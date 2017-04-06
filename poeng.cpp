@@ -14,14 +14,13 @@
 
 using namespace std;
 
+
+
 Poeng::Poeng()		//constructor
 {
 	for (int i = 0; i <= MAXNASJONER; i++)	//nullstiller hele arrayen
 	{	poeng[i] = 0;	}
 }
-
-
-
 
 void Poeng::endreAntPoeng(char nasjon[], int antPoeng, positivNegativ posNeg)	//endre en nasjons antall poeng
 {
@@ -74,7 +73,6 @@ void Poeng::skrivPoeng()	//displayer 2 arrayer
 	}
 }
 
-
 void Poeng::skrivTilFil()		//skriv til fil
 {
 
@@ -126,4 +124,3 @@ void Poeng::lesFraFil()		//les fra fil
 	else
 	{	cout << "\nFinner ikke filen 'POENG.DTA'";  }
 }
-

@@ -154,8 +154,6 @@ char *lesTxt(ifstream & inn)
 void lesTxt2(ifstream & inn, char string[])
 {	inn.getline(string, STRLEN); }
 
-
-
 void fjernBlankeForanOgBak(char txt[])
 {
 	char buff[STRLEN];
@@ -209,17 +207,6 @@ bool erBokstaver(char tekst[]) {                    // Sjekker om alle indekser 
 
   for (int i = 0; i < lengde; i++) {                // Looper gjennom alle indekser.
     if (!isalpha(tekst[i]))                         // Hvis indeks ikke er bokstav så
-      return false;                                 // returneres false.
-  }
-  return true;
-}
-
-bool erBokstaverEllerSpace(char tekst[]) {          // Sjekker om indekser i array er bokstaver/space.      //!!! IKKE ENDA I BRUK
-  int lengde;
-  lengde = strlen(tekst);                           // Lengden av array.
-
-  for (int i = 0; i < lengde; i++) {                // Looper gjennom alle indekser.
-    if (!isalpha(tekst[i]) && !isspace(tekst[i]))   // Hvis indeks ikke er bokstav eller space så
       return false;                                 // returneres false.
   }
   return true;

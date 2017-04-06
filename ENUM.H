@@ -2,13 +2,15 @@
 #if !defined(__ENUM_H)
 #define  __ENUM_H
 
-//brukes i Gren
+// Brukes i Gren:
 enum registerTidPoeng {MinSECTidel,MinSecHundredel, MinSekTusendel, PoengX, PoengXX};
-//brukes i medaljer
+
+// Brukes i medaljer:
 enum seiersType {gull, solv, bronsje};
 enum positivNegativ{positiv, negativ};
-//brukes i deltager
+
+// Brukes i deltager:
 enum kjonn { Mann, Kvinne };
 
-#endif
 
+#endif

@@ -230,4 +230,3 @@ void Grener :: skrivUtRegistrerteGrener() {         // Skriver ut alle registrer
     newLineTeller++;                                // Teller opp med en.
   }
 }
-

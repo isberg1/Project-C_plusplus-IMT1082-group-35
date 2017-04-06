@@ -21,7 +21,7 @@ public:
 	void loopDeltagerTropp(char *n);                // Skriver ut deltagere for en nasjon.    : Valg N T
     void skrivTilFil();                             // Skriver til fil.
     void lesFraFil();                               // Leser datastruktur fra fil.
-	char *hentNasjon(int deltager);					// Faar et deltagernr. og returnerer nasjonen.  brukes til aa lage en Statistikk Raport.
+	char *hentNasjon(int deltager);					// Faar et deltagernr. og returnerer nasjonen, brukes til aa lage en Statistikk Raport.
 	char *hentNavn(int deltager);					// Hent deltagers navn.
 	bool sjekkId(int deltagerNr);					// Sjekker deltager nr.
     void skrivUtRegistrerteDeltagere();             // Skriver ut navn og id paa alle deltagere.

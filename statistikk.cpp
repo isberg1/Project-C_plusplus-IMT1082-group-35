@@ -2,13 +2,15 @@
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
-#endif 
+#endif
 
 #include <iostream>
 #include <cstring>
 #include "STATISTIKK.H"
 
 using namespace std;
+
+
 
 Statisikk::Statisikk()		//constructor
 {
@@ -18,7 +20,6 @@ Statisikk::Statisikk()		//constructor
 	for (int i = 0; i <= MAXNASJONER + 1; i++)
 	{	nasjonsForkort[i][0] = '\0';	}
 }
-
 
 void Statisikk::sorter1(int array[])		//sorterer en char array og en int array paa en gang
 {
@@ -38,7 +39,7 @@ void Statisikk::sorter1(int array[])		//sorterer en char array og en int array p
 		array[teller] = dummy;
 		strcpy(nasjonsForkort[teller], temp);
 
-		teller--;													//tell ned 
+		teller--;													//tell ned
 	}
 										//hvis en nasjon ikke lenger har noen medaljer/ poeng
 	if (array[sistebrukt] == 0 )
@@ -48,10 +49,10 @@ void Statisikk::sorter1(int array[])		//sorterer en char array og en int array p
 	}
 }
 
-void Statisikk::omsorter(int teller, int array[])		
+void Statisikk::omsorter(int teller, int array[])
 {		//flytter verdien i en idex ett hakk oppover, nullstiller verdien i index sistebrukt
 	for (int i = teller; i < sistebrukt; i++)
-	{										//flytt den under ett hakk opp 
+	{										//flytt den under ett hakk opp
 		array[i] = array[i + 1];
 		strcpy(nasjonsForkort[i], nasjonsForkort[i + 1]);
 	}
@@ -59,9 +60,5 @@ void Statisikk::omsorter(int teller, int array[])
 	array[sistebrukt] = 0;
 	nasjonsForkort[sistebrukt][0] = '\0';
 
-	
+
 }
-
-
-
-
