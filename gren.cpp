@@ -55,7 +55,7 @@ Gren::Gren(char * a) : TextElement(a)               // Constructor med string ar
 Gren::Gren(ifstream & inn, char * a) : TextElement(a)
 {
 	int tilEnum;
-	
+
 	//leser inn egne datamedlemer
 	annet = lesTxt(inn);
 	antOvelser = lesInt(inn);
@@ -93,7 +93,7 @@ void Gren::endreNavn()// til komado G E
 	text = konverter(buffer);
 	//grenenerObj.skrivTilFIl();
 }
-							
+
 void Gren::display()	//til komando G A skriver alle data om denne grenen
 {
 	skriv("\nGrenens navn er:            ", text);
@@ -197,7 +197,7 @@ void Gren::ovelseDelMeny()		//finner riktig Ovelses objekt  og sender brukeren t
 
 	if (array != nullptr)
 	{
-		skrivIdTilRegistrerteOvelser();	//skriver oversik over alle aktulle ovelser 
+		skrivIdTilRegistrerteOvelser();	//skriver oversik over alle aktulle ovelser
 		buffer = les("\n\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
 
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)	//gaar gjennom hele arrayen
@@ -217,14 +217,14 @@ void Gren::ovelseResMeny()		//finner riktig Ovelses objekt  og sender brukeren t
 {
 	int buffer, temp;
 
-	skrivIdTilRegistrerteOvelser();   //skriver oversik over alle aktulle ovelser 
+	skrivIdTilRegistrerteOvelser();   //skriver oversik over alle aktulle ovelser
 	buffer = les("\n\nSkriv inn IDen til ovelsen du onsker a finne", 1000, 9999);
 
 	if (array != nullptr)
 	{
 		for (int i = 1; i <= antallRegistrerteOvelser; i++)  //gaar gjennom hele arrayen
 		{
-			temp = array[i]->hentId();  
+			temp = array[i]->hentId();
 			if (temp == buffer)      //hvis riktig nummer display meny
 			{
 				array[i]->menyValgResListe();
@@ -235,7 +235,7 @@ void Gren::ovelseResMeny()		//finner riktig Ovelses objekt  og sender brukeren t
 	{  skriv("Ingen ovelser er registrert", "");	}
 }
 
-void Gren::skrivIdTilRegistrerteOvelser()    //skriver oversik over alle aktulle ovelser 
+void Gren::skrivIdTilRegistrerteOvelser()    //skriver oversik over alle aktulle ovelser
 {
 	int temp;
 	char buffer[NVLEN];

@@ -1,3 +1,4 @@
+ 
 //ovelse.cpp alle
 
 #ifdef _MSC_VER
@@ -30,7 +31,7 @@ Ovelse::Ovelse() {
 
 Ovelse::Ovelse(ifstream & inn)
 {
-	lesFraFil(inn);	
+	lesFraFil(inn);
 
 	antDeltagere = 0;
 	if (navnTeller < nr)					//setter verdien til navnteller.
@@ -50,7 +51,7 @@ Ovelse :: Ovelse(char *ovelseNavn, registerTidPoeng typeMaaling) {
   nr = lagUniktNr();						        // Faar et unikt nummer basert på static int navnTeller.
   maaling = typeMaaling;							// Faar enumen fra Gren.
 
-  endreNavn(ovelseNavn);                            // Setter navn fra parameter.
+  navn = konverter(ovelseNavn);                     // Setter navn fra parameter.
                                                     // Les inn antall deltagere.
   antDeltagere = 0;
   endreDato();                                      // Setter dato.
@@ -104,7 +105,7 @@ void Ovelse::skrivTilFil(ofstream & ut)		        // Skriv ovelse til fil.
 	skriv(ut, dato);
 	skriv(ut, klokkeslett);
 	skriv(ut, navn);
-								
+
 	if (maaling == PoengX )
 	{	skriv(ut, 1);	}
 	else if(maaling == PoengXX)
@@ -172,7 +173,7 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 			}
 
 			bubbleSort();
-			
+
 			if (maaling == PoengX || maaling == PoengXX)	//hvis det maales poeng
 			{
 				korigerVinnerePoeng();		//sjekker om to deltagere har samme verdi og spør brukeren om en korreksjon
@@ -181,8 +182,8 @@ void Ovelse::nyResultatListe()	                    // Lager ny resultatliste.
 			else											//hvis det maales tid
 			{
 				korigerVinnereTid();
-				okPoengTid();		
-			}					
+				okPoengTid();
+			}
 
 			resultaterSkrivTilFil();					//skriv resultater til fil
 			nullstillLister();
@@ -220,7 +221,7 @@ int Ovelse::skaffVerdi()                            // Leser inn gyldige verdier
 		if (min != -1)
 		{
 			sec = les("\nSkriv resultat i sekunder: ", 0, 59);
-								
+
 			if (min + sec == 0)			//en gjennomforingstid paa 0 akksepteres ikke
 			{	tidel = les("nSkriv resultat i tidelssekunder: ", 1, 9);	}
 			else
@@ -240,7 +241,7 @@ int Ovelse::skaffVerdi()                            // Leser inn gyldige verdier
 			{	hundredel = les("\nSkriv resultat i hundredelssekunder: ", 1, 99);	}
 			else
 			{	hundredel = les("\nSkriv resultat i hundredelssekunder: ", 0, 99);	}
-		
+
 			return ((min * 10000) + (sec * 100) + hundredel); 					// maxverdi 120 59 99
 		}
 	}
@@ -549,12 +550,12 @@ void Ovelse::resultaterLesFraFil()			        // Leser inn resultatlista fra fil.
 		{
 			korigerVinnerePoeng();		//hvis 2 resultater er like så må vinneren av dem avgjoores
 			okPoengPoeng();				// tildel nye poeng og medaljer
-		}		
+		}
 		else							//hvis maaling er tid
 		{
 			korigerVinnereTid();   //hvis 2 resultater er like så må vinneren av dem avgjoores
 			okPoengTid();		   // tildel nye poeng og medaljer
-		}		
+		}
 
 		resultaterSkrivTilFil();  //sriv til fil
 	}
@@ -586,10 +587,9 @@ void Ovelse::sjekkID(int & temp, char buffer[])	    // Reurnerer Ovelsens ID num
 	strcpy(buffer, navn);
 }
 
-
 bool Ovelse::fjernResultatliste()					// Fjerner en eksisterende resultatliste.
 {
-	
+
 	char temp[STRLEN];
 	strcpy(temp, filNavn(1));
 
@@ -702,7 +702,7 @@ void Ovelse::skrivDelListe()						// Skriver ut info om alle deltagere i en Ovel
 		frigiMinne();
 	}
 	else     //hvis en deltagerliste ikke finnes
-	{	skriv("Ingen deltagerliste er registrert.", "");	}	
+	{	skriv("Ingen deltagerliste er registrert.", "");	}
 }
 
 void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
@@ -726,7 +726,7 @@ void Ovelse::nyDelListe()			                // Lager en ny deltager liste.
 			{	skriv("max antal deltagere er :", MAXDELTAGERE);	}
 
 		} while (antDeltagere >= MAXDELTAGERE);
-		
+
 											//gaar gjennom alle deltagerne som skal skrives inn
 		for (int i = 1; i <= antDeltagere; i++)
 		{														//leser inn deltagere
@@ -804,6 +804,7 @@ void Ovelse::endreDelListe()
 						{
 							if (*(deltagerListe + antDeltagere) == *(deltagerListe + (i - 1)))  //hvis deltageren er registrert fra for
 							{
+								tr(i);
 								sjekk = true;
 							}
 						}
@@ -825,7 +826,7 @@ void Ovelse::endreDelListe()
 							{
 								if (*(deltagerListe + antDeltagere) == *(deltagerListe + (i - 1)))  //hvis deltageren er registrert fra for
 								{	sjekk = true;	}
-							}							
+							}
 						}
 						skriv("startliste er oppdadert med deltager: ", *(deltagerListe + antDeltagere));  //bekreftelsesmelding
 						deltagerSkrivtilFil();							// Skriver memory til fil.
@@ -851,12 +852,12 @@ void Ovelse::endreDelListe()
 
 					*(deltagerListe + temp) = *(deltagerListe + antDeltagere);  // Slett deltager fra liste,
 					*(deltagerListe + antDeltagere) = 0;						// overskriv med siste deltager og
-					antDeltagere--;												// tell ned registrerte deltagere.				
+					antDeltagere--;												// tell ned registrerte deltagere.
 
 					skriv("startliste er oppdadert", "");						//bekreftelsesmelding
 					deltagerSkrivtilFil();										// Skriver memory til fil.
 					frigiMinne();
-					// Fjerner arrayer fra memory etter bruk.	
+					// Fjerner arrayer fra memory etter bruk.
 				}
 				else   //hvis det er for faa deltagere i startlisten
 				{	skriv("en startliste maa ha mist 2 deltagere.", "\ndu maa legge til minst en deltager til, for du kan slette flere");	}
@@ -869,7 +870,6 @@ void Ovelse::endreDelListe()
 	{	skriv("En resultatliste finnes alerede, ", "denne maa slettes forst!"); }
 
 }
-
 
 void Ovelse::fjernDelListe()						// Sletter spesifisert deltagerListe-fil.
 {
@@ -951,8 +951,8 @@ void Ovelse :: endreNavn(char *ovelseNavn) {        // Endrer navnet til ovelsen
 }
 
 void Ovelse :: endreDato() {                        // Endrer datoen til ovelsen.
-  cout << "\nSkriv inn dato for ovelsen (aaaa mm dd)"; // Lovelig dato-interval: 2017.01.01-2116.12.31.
-  dato = les("\nDato", 20170101, 21161231);
+  cout << "\nSkriv inn dato for ovelsen (aaaa mm dd)"; // Lovelig dato-interval: 17.01.01-20.12.31.
+  dato = les("\nDato", 170101, 201231);
   dato = datoSjekk(dato);                           // Sjekker at dato er på riktig format.
 }
 
@@ -990,7 +990,7 @@ void Ovelse :: skrivHovedData() {                   // Skriver hoveddata for en 
        << "\nDato:              "                   // Skriver ut dato paa leslig form.
        << ((dag < 10) ? "0" : "") << dag << "."
        << ((maaned < 10) ? "0" : "") << maaned << "."
-       << aar
+       << "20" << aar
        << "\nKlokkeslett:       "                   // Skriver ut klokkeslett paa leslig form.
        << ((time < 10) ? "0" : "") << time << ":"
        << ((minutt < 10) ? "0" : "") << minutt;
@@ -1036,9 +1036,10 @@ void Ovelse::korigerVinnereTid()
 	int dummy;
 	int temp;
 
+	tr(antDeltagere);
 	for (int i = antDeltagere; i >= 2; i--)										//luup gjennom alle deltagerne
 	{
-		
+		tr(i);
 		if (*(resultatListe + i) > 0)													  //hvis gyldig resultat
 		{
 			if (*(resultatListe + i) == *(resultatListe + (i - 1)))						//hvis 2 like resultater
