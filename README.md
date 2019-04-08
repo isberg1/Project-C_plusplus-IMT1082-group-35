@@ -5,3 +5,6 @@ Prosjektet besto av å lage et kartotek
 
 klikk [her](https://github.com/isberg1/Project-C_plusplus-IMT1082-group-35/blob/master/Oppgavebeskrivelse.pdf) 
 for å lese oppgavebeskrivelsen
+
+
+klikk [her](https://github.com/isberg1/Project-C_plusplus-IMT1082-group-35/blob/master/Datastruktur_-_Detaljert.pdf) for å se en beskrivelse av datastrukturene
